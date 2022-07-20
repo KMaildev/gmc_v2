@@ -33,7 +33,6 @@ class SalesInvoices extends Model
         return $this->belongsTo(User::class, 'sales_persons_id', 'id');
     }
 
-
     public function sale_pay_nows_table()
     {
         return $this->hasMany(SalePayNow::class, 'sales_invoice_id', 'id');

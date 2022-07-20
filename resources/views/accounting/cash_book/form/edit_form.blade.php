@@ -42,7 +42,22 @@
             @enderror
         </td>
 
+        <!-- TWO INV -->
         <td>
+            <select class="select2 form-select form-select-sm" data-allow-clear="false" id="SaleInvoiceId">
+                <option value="">--Please Select Invoice --</option>
+                @foreach ($sales_invoices as $sales_invoice)
+                    <option value="{{ $sales_invoice->id }}" @if ($edit_cash_book_data->sales_invoice_id == $sales_invoice->id) selected @endif>
+                        {{ $sales_invoice->invoice_no ?? '' }}
+                    </option>
+                @endforeach
+            </select>
+            @error('account_code')
+                <div class="invalid-feedback"> {{ $message }} </div>
+            @enderror
+        </td>
+
+        <td hidden>
             <input type="text"
                 class="form-control-custom input-text-center form-control-sm @error('iv_two') is-invalid @enderror"
                 name="iv_two" value="{{ $edit_cash_book_data->iv_two }}" />
@@ -176,6 +191,8 @@
     <input type="hidden" name="account_code" id="AccountCode">
     <input type="hidden" name="cash_account" id="CashAccount">
     <input type="hidden" name="bank_account" id="BankAccount">
+
+    <input type="hidden" name="sales_invoice_id" id="SaleInvoiceIdValue" value="{{ $edit_cash_book_data->sales_invoice_id ?? 0 }}">
 </form>
 
 @section('script')
@@ -260,6 +277,13 @@
             });
         });
 
+        // Sale Inv ID
+        $(document).ready(function() {
+            $('select[id="SaleInvoiceId"]').on('change', function() {
+                SaleInvoiceIdValue.value = $(this).val();
+            });
+        });
+
         function CashAccountAutoCall() {
             var cash_account_id = {{ $edit_cash_book_data->cash_account_id }};
             CashAccount.value = cash_account_id;
@@ -298,8 +322,6 @@
             });
         }
         // Bank and bank name End
-
-
 
 
         // Date Month and Year Start

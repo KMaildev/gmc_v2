@@ -4,6 +4,7 @@ namespace App\Accounting;
 
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Traits\LogsActivity;
+use App\Models\SalesInvoices;
 
 class CashBook extends Model
 {
@@ -24,6 +25,11 @@ class CashBook extends Model
     public function get_bank_account()
     {
         return $this->belongsTo(ChartofAccount::class, 'bank_account', 'id');
+    }
+
+    public function sales_invoices_table()
+    {
+        return $this->belongsTo(SalesInvoices::class, 'sales_invoice_id', 'id');
     }
 
 

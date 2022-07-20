@@ -12,6 +12,7 @@ use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Models\SalesInvoices;
 
 class CashBookController extends Controller
 {
@@ -22,6 +23,7 @@ class CashBookController extends Controller
      */
     public function index()
     {
+        $sales_invoices = SalesInvoices::all();
         $chartof_accounts = ChartofAccount::orderBy('coa_number', 'ASC')->get();
         $cash_book_form_status = 'is_create';
 
@@ -49,7 +51,6 @@ class CashBookController extends Controller
             $from_date = '2019-06-01'; //date('Y-m-d', strtotime('first day of this month'));
             $to_date = date('Y-m-d', strtotime('last day of this month'));
             $cash_books = CashBook::whereBetween('cash_book_date', [$from_date, $to_date])->orderBy('cash_book_date', 'ASC')->paginate(5000);
-
             // Closing Clash and Bank Balance
             $beforeFirstDays = DB::table('cash_books')
                 ->whereDate('cash_book_date', '<', $from_date)
@@ -57,7 +58,7 @@ class CashBookController extends Controller
         }
 
         $filter_date = ['from_date' => $from_date, 'to_date' => $to_date];
-        return view('accounting.cash_book.index', compact('cash_books', 'chartof_accounts', 'beforeFirstDays', 'cash_book_form_status', 'filter_date'));
+        return view('accounting.cash_book.index', compact('cash_books', 'chartof_accounts', 'beforeFirstDays', 'cash_book_form_status', 'filter_date', 'sales_invoices'));
     }
 
     /**
@@ -94,6 +95,7 @@ class CashBookController extends Controller
         $cash_book->cash_out = $request->cash_out ?? 0;
         $cash_book->bank_in = $request->bank_in ?? 0;
         $cash_book->bank_out = $request->bank_out ?? 0;
+        $cash_book->sales_invoice_id = $request->sales_invoice_id;
         $cash_book->user_id = auth()->user()->id;
         $cash_book->save();
         return redirect()->back()->with('success', 'Created successfully.');
@@ -120,7 +122,7 @@ class CashBookController extends Controller
     {
         // $cash_book = CashBook::findOrFail($id);
         // return view('accounting.cash_book.edit', compact('chartof_accounts', 'cash_book'));
-
+        $sales_invoices = SalesInvoices::all();
         $chartof_accounts = ChartofAccount::orderBy('coa_number', 'asc')->get();
         $cash_books = CashBook::orderBy('id', 'DESC')->paginate(100);
         $edit_cash_book_data = CashBook::findOrFail($id);
@@ -136,7 +138,7 @@ class CashBookController extends Controller
             ->get();
 
         $filter_date = ['from_date' => $from_date, 'to_date' => $to_date];
-        return view('accounting.cash_book.index', compact('cash_books', 'chartof_accounts', 'edit_cash_book_data', 'beforeFirstDays', 'cash_book_form_status', 'filter_date'));
+        return view('accounting.cash_book.index', compact('cash_books', 'chartof_accounts', 'edit_cash_book_data', 'beforeFirstDays', 'cash_book_form_status', 'filter_date', 'sales_invoices'));
     }
 
     /**
@@ -163,6 +165,7 @@ class CashBookController extends Controller
         $cash_book->cash_out = $request->cash_out ?? 0;
         $cash_book->bank_in = $request->bank_in ?? 0;
         $cash_book->bank_out = $request->bank_out ?? 0;
+        $cash_book->sales_invoice_id = $request->sales_invoice_id;
         $cash_book->user_id = auth()->user()->id;
         $cash_book->save();
         return redirect()->route('cashbook.index')->with('success', 'Updated successfully.');

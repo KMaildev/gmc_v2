@@ -39,10 +39,24 @@
             @enderror
         </td>
 
+        <!-- INV TWO -->
         <td>
+            <select class="select2 form-select form-select-sm" data-allow-clear="false" id="SaleInvoiceId">
+                <option value="">--Please Select Invoice --</option>
+                @foreach ($sales_invoices as $sales_invoice)
+                    <option value="{{ $sales_invoice->id }}">
+                        {{ $sales_invoice->invoice_no ?? '' }}
+                    </option>
+                @endforeach
+            </select>
+            @error('account_code')
+                <div class="invalid-feedback"> {{ $message }} </div>
+            @enderror
+        </td>
+        
+        <td hidden>
             <input type="text"
-                class="form-control-custom input-text-center form-control-sm @error('iv_two') is-invalid @enderror"
-                name="iv_two" />
+                class="form-control-custom input-text-center form-control-sm" name="iv_two" value="" />
             @error('iv_two')
                 <div class="invalid-feedback"> {{ $message }} </div>
             @enderror
@@ -172,6 +186,8 @@
     <input type="hidden" name="account_code" id="AccountCode">
     <input type="hidden" name="cash_account" id="CashAccount">
     <input type="hidden" name="bank_account" id="BankAccount">
+    <input type="hidden" name="sales_invoice_id" id="SaleInvoiceIdValue" value="0">
+    
 </form>
 
 @section('script')
@@ -226,6 +242,13 @@
         $(document).ready(function() {
             $('select[id="CashAccountSelect"]').on('change', function() {
                 CashAccount.value = $(this).val();
+            });
+        });
+
+
+        $(document).ready(function() {
+            $('select[id="SaleInvoiceId"]').on('change', function() {
+                SaleInvoiceIdValue.value = $(this).val();
             });
         });
 

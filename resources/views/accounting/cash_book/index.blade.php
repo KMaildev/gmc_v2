@@ -27,9 +27,9 @@
     </style>
     <div class="row justify-content-center">
 
-        @include('accounting.cash_book.shared.search', [
+        <!-- @include('accounting.cash_book.shared.search', [
             'chartof_accounts' => $chartof_accounts,
-        ])
+        ]) -->
 
         <div class="col-md-12 col-sm-12 col-lg-12">
             <div class="card">
@@ -139,11 +139,12 @@
 
                                 {{-- cash book create --}}
                                 @if ($cash_book_form_status == 'is_create')
-                                    @include('accounting.cash_book.create_form', [
+                                    @include('accounting.cash_book.form.create_form', [
                                         'chartof_accounts' => $chartof_accounts,
+                                        'sales_invoices' => $sales_invoices,
                                     ])
                                 @elseif ($cash_book_form_status == 'is_edit')
-                                    @include('accounting.cash_book.edit_form', [
+                                    @include('accounting.cash_book.form.edit_form', [
                                         'chartof_accounts' => $chartof_accounts,
                                         'edit_cash_book_data' => $edit_cash_book_data,
                                     ])
@@ -198,7 +199,7 @@
                                         </td>
 
                                         <td style="text-align: center;">
-                                            {{ $cash_book->iv_two }}
+                                            {{ $cash_book->sales_invoices_table->invoice_no ?? $cash_book->iv_two }}
                                         </td>
 
                                         <td style="text-align: center;">
