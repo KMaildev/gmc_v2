@@ -362,8 +362,7 @@
                                                 $total_amount = array_sum($amount_total);
                                             @endphp
                                             <input type="text" class="form-control form-control-sm"
-                                                value="{{ number_format($total_amount, 2) }}"
-                                                style="text-align:right;">
+                                                value="{{ number_format($total_amount, 2) }}" style="text-align:right;">
                                             <input type="hidden" value="{{ $total_amount }}" name="total_amount">
                                         </div>
                                     </div>
@@ -396,7 +395,7 @@
                                                     class="form-control form-control-sm @error('dealer_percentage') is-invalid @enderror"
                                                     name="dealer_percentage" id="DealerPercentage"
                                                     style="text-align:right;" oninput="SetCalculateDownPayment()"
-                                                    value="{{ $sales_invoices_payments_edit->dealer_percentage ?? 0 }}" />
+                                                    value="{{ $sales_invoices_payments_edit->dealer_ercentage ?? 0 }}" />
                                                 <span class="input-group-text sm">%</span>
                                             </div>
                                             @error('dealer_percentage')

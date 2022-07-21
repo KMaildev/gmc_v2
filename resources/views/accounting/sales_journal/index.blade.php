@@ -36,93 +36,78 @@
                             <th style="color: white; background-color: #2e696e; text-align: center; widht: 10%">
                                 Revenue (Vehicle)-Credited
                             </th>
-                            <th style="color: white; background-color: #2e696e; text-align: center; widht: 10%">
-                                Action
-                            </th>
                         </thead>
                         <tbody class="table-border-bottom-0">
-                            @if ($form_status == 'is_create')
-                                @include('accounting.sales_journal.form.create_form')
-                            @elseif ($form_status == 'is_edit')
-                                @include('accounting.sales_journal.form.edit_form')
-                            @endif
-
-                            @foreach ($sales_journals as $key => $sales_journal)
+                            @php
+                                $AccountReceivableTotal = [];
+                                $RevenueTotal = [];
+                            @endphp
+                            @foreach ($sales_invoices as $key => $sales_invoice)
                                 <tr>
                                     <td>
                                         {{ $key + 1 }}
                                     </td>
 
-                                    <td>
-                                        {{ $sales_journal->sales_invoices_table->invoice_no ?? '' }}
-                                    </td>
-
-                                    <td>
-                                        {{ $sales_journal->sales_journal_date ?? '' }}
-                                    </td>
-
-                                    <td>
-                                        {{ $sales_journal->customers_table->name ?? '' }}
-                                    </td>
-
-
-                                    <td>
-                                        {{ $sales_journal->post_ref ?? '' }}
-                                    </td>
-
-                                    <td style="text-align: right; font-weight: bold;">
-                                        @php
-                                            $debited = $sales_journal->debited ?? 0;
-                                            echo number_format($debited, 2);
-                                        @endphp
-                                    </td>
-
-                                    <td style="text-align: right; font-weight: bold;">
-                                        @php
-                                            $credited = $sales_journal->credited ?? 0;
-                                            echo number_format($credited, 2);
-                                        @endphp
+                                    <td style="text-align: center;">
+                                        {{ $sales_invoice->invoice_no ?? '' }}
                                     </td>
 
                                     <td style="text-align: center;">
-                                        <div class="demo-inline-spacing">
-                                            <div class="btn-group">
-                                                <button class="btn btn-primary btn-sm dropdown-toggle" type="button"
-                                                    data-bs-toggle="dropdown" aria-expanded="false">
-                                                    Action
-                                                </button>
-                                                <ul class="dropdown-menu">
-                                                    <li>
-                                                        <a class="dropdown-item"
-                                                            href="{{ route('sales_journal.edit', $sales_journal->id) }}">Edit</a>
-                                                    </li>
+                                        {{ $sales_invoice->invoice_date ?? '' }}
+                                    </td>
 
-                                                    <li>
-                                                        <form
-                                                            action="{{ route('sales_journal.destroy', $sales_journal->id) }}"
-                                                            method="POST">
-                                                            @csrf
-                                                            @method('DELETE')
-                                                            <button type="button" class="dropdown-item del_confirm"
-                                                                id="confirm-text" data-toggle="tooltip">Delete</button>
-                                                        </form>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
+                                    <td style="text-align: center;">
+                                        {{ $sales_invoice->customers_table->company_name ?? '' }}
+                                    </td>
+
+
+                                    <td style="text-align: center;">
+                                        {{ $sales_invoice->post_ref ?? '' }}
+                                    </td>
+
+                                    <td style="text-align: right; font-weight: bold;">
+                                        @php
+                                            $total_amount = [];
+                                        @endphp
+                                        @foreach ($sales_invoice->sales_items_table as $sales_items)
+                                            @php
+                                                $qty = $sales_items->qty;
+                                                $unit_price = $sales_items->unit_price;
+                                                $sale_value = $qty * $unit_price;
+                                                $total_amount[] = $sale_value;
+                                            @endphp
+                                        @endforeach
+                                        @php
+                                            $amount_total = array_sum($total_amount);
+                                            echo number_format($amount_total, 2);
+                                            $AccountReceivableTotal[] = $amount_total;
+                                        @endphp
+                                    </td>
+
+                                    <td style="text-align: right; font-weight: bold;">
+                                        @php
+                                            $amount_total = array_sum($total_amount);
+                                            echo number_format($amount_total, 2);
+                                            $RevenueTotal[] = $amount_total;
+                                        @endphp
                                     </td>
                                 </tr>
                             @endforeach
                         </tbody>
                         <tr>
                             <td colspan="5">Total:</td>
-                            <td style="text-align: right; font-weight: bold">
-                                {{ number_format($sales_journals->sum('debited'), 2) }}
+                            <td style="text-align: right; font-weight: bold;">
+                                @php
+                                    $TotalAccountReceivable = array_sum($AccountReceivableTotal);
+                                    echo number_format($TotalAccountReceivable, 2);
+                                @endphp
                             </td>
-                            <td style="text-align: right; font-weight: bold">
-                                {{ number_format($sales_journals->sum('credited'), 2) }}
+                            <td style="text-align: right; font-weight: bold;">
+                                @php
+                                    $TotalRevenue = array_sum($RevenueTotal);
+                                    echo number_format($TotalRevenue, 2);
+                                @endphp
                             </td>
-                            <td></td>
                         </tr>
 
                     </table>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Accounting;
 
 use App\Http\Controllers\Controller;
 use App\Models\CashCollection;
+use App\Models\SalesInvoices;
 use Illuminate\Http\Request;
 
 class AccountReceivablesController extends Controller
@@ -15,8 +16,8 @@ class AccountReceivablesController extends Controller
      */
     public function index()
     {
-        $cash_collections = CashCollection::all();
-        return view('accounting.account_receivables.index', compact('cash_collections'));
+        $sales_invoices = SalesInvoices::all();
+        return view('accounting.account_receivables.index', compact('sales_invoices'));
     }
 
     /**

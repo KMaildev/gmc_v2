@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Cart;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreTemporarySalesItems;
 use App\Models\TemporarySalesItem;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
@@ -37,7 +38,7 @@ class SaleInvoiceCartController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreTemporarySalesItems $request)
     {
         $temp = new TemporarySalesItem();
         $temp->product_id = $request->ChessiNO;
@@ -47,10 +48,6 @@ class SaleInvoiceCartController extends Controller
         $temp->session_id = session()->getId();
         $temp->user_id = auth()->user()->id ?? 0;
         $temp->save();
-
-        $session_id = session()->getId();
-        $temporary_sales_items = TemporarySalesItem::orderBy('id')->where('session_id', $session_id)->get();
-
         return json_encode(array(
             "statusCode" => 200,
         ));
@@ -104,6 +101,9 @@ class SaleInvoiceCartController extends Controller
     {
         $temp = TemporarySalesItem::findOrFail($id);
         $temp->delete();
-        return redirect()->back()->with('success', 'Deleted successfully.');
+        return json_encode(array(
+            "statusCode" => 200,
+        ));
+        // return redirect()->back()->with('success', 'Deleted successfully.');
     }
 }

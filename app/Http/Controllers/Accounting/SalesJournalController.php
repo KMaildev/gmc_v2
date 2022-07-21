@@ -18,13 +18,8 @@ class SalesJournalController extends Controller
      */
     public function index()
     {
-        // For Form
-        $form_status = 'is_create';
-        $form_sales_invoices = SalesInvoices::all();
-
-        // For List 
-        $sales_journals = SalesJournal::all();
-        return view('accounting.sales_journal.index', compact('form_status', 'form_sales_invoices', 'sales_journals'));
+        $sales_invoices = SalesInvoices::all();
+        return view('accounting.sales_journal.index', compact('sales_invoices'));
     }
 
     /**
