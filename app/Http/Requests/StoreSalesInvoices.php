@@ -31,6 +31,7 @@ class StoreSalesInvoices extends FormRequest
             'showroom_name' => 'required',
             'sales_type' => 'required',
             'payment_team' => 'required',
+            'post_ref' => 'required',
 
             'productFields.*.product_id' => 'required',
             'productFields.*.qty' => 'required|numeric',

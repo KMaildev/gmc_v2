@@ -322,42 +322,6 @@
                                         @endphp
                                     </td>
 
-                                    <td style="text-align: right; font-weight: bold;">
-                                        @php
-                                            $total_pay_amount = [];
-                                        @endphp
-                                        @foreach ($sales_invoice->sale_pay_nows_table as $sale_pay_now)
-                                            @php
-                                                $pay_amount = $sale_pay_now->pay_amount ?? 0;
-                                                $total_pay_amount[] = $pay_amount;
-                                            @endphp
-                                        @endforeach
-                                        @php
-                                            $total_pay_amount = array_sum($total_pay_amount);
-                                            echo number_format($total_pay_amount, 2);
-                                        @endphp
-                                    </td>
-
-                                    <td style="text-align: center;">
-                                        @php
-                                            $payment_status = $sales_invoice->another_sale_pay_nows_table->payment_status ?? '';
-                                        @endphp
-                                        @if ($payment_status == 'Paid')
-                                            <span class="badge bg-success">
-                                                Paid
-                                            </span>
-                                        @elseif ($payment_status == 'In_Payment')
-                                            <span class="badge bg-primary">
-                                                In Payment
-                                            </span>
-                                        @else
-                                        @endif
-                                    </td>
-
-                                    <td style="text-align: right; font-weight: bold;">
-                                        {{ $payment_status = $sales_invoice->another_sale_pay_nows_table->received_date ?? '' }}
-                                    </td>
-
                                     <td style="text-align: center;">
                                         <div class="demo-inline-spacing">
                                             <div class="btn-group">

@@ -27,9 +27,9 @@
     </style>
     <div class="row justify-content-center">
 
-        <!-- @include('accounting.cash_book.shared.search', [
+        @include('accounting.cash_book.shared.search', [
             'chartof_accounts' => $chartof_accounts,
-        ]) -->
+        ])
 
         <div class="col-md-12 col-sm-12 col-lg-12">
             <div class="card">
@@ -161,7 +161,6 @@
                                 @php
                                     $bank_daily_closing_balance = $closing_bank_balance;
                                 @endphp
-
 
                                 {{-- Closing Clash and Bank Balance --}}
                                 @foreach ($beforeFirstDays as $key => $beforeFirstDay)
@@ -309,8 +308,7 @@
                                                         </li>
 
                                                         <li>
-                                                            <form
-                                                                action="{{ route('cashbook.destroy', $cash_book->id) }}"
+                                                            <form action="{{ route('cashbook.destroy', $cash_book->id) }}"
                                                                 method="POST">
                                                                 @csrf
                                                                 @method('DELETE')
@@ -373,4 +371,5 @@
 @endsection
 
 @section('script')
+
 @endsection

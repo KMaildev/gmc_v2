@@ -226,10 +226,77 @@
                                     </td>
                                 </tr>
 
-                                <tbody id="TemporarySalesItemsList">
+                                <tbody>
                                     @php
                                         $amount_total = [];
                                     @endphp
+                                    @foreach ($temporary_sales_items as $key => $temporary_sales_item)
+                                        <tr>
+                                            <td>
+                                                {{ $key + 1 }}
+                                            </td>
+
+                                            <td>
+                                                {{ $temporary_sales_item->products_table->model_no ?? '' }}
+                                            </td>
+
+                                            <td>
+                                                {{ $temporary_sales_item->products_table->chessi_no ?? '' }}
+                                                <input type="hidden"
+                                                    name="productFields[{{ $key + 1 }}][product_id]"
+                                                    value="{{ $temporary_sales_item->products_table->id ?? '0' }}"
+                                                    required />
+                                            </td>
+
+                                            <td>
+                                                {{ $temporary_sales_item->description ?? '' }}
+                                                <input type="hidden"
+                                                    name="productFields[{{ $key + 1 }}][description]"
+                                                    value="{{ $temporary_sales_item->description }}" />
+                                            </td>
+
+                                            <td style="text-align: right; font-weight: bold;">
+                                                {{ $temporary_sales_item->qty ?? 0 }}
+                                                <input type="hidden" name="productFields[{{ $key + 1 }}][qty]"
+                                                    value="{{ $temporary_sales_item->qty ?? '0' }}" required />
+                                            </td>
+
+                                            <td style="text-align: right; font-weight: bold;">
+                                                {{ $temporary_sales_item->price ?? 0 }}
+                                                <input type="hidden" name="productFields[{{ $key + 1 }}][price]"
+                                                    value="{{ $temporary_sales_item->price ?? '0' }}" required />
+                                            </td>
+
+                                            <td style="text-align: right; font-weight: bold;">
+                                                @php
+                                                    $total_amount = $temporary_sales_item->qty * $temporary_sales_item->price ?? 0;
+                                                    echo number_format($total_amount, 2);
+                                                    $amount_total[] = $total_amount;
+                                                @endphp
+                                            </td>
+
+                                            <td>
+                                                <a href="{{ route('temporary_sales_items_remove', $temporary_sales_item->id) }}"
+                                                    class="btn btn-danger btn-sm">
+                                                    Remove
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+
+
+
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>First Name</th>
+                                        <th>Last Name</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="AlreadyMarketingPropertyLists">
+
                                 </tbody>
                             </table>
                         </div>
@@ -383,8 +450,6 @@
                     </div>
                 </div>
             </form>
-
-            <a href="{{ route('get_temporary_sales_items') }}">asd</a>
         </div>
     </div>
 @endsection
@@ -428,6 +493,7 @@
                     Description: Description,
                 },
                 success: function(data) {
+                    console.log(data);
                     // location.reload();
                     getTemporarySalesItems();
                 },
@@ -477,20 +543,14 @@
                 url: url,
                 method: "GET",
                 success: function(data) {
-                    let sales_items = '';
+                    let marketing = '';
                     $.each(JSON.parse(data), function(key, value) {
-                        console.log(value.products_table.model_no)
-                        sales_items += '<tr>';
-                        sales_items += '<td>' + value.id + '</td>' //Sr.No	
-                        sales_items += '<td>' + value.products_table.model_no + '</td>' //Model
-                        sales_items += '<td>' + value.products_table.chessi_no + '</td>' //Chassis No.& Vehicle No.	
-                        sales_items += '<td>' + value.description + '</td>' //Description
-                        sales_items += '<td>' + value.qty + '</td>' //Qty
-                        sales_items += '<td>' + value.qty * value.price + '</td>' //Price
-                        sales_items += '<td>' + value.id + '</td>' //Price
-                        sales_items += '</tr>';
+                        marketing += '<tr>';
+                        marketing += '<th class="data-property">Date & Time</th>';
+                        marketing += '<td class="data-value">' + value.id + '</td>'
+                        marketing += '</tr>';
                     });
-                    $('#TemporarySalesItemsList').html(sales_items);
+                    $('#AlreadyMarketingPropertyLists').html(marketing);
                 }
             });
         }

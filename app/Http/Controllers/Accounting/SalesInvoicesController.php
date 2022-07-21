@@ -61,6 +61,7 @@ class SalesInvoicesController extends Controller
         $sale_invoice->payment_team = $request->payment_team;
         $sale_invoice->sales_persons_id = $request->sales_persons_id;
         $sale_invoice->delivery_date = $request->delivery_date;
+        $sale_invoice->post_ref = $request->post_ref;
         $sale_invoice->user_id = auth()->user()->id ?? 0;
         $sale_invoice->save();
         $sale_invoice_id = $sale_invoice->id;
@@ -166,7 +167,7 @@ class SalesInvoicesController extends Controller
         $sale_inv_payment->total_amount = $request->total_amount;
         $sale_inv_payment->down_payment = $request->down_payment;
         $sale_inv_payment->discount = $request->discount;
-        $sale_inv_payment->dealer_ercentage = $request->dealer_ercentage;
+        $sale_inv_payment->dealer_ercentage = $request->dealer_percentage;
         $sale_inv_payment->balance_to_be_pay = $request->balance_to_be_pay;
         $sale_inv_payment->balance_to_pay_be_date = $request->balance_to_pay_be_date;
         $sale_inv_payment->sales_invoice_id = $sale_invoice_id;

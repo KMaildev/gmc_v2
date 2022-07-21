@@ -16,6 +16,9 @@ class SaleInvoiceCartController extends Controller
      */
     public function index()
     {
+        $session_id = session()->getId();
+        $temporary_sales_items = TemporarySalesItem::with('products_table')->orderBy('id')->where('session_id', $session_id)->get();
+        echo json_encode($temporary_sales_items);
     }
 
     /**
@@ -44,8 +47,12 @@ class SaleInvoiceCartController extends Controller
         $temp->session_id = session()->getId();
         $temp->user_id = auth()->user()->id ?? 0;
         $temp->save();
+
+        $session_id = session()->getId();
+        $temporary_sales_items = TemporarySalesItem::orderBy('id')->where('session_id', $session_id)->get();
+
         return json_encode(array(
-            "statusCode" => 200
+            "statusCode" => 200,
         ));
     }
 

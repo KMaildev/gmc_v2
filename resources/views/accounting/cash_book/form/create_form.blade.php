@@ -6,7 +6,7 @@
         <td>
             <input type="text"
                 class="form-control-custom input-text-center form-control-sm date_picker @error('date') is-invalid @enderror"
-                name="date" id="cashDateField" />
+                name="date" id="cashDateField" required />
             @error('date')
                 <div class="invalid-feedback"> {{ $message }} </div>
             @enderror
@@ -15,7 +15,7 @@
         <td>
             <input type="text"
                 class="form-control-custom input-text-center form-control-sm @error('month') is-invalid @enderror"
-                name="month" id="Month" readonly />
+                name="month" id="Month" readonly required />
             @error('month')
                 <div class="invalid-feedback"> {{ $message }} </div>
             @enderror
@@ -24,7 +24,7 @@
         <td>
             <input type="text"
                 class="form-control-custom input-text-center form-control-sm @error('year') is-invalid @enderror"
-                name="year" id="Year" readonly />
+                name="year" id="Year" readonly required />
             @error('year')
                 <div class="invalid-feedback"> {{ $message }} </div>
             @enderror
@@ -53,10 +53,10 @@
                 <div class="invalid-feedback"> {{ $message }} </div>
             @enderror
         </td>
-        
+
         <td hidden>
-            <input type="text"
-                class="form-control-custom input-text-center form-control-sm" name="iv_two" value="" />
+            <input type="text" class="form-control-custom input-text-center form-control-sm" name="iv_two"
+                value="" />
             @error('iv_two')
                 <div class="invalid-feedback"> {{ $message }} </div>
             @enderror
@@ -187,12 +187,11 @@
     <input type="hidden" name="cash_account" id="CashAccount">
     <input type="hidden" name="bank_account" id="BankAccount">
     <input type="hidden" name="sales_invoice_id" id="SaleInvoiceIdValue" value="0">
-    
+
 </form>
 
 @section('script')
     {!! JsValidator::formRequest('App\Http\Requests\StoreCashBook', '#create-form') !!}
-
     <script script type="text/javascript">
         var accountHead = document.getElementById("accountHead");
         var accountName = document.getElementById("accountName");

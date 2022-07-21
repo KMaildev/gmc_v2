@@ -101,6 +101,7 @@ Route::middleware('auth')->group(function () {
     // Cart System
     Route::resource('sale_invoice_cart', 'Cart\SaleInvoiceCartController');
     Route::post('add_cart_temporary', 'Cart\SaleInvoiceCartController@store');
+    Route::get('get_temporary_sales_items', array('as' => 'get_temporary_sales_items', 'uses' => 'Cart\SaleInvoiceCartController@index'));
     Route::get('temporary_sales_items_remove/{id}', array('as' => 'temporary_sales_items_remove', 'uses' => 'Cart\SaleInvoiceCartController@temporary_sales_items_remove'));
 
     Route::resource('sales_items', 'Accounting\SalesItemsController');
