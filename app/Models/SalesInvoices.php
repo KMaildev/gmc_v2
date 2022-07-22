@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Accounting\CashBook;
 use App\Exports\UsersExport;
 use App\User;
 use Illuminate\Database\Eloquent\Model;
@@ -31,5 +32,10 @@ class SalesInvoices extends Model
     public function users_table()
     {
         return $this->belongsTo(User::class, 'sales_persons_id', 'id');
+    }
+
+    public function cash_books_table()
+    {
+        return $this->hasMany(CashBook::class, 'sales_invoice_id', 'id');
     }
 }

@@ -50,134 +50,77 @@
                             <th style="color: white; background-color: #2e696e; text-align: center; widht: 10%">
                                 Payment Time
                             </th>
-
-                            <th style="color: white; background-color: #2e696e; text-align: center; widht: 10%">
-                                Action
-                            </th>
                         </thead>
                         <tbody class="table-border-bottom-0">
-                            @if ($form_status == 'is_create')
-                                @include('accounting.cash_collection.form.create_form')
-                            @elseif ($form_status == 'is_edit')
-                                @include('accounting.cash_collection.form.edit_form')
-                            @endif
-
-                            @foreach ($cash_collections as $key => $cash_collection)
+                            @foreach ($sales_invoices as $key => $sales_invoice)
                                 <tr>
                                     <td>
                                         {{ $key + 1 }}
                                     </td>
 
-                                    <td>
-                                        {{ $cash_collection->sales_invoices_table->invoice_no ?? '' }}
-                                    </td>
-
-                                    <td>
-                                        {{ $cash_collection->sales_invoices_table->invoice_date ?? '' }}
-                                    </td>
-
-                                    <td>
-                                        {{ $cash_collection->customers_table->name ?? '' }}
-                                    </td>
-
-                                    <td>
-                                        {{ $cash_collection->sales_journals_table->post_ref ?? '' }}
-                                    </td>
-
-                                    <td style="text-align: right; font-weight: bold;">
-                                        @php
-                                            $cash_debited = $cash_collection->cash_debited ?? 0;
-                                            echo number_format($cash_debited, 2);
-                                        @endphp
-                                    </td>
-
-                                    <td style="text-align: right; font-weight: bold;">
-                                        @php
-                                            $sale_discount_debited = $cash_collection->sale_discount_debited ?? 0;
-                                            echo number_format($sale_discount_debited, 2);
-                                        @endphp
-                                    </td>
-
-                                    <td style="text-align: right; font-weight: bold;">
-                                        @php
-                                            $credited = $cash_collection->credited ?? 0;
-                                            echo number_format($credited, 2);
-                                        @endphp
-                                    </td>
-
-                                    <td>
-                                        <table style="width: 100%">
-                                            <tr>
-                                                <td style="background-color: #296166; color: white; font-size: 12px;">
-                                                    Received
-                                                </td>
-                                                <td style="background-color: #296166; color: white; font-size: 12px;">
-                                                    Time
-                                                </td>
-                                                <td style="background-color: #296166; color: white; font-size: 12px;">
-                                                    Amount
-                                                </td>
-                                            </tr>
-                                            @foreach ($cash_collection->sale_pay_nows_table as $sale_pay_now)
-                                                <tr>
-                                                    <td style="font-size: 12px;">
-                                                        {{ $sale_pay_now->received_date ?? '' }}
-                                                    </td>
-                                                    <td style="font-size: 12px;">
-                                                        {{ $sale_pay_now->payment_time ?? '' }}
-                                                    </td>
-                                                    <td style="font-size: 12px;">
-                                                        {{ number_format($sale_pay_now->pay_amount, 2) }}
-                                                    </td>
-                                                </tr>
-                                            @endforeach
-                                        </table>
+                                    <td style="text-align: center;">
+                                        {{ $sales_invoice->invoice_no ?? '' }}
                                     </td>
 
                                     <td style="text-align: center;">
-                                        <div class="demo-inline-spacing">
-                                            <div class="btn-group">
-                                                <button class="btn btn-primary btn-sm dropdown-toggle" type="button"
-                                                    data-bs-toggle="dropdown" aria-expanded="false">
-                                                    Action
-                                                </button>
-                                                <ul class="dropdown-menu">
-                                                    <li>
-                                                        <a class="dropdown-item"
-                                                            href="{{ route('cash_collection.edit', $cash_collection->id) }}">Edit</a>
-                                                    </li>
-
-                                                    <li>
-                                                        <form
-                                                            action="{{ route('cash_collection.destroy', $cash_collection->id) }}"
-                                                            method="POST">
-                                                            @csrf
-                                                            @method('DELETE')
-                                                            <button type="button" class="dropdown-item del_confirm"
-                                                                id="confirm-text" data-toggle="tooltip">Delete</button>
-                                                        </form>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
+                                        {{ $sales_invoice->invoice_date ?? '' }}
                                     </td>
+
+                                    <td style="text-align: center;">
+                                        {{ $sales_invoice->customers_table->company_name ?? '' }}
+                                    </td>
+
+                                    <td style="text-align: center;">
+                                        {{ $sales_invoice->post_ref ?? '' }}
+                                    </td>
+
+                                    {{-- Cash-Debited --}}
+                                    <td style="text-align: right; font-weight: bold;">
+                                        @php
+                                            $total_amount = [];
+                                        @endphp
+                                        @foreach ($sales_invoice->sales_items_table as $sales_items)
+                                            @php
+                                                $qty = $sales_items->qty;
+                                                $unit_price = $sales_items->unit_price;
+                                                $sale_value = $qty * $unit_price;
+                                                $total_amount[] = $sale_value;
+                                            @endphp
+                                        @endforeach
+                                        @php
+                                            $amount_total = array_sum($total_amount);
+                                            echo number_format($amount_total, 2);
+                                            $DebitTotal[] = $amount_total;
+                                        @endphp
+                                    </td>
+
+                                    {{-- Sales Discount -Debited --}}
+                                    <td style="text-align: right; font-weight: bold;">
+                                        {{ $sales_invoice->sales_invoices_payments_table->discount ?? 0 }}
+                                    </td>
+
+                                    {{-- AR (Vehicle )-Credited --}}
+                                    <td style="text-align: right; font-weight: bold;">
+                                        @php
+                                            $CashBookCreditTotal = [];
+                                        @endphp
+                                        @foreach ($sales_invoice->cash_books_table as $cash_books)
+                                            @php
+                                                $cash_book_cash_in = $cash_books->cash_in;
+                                                $cash_book_bank_in = $cash_books->bank_in;
+                                                $TotalBankCash = $cash_book_cash_in + $cash_book_bank_in;
+                                                $CashBookCreditTotal[] = $TotalBankCash;
+                                            @endphp
+                                        @endforeach
+                                        @php
+                                            $CashBookCreditTotal = array_sum($CashBookCreditTotal);
+                                            echo number_format($CashBookCreditTotal, 2);
+                                        @endphp
+                                    </td>
+
                                 </tr>
                             @endforeach
                         </tbody>
-                        <tr>
-                            <td colspan="5">Total:</td>
-                            <td style="text-align: right; font-weight: bold">
-                                {{ number_format($cash_collections->sum('cash_debited'), 2) }}
-                            </td>
-                            <td style="text-align: right; font-weight: bold">
-                                {{ number_format($cash_collections->sum('sale_discount_debited'), 2) }}
-                            </td>
-                            <td style="text-align: right; font-weight: bold">
-                                {{ number_format($cash_collections->sum('credited'), 2) }}
-                            </td>
-                            <td></td>
-                        </tr>
-
                     </table>
                 </div>
             </div>

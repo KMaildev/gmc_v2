@@ -19,13 +19,9 @@ class CashCollectionController extends Controller
      */
     public function index()
     {
-        // For Form
-        $form_status = 'is_create';
-        $form_sales_invoices = SalesInvoices::all();
 
-        // For List 
-        $cash_collections = CashCollection::all();
-        return view('accounting.cash_collection.index', compact('form_status', 'form_sales_invoices', 'cash_collections'));
+        $sales_invoices = SalesInvoices::all();
+        return view('accounting.cash_collection.index', compact('sales_invoices'));
     }
 
     /**
