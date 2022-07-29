@@ -176,12 +176,10 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-
         Darryldecode\Cart\CartServiceProvider::class,
-
         Meneses\LaravelMpdf\LaravelMpdfServiceProvider::class,
-        Barryvdh\DomPDF\ServiceProvider::class
-
+        Barryvdh\DomPDF\ServiceProvider::class,
+        Spatie\Permission\PermissionServiceProvider::class,
     ],
 
     /*
@@ -236,9 +234,7 @@ return [
 
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
         'Cart' => Darryldecode\Cart\Facades\CartFacade::class,
-        // 'PDF' => Meneses\LaravelMpdf\Facades\LaravelMpdf::class,
-        'PDF' => Barryvdh\DomPDF\Facade::class,
-
+        'PDF' => Meneses\LaravelMpdf\Facades\LaravelMpdf::class,
     ],
 
 ];

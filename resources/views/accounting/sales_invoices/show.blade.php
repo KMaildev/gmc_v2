@@ -2,7 +2,7 @@
 @section('content')
     <link rel="stylesheet" href="{{ asset('invoice/invoice.css') }}" />
     <div class="row invoice-add justify-content-center" style="background-color: white;">
-        <div class="col-lg-12 col-12 mb-lg-0 py-5">
+        <div class="col-lg-12 col-12 mb-lg-0 py-5" hidden>
             <div class="row gy-3">
                 <center>
                     <div class="col-lg-12">
@@ -349,5 +349,11 @@
         </div>
     </div>
 @endsection
+
+<script type="text/javascript">
+    window.onload = function() {
+        window.print();
+    }
+</script>
 @section('script')
 @endsection

@@ -23,8 +23,7 @@ class SalesInvoicesController extends Controller
      */
     public function index()
     {
-        // For List 
-        $sales_invoices = SalesInvoices::all();
+        $sales_invoices = SalesInvoices::orderBy('id')->where('hp_or_dealer', 'dealer')->get();
         return view('accounting.sales_invoices.index', compact('sales_invoices'));
     }
 
@@ -63,6 +62,7 @@ class SalesInvoicesController extends Controller
         $sale_invoice->delivery_date = $request->delivery_date;
         $sale_invoice->post_ref = $request->post_ref;
         $sale_invoice->user_id = auth()->user()->id ?? 0;
+        $sale_invoice->hp_or_dealer = 'dealer';
         $sale_invoice->save();
         $sale_invoice_id = $sale_invoice->id;
 
@@ -229,7 +229,7 @@ class SalesInvoicesController extends Controller
         $sales_invoice = SalesInvoices::findOrFail($id);
         $sales_items = SalesItems::orderBy('id')->where('sales_invoice_id', $id)->get();
         $sales_invoices_payment = SalesInvoicesPayments::where('sales_invoice_id', $id)->first();
-
+  
         $data = [
             'sales_invoice' => $sales_invoice,
             'sales_items' => $sales_items,
@@ -237,6 +237,6 @@ class SalesInvoicesController extends Controller
         ];
 
         $pdf = PDF::loadView('accounting.sales_invoices.export.pdf.show_invoice', $data);
-        return $pdf->download('itsolutionstuff.pdf');
+        return $pdf->stream('mgmc.pdf');
     }
 }

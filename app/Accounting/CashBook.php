@@ -5,6 +5,7 @@ namespace App\Accounting;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Traits\LogsActivity;
 use App\Models\SalesInvoices;
+use App\User;
 
 class CashBook extends Model
 {
@@ -32,9 +33,13 @@ class CashBook extends Model
         return $this->belongsTo(SalesInvoices::class, 'sales_invoice_id', 'id');
     }
 
-
     public function get_cash_account()
     {
         return $this->belongsTo(ChartofAccount::class, 'cash_account_id', 'id');
+    }
+
+    public function user_table()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 }

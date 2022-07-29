@@ -47,8 +47,12 @@
                                 AR (Vehicle )-Credited
                             </th>
 
-                            <th style="color: white; background-color: #2e696e; text-align: center; widht: 10%">
-                                Payment Time
+                            <th style="color: white; background-color: #2e696e; text-align: center; widht: 20%">
+                                Payment
+                            </th>
+
+                            <th style="color: white; background-color: #2e696e; text-align: center; widht: 20%">
+                                Refund
                             </th>
                         </thead>
                         <tbody class="table-border-bottom-0">
@@ -118,6 +122,16 @@
                                         @endphp
                                     </td>
 
+                                    {{-- Payment --}}
+                                    <td>
+                                        @include('accounting.cash_collection.table.payment_received_table')
+                                    </td>
+
+
+                                    {{-- Refund --}}
+                                    <td>
+                                        @include('accounting.cash_collection.table.refund_table')
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>

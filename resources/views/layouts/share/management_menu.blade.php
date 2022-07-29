@@ -21,6 +21,25 @@
 
 
             <li class="menu-item">
+                <a href="{{ route('role.index') }}" class="menu-link">
+                    <div data-i1n="Layouts">
+                        Role
+                    </div>
+                </a>
+            </li>
+
+            <li class="menu-item">
+                <a href="{{ route('permission.index') }}" class="menu-link">
+                    <div data-i1n="Layouts">
+                        Permission
+                    </div>
+                </a>
+            </li>
+
+            
+
+
+            <li class="menu-item">
                 <a href="{{ route('changepassword.index') }}" class="menu-link">
                     <div data-i1n="Layouts">
                         Change Password

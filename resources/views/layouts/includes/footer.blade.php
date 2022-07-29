@@ -28,8 +28,6 @@
 <script type="text/javascript" src="{{ asset('js/custom.js') }}"></script>
 
 
-
-
 @yield('script')
 
 <script type="text/javascript">
@@ -65,5 +63,6 @@
         }
     });
 </script>
+
 
 </html>

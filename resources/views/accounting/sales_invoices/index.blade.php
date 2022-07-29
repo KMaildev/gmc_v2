@@ -20,13 +20,15 @@
                                 </span>
                             </a>
 
-                            <a href="{{ route('sales_invoices.create') }}"
-                                class="dt-button create-new btn btn-primary btn-sm">
-                                <span>
-                                    <i class="bx bx-plus me-sm-2"></i>
-                                    <span class="d-none d-sm-inline-block">Create</span>
-                                </span>
-                            </a>
+                            @can('dealer_sales_invoice_create')
+                                <a href="{{ route('sales_invoices.create') }}"
+                                    class="dt-button create-new btn btn-primary btn-sm">
+                                    <span>
+                                        <i class="bx bx-plus me-sm-2"></i>
+                                        <span class="d-none d-sm-inline-block">Create</span>
+                                    </span>
+                                </a>
+                            @endcan
                         </div>
                     </div>
                 </div>
@@ -322,6 +324,32 @@
                                         @endphp
                                     </td>
 
+                                    <td style="text-align: right; font-weight: bold;">
+                                        @php
+                                            $CashBookCreditTotal = [];
+                                        @endphp
+                                        @foreach ($sales_invoice->cash_books_table as $cash_books)
+                                            @php
+                                                $cash_book_cash_in = $cash_books->cash_in;
+                                                $cash_book_bank_in = $cash_books->bank_in;
+                                                $TotalBankCash = $cash_book_cash_in + $cash_book_bank_in;
+                                                $CashBookCreditTotal[] = $TotalBankCash;
+                                            @endphp
+                                        @endforeach
+                                        @php
+                                            $CashBookCreditTotal = array_sum($CashBookCreditTotal);
+                                            echo number_format($CashBookCreditTotal, 2);
+                                        @endphp
+                                    </td>
+
+                                    <td style="text-align: right; font-weight: bold;">
+                                        -
+                                    </td>
+
+                                    <td style="text-align: right; font-weight: bold;">
+                                        -
+                                    </td>
+
                                     <td style="text-align: center;">
                                         <div class="demo-inline-spacing">
                                             <div class="btn-group">
@@ -331,7 +359,7 @@
                                                 </button>
                                                 <ul class="dropdown-menu">
 
-                                                    <li>
+                                                    <li hidden>
                                                         <a class="dropdown-item"
                                                             href="{{ route('sales_inv_paynow_create', $sales_invoice->id) }}">
                                                             Pay Now

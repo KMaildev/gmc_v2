@@ -1642,10 +1642,9 @@
         mso-protection: locked visible;
     }
 </style>
-
 <body link='blue' vlink='purple'>
-    <table border='0' cellpadding='0' cellspacing='0' width='700'
-        style='border-collapse: collapse;table-layout:fixed;width:550pt'>
+    <table border='0' cellpadding='0' cellspacing='0' width='1000'
+        style='border-collapse: collapse;table-layout:auto;width:590pt'>
         <col width='60' style='mso-width-source:userset;width:45pt'>
         <col width='84' style='mso-width-source:userset;width:63pt'>
         <col width='204' style='mso-width-source:userset;width:153pt'>
@@ -1655,10 +1654,10 @@
         <col width='72' style='mso-width-source:userset;width:54pt'>
 
         <td height='20' width='60' style='text-align: left;height:15pt;width:45pt;' align='left'
-                            valign='top'>
+            valign='top'>
             <span
                 style='mso-ignore:vglayout;position:absolute;z-index:1;margin-left:10px;margin-top:0px;width:666px;height:94px'>
-                <img src="{{ public_path('logo.png') }}" style="width: 200px; height: 200px">
+                <img src="https://opengraph.githubassets.com/2d8e7ab95445c92d0eeaca1c34b5158e2bf2103e5095862dc8eae8ea96b7b293/mpdf/mpdf/issues/82" style="width: 200px; height: 200px">
             </span>
         </td>
 
@@ -1672,7 +1671,7 @@
             <td colspan='7' height='34' class='x23' style='mso-ignore:colspan;height:26pt;'></td>
         </tr>
         <tr height='32' style='mso-height-source:userset;height:24pt'>
-            <td colspan='7' height='32' class='x69' style='height:24pt;'>Sale Invoice</td>
+            <td colspan='7' height='32' class='x69' style='height:24pt;'>Sale Invoice </td>
         </tr>
         <tr height='20' style='mso-height-source:userset;height:15pt'>
             <td colspan='7' height='20' style='mso-ignore:colspan;height:15pt;'></td>
@@ -1789,13 +1788,13 @@
                 <td height='18' class='x38' style='height:13.5pt;'>
                     {{ $key + 1 }}
                 </td>
-                <td class='x38'>
+                <td class='x38' style="text-align: center;">
                     {{ $sales_item->products_table->model_no ?? '' }}
                 </td>
-                <td class='x39'>
+                <td class='x39' style="text-align: center;">
                     {{ $sales_item->products_table->chessi_no ?? '' }}
                 </td>
-                <td class='x40'>
+                <td class='x40' style="text-align: center;">
                     {{ $sales_item->description ?? '' }}
                 </td>
                 <td class='x40' align='right'>
@@ -1813,9 +1812,6 @@
                 </td>
             </tr>
         @endforeach
-
-
-
 
 
 

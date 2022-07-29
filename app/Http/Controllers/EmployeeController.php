@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Hash;
 
 use App\Exports\UsersExport;
 use Maatwebsite\Excel\Facades\Excel;
+use Spatie\Permission\Models\Role;
 
 
 class EmployeeController extends Controller
@@ -34,7 +35,8 @@ class EmployeeController extends Controller
     public function create()
     {
         $departments = Department::orderBy('title')->get();
-        return view('management.employee.create', compact('departments'));
+        $roles = Role::all();
+        return view('management.employee.create', compact('departments', 'roles'));
     }
 
     /**
@@ -56,6 +58,7 @@ class EmployeeController extends Controller
         $employee->department_id = $request->department_id;
         $employee->password = Hash::make($request->password);
         $employee->save();
+        $employee->syncRoles($request->roles);
         return redirect()->back()->with('success', 'Employee is successfully created.');
     }
 
@@ -79,8 +82,10 @@ class EmployeeController extends Controller
     public function edit($id)
     {
         $employee = User::findOrFail($id);
+        $old_roles = $employee->roles->pluck('id')->toArray();
         $departments = Department::orderBy('title')->get();
-        return view('management.employee.edit', compact('employee', 'departments'));
+        $roles = Role::all();
+        return view('management.employee.edit', compact('employee', 'departments', 'old_roles', 'roles'));
     }
 
     /**
@@ -103,6 +108,7 @@ class EmployeeController extends Controller
         $employee->department_id = $request->department_id;
         $employee->password = $request->password ? Hash::make($request->password) : $employee->password;
         $employee->update();
+        $employee->syncRoles($request->roles);
         return redirect()->back()->with('success', 'Employee is successfully updated.');
     }
 

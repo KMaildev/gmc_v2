@@ -41,6 +41,7 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('customer', 'CustomerController');
     Route::get('get_customer_ajax/{id}', array('as' => 'get_customer_ajax', 'uses' => 'CustomerController@get_customer_ajax'));
+    Route::get('get_dealer_customer_ajax/{id}', array('as' => 'get_dealer_customer_ajax', 'uses' => 'CustomerController@get_dealer_customer_ajax'));
     Route::post('dealer_customer_import', 'CustomerController@dealer_customer_import')->name('dealer_customer_import');
     Route::get('dealer_customer_export', 'CustomerController@dealer_customer_export')->name('dealer_customer_export');
 
@@ -79,7 +80,8 @@ Route::middleware('auth')->group(function () {
 
 
     // HP Sales 
-    Route::resource('hp_sales_invoices', 'HP\SalesInvoiceController');
+    Route::resource('hp_sales_invoices', 'Hp\SalesInvoiceController');
+    Route::get('hp_invoice_view/{id}', array('as' => 'hp_invoice_view', 'uses' => 'Hp\SalesInvoiceController@hp_invoice_view'));
 
 
 
@@ -96,7 +98,6 @@ Route::middleware('auth')->group(function () {
     Route::resource('sales_ledger', 'Accounting\SalesLedgerController');
     Route::resource('account_receivables', 'Accounting\AccountReceivablesController');
     Route::resource('sale_cash_book', 'Accounting\SaleCashBookController');
-    Route::resource('sale_refund', 'Accounting\SaleRefundController');
 
     // Cart System
     Route::resource('sale_invoice_cart', 'Cart\SaleInvoiceCartController');
@@ -106,4 +107,8 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('sales_items', 'Accounting\SalesItemsController');
     Route::get('sales_items_remove/{id}', array('as' => 'sales_items_remove', 'uses' => 'Accounting\SalesItemsController@sales_items_remove'));
+
+
+    Route::resource('role', 'RoleController');
+    Route::resource('permission', 'PermissionController');
 });

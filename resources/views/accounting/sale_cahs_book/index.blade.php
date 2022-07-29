@@ -25,7 +25,7 @@
                                 </td>
                                 <td rowspan="2"
                                     style="color: white; background-color: #2e696e; text-align: center; widht: 10%">
-                                    Particular
+                                    Dealer Name
                                 </td>
                                 <td rowspan="2"
                                     style="color: white; background-color: #2e696e; text-align: center; widht: 10%">
@@ -55,95 +55,121 @@
                         </thead>
                         <tbody class="table-border-bottom-0">
                             @php
-                                $debit_total = [];
-                                $credit_total = [];
-                                $balance_debit_total = [];
-                                $balance_credit_total = [];
+                                $DebitTotal = [];
+                                $CreditTotal = [];
+                                $BalanceDebitTotal = [];
+                                $BalanceCreditTotal = [];
                             @endphp
-                            @foreach ($cash_collections as $key => $cash_collection)
+                            @foreach ($sales_invoices as $key => $sales_invoice)
                                 <tr>
                                     <td>
                                         {{ $key + 1 }}
                                     </td>
 
-                                    <td>
-                                        {{ $cash_collection->sales_invoices_table->invoice_date ?? '' }}
+                                    <td style="text-align: center;">
+                                        {{ $sales_invoice->invoice_date ?? '' }}
                                     </td>
 
-                                    <td>
-                                        {{ $cash_collection->customers_table->name ?? '' }}
+                                    <td style="text-align: center;">
+                                        {{ $sales_invoice->customers_table->company_name ?? '' }}
                                     </td>
 
-                                    <td>
-                                        {{ $cash_collection->sales_journals_table->post_ref ?? '' }}
+                                    <td style="text-align: center;">
+                                        {{ $sales_invoice->post_ref ?? '' }}
                                     </td>
 
                                     {{-- Debit --}}
                                     <td style="text-align: right; font-weight: bold;">
                                         @php
-                                            $sale_journal_credited = $cash_collection->sales_journals_table->credited ?? 0;
-                                            echo number_format($sale_journal_credited, 2);
-                                            $debit_total[] = $sale_journal_credited;
+                                            $total_amount = [];
+                                        @endphp
+                                        @foreach ($sales_invoice->sales_items_table as $sales_items)
+                                            @php
+                                                $qty = $sales_items->qty;
+                                                $unit_price = $sales_items->unit_price;
+                                                $sale_value = $qty * $unit_price;
+                                                $total_amount[] = $sale_value;
+                                            @endphp
+                                        @endforeach
+                                        @php
+                                            $amount_total = array_sum($total_amount);
+                                            echo number_format($amount_total, 2);
+                                            $DebitTotal[] = $amount_total;
                                         @endphp
                                     </td>
 
                                     {{-- Credit --}}
                                     <td style="text-align: right; font-weight: bold;">
                                         @php
-                                            $cash_collection_credited = $cash_collection->credited ?? 0;
-                                            echo number_format($cash_collection_credited, 2);
-                                            $credit_total[] = $cash_collection_credited;
+                                            $TotalBankCashOut = [];
+                                        @endphp
+                                        @foreach ($sales_invoice->cash_books_table as $key => $cash_books)
+                                            @php
+                                                $cash_book_cash_out = $cash_books->cash_out;
+                                                $cash_book_bank_out = $cash_books->bank_out;
+                                                $BankCashOutTotal = $cash_book_cash_out + $cash_book_bank_out;
+                                                $TotalBankCashOut[] = $BankCashOutTotal;
+                                            @endphp
+                                        @endforeach
+                                        @php
+                                            $BankCashOutTotal = array_sum($TotalBankCashOut);
+                                            echo number_format($BankCashOutTotal, 2);
+                                            $CreditTotal[] = $BankCashOutTotal;
                                         @endphp
                                     </td>
 
                                     {{-- Balance Debit --}}
                                     <td style="text-align: right; font-weight: bold;">
                                         @php
-                                            $balance_debit = $sale_journal_credited - $cash_collection_credited;
-                                            echo number_format($balance_debit, 2);
-                                            $balance_debit_total[] = $balance_debit;
+                                            $TotalDebitAmount = $amount_total;
+                                            $TotalBankInCashOut = $BankCashOutTotal;
+                                            $BalanceDebit = $TotalDebitAmount - $TotalBankInCashOut;
+                                            if ($BalanceDebit > 0) {
+                                                echo number_format($BalanceDebit, 2);
+                                                $BalanceDebitTotal[] = $BalanceDebit;
+                                            }
                                         @endphp
                                     </td>
 
-                                    {{-- Balance Credit --}}
+                                    {{-- Balance Debit --}}
                                     <td style="text-align: right; font-weight: bold;">
-                                        @php
-                                            $balance_credit = $cash_collection_credited - $sale_journal_credited;
-                                            echo number_format($balance_credit, 2);
-                                            $balance_credit_total[] = $balance_credit;
-                                        @endphp
+                                        @if ($BalanceDebit < 0)
+                                            {{ number_format(abs($BalanceDebit), 2) }}
+                                            @php
+                                                $BalanceCreditTotal[] = $BalanceDebit;
+                                            @endphp
+                                        @endif
                                     </td>
                                 </tr>
                             @endforeach
+                            <tr>
+                                <td colspan="4">Total:</td>
+                                <td style="text-align: right; font-weight: bold;">
+                                    @php
+                                        $TotalDebit = array_sum($DebitTotal);
+                                        echo number_format($TotalDebit, 2);
+                                    @endphp
+                                </td>
+                                <td style="text-align: right; font-weight: bold;">
+                                    @php
+                                        $TotalCredit = array_sum($CreditTotal);
+                                        echo number_format($TotalCredit, 2);
+                                    @endphp
+                                </td>
+                                <td style="text-align: right; font-weight: bold;">
+                                    @php
+                                        $TotalBalanceDebit = array_sum($BalanceDebitTotal);
+                                        echo number_format($TotalBalanceDebit, 2);
+                                    @endphp
+                                </td>
+                                <td style="text-align: right; font-weight: bold;">
+                                    @php
+                                        $TotalBalanceCredit = array_sum($BalanceCreditTotal);
+                                    @endphp
+                                    {{ number_format(abs($TotalBalanceCredit), 2) }}
+                                </td>
+                            </tr>
                         </tbody>
-                        <tr>
-                            <td colspan="4">Total:</td>
-                            <td style="text-align: right; font-weight: bold">
-                                @php
-                                    $debit_total = array_sum($debit_total);
-                                    echo number_format($debit_total, 2);
-                                @endphp
-                            </td>
-                            <td style="text-align: right; font-weight: bold">
-                                @php
-                                    $credit_total = array_sum($credit_total);
-                                    echo number_format($credit_total, 2);
-                                @endphp
-                            </td>
-                            <td style="text-align: right; font-weight: bold">
-                                @php
-                                    $balance_debit_total = array_sum($balance_debit_total);
-                                    echo number_format($balance_debit_total, 2);
-                                @endphp
-                            </td>
-                            <td style="text-align: right; font-weight: bold">
-                                @php
-                                    $balance_credit_total = array_sum($balance_credit_total);
-                                    echo number_format($balance_credit_total, 2);
-                                @endphp
-                            </td>
-                        </tr>
-
                     </table>
                 </div>
             </div>

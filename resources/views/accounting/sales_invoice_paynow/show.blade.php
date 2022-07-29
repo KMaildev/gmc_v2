@@ -257,8 +257,8 @@
                                     <td style="text-align: right; font-weight: bold;">
                                         @php
                                             $total_amount_table = array_sum($amount_total);
+                                            echo number_format($total_amount_table, 2);
                                         @endphp
-                                        {{ number_format($total_amount_table, 2) }}
                                     </td>
                                 </tr>
                             </table>
@@ -277,17 +277,11 @@
                                         <th style="color: white; text-align: center; widht: 7%;">
                                             Receive By
                                         </th>
-                                        <th style="color: white; text-align: center; widht: 7%;">
-                                            Status
-                                        </th>
                                         <th style="color: white; text-align: center; widht: 10%;">
                                             Remark
                                         </th>
                                         <th style="color: white; text-align: center; widht: 7%;">
-                                            Payment Time
-                                        </th>
-                                        <th style="color: white; text-align: center; widht: 10%;">
-                                            Date
+                                            Received Date
                                         </th>
                                         <th style="color: white; text-align: center; widht: 10%;">
                                             Amount
@@ -296,63 +290,42 @@
                                 </thead>
                                 <tbody>
                                     @php
-                                        $pay_amount_total = [];
+                                        $TotalReceiveAmount = [];
                                     @endphp
-                                    @foreach ($sale_pay_nows_lists as $sale_item => $sale_pay_nows_list)
+                                    @foreach ($sales_invoice_edit->cash_books_table as $key => $cash_books)
                                         <tr>
                                             <td>
-                                                {{ $sale_item + 1 }}
+                                                {{ $key + 1 }}
                                             </td>
-
                                             <td>
-                                                {{ $sale_pay_nows_list->users_table->name ?? '' }}
+                                                {{ $cash_books->user_table->name ?? '' }}
                                             </td>
-
                                             <td>
-                                                @php
-                                                    $payment_status = $sale_pay_nows_list->payment_status ?? '';
-                                                @endphp
-                                                @if ($payment_status == 'Paid')
-                                                    <span class="badge bg-success">
-                                                        Paid
-                                                    </span>
-                                                @elseif ($payment_status == 'In_Payment')
-                                                    <span class="badge bg-primary">
-                                                        In Payment
-                                                    </span>
-                                                @else
-                                                @endif
+                                                {{ $cash_books->description ?? '' }}
                                             </td>
-
                                             <td>
-                                                {{ $sale_pay_nows_list->remark ?? '' }}
+                                                {{ $cash_books->cash_book_date ?? '' }}
                                             </td>
-
-                                            <td>
-                                                {{ $sale_pay_nows_list->payment_time ?? '' }}
-                                            </td>
-
-                                            <td>
-                                                {{ $sale_pay_nows_list->received_date ?? '' }}
-                                            </td>
-
                                             <td style="text-align: right; font-weight: bold;">
-                                                {{ number_format($sale_pay_nows_list->pay_amount, 2) }}
                                                 @php
-                                                    $pay_amount_total[] = $sale_pay_nows_list->pay_amount ?? 0;
+                                                    $cash_book_cash_in = $cash_books->cash_in;
+                                                    $cash_book_bank_in = $cash_books->bank_in;
+                                                    $TotalBankCash = $cash_book_cash_in + $cash_book_bank_in;
+                                                    $TotalReceiveAmount[] = $TotalBankCash;
+                                                    echo number_format($TotalBankCash, 2);
                                                 @endphp
                                             </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
                                 <tr>
-                                    <td colspan="6">
+                                    <td colspan="4">
                                         Total:
                                     </td>
                                     <td style="text-align: right; font-weight: bold;">
                                         @php
-                                            $pay_amount_total_table = array_sum($pay_amount_total);
-                                            echo number_format($pay_amount_total_table, 2);
+                                            $ReceiveAmountTotal = array_sum($TotalReceiveAmount);
+                                            echo number_format($ReceiveAmountTotal, 2);
                                         @endphp
                                     </td>
                                 </tr>
@@ -407,13 +380,9 @@
                                             Total Amount
                                         </label>
                                         <div class="col-sm-8">
-                                            @php
-                                                $total_amount = array_sum($amount_total);
-                                            @endphp
                                             <input type="text" class="form-control form-control-sm"
-                                                value="{{ number_format($total_amount, 2) }}" style="text-align:right;"
-                                                disabled>
-                                            <input type="hidden" value="{{ $total_amount }}" name="total_amount">
+                                                style="text-align:right;" disabled
+                                                value="{{ number_format($total_amount_table) }}">
                                         </div>
                                     </div>
 
@@ -428,8 +397,7 @@
                                                 class="form-control form-control-sm @error('down_payment') is-invalid @enderror"
                                                 name="down_payment" id="DownPayment" style="text-align:right;"
                                                 oninput="SetCalculateDownPayment()"
-                                                value="{{ $sales_invoices_payments_edit->down_payment ?? 0 }}"
-                                                disabled />
+                                                value="{{ $sales_invoices_payments_edit->down_payment ?? 0 }}" disabled />
                                             @error('down_payment')
                                                 <div class="invalid-feedback"> {{ $message }} </div>
                                             @enderror
@@ -446,7 +414,7 @@
                                                     class="form-control form-control-sm @error('dealer_percentage') is-invalid @enderror"
                                                     name="dealer_percentage" id="DealerPercentage"
                                                     style="text-align:right;" oninput="SetCalculateDownPayment()"
-                                                    value="{{ $sales_invoices_payments_edit->dealer_percentage ?? 0 }}"
+                                                    value="{{ $sales_invoices_payments_edit->dealer_ercentage ?? 0 }}"
                                                     disabled />
                                                 <span class="input-group-text sm">%</span>
                                             </div>
@@ -463,7 +431,21 @@
                                         <div class="col-sm-8">
                                             <input type="text" class="form-control form-control-sm" name="pay_amount"
                                                 style="text-align:right;" disabled
-                                                value="{{ number_format($sale_pay_nows, 2) }}" />
+                                                value="{{ number_format($ReceiveAmountTotal, 2) }}" />
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-1">
+                                        <label class="col-sm-4 col-form-label" style="font-weight: bold;">
+                                            BALANCE TO BE PAY
+                                        </label>
+                                        <div class="col-sm-8">
+                                            @php
+                                                $balance_to_be_pay = $total_amount_table - $ReceiveAmountTotal;
+                                            @endphp
+                                            <input type="text" class="form-control form-control-sm" name="pay_amount"
+                                                style="text-align:right;" disabled
+                                                value="{{ number_format($balance_to_be_pay, 2) }}" />
                                         </div>
                                     </div>
                                 </dl>

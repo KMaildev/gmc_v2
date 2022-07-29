@@ -38,4 +38,9 @@ class SalesInvoices extends Model
     {
         return $this->hasMany(CashBook::class, 'sales_invoice_id', 'id');
     }
+
+    public function hp_sales_sales_items_table()
+    {
+        return $this->belongsTo(SalesItems::class, 'id', 'sales_invoice_id');
+    }
 }

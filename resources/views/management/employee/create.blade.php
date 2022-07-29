@@ -105,6 +105,18 @@
                         </div>
 
                         <div class="mb-3 row">
+                            <label for="select2Multiple" class="col-md-3 form-label">Role</label>
+                            <div class="col-md-9">
+                                <select id="select2Multiple" class="select2 form-select" multiple name="roles[]">
+                                    @foreach ($roles as $role)
+                                        <option value="{{ $role->name }}">{{ $role->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+
+
+                        <div class="mb-3 row">
                             <label for="html5-text-input" class="col-md-3 col-form-label">Password</label>
                             <div class="col-md-9">
                                 <input class="form-control @error('password') is-invalid @enderror" type="password"

@@ -20,7 +20,6 @@ class SalesLedgerController extends Controller
         // For List 
         // $sales_journals = SalesJournal::all();
 
-
         $sales_invoices_groups = SalesInvoicesPayments::select('customer_id')
             ->groupBy('customer_id')
             ->selectRaw('sum(total_amount) as total_amount')

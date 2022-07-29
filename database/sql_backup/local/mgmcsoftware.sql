@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jul 20, 2022 at 08:11 PM
+-- Generation Time: Jul 26, 2022 at 10:49 AM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 7.4.29
 
@@ -2461,7 +2461,36 @@ INSERT INTO `activity_log` (`id`, `log_name`, `description`, `subject_type`, `su
 (2309, 'cash_books_log', 'created', 'App\\Accounting\\CashBook', 960, 'App\\User', 1, '{\"attributes\":{\"cash_book_date\":\"2022-07-21\",\"month\":\"07\",\"year\":\"2022\",\"iv_one\":null,\"iv_two\":null,\"description\":\"Cash received from Ko Banyar Aung For IV-0068\\/22Q22L (CH-LVUDH12B0LB-303443)\",\"cash_in\":\"7745000\",\"cash_out\":\"0\",\"bank_in\":\"817420010.324\",\"bank_out\":\"0\",\"created_at\":\"2022-07-20T17:51:59.000000Z\",\"updated_at\":\"2022-07-20T17:51:59.000000Z\"}}', '2022-07-20 11:21:59', '2022-07-20 11:21:59'),
 (2310, 'cash_books_log', 'updated', 'App\\Accounting\\CashBook', 960, 'App\\User', 1, '{\"attributes\":{\"cash_book_date\":\"2022-07-21\",\"month\":\"7\",\"year\":\"2022\",\"iv_one\":null,\"iv_two\":null,\"description\":\"Cash received from Ko Banyar Aung For IV-0068\\/22Q22L (CH-LVUDH12B0LB-303443)\",\"cash_in\":\"7745000\",\"cash_out\":\"0\",\"bank_in\":\"817420010.324\",\"bank_out\":\"0\",\"created_at\":\"2022-07-20T17:51:59.000000Z\",\"updated_at\":\"2022-07-20T18:07:11.000000Z\"},\"old\":{\"cash_book_date\":\"2022-07-21\",\"month\":\"07\",\"year\":\"2022\",\"iv_one\":null,\"iv_two\":null,\"description\":\"Cash received from Ko Banyar Aung For IV-0068\\/22Q22L (CH-LVUDH12B0LB-303443)\",\"cash_in\":\"7745000\",\"cash_out\":\"0\",\"bank_in\":\"817420010.324\",\"bank_out\":\"0\",\"created_at\":\"2022-07-20T17:51:59.000000Z\",\"updated_at\":\"2022-07-20T17:51:59.000000Z\"}}', '2022-07-20 11:37:11', '2022-07-20 11:37:11'),
 (2311, 'cash_books_log', 'updated', 'App\\Accounting\\CashBook', 960, 'App\\User', 1, '{\"attributes\":{\"cash_book_date\":\"2022-07-21\",\"month\":\"7\",\"year\":\"2022\",\"iv_one\":null,\"iv_two\":null,\"description\":\"Cash received from Ko Banyar Aung For IV-0068\\/22Q22L (CH-LVUDH12B0LB-303443)\",\"cash_in\":\"7745000\",\"cash_out\":\"0\",\"bank_in\":\"817420010.324\",\"bank_out\":\"0\",\"created_at\":\"2022-07-20T17:51:59.000000Z\",\"updated_at\":\"2022-07-20T18:10:14.000000Z\"},\"old\":{\"cash_book_date\":\"2022-07-21\",\"month\":\"7\",\"year\":\"2022\",\"iv_one\":null,\"iv_two\":null,\"description\":\"Cash received from Ko Banyar Aung For IV-0068\\/22Q22L (CH-LVUDH12B0LB-303443)\",\"cash_in\":\"7745000\",\"cash_out\":\"0\",\"bank_in\":\"817420010.324\",\"bank_out\":\"0\",\"created_at\":\"2022-07-20T17:51:59.000000Z\",\"updated_at\":\"2022-07-20T18:07:11.000000Z\"}}', '2022-07-20 11:40:14', '2022-07-20 11:40:14'),
-(2312, 'cash_books_log', 'updated', 'App\\Accounting\\CashBook', 960, 'App\\User', 1, '{\"attributes\":{\"cash_book_date\":\"2022-07-21\",\"month\":\"7\",\"year\":\"2022\",\"iv_one\":null,\"iv_two\":null,\"description\":\"Cash received from Ko Banyar Aung For IV-0068\\/22Q22L (CH-LVUDH12B0LB-303443)\",\"cash_in\":\"7745000\",\"cash_out\":\"0\",\"bank_in\":\"817420010.324\",\"bank_out\":\"0\",\"created_at\":\"2022-07-20T17:51:59.000000Z\",\"updated_at\":\"2022-07-20T18:10:44.000000Z\"},\"old\":{\"cash_book_date\":\"2022-07-21\",\"month\":\"7\",\"year\":\"2022\",\"iv_one\":null,\"iv_two\":null,\"description\":\"Cash received from Ko Banyar Aung For IV-0068\\/22Q22L (CH-LVUDH12B0LB-303443)\",\"cash_in\":\"7745000\",\"cash_out\":\"0\",\"bank_in\":\"817420010.324\",\"bank_out\":\"0\",\"created_at\":\"2022-07-20T17:51:59.000000Z\",\"updated_at\":\"2022-07-20T18:10:14.000000Z\"}}', '2022-07-20 11:40:44', '2022-07-20 11:40:44');
+(2312, 'cash_books_log', 'updated', 'App\\Accounting\\CashBook', 960, 'App\\User', 1, '{\"attributes\":{\"cash_book_date\":\"2022-07-21\",\"month\":\"7\",\"year\":\"2022\",\"iv_one\":null,\"iv_two\":null,\"description\":\"Cash received from Ko Banyar Aung For IV-0068\\/22Q22L (CH-LVUDH12B0LB-303443)\",\"cash_in\":\"7745000\",\"cash_out\":\"0\",\"bank_in\":\"817420010.324\",\"bank_out\":\"0\",\"created_at\":\"2022-07-20T17:51:59.000000Z\",\"updated_at\":\"2022-07-20T18:10:44.000000Z\"},\"old\":{\"cash_book_date\":\"2022-07-21\",\"month\":\"7\",\"year\":\"2022\",\"iv_one\":null,\"iv_two\":null,\"description\":\"Cash received from Ko Banyar Aung For IV-0068\\/22Q22L (CH-LVUDH12B0LB-303443)\",\"cash_in\":\"7745000\",\"cash_out\":\"0\",\"bank_in\":\"817420010.324\",\"bank_out\":\"0\",\"created_at\":\"2022-07-20T17:51:59.000000Z\",\"updated_at\":\"2022-07-20T18:10:14.000000Z\"}}', '2022-07-20 11:40:44', '2022-07-20 11:40:44'),
+(2313, 'users_log', 'updated', 'App\\User', 1, 'App\\User', 1, '{\"attributes\":{\"name\":\"Dev Test\",\"email\":\"developer@gmail.com\",\"employee_id\":\"EMP-0001\",\"phone\":\"09444161997\",\"nrc_number\":null,\"address\":\"YGN\",\"department_id\":1,\"created_at\":\"2022-03-28T17:58:34.000000Z\",\"updated_at\":\"2022-07-21T04:17:06.000000Z\"},\"old\":{\"name\":\"Dev Test\",\"email\":\"developer@gmail.com\",\"employee_id\":\"EMP-0001\",\"phone\":\"09444161997\",\"nrc_number\":null,\"address\":\"YGN\",\"department_id\":1,\"created_at\":\"2022-03-28T17:58:34.000000Z\",\"updated_at\":\"2022-07-20T16:54:35.000000Z\"}}', '2022-07-20 21:47:06', '2022-07-20 21:47:06'),
+(2314, 'cash_books_log', 'created', 'App\\Accounting\\CashBook', 961, 'App\\User', 1, '{\"attributes\":{\"cash_book_date\":\"2022-07-21\",\"month\":\"07\",\"year\":\"2022\",\"iv_one\":\"INV-0002\",\"iv_two\":null,\"description\":\"No\",\"cash_in\":\"1000\",\"cash_out\":\"0\",\"bank_in\":\"0\",\"bank_out\":\"0\",\"created_at\":\"2022-07-21T04:31:17.000000Z\",\"updated_at\":\"2022-07-21T04:31:17.000000Z\"}}', '2022-07-20 22:01:17', '2022-07-20 22:01:17'),
+(2315, 'sales_invoices_log', 'created', 'App\\Models\\SalesInvoices', 3, 'App\\User', 1, '{\"attributes\":{\"customer_id\":1,\"id_no\":\"INV-00001\",\"invoice_no\":\"INV-00001\",\"invoice_date\":\"2022-07-21\",\"showroom_name\":\"MGM\",\"sales_type\":\"1 Year\",\"payment_team\":\"1 Year\",\"sales_persons_id\":1,\"delivery_date\":\"2022-07-21\",\"user_id\":1,\"created_at\":\"2022-07-21T04:53:06.000000Z\",\"updated_at\":\"2022-07-21T04:53:06.000000Z\"}}', '2022-07-20 22:23:06', '2022-07-20 22:23:06'),
+(2316, 'sales_invoices_log', 'created', 'App\\Models\\SalesInvoices', 4, 'App\\User', 1, '{\"attributes\":{\"customer_id\":1,\"id_no\":\"INV-00001\",\"invoice_no\":\"INV-00001\",\"invoice_date\":\"2022-07-21\",\"showroom_name\":\"MGM\",\"sales_type\":\"1 Year\",\"payment_team\":\"1 Year\",\"sales_persons_id\":1,\"delivery_date\":\"2022-07-21\",\"user_id\":1,\"created_at\":\"2022-07-21T09:49:31.000000Z\",\"updated_at\":\"2022-07-21T09:49:31.000000Z\"}}', '2022-07-21 03:19:31', '2022-07-21 03:19:31'),
+(2317, 'users_log', 'updated', 'App\\User', 1, 'App\\User', 1, '{\"attributes\":{\"name\":\"Dev Test\",\"email\":\"developer@gmail.com\",\"employee_id\":\"EMP-0001\",\"phone\":\"09444161997\",\"nrc_number\":null,\"address\":\"YGN\",\"department_id\":1,\"created_at\":\"2022-03-28T17:58:34.000000Z\",\"updated_at\":\"2022-07-21T14:51:45.000000Z\"},\"old\":{\"name\":\"Dev Test\",\"email\":\"developer@gmail.com\",\"employee_id\":\"EMP-0001\",\"phone\":\"09444161997\",\"nrc_number\":null,\"address\":\"YGN\",\"department_id\":1,\"created_at\":\"2022-03-28T17:58:34.000000Z\",\"updated_at\":\"2022-07-21T04:17:06.000000Z\"}}', '2022-07-21 08:21:45', '2022-07-21 08:21:45'),
+(2318, 'sales_invoices_log', 'created', 'App\\Models\\SalesInvoices', 1, 'App\\User', 1, '{\"attributes\":{\"customer_id\":1,\"id_no\":\"INV-00001\",\"invoice_no\":\"INV-00001\",\"invoice_date\":\"2022-07-21\",\"showroom_name\":\"MGM\",\"sales_type\":\"1 Year\",\"payment_team\":\"1 Yeaer\",\"sales_persons_id\":1,\"delivery_date\":\"2022-07-21\",\"user_id\":1,\"created_at\":\"2022-07-21T16:14:53.000000Z\",\"updated_at\":\"2022-07-21T16:14:53.000000Z\"}}', '2022-07-21 09:44:53', '2022-07-21 09:44:53'),
+(2319, 'sales_invoices_log', 'created', 'App\\Models\\SalesInvoices', 2, 'App\\User', 1, '{\"attributes\":{\"customer_id\":2,\"id_no\":\"INV-00002\",\"invoice_no\":\"INV-00002\",\"invoice_date\":\"2022-07-21\",\"showroom_name\":\"MGM\",\"sales_type\":\"1 Year\",\"payment_team\":\"1 Yeaer\",\"sales_persons_id\":1,\"delivery_date\":\"2022-07-21\",\"user_id\":1,\"created_at\":\"2022-07-21T16:16:05.000000Z\",\"updated_at\":\"2022-07-21T16:16:05.000000Z\"}}', '2022-07-21 09:46:05', '2022-07-21 09:46:05'),
+(2320, 'sales_invoices_log', 'created', 'App\\Models\\SalesInvoices', 1, 'App\\User', 1, '{\"attributes\":{\"customer_id\":1,\"id_no\":\"INV-00001\",\"invoice_no\":\"INV-00001\",\"invoice_date\":\"2022-07-21\",\"showroom_name\":\"MGM\",\"sales_type\":\"1 Yeaer\",\"payment_team\":\"1 Year\",\"sales_persons_id\":1,\"delivery_date\":\"2022-07-21\",\"user_id\":1,\"created_at\":\"2022-07-21T16:18:39.000000Z\",\"updated_at\":\"2022-07-21T16:18:39.000000Z\"}}', '2022-07-21 09:48:39', '2022-07-21 09:48:39'),
+(2321, 'sales_invoices_log', 'created', 'App\\Models\\SalesInvoices', 2, 'App\\User', 1, '{\"attributes\":{\"customer_id\":2,\"id_no\":\"INV-00002\",\"invoice_no\":\"INV-00002\",\"invoice_date\":\"2022-07-21\",\"showroom_name\":\"MGM\",\"sales_type\":\"1 Yeaer\",\"payment_team\":\"1 Year\",\"sales_persons_id\":1,\"delivery_date\":\"2022-07-21\",\"user_id\":1,\"created_at\":\"2022-07-21T16:43:38.000000Z\",\"updated_at\":\"2022-07-21T16:43:38.000000Z\"}}', '2022-07-21 10:13:38', '2022-07-21 10:13:38'),
+(2322, 'sales_invoices_log', 'created', 'App\\Models\\SalesInvoices', 3, 'App\\User', 1, '{\"attributes\":{\"customer_id\":2,\"id_no\":\"INV-00003\",\"invoice_no\":\"INV-00003\",\"invoice_date\":\"2022-07-21\",\"showroom_name\":\"MGM\",\"sales_type\":\"1 Year\",\"payment_team\":\"1 Yeaer\",\"sales_persons_id\":1,\"delivery_date\":\"2022-07-21\",\"user_id\":1,\"created_at\":\"2022-07-21T17:22:16.000000Z\",\"updated_at\":\"2022-07-21T17:22:16.000000Z\"}}', '2022-07-21 10:52:16', '2022-07-21 10:52:16'),
+(2323, 'users_log', 'updated', 'App\\User', 1, 'App\\User', 1, '{\"attributes\":{\"name\":\"Dev Test\",\"email\":\"developer@gmail.com\",\"employee_id\":\"EMP-0001\",\"phone\":\"09444161997\",\"nrc_number\":null,\"address\":\"YGN\",\"department_id\":1,\"created_at\":\"2022-03-28T17:58:34.000000Z\",\"updated_at\":\"2022-07-22T04:39:37.000000Z\"},\"old\":{\"name\":\"Dev Test\",\"email\":\"developer@gmail.com\",\"employee_id\":\"EMP-0001\",\"phone\":\"09444161997\",\"nrc_number\":null,\"address\":\"YGN\",\"department_id\":1,\"created_at\":\"2022-03-28T17:58:34.000000Z\",\"updated_at\":\"2022-07-21T14:51:45.000000Z\"}}', '2022-07-21 22:09:37', '2022-07-21 22:09:37'),
+(2324, 'cash_books_log', 'deleted', 'App\\Accounting\\CashBook', 960, 'App\\User', 1, '{\"attributes\":{\"cash_book_date\":\"2022-07-21\",\"month\":\"7\",\"year\":\"2022\",\"iv_one\":null,\"iv_two\":null,\"description\":\"Cash received from Ko Banyar Aung For IV-0068\\/22Q22L (CH-LVUDH12B0LB-303443)\",\"cash_in\":\"7745000\",\"cash_out\":\"0\",\"bank_in\":\"817420010.324\",\"bank_out\":\"0\",\"created_at\":\"2022-07-20T17:51:59.000000Z\",\"updated_at\":\"2022-07-20T18:10:44.000000Z\"}}', '2022-07-21 22:16:42', '2022-07-21 22:16:42'),
+(2325, 'cash_books_log', 'created', 'App\\Accounting\\CashBook', 962, 'App\\User', 1, '{\"attributes\":{\"cash_book_date\":\"2022-07-22\",\"month\":\"07\",\"year\":\"2022\",\"iv_one\":null,\"iv_two\":null,\"description\":null,\"cash_in\":\"5000\",\"cash_out\":\"0\",\"bank_in\":\"0\",\"bank_out\":\"0\",\"created_at\":\"2022-07-22T04:48:41.000000Z\",\"updated_at\":\"2022-07-22T04:48:41.000000Z\"}}', '2022-07-21 22:18:41', '2022-07-21 22:18:41'),
+(2326, 'cash_books_log', 'created', 'App\\Accounting\\CashBook', 963, 'App\\User', 1, '{\"attributes\":{\"cash_book_date\":\"2022-07-22\",\"month\":\"07\",\"year\":\"2022\",\"iv_one\":null,\"iv_two\":null,\"description\":\"1st Time Share Capital \\/ U Hla Moe\",\"cash_in\":\"20\",\"cash_out\":\"0\",\"bank_in\":\"0\",\"bank_out\":\"0\",\"created_at\":\"2022-07-22T04:57:48.000000Z\",\"updated_at\":\"2022-07-22T04:57:48.000000Z\"}}', '2022-07-21 22:27:48', '2022-07-21 22:27:48'),
+(2327, 'cash_books_log', 'created', 'App\\Accounting\\CashBook', 964, 'App\\User', 1, '{\"attributes\":{\"cash_book_date\":\"2022-07-22\",\"month\":\"07\",\"year\":\"2022\",\"iv_one\":null,\"iv_two\":null,\"description\":null,\"cash_in\":\"0\",\"cash_out\":\"0\",\"bank_in\":\"10\",\"bank_out\":\"0\",\"created_at\":\"2022-07-22T05:08:06.000000Z\",\"updated_at\":\"2022-07-22T05:08:06.000000Z\"}}', '2022-07-21 22:38:06', '2022-07-21 22:38:06'),
+(2328, 'cash_books_log', 'created', 'App\\Accounting\\CashBook', 965, 'App\\User', 1, '{\"attributes\":{\"cash_book_date\":\"2022-07-22\",\"month\":\"07\",\"year\":\"2022\",\"iv_one\":null,\"iv_two\":null,\"description\":null,\"cash_in\":\"2290\",\"cash_out\":\"0\",\"bank_in\":\"0\",\"bank_out\":\"0\",\"created_at\":\"2022-07-22T05:13:14.000000Z\",\"updated_at\":\"2022-07-22T05:13:14.000000Z\"}}', '2022-07-21 22:43:14', '2022-07-21 22:43:14'),
+(2329, 'cash_books_log', 'created', 'App\\Accounting\\CashBook', 966, 'App\\User', 1, '{\"attributes\":{\"cash_book_date\":\"2022-07-22\",\"month\":\"07\",\"year\":\"2022\",\"iv_one\":null,\"iv_two\":null,\"description\":null,\"cash_in\":\"30\",\"cash_out\":\"0\",\"bank_in\":\"0\",\"bank_out\":\"0\",\"created_at\":\"2022-07-22T05:29:38.000000Z\",\"updated_at\":\"2022-07-22T05:29:38.000000Z\"}}', '2022-07-21 22:59:38', '2022-07-21 22:59:38'),
+(2330, 'users_log', 'updated', 'App\\User', 1, 'App\\User', 1, '{\"attributes\":{\"name\":\"Dev Test\",\"email\":\"developer@gmail.com\",\"employee_id\":\"EMP-0001\",\"phone\":\"09444161997\",\"nrc_number\":null,\"address\":\"YGN\",\"department_id\":1,\"created_at\":\"2022-03-28T17:58:34.000000Z\",\"updated_at\":\"2022-07-22T14:30:57.000000Z\"},\"old\":{\"name\":\"Dev Test\",\"email\":\"developer@gmail.com\",\"employee_id\":\"EMP-0001\",\"phone\":\"09444161997\",\"nrc_number\":null,\"address\":\"YGN\",\"department_id\":1,\"created_at\":\"2022-03-28T17:58:34.000000Z\",\"updated_at\":\"2022-07-22T04:39:37.000000Z\"}}', '2022-07-22 08:00:57', '2022-07-22 08:00:57'),
+(2331, 'users_log', 'updated', 'App\\User', 1, 'App\\User', 1, '{\"attributes\":{\"name\":\"Dev Test\",\"email\":\"developer@gmail.com\",\"employee_id\":\"EMP-0001\",\"phone\":\"09444161997\",\"nrc_number\":null,\"address\":\"YGN\",\"department_id\":1,\"created_at\":\"2022-03-28T17:58:34.000000Z\",\"updated_at\":\"2022-07-25T16:36:29.000000Z\"},\"old\":{\"name\":\"Dev Test\",\"email\":\"developer@gmail.com\",\"employee_id\":\"EMP-0001\",\"phone\":\"09444161997\",\"nrc_number\":null,\"address\":\"YGN\",\"department_id\":1,\"created_at\":\"2022-03-28T17:58:34.000000Z\",\"updated_at\":\"2022-07-22T14:30:57.000000Z\"}}', '2022-07-25 10:06:29', '2022-07-25 10:06:29'),
+(2332, 'users_log', 'updated', 'App\\User', 1, 'App\\User', 1, '{\"attributes\":{\"name\":\"Dev Test\",\"email\":\"developer@gmail.com\",\"employee_id\":\"EMP-0001\",\"phone\":\"09444161997\",\"nrc_number\":null,\"address\":\"YGN\",\"department_id\":1,\"created_at\":\"2022-03-28T17:58:34.000000Z\",\"updated_at\":\"2022-07-26T01:11:04.000000Z\"},\"old\":{\"name\":\"Dev Test\",\"email\":\"developer@gmail.com\",\"employee_id\":\"EMP-0001\",\"phone\":\"09444161997\",\"nrc_number\":null,\"address\":\"YGN\",\"department_id\":1,\"created_at\":\"2022-03-28T17:58:34.000000Z\",\"updated_at\":\"2022-07-25T16:36:29.000000Z\"}}', '2022-07-25 18:41:04', '2022-07-25 18:41:04'),
+(2333, 'sales_invoices_log', 'created', 'App\\Models\\SalesInvoices', 1, 'App\\User', 1, '{\"attributes\":{\"customer_id\":1,\"id_no\":\"INV-00001\",\"invoice_no\":\"INV-00001\",\"invoice_date\":\"2022-07-26\",\"showroom_name\":\"MGM\",\"sales_type\":\"1 Year\",\"payment_team\":\"1 Year\",\"sales_persons_id\":1,\"delivery_date\":\"2022-07-26\",\"user_id\":1,\"created_at\":\"2022-07-26T02:15:22.000000Z\",\"updated_at\":\"2022-07-26T02:15:22.000000Z\"}}', '2022-07-25 19:45:22', '2022-07-25 19:45:22'),
+(2334, 'cash_books_log', 'created', 'App\\Accounting\\CashBook', 967, 'App\\User', 1, '{\"attributes\":{\"cash_book_date\":\"2022-07-26\",\"month\":\"07\",\"year\":\"2022\",\"iv_one\":null,\"iv_two\":null,\"description\":null,\"cash_in\":\"100\",\"cash_out\":\"0\",\"bank_in\":\"0\",\"bank_out\":\"0\",\"created_at\":\"2022-07-26T02:16:09.000000Z\",\"updated_at\":\"2022-07-26T02:16:09.000000Z\"}}', '2022-07-25 19:46:09', '2022-07-25 19:46:09'),
+(2335, 'cash_books_log', 'created', 'App\\Accounting\\CashBook', 968, 'App\\User', 1, '{\"attributes\":{\"cash_book_date\":\"2022-07-26\",\"month\":\"07\",\"year\":\"2022\",\"iv_one\":null,\"iv_two\":null,\"description\":\"2nd Payment\",\"cash_in\":\"200\",\"cash_out\":\"0\",\"bank_in\":\"0\",\"bank_out\":\"0\",\"created_at\":\"2022-07-26T02:19:37.000000Z\",\"updated_at\":\"2022-07-26T02:19:37.000000Z\"}}', '2022-07-25 19:49:37', '2022-07-25 19:49:37'),
+(2336, 'cash_books_log', 'created', 'App\\Accounting\\CashBook', 969, 'App\\User', 1, '{\"attributes\":{\"cash_book_date\":\"2022-07-26\",\"month\":\"07\",\"year\":\"2022\",\"iv_one\":null,\"iv_two\":null,\"description\":\"3rd Payment\",\"cash_in\":\"50\",\"cash_out\":\"0\",\"bank_in\":\"0\",\"bank_out\":\"0\",\"created_at\":\"2022-07-26T02:21:49.000000Z\",\"updated_at\":\"2022-07-26T02:21:49.000000Z\"}}', '2022-07-25 19:51:49', '2022-07-25 19:51:49'),
+(2337, 'sales_invoices_log', 'created', 'App\\Models\\SalesInvoices', 2, 'App\\User', 1, '{\"attributes\":{\"customer_id\":41,\"id_no\":\"HP-IV-00001\",\"invoice_no\":\"HP-IV-00001\",\"invoice_date\":\"2022-07-26\",\"showroom_name\":\"MGM\",\"sales_type\":\"1 Year\",\"payment_team\":\"1 Year\",\"sales_persons_id\":1,\"delivery_date\":\"2022-07-26\",\"user_id\":1,\"created_at\":\"2022-07-26T06:41:33.000000Z\",\"updated_at\":\"2022-07-26T06:41:33.000000Z\"}}', '2022-07-26 00:11:33', '2022-07-26 00:11:33'),
+(2338, 'sales_invoices_log', 'created', 'App\\Models\\SalesInvoices', 3, 'App\\User', 1, '{\"attributes\":{\"customer_id\":41,\"id_no\":\"HP-IV-00001\",\"invoice_no\":\"HP-IV-00001\",\"invoice_date\":\"2022-07-26\",\"showroom_name\":\"MGM\",\"sales_type\":\"1 Year\",\"payment_team\":\"1 Year\",\"sales_persons_id\":1,\"delivery_date\":\"2022-07-26\",\"user_id\":1,\"created_at\":\"2022-07-26T06:42:41.000000Z\",\"updated_at\":\"2022-07-26T06:42:41.000000Z\"}}', '2022-07-26 00:12:41', '2022-07-26 00:12:41'),
+(2339, 'sales_invoices_log', 'created', 'App\\Models\\SalesInvoices', 4, 'App\\User', 1, '{\"attributes\":{\"customer_id\":41,\"id_no\":\"INV-00001\",\"invoice_no\":\"INV-00001\",\"invoice_date\":\"2022-07-26\",\"showroom_name\":\"MGM\",\"sales_type\":\"1 Year\",\"payment_team\":\"2 Year\",\"sales_persons_id\":1,\"delivery_date\":\"2022-07-26\",\"user_id\":1,\"created_at\":\"2022-07-26T07:05:20.000000Z\",\"updated_at\":\"2022-07-26T07:05:20.000000Z\"}}', '2022-07-26 00:35:20', '2022-07-26 00:35:20'),
+(2340, 'sales_invoices_log', 'created', 'App\\Models\\SalesInvoices', 1, 'App\\User', 1, '{\"attributes\":{\"customer_id\":41,\"id_no\":\"INV-00001\",\"invoice_no\":\"INV-00001\",\"invoice_date\":\"2022-07-26\",\"showroom_name\":\"MGM\",\"sales_type\":\"1 Year\",\"payment_team\":\"1 Year\",\"sales_persons_id\":1,\"delivery_date\":\"2022-07-26\",\"user_id\":1,\"created_at\":\"2022-07-26T07:11:54.000000Z\",\"updated_at\":\"2022-07-26T07:11:54.000000Z\"}}', '2022-07-26 00:41:54', '2022-07-26 00:41:54'),
+(2341, 'sales_invoices_log', 'created', 'App\\Models\\SalesInvoices', 2, 'App\\User', 1, '{\"attributes\":{\"customer_id\":43,\"id_no\":\"INV-00002\",\"invoice_no\":\"INV-00002\",\"invoice_date\":\"2022-07-26\",\"showroom_name\":\"MGM\",\"sales_type\":\"1 Year\",\"payment_team\":\"1 Year\",\"sales_persons_id\":2,\"delivery_date\":\"2022-07-26\",\"user_id\":1,\"created_at\":\"2022-07-26T07:13:14.000000Z\",\"updated_at\":\"2022-07-26T07:13:14.000000Z\"}}', '2022-07-26 00:43:14', '2022-07-26 00:43:14');
 
 -- --------------------------------------------------------
 
@@ -3414,7 +3443,10 @@ INSERT INTO `cash_books` (`id`, `cash_book_date`, `month`, `year`, `iv_one`, `iv
 (957, '2020-05-28', '05', '2020', 'D-5097', NULL, 178, '28', 'U Aung Aung issue money for Golf Stick and Golf Bag )- Cheque No.727812-Ko Barbu and  Appraiser Captain', 0, 215, '0', '0', '0', '1740000', 2, '2022-06-26 22:47:50', '2022-06-26 22:47:50', NULL),
 (958, '2020-05-28', '05', '2020', NULL, NULL, 104, '26', 'Final Payment for Spare Part(USD-26,071.49)+Insurance(USD-15)+Freight(USD-1,980)/Exchange Rate(1,406MMK×USD-6,517.78)', 0, 215, '0', '0', '0', '9163998', 2, '2022-06-26 22:52:12', '2022-06-26 22:52:12', NULL),
 (959, '2020-05-28', '05', '2020', NULL, NULL, 104, '26', 'Final Payment for Spare Part(USD-26,071.49)+Insurance(USD-15)+Freight(USD-1,980)/Exchange Rate(1,403MMK×USD-13,149)', 0, 215, '0', '0', '0', '18448047', 2, '2022-06-26 22:53:42', '2022-06-26 22:53:42', NULL),
-(960, '2022-07-21', '7', '2022', NULL, NULL, 3, '3', 'Cash received from Ko Banyar Aung For IV-0068/22Q22L (CH-LVUDH12B0LB-303443)', 1, 201, '7745000', '0', '817420010.324', '0', 1, '2022-07-20 11:21:59', '2022-07-20 11:40:44', 1);
+(961, '2022-07-21', '07', '2022', 'INV-0002', NULL, 1, '1', 'No', 1, 201, '1000', '0', '0', '0', 1, '2022-07-20 22:01:17', '2022-07-20 22:01:17', 0),
+(967, '2022-07-26', '07', '2022', NULL, NULL, 3, '3', NULL, 1, 0, '100', '0', '0', '0', 1, '2022-07-25 19:46:09', '2022-07-25 19:46:09', 1),
+(968, '2022-07-26', '07', '2022', NULL, NULL, 3, '3', '2nd Payment', 0, 0, '200', '0', '0', '0', 1, '2022-07-25 19:49:37', '2022-07-25 19:49:37', 1),
+(969, '2022-07-26', '07', '2022', NULL, NULL, 3, '3', '3rd Payment', 1, 0, '50', '0', '0', '0', 1, '2022-07-25 19:51:49', '2022-07-25 19:51:49', 1);
 
 -- --------------------------------------------------------
 
@@ -4047,7 +4079,13 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (24, '2022_06_08_042917_add_description_to_sales_items_table', 9),
 (26, '2022_07_02_041220_create_sale_pay_nows_table', 10),
 (27, '2022_07_02_101145_create_sale_refunds_table', 11),
-(28, '2022_07_20_173021_add_sales_invoice_id_to_cash_books_table', 12);
+(28, '2022_07_20_173021_add_sales_invoice_id_to_cash_books_table', 12),
+(29, '2022_07_21_093316_drop_sales_journals_table', 13),
+(30, '2022_07_21_093616_drop_sale_pay_nows_table', 14),
+(31, '2022_07_21_094309_add_post_ref_to_sales_invoices_table', 15),
+(32, '2022_07_21_173607_add_customer_id_to_sales_invoices_payments_table', 16),
+(34, '2022_07_26_025606_add_hp_payment_fields_to_sales_invoices_payments_table', 17),
+(35, '2022_07_26_070646_add_hp_or_dealer_to_sales_invoices_table', 18);
 
 -- --------------------------------------------------------
 
@@ -4271,16 +4309,18 @@ CREATE TABLE `sales_invoices` (
   `delivery_date` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `user_id` int(11) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `post_ref` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `hp_or_dealer` text COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `sales_invoices`
 --
 
-INSERT INTO `sales_invoices` (`id`, `customer_id`, `id_no`, `invoice_no`, `invoice_date`, `showroom_name`, `sales_type`, `payment_team`, `sales_persons_id`, `delivery_date`, `user_id`, `created_at`, `updated_at`) VALUES
-(1, 4, '9/Ma Ka Na ( N ) 076794', 'IV-0001/2020', '2020-05-16', 'MGM', 'Dealer Sales', 'Credit Term', 2, '2020-05-18', 1, '2022-07-06 02:03:02', '2022-07-20 01:26:23'),
-(2, 4, '9/Ma Ka Na ( N ) 076794', 'IV-0002/2020', '2020-05-16', 'MGM', 'Dealer Sales', 'Credit Term', 2, '2020-05-18', 1, '2022-07-06 02:03:02', '2022-07-20 01:26:23');
+INSERT INTO `sales_invoices` (`id`, `customer_id`, `id_no`, `invoice_no`, `invoice_date`, `showroom_name`, `sales_type`, `payment_team`, `sales_persons_id`, `delivery_date`, `user_id`, `created_at`, `updated_at`, `post_ref`, `hp_or_dealer`) VALUES
+(1, 41, 'INV-00001', 'INV-00001', '2022-07-26', 'MGM', '1 Year', '1 Year', 1, '2022-07-26', 1, '2022-07-26 00:41:54', '2022-07-26 00:41:54', 'R-00001', 'hp'),
+(2, 43, 'INV-00002', 'INV-00002', '2022-07-26', 'MGM', '1 Year', '1 Year', 2, '2022-07-26', 1, '2022-07-26 00:43:14', '2022-07-26 00:43:14', 'R-00002', 'hp');
 
 -- --------------------------------------------------------
 
@@ -4298,15 +4338,30 @@ CREATE TABLE `sales_invoices_payments` (
   `balance_to_pay_be_date` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `sales_invoice_id` int(11) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `customer_id` int(11) DEFAULT NULL,
+  `hp_loan_percentage` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `hp_loan_amount` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `hp_interest_rate_percentage` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `hp_commission_fees` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `hp_tenor` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `hp_account_opening` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `hp_document_fees` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `hp_stamp_duty` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `hp_insurance` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `hp_commission` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `hp_service_charges` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `hp_total_downpayment` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `hp_monthly_payment` text COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `sales_invoices_payments`
 --
 
-INSERT INTO `sales_invoices_payments` (`id`, `total_amount`, `down_payment`, `discount`, `dealer_ercentage`, `balance_to_be_pay`, `balance_to_pay_be_date`, `sales_invoice_id`, `created_at`, `updated_at`) VALUES
-(1, '56800000', '25900000', '0', NULL, NULL, NULL, 1, '2022-07-06 02:03:02', '2022-07-20 01:28:02');
+INSERT INTO `sales_invoices_payments` (`id`, `total_amount`, `down_payment`, `discount`, `dealer_ercentage`, `balance_to_be_pay`, `balance_to_pay_be_date`, `sales_invoice_id`, `created_at`, `updated_at`, `customer_id`, `hp_loan_percentage`, `hp_loan_amount`, `hp_interest_rate_percentage`, `hp_commission_fees`, `hp_tenor`, `hp_account_opening`, `hp_document_fees`, `hp_stamp_duty`, `hp_insurance`, `hp_commission`, `hp_service_charges`, `hp_total_downpayment`, `hp_monthly_payment`) VALUES
+(1, '18500000', NULL, '0', '0', '0', '0', 1, '2022-07-26 00:41:54', '2022-07-26 00:41:54', 41, '30', '5550000', '25', '0', '12', '0', '0', '0', '0', '0', '0', '0', '1230822.43'),
+(2, '18500000', NULL, '0', '0', '0', '0', 2, '2022-07-26 00:43:14', '2022-07-26 00:43:14', 43, '30', '5550000', '25', '0', '12', '10', '10', '10', '10', '10', '10', '60', '1230822.43');
 
 -- --------------------------------------------------------
 
@@ -4330,51 +4385,8 @@ CREATE TABLE `sales_items` (
 --
 
 INSERT INTO `sales_items` (`id`, `product_id`, `qty`, `unit_price`, `sales_invoice_id`, `created_at`, `updated_at`, `description`) VALUES
-(1, 47, 1, '11500000', 1, '2022-07-06 02:03:02', '2022-07-06 02:03:02', 'Q22D'),
-(2, 45, 1, '11500000', 1, '2022-07-06 02:03:02', '2022-07-06 02:03:02', 'Q22D'),
-(3, 46, 1, '11500000', 1, '2022-07-06 02:03:02', '2022-07-06 02:03:02', 'Q22D'),
-(4, 38, 1, '11500000', 1, '2022-07-06 02:03:02', '2022-07-06 02:03:02', 'Q22D'),
-(5, 33, 1, '10800000', 1, '2022-07-06 02:03:02', '2022-07-06 02:03:02', 'Q22B');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `sales_journals`
---
-
-CREATE TABLE `sales_journals` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `sales_journal_date` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `customer_id` int(11) DEFAULT NULL,
-  `sales_invoice_id` int(11) DEFAULT NULL,
-  `post_ref` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `debited` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `credited` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `user_id` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `sale_pay_nows`
---
-
-CREATE TABLE `sale_pay_nows` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `sales_invoice_id` int(11) DEFAULT NULL,
-  `sales_invoices_payment_id` int(11) DEFAULT NULL,
-  `receive_by` int(11) DEFAULT NULL,
-  `payment_status` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `payment_time` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `remark` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `received_date` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `pay_amount` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `user_id` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+(1, 25, 1, '18500000', 1, '2022-07-26 00:41:54', '2022-07-26 00:41:54', 'No'),
+(2, 26, 1, '18500000', 2, '2022-07-26 00:43:14', '2022-07-26 00:43:14', 'null');
 
 -- --------------------------------------------------------
 
@@ -4471,7 +4483,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`, `employee_id`, `phone`, `nrc_number`, `gender`, `address`, `department_id`, `last_login_at`, `last_login_ip`, `agent`) VALUES
-(1, 'Dev Test', 'developer@gmail.com', NULL, '$2y$10$fCdZ6o33mm5ftnDrz63j4O1ssBWd1mrEaCfHLwaVpgr2ei7t3RURe', NULL, '2022-03-28 11:28:34', '2022-07-20 10:24:35', 'EMP-0001', '09444161997', NULL, 'male', 'YGN', 1, '2022-07-20 16:54:35', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36'),
+(1, 'Dev Test', 'developer@gmail.com', NULL, '$2y$10$fCdZ6o33mm5ftnDrz63j4O1ssBWd1mrEaCfHLwaVpgr2ei7t3RURe', NULL, '2022-03-28 11:28:34', '2022-07-25 18:41:04', 'EMP-0001', '09444161997', NULL, 'male', 'YGN', 1, '2022-07-26 01:11:04', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36'),
 (2, 'U Aung Cho Tun', 'aungchotun@gmail.com', NULL, '$2y$10$tl7wt/VHxT8TX1cZwGzUhuT/RyFx.TU3kI/2gmAXywdc294eCHTra', 'KyAsL3PniXpQqZBoPCp50e8Pq9rw4IjSBsYgJD8eQJod5ICz3u8M4vcOKrdZ', '2022-03-28 19:41:13', '2022-05-23 02:42:32', 'EMP-00002', '09123123123', NULL, 'male', 'YGN', 1, '2022-05-23 09:42:32', '103.215.192.77', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.67 Safari/537.36'),
 (3, 'SalesTest', 'sales1@gmail.com', NULL, '$2y$10$O537tRbTWZ1xNvxKrbXYjurjj/dyQOK7QLlhG4zWQf.0qJvbrYqaS', NULL, '2022-07-01 02:31:45', '2022-07-01 02:31:45', 'EMP-00003', '09255378857', NULL, 'male', 'Hlaing', 2, NULL, NULL, NULL);
 
@@ -4567,18 +4579,6 @@ ALTER TABLE `sales_items`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `sales_journals`
---
-ALTER TABLE `sales_journals`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `sale_pay_nows`
---
-ALTER TABLE `sale_pay_nows`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indexes for table `sale_refunds`
 --
 ALTER TABLE `sale_refunds`
@@ -4622,7 +4622,7 @@ ALTER TABLE `account_types`
 -- AUTO_INCREMENT for table `activity_log`
 --
 ALTER TABLE `activity_log`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2313;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2342;
 
 --
 -- AUTO_INCREMENT for table `brands`
@@ -4634,7 +4634,7 @@ ALTER TABLE `brands`
 -- AUTO_INCREMENT for table `cash_books`
 --
 ALTER TABLE `cash_books`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=961;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=970;
 
 --
 -- AUTO_INCREMENT for table `cash_collections`
@@ -4664,7 +4664,7 @@ ALTER TABLE `departments`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT for table `products`
@@ -4682,25 +4682,13 @@ ALTER TABLE `sales_invoices`
 -- AUTO_INCREMENT for table `sales_invoices_payments`
 --
 ALTER TABLE `sales_invoices_payments`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `sales_items`
 --
 ALTER TABLE `sales_items`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
--- AUTO_INCREMENT for table `sales_journals`
---
-ALTER TABLE `sales_journals`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `sale_pay_nows`
---
-ALTER TABLE `sale_pay_nows`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `sale_refunds`
@@ -4718,7 +4706,7 @@ ALTER TABLE `suppliers`
 -- AUTO_INCREMENT for table `temporary_sales_items`
 --
 ALTER TABLE `temporary_sales_items`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `users`

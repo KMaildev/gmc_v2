@@ -154,4 +154,15 @@ class CustomerController extends Controller
         $customers_data = Customers::findOrFail($id);
         return json_encode($customers_data);
     }
+
+    /**
+     * Get Ajax Request and restun Data
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function get_dealer_customer_ajax($id)
+    {
+        $customers_data = Customers::findOrFail($id);
+        return json_encode($customers_data);
+    }
 }
