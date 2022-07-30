@@ -231,148 +231,277 @@
                     </div>
 
                     <div class="col-md-12 col-sm-12 col-lg-12 py-5">
-                        <span style="font-weight: bold">
-                            ({{ $sales_invoice->payment_team ?? '' }})
-                        </span>
-                        <table style="width:100%">
-                            <tr>
-                                <th style="width: 2%; text-align: center;">
-                                    Sr No
-                                </th>
-                                <th style="width: 10%; text-align: center;">
-                                    Repayment Due Date
-                                </th>
-                                <th style="width: 10%; text-align: center;">
-                                    Principle
-                                </th>
-                                <th style="width: 10%; text-align: center;">
-                                    Interest
-                                </th>
-                                <th style="width: 10%; text-align: center;">
-                                    Total
-                                </th>
-                                <th style="width: 10%; text-align: center;">
-                                    HP Balance
-                                </th>
-                            </tr>
-
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td style="width: 10%; text-align: right;">
-                                    @php
-                                        echo number_format($hp_loan_amount, 2);
-                                    @endphp
-                                </td>
-                            </tr>
-                            @php
-                                // Repayment Due Date
-                                function addMonths($date, $months)
-                                {
-                                    $orig_day = $date->format('d');
-                                    $date->modify('+' . $months . ' months');
-                                    while ($date->format('d') < $orig_day && $date->format('d') < 5) {
-                                        $date->modify('-1 day');
-                                    }
-                                }
-                                
-                                $number_of_month = $sales_invoice->sales_invoices_payments_table->hp_tenor ?? 0;
-                                $start_date = $sales_invoice->invoice_date;
-                                $interest_rate = $sales_invoice->sales_invoices_payments_table->hp_interest_rate_percentage ?? 0;
-                                $balance = $sales_invoice->sales_invoices_payments_table->hp_loan_amount ?? 0;
-                                $monthly_payment = $sales_invoice->sales_invoices_payments_table->hp_monthly_payment ?? 0;
-                                
-                                // Total
-                                $TotalPrincipal = [];
-                                $TotalInterest = [];
-                            @endphp
-                            @for ($month = 0; $month < $number_of_month; $month++)
-                                @php
-                                    $interest = ($balance * $interest_rate) / 1200;
-                                    $principal = $monthly_payment - $interest;
-                                    $balance -= $principal;
-                                    
-                                    // Total
-                                    $TotalPrincipal[] = $principal;
-                                    $TotalInterest[] = $interest;
-                                    $Total = [];
-                                @endphp
+                        <div class="row">
+                            <span style="font-weight: bold">
+                                ({{ $sales_invoice->payment_team ?? '' }})
+                            </span>
+                            <table style="width: 50%">
                                 <tr>
-                                    <td style="text-align: center">
+                                    <th style="width: 2%; text-align: center;">
+                                        Sr
+                                    </th>
+                                    <th style="width: 10%; text-align: center;">
+                                        Due Date
+                                    </th>
+                                    <th style="width: 10%; text-align: center;">
+                                        Principle
+                                    </th>
+                                    <th style="width: 10%; text-align: center;">
+                                        Interest
+                                    </th>
+                                    <th style="width: 10%; text-align: center;">
+                                        Total
+                                    </th>
+                                    <th style="width: 10%; text-align: center;">
+                                        HP Balance
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td style="width: 10%; text-align: right;">
                                         @php
-                                            echo $month + 1;
-                                        @endphp
-                                    </td>
-
-                                    <td style="text-align: center">
-                                        @php
-                                            $d = new DateTime($start_date);
-                                            addmonths($d, $month);
-                                            echo $d->format('Y-m-d');
-                                        @endphp
-                                    </td>
-
-                                    <td style="text-align: right">
-                                        @php
-                                            echo number_format($principal, 2);
-                                        @endphp
-                                    </td>
-
-                                    <td style="text-align: right">
-                                        @php
-                                            echo number_format($interest, 2);
-                                        @endphp
-                                    </td>
-
-                                    <td style="text-align: right">
-                                        @php
-                                            $total = $principal + $interest;
-                                            echo number_format($total, 2);
-                                            $Total[] = $total;
-                                        @endphp
-                                    </td>
-
-                                    <td style="text-align: right">
-                                        @php
-                                            echo number_format($balance, 2);
+                                            echo number_format($hp_loan_amount, 2);
                                         @endphp
                                     </td>
                                 </tr>
-                            @endfor
-                            <tr>
-                                <td colspan="2">
-                                    Total
-                                </td>
-
-                                {{-- Principle --}}
-                                <td style="text-align: right">
+                                @php
+                                    // Repayment Due Date
+                                    function addMonths($date, $months)
+                                    {
+                                        $orig_day = $date->format('d');
+                                        $date->modify('+' . $months . ' months');
+                                        while ($date->format('d') < $orig_day && $date->format('d') < 5) {
+                                            $date->modify('-1 day');
+                                        }
+                                    }
+                                    
+                                    $number_of_month = $sales_invoice->sales_invoices_payments_table->hp_tenor ?? 0;
+                                    $start_date = $sales_invoice->invoice_date;
+                                    $interest_rate = $sales_invoice->sales_invoices_payments_table->hp_interest_rate_percentage ?? 0;
+                                    $balance = $sales_invoice->sales_invoices_payments_table->hp_loan_amount ?? 0;
+                                    $monthly_payment = $sales_invoice->sales_invoices_payments_table->hp_monthly_payment ?? 0;
+                                    
+                                    // Total
+                                    $TotalPrincipal = [];
+                                    $TotalInterest = [];
+                                @endphp
+                                @for ($month = 0; $month < $number_of_month; $month++)
                                     @php
-                                        $TotalPrincipal = array_sum($TotalPrincipal);
-                                        echo number_format($TotalPrincipal, 2);
+                                        $interest = ($balance * $interest_rate) / 1200;
+                                        $principal = $monthly_payment - $interest;
+                                        $balance -= $principal;
+                                        
+                                        // Total
+                                        $TotalPrincipal[] = $principal;
+                                        $TotalInterest[] = $interest;
+                                        $Total = [];
                                     @endphp
-                                </td>
+                                    <tr>
+                                        <td style="text-align: center">
+                                            @php
+                                                echo $month + 1;
+                                            @endphp
+                                        </td>
 
-                                {{-- Interest --}}
-                                <td style="text-align: right">
-                                    @php
-                                        $TotalInterest = array_sum($TotalInterest);
-                                        echo number_format($TotalInterest, 2);
-                                    @endphp
-                                </td>
+                                        <td style="text-align: center">
+                                            @php
+                                                $d = new DateTime($start_date);
+                                                addmonths($d, $month);
+                                                echo $d->format('Y-m-d');
+                                            @endphp
+                                        </td>
 
-                                {{-- Total --}}
-                                <td style="text-align: right">
-                                    @php
-                                        $Total = array_sum($Total);
-                                        echo number_format($Total, 2);
-                                    @endphp
-                                </td>
-                                <td></td>
-                            </tr>
-                        </table>
+                                        <td style="text-align: right">
+                                            @php
+                                                echo number_format($principal, 2);
+                                            @endphp
+                                        </td>
+
+                                        <td style="text-align: right">
+                                            @php
+                                                echo number_format($interest, 2);
+                                            @endphp
+                                        </td>
+
+                                        <td style="text-align: right">
+                                            @php
+                                                $total = $principal + $interest;
+                                                echo number_format($total, 2);
+                                                $Total[] = $total;
+                                            @endphp
+                                        </td>
+
+                                        <td style="text-align: right">
+                                            @php
+                                                echo number_format($balance, 2);
+                                            @endphp
+                                        </td>
+                                    </tr>
+                                @endfor
+                                <tr>
+                                    <td colspan="2">
+                                        Total
+                                    </td>
+
+                                    {{-- Principle --}}
+                                    <td style="text-align: right">
+                                        @php
+                                            $TotalPrincipal = array_sum($TotalPrincipal);
+                                            echo number_format($TotalPrincipal, 2);
+                                        @endphp
+                                    </td>
+
+                                    {{-- Interest --}}
+                                    <td style="text-align: right">
+                                        @php
+                                            $TotalInterest = array_sum($TotalInterest);
+                                            echo number_format($TotalInterest, 2);
+                                        @endphp
+                                    </td>
+
+                                    {{-- Total --}}
+                                    <td style="text-align: right">
+                                        @php
+                                            $Total = array_sum($Total);
+                                            echo number_format($Total, 2);
+                                        @endphp
+                                    </td>
+
+                                    <td></td>
+                                </tr>
+                            </table>
+                            
+
+                            {{-- Recieve Date --}}
+                            <table style="width: 7%;">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 10%; text-align: center;">
+                                            Recieve Date
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <td><br></td>
+                                    </tr>
+                                    @foreach ($sales_invoice->cash_books_table as $key => $cash_books)
+                                        @php
+                                            if ($cash_books->principle_interest == 'Interest') {
+                                                continue;
+                                            }
+                                        @endphp
+                                        <tr>
+                                            <td style="text-align: center">
+                                                @if ($cash_books->principle_interest == 'Principle')
+                                                    {{ $cash_books->cash_book_date ?? '' }}
+                                                @endif
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+
+                            {{-- Principle --}}
+                            <table style="width: 10%;">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 10%; text-align: center;">
+                                            Principle
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <td><br></td>
+                                    </tr>
+                                    @foreach ($sales_invoice->cash_books_table as $key => $cash_books)
+                                        @php
+                                            if ($cash_books->principle_interest == 'Interest') {
+                                                continue;
+                                            }
+                                            $cash_book_cash_in = $cash_books->cash_in;
+                                            $cash_book_bank_in = $cash_books->bank_in;
+                                            $TotalBankCash = $cash_book_cash_in + $cash_book_bank_in;
+                                        @endphp
+                                        <tr>
+                                            <td style="text-align: right">
+                                                @if ($cash_books->principle_interest == 'Principle')
+                                                    {{ number_format($TotalBankCash ?? 0, 2) }}
+                                                @endif
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+
+                            {{-- Interest --}}
+                            <table style="width: 10%;">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 10%; text-align: center;">
+                                            Interest
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <td><br></td>
+                                    </tr>
+                                    @foreach ($sales_invoice->cash_books_table as $key => $cash_books)
+                                        @php
+                                            if ($cash_books->principle_interest == 'Principle') {
+                                                continue;
+                                            }
+                                            $cash_book_cash_in = $cash_books->cash_in;
+                                            $cash_book_bank_in = $cash_books->bank_in;
+                                            $TotalBankCash = $cash_book_cash_in + $cash_book_bank_in;
+                                        @endphp
+                                        <tr>
+                                            <td style="text-align: right">
+                                                @if ($cash_books->principle_interest == 'Interest')
+                                                    {{ number_format($TotalBankCash ?? 0, 2) }}
+                                                @endif
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+
+                            {{-- Total --}}
+                            <table style="width: 10%;">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 10%; text-align: center;">
+                                            Total
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <td><br></td>
+                                    </tr>
+                                    @foreach ($sales_invoice->cash_books_table as $key => $cash_books)
+                                        @php
+                                            $cash_book_cash_in = $cash_books->cash_in;
+                                            $cash_book_bank_in = $cash_books->bank_in;
+                                            $TotalBankCash = $cash_book_cash_in + $cash_book_bank_in;
+                                        @endphp
+                                        <tr>
+                                            <td style="text-align: right">
+                                                {{-- @if ($cash_books->principle_interest == 'Principle')
+                                                    {{ number_format($TotalBankCash ?? 0, 2) }}
+                                                @endif
+
+                                                @if ($cash_books->principle_interest == 'Interest')
+                                                    {{ number_format($TotalBankCash ?? 0, 2) }}
+                                                @endif --}}
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>

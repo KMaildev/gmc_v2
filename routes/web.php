@@ -4,17 +4,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Spatie\Activitylog\Models\Activity;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
 Route::get('/', function () {
     return view('auth.login');
 });
@@ -39,6 +28,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('subaccount', 'Accounting\SubAccountController');
     Route::resource('bankform', 'Accounting\BankFormController');
 
+    // Customer 
     Route::resource('customer', 'CustomerController');
     Route::get('get_customer_ajax/{id}', array('as' => 'get_customer_ajax', 'uses' => 'CustomerController@get_customer_ajax'));
     Route::get('get_dealer_customer_ajax/{id}', array('as' => 'get_dealer_customer_ajax', 'uses' => 'CustomerController@get_dealer_customer_ajax'));
@@ -48,35 +38,32 @@ Route::middleware('auth')->group(function () {
     Route::resource('hp_customer', 'HpCustomerController');
     Route::get('hp_customer_export', 'HpCustomerController@hp_customer_export')->name('hp_customer_export');
 
+    // Supplier 
     Route::resource('supplier', 'SupplierController');
     Route::post('supplier_import', 'SupplierController@supplier_import')->name('supplier_import');
 
-    Route::resource('brand', 'BrandController');
 
+
+    // Brand & Products 
+    Route::resource('brand', 'BrandController');
     Route::resource('products', 'ProductsController');
     Route::get('get_products_ajax/{id}', array('as' => 'get_products_ajax', 'uses' => 'ProductsController@get_products_ajax'));
     Route::post('product_import', 'ProductsController@product_import')->name('product_import');
-
     Route::resource('import_car', 'Accounting\ImportCarController');
 
-    Route::resource('department', 'DepartmentController');
-    Route::resource('employee', 'EmployeeController');
-    Route::get('emp_export', 'EmployeeController@emp_export')->name('emp_export');
-
+    // CashBook 
     Route::resource('cashbook', 'Accounting\CashBookController');
     Route::get('cashbook_export', 'Accounting\CashBookController@cashbook_export')->name('cashbook_export');
-
     Route::resource('daily_report', 'Accounting\DailyReportController');
 
-    Route::resource('changepassword', 'ChangePasswordController');
-    Route::resource('activity', 'Activity\ActivityLogController');
+
 
     // Dealer Sales 
     Route::resource('sales_invoices', 'Accounting\SalesInvoicesController');
     Route::get('get_sales_invoices/{id}', array('as' => 'get_sales_invoices', 'uses' => 'Accounting\SalesInvoicesController@get_sales_invoices'));
+    Route::get('get_sales_invoices_ajax/{type}', array('as' => 'get_sales_invoices_ajax', 'uses' => 'Accounting\SalesInvoicesController@get_sales_invoices_ajax'));
     Route::get('get_sales_items/{id}', array('as' => 'get_sales_items', 'uses' => 'Accounting\SalesInvoicesController@get_sales_items'));
     Route::get('sale_invoice_pdf_download/{id}', array('as' => 'sale_invoice_pdf_download', 'uses' => 'Accounting\SalesInvoicesController@sale_invoice_pdf_download'));
-
 
 
     // HP Sales 
@@ -84,16 +71,13 @@ Route::middleware('auth')->group(function () {
     Route::get('hp_invoice_view/{id}', array('as' => 'hp_invoice_view', 'uses' => 'Hp\SalesInvoiceController@hp_invoice_view'));
 
 
-
-
     // Sale Pay Now
     Route::resource('sale_pay_now', 'Accounting\SalePaynowController');
     Route::get('sales_inv_paynow_create/{id}', array('as' => 'sales_inv_paynow_create', 'uses' => 'Accounting\SalePaynowController@salePayNow'));
 
-
+    // Sales Group
     Route::resource('sales_journal', 'Accounting\SalesJournalController');
     Route::get('get_sales_journals/{id}', array('as' => 'get_sales_journals', 'uses' => 'Accounting\SalesJournalController@get_sales_journals'));
-
     Route::resource('cash_collection', 'Accounting\CashCollectionController');
     Route::resource('sales_ledger', 'Accounting\SalesLedgerController');
     Route::resource('account_receivables', 'Accounting\AccountReceivablesController');
@@ -109,6 +93,13 @@ Route::middleware('auth')->group(function () {
     Route::get('sales_items_remove/{id}', array('as' => 'sales_items_remove', 'uses' => 'Accounting\SalesItemsController@sales_items_remove'));
 
 
+
+
+    Route::resource('department', 'DepartmentController');
+    Route::resource('employee', 'EmployeeController');
+    Route::get('emp_export', 'EmployeeController@emp_export')->name('emp_export');
+    Route::resource('changepassword', 'ChangePasswordController');
+    Route::resource('activity', 'Activity\ActivityLogController');
     Route::resource('role', 'RoleController');
     Route::resource('permission', 'PermissionController');
 });

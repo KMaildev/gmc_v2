@@ -127,7 +127,6 @@
                                         @include('accounting.cash_collection.table.payment_received_table')
                                     </td>
 
-
                                     {{-- Refund --}}
                                     <td>
                                         @include('accounting.cash_collection.table.refund_table')

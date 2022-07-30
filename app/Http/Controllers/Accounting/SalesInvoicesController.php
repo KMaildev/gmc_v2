@@ -204,6 +204,17 @@ class SalesInvoicesController extends Controller
 
 
     /**
+     * Get Ajax Request and restun Data
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function get_sales_invoices_ajax($type)
+    {
+        $sales_invoice_data = SalesInvoices::where('hp_or_dealer', $type)->get();
+        return json_encode($sales_invoice_data);
+    }
+
+    /**
      * @return \Illuminate\Support\Collection
      */
     public function get_sales_items($id)
@@ -229,7 +240,7 @@ class SalesInvoicesController extends Controller
         $sales_invoice = SalesInvoices::findOrFail($id);
         $sales_items = SalesItems::orderBy('id')->where('sales_invoice_id', $id)->get();
         $sales_invoices_payment = SalesInvoicesPayments::where('sales_invoice_id', $id)->first();
-  
+
         $data = [
             'sales_invoice' => $sales_invoice,
             'sales_items' => $sales_items,

@@ -80,7 +80,13 @@
                                     IV-No
                                 </th>
                                 <th style="color: white; background-color: #2e696e; text-align: center;">
+                                    Sale Type
+                                </th>
+                                <th style="color: white; background-color: #2e696e; text-align: center;">
                                     IV-No2
+                                </th>
+                                <th style="color: white; background-color: #2e696e; text-align: center;">
+                                    Principle/Interest
                                 </th>
                                 <th style="color: white; background-color: #2e696e; text-align: center;">
                                     A/C Code
@@ -197,10 +203,12 @@
                                             {{ $cash_book->iv_one }}
                                         </td>
 
+                                        <td></td>
+
                                         <td style="text-align: center;">
                                             {{ $cash_book->sales_invoices_table->invoice_no ?? $cash_book->iv_two }}
                                         </td>
-
+                                        <td></td>
                                         <td style="text-align: center;">
                                             {{ $cash_book->chartof_account_table->coa_number ?? '' }}
                                         </td>
@@ -371,5 +379,4 @@
 @endsection
 
 @section('script')
-
 @endsection

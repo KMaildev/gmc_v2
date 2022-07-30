@@ -27,8 +27,8 @@ class CashBookController extends Controller
         $chartof_accounts = ChartofAccount::orderBy('coa_number', 'ASC')->get();
         $cash_book_form_status = 'is_create';
 
-        // $cash_books = CashBook::orderBy('cash_book_date', 'ASC')->paginate(500);
-        $cash_books = CashBook::orderBy('cash_book_date', 'ASC')->get();
+        $cash_books = CashBook::orderBy('cash_book_date', 'ASC')->paginate(10);
+        // $cash_books = CashBook::orderBy('cash_book_date', 'ASC')->get();
         if (request('search')) {
             $cash_books = CashBook::where(function ($query) {
                 $query->where('iv_one', 'Like', '%' . request('search') . '%');
@@ -50,13 +50,13 @@ class CashBookController extends Controller
         } else {
             $from_date = '2019-06-01'; //date('Y-m-d', strtotime('first day of this month'));
             $to_date = date('Y-m-d', strtotime('last day of this month'));
-            $cash_books = CashBook::whereBetween('cash_book_date', [$from_date, $to_date])->orderBy('cash_book_date', 'ASC')->paginate(5000);
+            $cash_books = CashBook::whereBetween('cash_book_date', [$from_date, $to_date])->orderBy('cash_book_date', 'ASC')->paginate(10);
             // Closing Clash and Bank Balance
             $beforeFirstDays = DB::table('cash_books')
                 ->whereDate('cash_book_date', '<', $from_date)
-                ->get();
+                ->paginate(10);
+                // ->get();
         }
-
         $filter_date = ['from_date' => $from_date, 'to_date' => $to_date];
         return view('accounting.cash_book.index', compact('cash_books', 'chartof_accounts', 'beforeFirstDays', 'cash_book_form_status', 'filter_date', 'sales_invoices'));
     }
@@ -96,6 +96,8 @@ class CashBookController extends Controller
         $cash_book->bank_in = $request->bank_in ?? 0;
         $cash_book->bank_out = $request->bank_out ?? 0;
         $cash_book->sales_invoice_id = $request->sales_invoice_id;
+        $cash_book->sale_type = $request->sale_type;
+        $cash_book->principle_interest = $request->principle_interest;
         $cash_book->user_id = auth()->user()->id;
         $cash_book->save();
         return redirect()->back()->with('success', 'Created successfully.');

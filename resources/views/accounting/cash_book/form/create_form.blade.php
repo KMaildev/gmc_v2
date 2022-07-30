@@ -39,15 +39,20 @@
             @enderror
         </td>
 
+        {{-- Sale Type --}}
+        <td>
+            <select class="select3 form-select form-select-sm" id="SaleType">
+                <option value="">-- Sale Type --</option>
+                <option value="dealer">Dealer Invoice</option>
+                <option value="hp">HP Invoice</option>
+                <option value="cash_sale_invoice">Cash Sale Invoice</option>
+            </select>
+        </td>
+
         <!-- INV TWO -->
         <td>
             <select class="select2 form-select form-select-sm" data-allow-clear="false" id="SaleInvoiceId">
                 <option value="">--Please Select Invoice --</option>
-                @foreach ($sales_invoices as $sales_invoice)
-                    <option value="{{ $sales_invoice->id }}">
-                        {{ $sales_invoice->invoice_no ?? '' }}
-                    </option>
-                @endforeach
             </select>
             @error('account_code')
                 <div class="invalid-feedback"> {{ $message }} </div>
@@ -60,6 +65,17 @@
             @error('iv_two')
                 <div class="invalid-feedback"> {{ $message }} </div>
             @enderror
+        </td>
+
+        {{-- Principle/Interest --}}
+        <td>
+            <span id="PrincipleInterest">
+                <select class="select3 form-select form-select-sm" data-allow-clear="false" id="PrincipleAndInterest">
+                    <option value="">-- Select --</option>
+                    <option value="Principle">Principle</option>
+                    <option value="Interest">Interest</option>
+                </select>
+            </span>
         </td>
 
         <td>
@@ -187,7 +203,8 @@
     <input type="hidden" name="cash_account" id="CashAccount">
     <input type="hidden" name="bank_account" id="BankAccount">
     <input type="hidden" name="sales_invoice_id" id="SaleInvoiceIdValue" value="0">
-
+    <input type="hidden" name="sale_type" id="SaleTypeValue">
+    <input type="hidden" name="principle_interest" id="PrincipleAndInterestValue">
 </form>
 
 @section('script')
@@ -281,6 +298,51 @@
                 }
             }
             document.getElementById("cashDateField").addEventListener("blur", getCashBookDate)
+        });
+
+
+
+        $(document).ready(function() {
+            $('select[id="SaleType"]').on('change', function() {
+                var SaleTypeValue = $(this).val();
+                document.getElementById("SaleTypeValue").value = SaleTypeValue;
+
+                if (SaleTypeValue === 'hp') {
+                    $("#PrincipleInterest").show();
+                } else {
+                    $("#PrincipleInterest").hide();
+                }
+
+                $.ajax({
+                    url: '/get_sales_invoices_ajax/' + SaleTypeValue,
+                    type: "GET",
+                    dataType: "json",
+                    success: function(data) {
+                        if (data) {
+                            $('#SaleInvoiceId').empty();
+                            $('#SaleInvoiceId').append($('<option>', {
+                                text: "--Please Select Invoice--"
+                            }));
+                            $.each(data, function(key, value) {
+                                $('#SaleInvoiceId').append($('<option>', {
+                                    value: value.id,
+                                    text: value.invoice_no
+                                }));
+                            });
+                        } else {
+                            $('#SaleInvoiceId').empty();
+                        }
+                    }
+                });
+            });
+            $("#PrincipleInterest").hide();
+        });
+
+
+        $(document).ready(function() {
+            $('select[id="PrincipleAndInterest"]').on('change', function() {
+                document.getElementById("PrincipleAndInterestValue").value = $(this).val();
+            });
         });
     </script>
 @endsection
