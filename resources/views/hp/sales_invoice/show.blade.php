@@ -374,7 +374,7 @@
                                     <td></td>
                                 </tr>
                             </table>
-                            
+
 
                             {{-- Recieve Date --}}
                             <table style="width: 7%;">
@@ -480,6 +480,7 @@
                                     <tr>
                                         <td><br></td>
                                     </tr>
+
                                     @foreach ($sales_invoice->cash_books_table as $key => $cash_books)
                                         @php
                                             $cash_book_cash_in = $cash_books->cash_in;
@@ -487,20 +488,94 @@
                                             $TotalBankCash = $cash_book_cash_in + $cash_book_bank_in;
                                         @endphp
                                         <tr>
-                                            <td style="text-align: right">
-                                                {{-- @if ($cash_books->principle_interest == 'Principle')
-                                                    {{ number_format($TotalBankCash ?? 0, 2) }}
-                                                @endif
+                                            @if ($cash_books->principle_interest == 'Principle')
+                                                @php
+                                                    $PrincipleTotal = $TotalBankCash ?? 0;
+                                                @endphp
+                                            @endif
 
-                                                @if ($cash_books->principle_interest == 'Interest')
-                                                    {{ number_format($TotalBankCash ?? 0, 2) }}
-                                                @endif --}}
-                                            </td>
+                                            @if ($cash_books->principle_interest == 'Interest')
+                                                @php
+                                                    $InterestTotal = $TotalBankCash ?? 0;
+                                                @endphp
+                                            @endif
+
+                                            @if ($cash_books->principle_interest == 'Interest')
+                                                <td style="text-align: right">
+                                                    @php
+                                                        $TotalPrinciple = $PrincipleTotal ?? 0;
+                                                        $TotalInterest = $InterestTotal ?? 0;
+                                                        $TotalPrincipleInterest = $TotalPrinciple + $TotalInterest;
+                                                        echo number_format($TotalPrincipleInterest, 2);
+                                                    @endphp
+                                                </td>
+                                            @endif
                                         </tr>
                                     @endforeach
                                 </thead>
                                 <tbody></tbody>
                             </table>
+
+
+                            <hr>
+                            <hr><br><br>
+                            {{-- Principle --}}
+                            <table style="width: 100%;" cellspacing="0" cellpadding="0">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 10%; text-align: center;">
+                                            Recieve Date
+                                        </th>
+                                        <th>
+                                            Principle
+                                        </th>
+                                        <th>
+                                            Interest
+                                        </th>
+                                        <th>
+                                            Total
+                                        </th>
+                                        <th>
+                                            HP Principle Balance
+                                        </th>
+                                    </tr>
+                                    @foreach ($sales_invoice->cash_books_table as $key => $cash_books)
+                                        @php
+                                            $cash_book_cash_in = $cash_books->cash_in;
+                                            $cash_book_bank_in = $cash_books->bank_in;
+                                            $TotalBankCash = $cash_book_cash_in + $cash_book_bank_in;
+                                        @endphp
+                                        <tr>
+                                            <th>
+                                                @if ($cash_books->principle_interest == 'Principle')
+                                                    {{ $cash_books->cash_book_date ?? '' }}
+                                                @endif
+                                            </th>
+                                            
+                                            <th>
+                                                @if ($cash_books->principle_interest == 'Principle')
+                                                    {{ number_format($TotalBankCash ?? 0, 2) }}
+                                                @elseif ($cash_books->principle_interest == 'Interest')
+                                                    {{ number_format($TotalBankCash ?? 0, 2) }}
+                                                @endif
+                                            </th>
+
+                                            <th>
+                                                @if ($cash_books->principle_interest == 'Principle')
+                                                    100
+                                                @endif
+                                            </th>
+
+                                            <th>
+                                                Banakc
+                                            </th>
+                                            
+                                        </tr>
+                                    @endforeach
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+
                         </div>
                     </div>
                 </div>
