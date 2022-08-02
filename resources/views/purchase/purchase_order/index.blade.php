@@ -82,8 +82,38 @@
                                         {{ $purchase_order->users_table->name ?? '' }}
                                     </td>
                                     <td></td>
-                                    <td></td>
+                                    <td>
+                                        <div class="demo-inline-spacing">
+                                            <div class="btn-group">
+                                                <button class="btn btn-success btn-sm dropdown-toggle" type="button"
+                                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                                    Action
+                                                </button>
+                                                <ul class="dropdown-menu">
+
+                                                    <li>
+                                                        <a class="dropdown-item"
+                                                            href="{{ route('purchase_order.edit', $purchase_order->id) }}">Edit</a>
+                                                    </li>
+
+                                                    <li>
+                                                        <form action="{{ route('purchase_order.destroy', $purchase_order->id) }}"
+                                                            method="POST">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="button" class="dropdown-item del_confirm"
+                                                                id="confirm-text" data-toggle="tooltip">Delete</button>
+                                                        </form>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </td>
                                 </tr>
+                                @php
+                                    $total_qty = [];
+                                    $total_unit_price = [];
+                                @endphp
                                 @foreach ($purchase_order->purchase_items_table as $key => $purchase_item)
                                     <tr>
                                         <td style="text-align: center">
@@ -98,22 +128,42 @@
                                         <td style="text-align: center">
                                             {{ $purchase_item->description ?? '' }}
                                         </td>
-                                        <td style="text-align: center">
+                                        <td style="text-align: right">
                                             {{ $purchase_item->qty ?? 0 }}
                                         </td>
-                                        <td style="text-align: center">
+                                        <td style="text-align: right">
                                             {{ number_format($purchase_item->unit_price ?? 0, 2) }}
                                         </td>
-                                        <td style="text-align: center">
+                                        <td style="text-align: right">
                                             @php
                                                 $qty = $purchase_item->qty ?? 0;
+                                                $total_qty[] = $qty;
                                                 $unit_price = $purchase_item->unit_price ?? 0;
                                                 $total = $qty * $unit_price;
                                                 echo number_format($total, 2);
+                                                $total_unit_price[] = $total;
                                             @endphp
                                         </td>
                                     </tr>
                                 @endforeach
+                                <tr>
+                                    <td colspan="4">
+                                        Total
+                                    </td>
+                                    <td style="text-align: right; font-weight: bold;">
+                                        @php
+                                            $total_qty = array_sum($total_qty);
+                                            echo number_format($total_qty);
+                                        @endphp
+                                    </td>
+                                    <td></td>
+                                    <td style="text-align: right; font-weight: bold;">
+                                        @php
+                                            $total_unit_price = array_sum($total_unit_price);
+                                            echo number_format($total_unit_price, 2);
+                                        @endphp
+                                    </td>
+                                </tr>
                             @endforeach
                         </tbody>
                     </table>

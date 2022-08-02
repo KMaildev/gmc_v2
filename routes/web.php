@@ -98,6 +98,8 @@ Route::middleware('auth')->group(function () {
 
     // Purchase 
     Route::resource('purchase_order', 'Purchase\PurchaseOrderController');
+    Route::resource('purchase_item', 'Purchase\PurchaseItemController');
+    Route::get('purchase_item_remove/{id}', array('as' => 'purchase_item_remove', 'uses' => 'Purchase\PurchaseItemController@purchase_item_remove'));
 
     Route::resource('department', 'DepartmentController');
     Route::resource('employee', 'EmployeeController');

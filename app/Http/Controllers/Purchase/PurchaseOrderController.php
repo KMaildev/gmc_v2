@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Purchase;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePurchaseOrder;
+use App\Http\Requests\UpdatePurchaseOrder;
 use App\Models\Products;
 use App\Models\PurchaseItem;
 use App\Models\PurchaseOrder;
@@ -89,7 +90,13 @@ class PurchaseOrderController extends Controller
      */
     public function edit($id)
     {
-        //
+        $suppliers = Supplier::all();
+        $products = Products::all();
+        $sales_persons = User::all();
+
+        $purchase_order = PurchaseOrder::findOrFail($id);
+        $purchase_items = PurchaseItem::where('purchase_order_id', $id)->get();
+        return view('purchase.purchase_order.edit', compact('suppliers', 'products', 'sales_persons', 'purchase_order', 'purchase_items'));
     }
 
     /**
@@ -99,9 +106,32 @@ class PurchaseOrderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdatePurchaseOrder $request, $id)
     {
-        //
+        $purchase_order = PurchaseOrder::findOrFail($id);
+        $purchase_order->supplier_id = $request->supplier_id;
+        $purchase_order->purchase_no = $request->purchase_no;
+        $purchase_order->purchase_date = $request->purchase_date;
+        $purchase_order->purchase_representative_id = $request->purchase_representative_id;
+        $purchase_order->user_id = auth()->user()->id ?? 0;
+        $purchase_order->total_amount = $request->total_amount;
+        $purchase_order->update();
+        $purchase_order_id = $purchase_order->id;
+
+        if ($request->productFields) {
+            foreach ($request->productFields as $key => $value) {
+                $insert[$key]['product_id'] = $value['product_id'];
+                $insert[$key]['qty'] = $value['qty'];
+                $insert[$key]['unit_price'] = $value['price'];
+                $insert[$key]['description'] = $value['description'];
+                $insert[$key]['purchase_order_id'] = $purchase_order_id;
+                $insert[$key]['created_at'] =  date('Y-m-d H:i:s');
+                $insert[$key]['updated_at'] =  date('Y-m-d H:i:s');
+            }
+            PurchaseItem::insert($insert);
+        }
+        TemporarySalesItem::where('session_id', session()->getId())->delete();
+        return redirect()->back()->with('success', 'Your processing has been completed.');
     }
 
     /**
@@ -112,6 +142,10 @@ class PurchaseOrderController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $purchase_order = PurchaseOrder::findOrFail($id);
+        $purchase_order->delete();
+
+        PurchaseItem::where('purchase_order_id', $id)->delete();
+        return redirect()->back()->with('success', 'Your processing has been completed.');
     }
 }
