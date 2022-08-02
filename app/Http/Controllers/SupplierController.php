@@ -119,4 +119,16 @@ class SupplierController extends Controller
         Excel::import(new SupplierImport, request()->file('file'));
         return redirect()->back()->with('success', 'Your processing has been completed.');
     }
+
+
+    /**
+     * Get Ajax Request and restun Data
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function get_supplier_ajax($id)
+    {
+        $supplier_data = Supplier::findOrFail($id);
+        return json_encode($supplier_data);
+    }
 }

@@ -138,9 +138,9 @@
                         </li>
 
                         <li class="menu-item">
-                            <a href="#" class="menu-link">
+                            <a href="{{ route('purchase_order.index') }}" class="menu-link">
                                 <div data-i2n="Without menu">
-                                    Proforma Invoice
+                                    Purchase Order
                                 </div>
                             </a>
                         </li>

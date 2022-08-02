@@ -40,6 +40,7 @@ Route::middleware('auth')->group(function () {
 
     // Supplier 
     Route::resource('supplier', 'SupplierController');
+    Route::get('get_supplier_ajax/{id}', array('as' => 'get_supplier_ajax', 'uses' => 'SupplierController@get_supplier_ajax'));
     Route::post('supplier_import', 'SupplierController@supplier_import')->name('supplier_import');
 
 
@@ -94,6 +95,9 @@ Route::middleware('auth')->group(function () {
 
 
 
+
+    // Purchase 
+    Route::resource('purchase_order', 'Purchase\PurchaseOrderController');
 
     Route::resource('department', 'DepartmentController');
     Route::resource('employee', 'EmployeeController');
