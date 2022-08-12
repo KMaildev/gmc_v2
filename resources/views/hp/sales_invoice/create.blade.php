@@ -16,26 +16,25 @@
                                         <div class="col-sm-9">
                                             <select class="select2 form-select form-select-sm" data-allow-clear="false"
                                                 id="CustomerID" name="customer_id">
-                                                <option value="">--Please Select Customer --</option>
+                                                <option value="">--Please Select HP Customer --</option>
                                                 @foreach ($customers as $customer)
                                                     <option value="{{ $customer->id }}">
                                                         {{ $customer->name }}
                                                     </option>
                                                 @endforeach
                                             </select>
-                                            @error('customer_id')
-                                                <div class="invalid-feedback"> {{ $message }} </div>
-                                            @enderror
                                         </div>
                                     </div>
 
                                     <div class="row mb-1">
                                         <label class="col-sm-3 col-form-label" for="basic-default-name">
                                             Dealer
+
                                         </label>
                                         <div class="col-sm-9">
                                             <input type="text" class="form-control form-control-sm" id="Dealer"
                                                 readonly>
+
                                         </div>
                                     </div>
 
@@ -280,6 +279,8 @@
                                             @enderror
                                         </div>
                                     </div>
+
+
                                 </dl>
                             </div>
 
@@ -513,6 +514,20 @@
                                         </div>
                                     </div>
 
+                                    <div class="row mb-1">
+                                        <label class="col-sm-4 col-form-label">
+                                            Total Services Fees
+                                        </label>
+                                        <div class="col-sm-8">
+                                            <input type="text"
+                                                class="form-control form-control-sm @error('hp_total_services_fees') is-invalid @enderror"
+                                                style="text-align:right;" name="hp_total_services_fees"
+                                                id="TotalServicesFees" value="{{ old('hp_total_services_fees') }}">
+                                            @error('hp_total_services_fees')
+                                                <div class="invalid-feedback"> {{ $message }} </div>
+                                            @enderror
+                                        </div>
+                                    </div>
 
                                     <div class="row mb-1">
                                         <label class="col-sm-4 col-form-label">
@@ -592,7 +607,6 @@
             MonthlyPaymentValue.value = pmt.toFixed(2);
 
 
-
             // Clear 
             var AccountOpening = document.getElementById("AccountOpening").value;
             var DocumentFees = document.getElementById("DocumentFees").value;
@@ -601,8 +615,13 @@
             var Commission = document.getElementById("Commission").value;
             var ServiceCharges = document.getElementById("ServiceCharges").value;
             var TotalDownpayment = Number(AccountOpening) + Number(DocumentFees) + Number(StampDuty) + Number(Insurance) +
-                Number(Commission) + Number(ServiceCharges);
+                Number(Commission) + Number(ServiceCharges) + Number(hpDownpaymentAmount);
             document.getElementById("TotalDownpayment").value = TotalDownpayment;
+
+            var TotalServicefees = Number(AccountOpening) + Number(DocumentFees) + Number(StampDuty) + Number(Insurance) +
+                Number(Commission) + Number(ServiceCharges);
+            document.getElementById("TotalServicesFees").value = TotalServicefees;
+
 
         }
 

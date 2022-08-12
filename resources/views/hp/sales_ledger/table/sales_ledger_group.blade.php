@@ -15,16 +15,17 @@
     <tbody class="table-border-bottom-0">
         @php
             $total_amounts = [];
+            $i = 1;
         @endphp
         @foreach ($sales_invoices_groups as $k => $sales_invoices_group)
-            @if ($sales_invoices_group->customers_table->dealer_or_hp == 'dealer')
+            @if ($sales_invoices_group->customers_table->dealer_or_hp == 'hp')
                 <tr>
                     <td>
-                        {{ $k + 1 }}
+                        {{ $i++ }}
                     </td>
 
                     <td>
-                        {{ $sales_invoices_group->customers_table->name ?? '' }}
+                        {{ $sales_invoices_group->customers_table->company_name ?? '' }}
                     </td>
 
                     <td style="text-align: right; font-weight: bold;">

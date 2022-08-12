@@ -86,28 +86,62 @@ class SalesInvoiceController extends Controller
         $sale_inv_payment->balance_to_pay_be_date = 0; //$request->balance_to_pay_be_date;
 
 
-        $sale_inv_payment->hp_loan_percentage = $request->hp_loan_percentage;
-        $sale_inv_payment->hp_loan_amount = $request->hp_loan_amount;
-        $sale_inv_payment->hp_interest_rate_percentage = $request->hp_interest_rate_percentage;
-        $sale_inv_payment->hp_commission_fees = $request->hp_commission_fees;
-        $sale_inv_payment->hp_tenor = $request->hp_tenor;
-        $sale_inv_payment->hp_account_opening = $request->hp_account_opening;
-        $sale_inv_payment->hp_document_fees = $request->hp_document_fees;
-        $sale_inv_payment->hp_stamp_duty = $request->hp_stamp_duty;
-        $sale_inv_payment->hp_insurance = $request->hp_insurance;
-        $sale_inv_payment->hp_commission = $request->hp_commission;
-        $sale_inv_payment->hp_service_charges = $request->hp_service_charges;
-        $sale_inv_payment->hp_total_downpayment = $request->hp_total_downpayment;
-        $sale_inv_payment->hp_monthly_payment = $request->hp_monthly_payment;
-
+        $sale_inv_payment->hp_loan_percentage = $request->hp_loan_percentage ?? 0;
+        $sale_inv_payment->hp_loan_amount = $request->hp_loan_amount ?? 0;
+        $sale_inv_payment->hp_interest_rate_percentage = $request->hp_interest_rate_percentage ?? 0;
+        $sale_inv_payment->hp_commission_fees = $request->hp_commission_fees ?? 0;
+        $sale_inv_payment->hp_tenor = $request->hp_tenor ?? 0;
+        $sale_inv_payment->hp_account_opening = $request->hp_account_opening ?? 0;
+        $sale_inv_payment->hp_document_fees = $request->hp_document_fees ?? 0;
+        $sale_inv_payment->hp_stamp_duty = $request->hp_stamp_duty ?? 0;
+        $sale_inv_payment->hp_insurance = $request->hp_insurance ?? 0;
+        $sale_inv_payment->hp_commission = $request->hp_commission ?? 0;
+        $sale_inv_payment->hp_service_charges = $request->hp_service_charges ?? 0;
+        $sale_inv_payment->hp_total_downpayment = $request->hp_total_downpayment ?? 0;
+        $sale_inv_payment->hp_monthly_payment = $request->hp_monthly_payment ?? 0;
+        $sale_inv_payment->hp_total_services_fees = $request->hp_total_services_fees ?? 0;
 
         $sale_inv_payment->customer_id = $request->customer_id;
         $sale_inv_payment->sales_invoice_id = $sale_invoice_id;
+
+
+
+        // Total Principle And Interest
+        $number_of_month = $request->hp_tenor ?? 0;
+        $balance = $request->hp_loan_amount ?? 0;
+        $interest_rate = $request->hp_interest_rate_percentage ?? 0;
+        $monthly_payment = $request->hp_monthly_payment ?? 0;
+        $TotalPrincipal = [];
+        $TotalInterest = [];
+        for ($month = 0; $month < $number_of_month; $month++) {
+            $interest = ($balance * $interest_rate) / 1200;
+            $principal = $monthly_payment - $interest;
+            $balance -= $principal;
+
+            $TotalPrincipal[] = $principal;
+            $TotalInterest[] = $interest;
+        }
+
+        $PrincipalTotal = array_sum($TotalPrincipal);
+        $InterestTotal = array_sum($TotalInterest);
+
+        $sale_inv_payment->total_principle = $PrincipalTotal ?? 0;
+        $sale_inv_payment->total_interest = $InterestTotal ?? 0;
         $sale_inv_payment->save();
 
         TemporarySalesItem::where('session_id', session()->getId())->delete();
         return redirect()->back()->with('success', 'Your processing has been completed.');
     }
+
+
+
+    public function getPrincipleInterest()
+    {
+        return "Ok";
+    }
+
+
+
 
     /**
      * Display the specified resource.

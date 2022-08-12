@@ -1,15 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Accounting;
+namespace App\Http\Controllers\Hp;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreCashCollection;
-use App\Http\Requests\UpdateCashCollection;
 use App\Models\SalesInvoices;
-use App\Models\SalesJournal;
 use Illuminate\Http\Request;
 
-class CashCollectionController extends Controller
+class HpInterestSuspenseAccountController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,8 +15,8 @@ class CashCollectionController extends Controller
      */
     public function index()
     {
-        $sales_invoices = SalesInvoices::orderBy('id')->where('hp_or_dealer', 'dealer')->get();
-        return view('accounting.cash_collection.index', compact('sales_invoices'));
+        $sales_invoices = SalesInvoices::orderBy('id')->where('hp_or_dealer', 'hp')->get();
+        return view('hp.hp_interest_suspense_account.index', compact('sales_invoices'));
     }
 
     /**
@@ -38,8 +35,9 @@ class CashCollectionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreCashCollection $request)
+    public function store(Request $request)
     {
+        //
     }
 
     /**
@@ -61,6 +59,7 @@ class CashCollectionController extends Controller
      */
     public function edit($id)
     {
+        //
     }
 
     /**
@@ -70,8 +69,9 @@ class CashCollectionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateCashCollection $request, $id)
+    public function update(Request $request, $id)
     {
+        //
     }
 
     /**
@@ -82,5 +82,6 @@ class CashCollectionController extends Controller
      */
     public function destroy($id)
     {
+        //
     }
 }

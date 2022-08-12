@@ -62,7 +62,7 @@
                         </thead>
                         <tbody class="table-border-bottom-0 t">
                             @foreach ($purchase_orders as $key => $purchase_order)
-                                <tr style="background-color: #418107; color: white;">
+                                <tr style="background-color: #6d8284; color: white;">
                                     <td>
                                         {{ $key + 1 }}
                                     </td>
@@ -85,7 +85,7 @@
                                     <td>
                                         <div class="demo-inline-spacing">
                                             <div class="btn-group">
-                                                <button class="btn btn-success btn-sm dropdown-toggle" type="button"
+                                                <button class="btn btn-primary btn-sm dropdown-toggle" type="button"
                                                     data-bs-toggle="dropdown" aria-expanded="false">
                                                     Action
                                                 </button>
@@ -97,7 +97,8 @@
                                                     </li>
 
                                                     <li>
-                                                        <form action="{{ route('purchase_order.destroy', $purchase_order->id) }}"
+                                                        <form
+                                                            action="{{ route('purchase_order.destroy', $purchase_order->id) }}"
                                                             method="POST">
                                                             @csrf
                                                             @method('DELETE')

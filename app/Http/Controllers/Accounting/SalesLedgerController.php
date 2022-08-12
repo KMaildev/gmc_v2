@@ -17,15 +17,12 @@ class SalesLedgerController extends Controller
      */
     public function index()
     {
-        // For List 
-        // $sales_journals = SalesJournal::all();
-
         $sales_invoices_groups = SalesInvoicesPayments::select('customer_id')
             ->groupBy('customer_id')
             ->selectRaw('sum(total_amount) as total_amount')
             ->get();
 
-        $sales_invoices = SalesInvoices::all();
+        $sales_invoices = SalesInvoices::orderBy('id')->where('hp_or_dealer', 'dealer')->get();
         return view('accounting.sales_ledger.index', compact('sales_invoices', 'sales_invoices_groups'));
     }
 

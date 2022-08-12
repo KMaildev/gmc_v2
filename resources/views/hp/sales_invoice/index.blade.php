@@ -74,7 +74,7 @@
                                 HP Principle
                             </th>
                             <th style="background-color: #296166; color: white; text-align: center; width: 10%;">
-                                Principle Receice
+                                Principle Receive
                             </th>
                             <th style="background-color: #296166; color: white; text-align: center; width: 10%;">
                                 Principle Balance
@@ -83,7 +83,7 @@
                                 HP Interest
                             </th>
                             <th style="background-color: #296166; color: white; text-align: center; width: 10%;">
-                                Interest Receice
+                                Interest Receive
                             </th>
                             <th style="background-color: #296166; color: white; text-align: center; width: 10%;">
                                 Interest Balance
@@ -146,59 +146,118 @@
                                     </td>
 
                                     {{-- Sale Price --}}
-                                    <td>
+                                    <td style="text-align: right; font-weight: bold;">
                                         {{ $sales_invoice->sales_invoices_payments_table->total_amount ?? 0 }}
                                     </td>
 
                                     {{-- Downpayment --}}
-                                    <td>
-                                        {{ $sales_invoice->sales_invoices_payments_table->hp_total_downpayment ?? 0 }}
+                                    <td style="text-align: right; font-weight: bold;">
+                                        @php
+                                            $hp_total_downpayment = $sales_invoice->sales_invoices_payments_table->hp_total_downpayment ?? 0;
+                                            echo number_format($hp_total_downpayment, 2);
+                                        @endphp
                                     </td>
 
                                     {{-- HP Principle --}}
-                                    <td>
-
+                                    <td style="text-align: right; font-weight: bold;">
+                                        @php
+                                            $total_principle = $sales_invoice->sales_invoices_payments_table->total_principle ?? 0;
+                                            echo number_format($total_principle, 2);
+                                        @endphp
                                     </td>
 
                                     {{-- Principle Receice --}}
-                                    <td>
-
+                                    <td style="text-align: right; font-weight: bold;">
+                                        @php
+                                            $TotalReceivePrinciple = [];
+                                        @endphp
+                                        @foreach ($sales_invoice->cash_books_table as $key => $cash_books)
+                                            @if ($cash_books->principle_interest == 'Principle')
+                                                @php
+                                                    $cash_book_cash_in = $cash_books->cash_in;
+                                                    $cash_book_bank_in = $cash_books->bank_in;
+                                                    $BankCashInTotal = $cash_book_cash_in + $cash_book_bank_in;
+                                                    $TotalReceivePrinciple[] = $BankCashInTotal;
+                                                @endphp
+                                            @endif
+                                        @endforeach
+                                        @php
+                                            $TotalReceivePrinciple = array_sum($TotalReceivePrinciple);
+                                            echo number_format($TotalReceivePrinciple, 2);
+                                        @endphp
                                     </td>
 
                                     {{-- Principle Balance --}}
-                                    <td>
-
+                                    <td style="text-align: right; font-weight: bold;">
+                                        @php
+                                            $total_hp_principle = $sales_invoice->sales_invoices_payments_table->total_principle ?? 0;
+                                            $PrincipleBalance = $total_hp_principle - $TotalReceivePrinciple;
+                                            echo number_format($PrincipleBalance, 2);
+                                        @endphp
                                     </td>
 
                                     {{-- HP Interest --}}
-                                    <td>
-
+                                    <td style="text-align: right; font-weight: bold;">
+                                        @php
+                                            $total_hp_interest = $sales_invoice->sales_invoices_payments_table->total_interest ?? 0;
+                                            echo number_format($total_hp_interest, 2);
+                                        @endphp
                                     </td>
 
                                     {{-- Interest Receice --}}
-                                    <td>
-
+                                    <td style="text-align: right; font-weight: bold;">
+                                        @php
+                                            $TotalReceiveInterest = [];
+                                        @endphp
+                                        @foreach ($sales_invoice->cash_books_table as $key => $cash_books)
+                                            @if ($cash_books->principle_interest == 'Interest')
+                                                @php
+                                                    $cash_book_cash_in = $cash_books->cash_in;
+                                                    $cash_book_bank_in = $cash_books->bank_in;
+                                                    $BankCashInTotal = $cash_book_cash_in + $cash_book_bank_in;
+                                                    $TotalReceiveInterest[] = $BankCashInTotal;
+                                                @endphp
+                                            @endif
+                                        @endforeach
+                                        @php
+                                            $TotalReceiveInterest = array_sum($TotalReceiveInterest);
+                                            echo number_format($TotalReceiveInterest, 2);
+                                        @endphp
                                     </td>
 
                                     {{-- Interest Balance --}}
-                                    <td>
-
+                                    <td style="text-align: right; font-weight: bold;">
+                                        @php
+                                            $TotalInterestBalance = $total_hp_interest - $TotalReceiveInterest;
+                                            echo number_format($TotalInterestBalance, 2);
+                                        @endphp
                                     </td>
 
 
                                     {{-- Total Sale --}}
-                                    <td>
-
+                                    <td style="text-align: right; font-weight: bold;">
+                                        {{-- Downpayment + HP Principle + HP Interest --}}
+                                        @php
+                                            $TotalSale = $hp_total_downpayment + $total_principle + $total_hp_interest;
+                                            echo number_format($TotalSale, 2);
+                                        @endphp
                                     </td>
 
                                     {{-- Down Percentage --}}
-                                    <td>
-
+                                    <td style="text-align: right; font-weight: bold;">
+                                        @php
+                                            $hp_loan_percentage = $sales_invoice->sales_invoices_payments_table->hp_loan_percentage ?? 0;
+                                            echo 100 - $hp_loan_percentage;
+                                            echo '%';
+                                        @endphp
                                     </td>
 
                                     {{-- Balance --}}
-                                    <td>
-
+                                    <td style="text-align: right; font-weight: bold;">
+                                        @php
+                                            $HpBalance = $TotalSale - $TotalInterestBalance;
+                                            echo number_format($HpBalance, 2);
+                                        @endphp
                                     </td>
 
                                     {{-- Actions --}}
@@ -225,7 +284,7 @@
                                                         </a>
                                                     </li>
 
-                                                    <li>
+                                                    <li hidden>
                                                         <a class="dropdown-item"
                                                             href="{{ route('sales_invoices.edit', $sales_invoice->id) }}">
                                                             Edit

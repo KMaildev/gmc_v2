@@ -17,137 +17,226 @@
                 </ul>
             </li>
 
-            @can('accept_inventory_module')
-                <li class="menu-item">
-                    <a href="javascript:void(0)" class="menu-link menu-toggle">
-                        <div data-i2n="Layouts">Customers</div>
-                    </a>
+            <li class="menu-item">
+                <a href="javascript:void(0)" class="menu-link menu-toggle">
+                    <div data-i2n="Layouts">Customers</div>
+                </a>
 
-                    <ul class="menu-sub">
+                <ul class="menu-sub">
 
-                        <li class="menu-item">
-                            <a href="{{ route('customer.index') }}" class="menu-link">
-                                <div data-i2n="Without menu"> Dealer Customers</div>
-                            </a>
-                        </li>
+                    <li class="menu-item">
+                        <a href="{{ route('customer.index') }}" class="menu-link">
+                            <div data-i2n="Without menu"> Dealer Customers</div>
+                        </a>
+                    </li>
 
-                        <li class="menu-item">
-                            <a href="{{ route('hp_customer.index') }}" class="menu-link">
-                                <div data-i2n="Without menu"> HP Customers</div>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-            @endcan
+                    <li class="menu-item">
+                        <a href="{{ route('hp_customer.index') }}" class="menu-link">
+                            <div data-i2n="Without menu"> HP Customers</div>
+                        </a>
+                    </li>
+                </ul>
+            </li>
 
-            @can('hp_sales_invoices')
-                <li class="menu-item">
-                    <a href="javascript:void(0)" class="menu-link menu-toggle">
-                        <div data-i2n="Layouts">
-                            HP Sales
-                        </div>
-                    </a>
+            <li class="menu-item">
+                <a href="javascript:void(0)" class="menu-link menu-toggle">
+                    <div data-i2n="Layouts">
+                        HP Sales
+                    </div>
+                </a>
 
-                    <ul class="menu-sub">
-                        <li class="menu-item">
-                            <a href="{{ route('hp_sales_invoices.index') }}" class="menu-link">
-                                <div data-i2n="Without menu">
-                                    HP Sales Invoices
-                                </div>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-            @endcan
+                <ul class="menu-sub">
 
-            @can('dealer_sales_invoices')
-                <li class="menu-item">
-                    <a href="javascript:void(0)" class="menu-link menu-toggle">
-                        <div data-i2n="Layouts">Sales</div>
-                    </a>
-
-                    <ul class="menu-sub">
-
-                        <li class="menu-item">
-                            <a href="{{ route('sales_invoices.index') }}" class="menu-link">
-                                <div data-i2n="Without menu">
-                                    Sales Invoices
-                                </div>
-                            </a>
-                        </li>
-
-                        <li class="menu-item">
-                            <a href="{{ route('sales_journal.index') }}" class="menu-link">
-                                <div data-i2n="Without menu">
-                                    Sales Journal
-                                </div>
-                            </a>
-                        </li>
+                    <li class="menu-item">
+                        <a href="{{ route('hp_sales_invoices.index') }}" class="menu-link">
+                            <div data-i2n="Without menu">
+                                HP Sales Invoices
+                            </div>
+                        </a>
+                    </li>
 
 
-                        <li class="menu-item">
-                            <a href="{{ route('cash_collection.index') }}" class="menu-link">
-                                <div data-i2n="Without menu">
-                                    Cash Collection
-                                </div>
-                            </a>
-                        </li>
-
-                        <li class="menu-item">
-                            <a href="{{ route('sales_ledger.index') }}" class="menu-link">
-                                <div data-i2n="Without menu">
-                                    Sales Ledger
-                                </div>
-                            </a>
-                        </li>
-
-                        <li class="menu-item">
-                            <a href="{{ route('account_receivables.index') }}" class="menu-link">
-                                <div data-i2n="Without menu">
-                                    Account Receivales
-                                </div>
-                            </a>
-                        </li>
-
-                        <li class="menu-item">
-                            <a href="{{ route('sale_cash_book.index') }}" class="menu-link">
-                                <div data-i2n="Without menu">
-                                    Cash Book
-                                </div>
-                            </a>
-                        </li>
-
-                    </ul>
-                </li>
-            @endcan
+                    <li class="menu-item">
+                        <a href="{{ route('hire_purchase.index') }}" class="menu-link">
+                            <div data-i2n="Without menu">
+                                Hire Purchaser Account
+                            </div>
+                        </a>
+                    </li>
 
 
-            @can('supplier')
-                <li class="menu-item">
-                    <a href="javascript:void(0)" class="menu-link menu-toggle">
-                        <div data-i2n="Layouts">Suppliers</div>
-                    </a>
+                    <li class="menu-item">
+                        <a href="{{ route('hp_sales_account.index') }}" class="menu-link">
+                            <div data-i2n="Without menu">
+                                HP Sales Account
+                            </div>
+                        </a>
+                    </li>
 
-                    <ul class="menu-sub">
-                        <li class="menu-item">
-                            <a href="{{ route('supplier.index') }}" class="menu-link">
-                                <div data-i2n="Without menu">
-                                    Suppliers
-                                </div>
-                            </a>
-                        </li>
 
-                        <li class="menu-item">
-                            <a href="{{ route('purchase_order.index') }}" class="menu-link">
-                                <div data-i2n="Without menu">
-                                    Purchase Order
-                                </div>
-                            </a>
-                        </li>
+                    <li class="menu-item">
+                        <a href="{{ route('hp_interest_suspense_account.index') }}" class="menu-link">
+                            <div data-i2n="Without menu">
+                                HP Interest Suspense AC
+                            </div>
+                        </a>
+                    </li>
 
-                    </ul>
-                </li>
-            @endcan
+                    <li class="menu-item">
+                        <a href="{{ route('hp_service_account.index') }}" class="menu-link">
+                            <div data-i2n="Without menu">
+                                HP Service Account
+                            </div>
+                        </a>
+                    </li>
+
+                    <li class="menu-item">
+                        <a href="{{ route('hp_interest_account.index') }}" class="menu-link">
+                            <div data-i2n="Without menu">
+                                Interest Account
+                            </div>
+                        </a>
+                    </li>
+
+                    <li class="menu-item">
+                        <a href="{{ route('hp_cash_account.index') }}" class="menu-link">
+                            <div data-i2n="Without menu">
+                                HP Cash Account
+                            </div>
+                        </a>
+                    </li>
+
+                    <li class="menu-item">
+                        <a href="{{ route('hp_account_receivables.index') }}" class="menu-link">
+                            <div data-i2n="Without menu">
+                                Account Receivales
+                            </div>
+                        </a>
+                    </li>
+
+
+                    <li class="menu-item" hidden>
+                        <a href="{{ route('hp_sales_journal.index') }}" class="menu-link">
+                            <div data-i2n="Without menu">
+                                Sales Journal
+                            </div>
+                        </a>
+                    </li>
+
+
+                    <li class="menu-item" hidden>
+                        <a href="{{ route('hp_cash_collection.index') }}" class="menu-link">
+                            <div data-i2n="Without menu">
+                                Cash Collection
+                            </div>
+                        </a>
+                    </li>
+
+                    <li class="menu-item" hidden>
+                        <a href="{{ route('hp_sales_ledger.index') }}" class="menu-link">
+                            <div data-i2n="Without menu">
+                                Sales Ledger
+                            </div>
+                        </a>
+                    </li>
+
+                    
+
+                    <li class="menu-item" hidden>
+                        <a href="{{ route('hp_sale_cash_book.index') }}" class="menu-link">
+                            <div data-i2n="Without menu">
+                                Cash Book
+                            </div>
+                        </a>
+                    </li>
+
+                </ul>
+            </li>
+
+            <li class="menu-item">
+                <a href="javascript:void(0)" class="menu-link menu-toggle">
+                    <div data-i2n="Layouts">Sales</div>
+                </a>
+
+                <ul class="menu-sub">
+
+                    <li class="menu-item">
+                        <a href="{{ route('sales_invoices.index') }}" class="menu-link">
+                            <div data-i2n="Without menu">
+                                Sales Invoices
+                            </div>
+                        </a>
+                    </li>
+
+                    <li class="menu-item">
+                        <a href="{{ route('sales_journal.index') }}" class="menu-link">
+                            <div data-i2n="Without menu">
+                                Sales Journal
+                            </div>
+                        </a>
+                    </li>
+
+
+                    <li class="menu-item">
+                        <a href="{{ route('cash_collection.index') }}" class="menu-link">
+                            <div data-i2n="Without menu">
+                                Cash Collection
+                            </div>
+                        </a>
+                    </li>
+
+                    <li class="menu-item">
+                        <a href="{{ route('sales_ledger.index') }}" class="menu-link">
+                            <div data-i2n="Without menu">
+                                Sales Ledger
+                            </div>
+                        </a>
+                    </li>
+
+                    <li class="menu-item">
+                        <a href="{{ route('account_receivables.index') }}" class="menu-link">
+                            <div data-i2n="Without menu">
+                                Account Receivales
+                            </div>
+                        </a>
+                    </li>
+
+                    <li class="menu-item">
+                        <a href="{{ route('sale_cash_book.index') }}" class="menu-link">
+                            <div data-i2n="Without menu">
+                                Cash Book
+                            </div>
+                        </a>
+                    </li>
+
+                </ul>
+            </li>
+
+
+            <li class="menu-item">
+                <a href="javascript:void(0)" class="menu-link menu-toggle">
+                    <div data-i2n="Layouts">Suppliers</div>
+                </a>
+
+                <ul class="menu-sub">
+                    <li class="menu-item">
+                        <a href="{{ route('supplier.index') }}" class="menu-link">
+                            <div data-i2n="Without menu">
+                                Suppliers
+                            </div>
+                        </a>
+                    </li>
+
+                    <li class="menu-item">
+                        <a href="{{ route('purchase_order.index') }}" class="menu-link">
+                            <div data-i2n="Without menu">
+                                Purchase Order
+                            </div>
+                        </a>
+                    </li>
+
+                </ul>
+            </li>
 
             <li class="menu-item">
                 <a href="javascript:void(0)" class="menu-link menu-toggle">
@@ -186,15 +275,13 @@
                 </ul>
             </li>
 
-            @can('cash_book')
-                <li class="menu-item">
-                    <a href="{{ route('cashbook.index') }}" class="menu-link">
-                        <div data-i1n="Layouts">
-                            Cash Book
-                        </div>
-                    </a>
-                </li>
-            @endcan
+            <li class="menu-item">
+                <a href="{{ route('cashbook.index') }}" class="menu-link">
+                    <div data-i1n="Layouts">
+                        Cash Book
+                    </div>
+                </a>
+            </li>
 
             <li class="menu-item">
                 <a href="javascript:void(0)" class="menu-link menu-toggle">

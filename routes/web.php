@@ -67,22 +67,38 @@ Route::middleware('auth')->group(function () {
     Route::get('sale_invoice_pdf_download/{id}', array('as' => 'sale_invoice_pdf_download', 'uses' => 'Accounting\SalesInvoicesController@sale_invoice_pdf_download'));
 
 
-    // HP Sales 
-    Route::resource('hp_sales_invoices', 'Hp\SalesInvoiceController');
-    Route::get('hp_invoice_view/{id}', array('as' => 'hp_invoice_view', 'uses' => 'Hp\SalesInvoiceController@hp_invoice_view'));
-
-
-    // Sale Pay Now
-    Route::resource('sale_pay_now', 'Accounting\SalePaynowController');
-    Route::get('sales_inv_paynow_create/{id}', array('as' => 'sales_inv_paynow_create', 'uses' => 'Accounting\SalePaynowController@salePayNow'));
-
-    // Sales Group
+    // Dealer Sales Group
     Route::resource('sales_journal', 'Accounting\SalesJournalController');
     Route::get('get_sales_journals/{id}', array('as' => 'get_sales_journals', 'uses' => 'Accounting\SalesJournalController@get_sales_journals'));
     Route::resource('cash_collection', 'Accounting\CashCollectionController');
     Route::resource('sales_ledger', 'Accounting\SalesLedgerController');
     Route::resource('account_receivables', 'Accounting\AccountReceivablesController');
     Route::resource('sale_cash_book', 'Accounting\SaleCashBookController');
+
+    // HP Sales 
+    Route::resource('hp_sales_invoices', 'Hp\SalesInvoiceController');
+    Route::get('hp_invoice_view/{id}', array('as' => 'hp_invoice_view', 'uses' => 'Hp\SalesInvoiceController@hp_invoice_view'));
+
+    // HP Sales Group
+    Route::resource('hp_sales_journal', 'HP\HpSalesJournalController');
+    Route::resource('hp_cash_collection', 'Hp\HpCashCollectionController');
+    Route::resource('hp_sales_ledger', 'Hp\HpSalesLedgerController');
+    Route::resource('hp_account_receivables', 'Hp\HpAccountReceivablesController');
+    Route::resource('hp_sale_cash_book', 'Hp\HpSaleCashBookController');
+
+    Route::resource('hire_purchase', 'Hp\HirePurchaseController');
+    Route::resource('hp_sales_account', 'Hp\HpSalesAccountController');
+    Route::resource('hp_cash_account', 'Hp\HpCashAccountController');
+    Route::resource('hp_interest_suspense_account', 'Hp\HpInterestSuspenseAccountController');
+    Route::resource('hp_service_account', 'Hp\HpServiceAccountController');
+    Route::resource('hp_interest_account', 'Hp\HpInterestAccountController');
+
+
+    // Sale Pay Now
+    Route::resource('sale_pay_now', 'Accounting\SalePaynowController');
+    Route::get('sales_inv_paynow_create/{id}', array('as' => 'sales_inv_paynow_create', 'uses' => 'Accounting\SalePaynowController@salePayNow'));
+
+
 
     // Cart System
     Route::resource('sale_invoice_cart', 'Cart\SaleInvoiceCartController');

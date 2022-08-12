@@ -86,7 +86,7 @@
                                     IV-No2
                                 </th>
                                 <th style="color: white; background-color: #2e696e; text-align: center;">
-                                    Principle/Interest
+                                    Principle/Interest/Other
                                 </th>
                                 <th style="color: white; background-color: #2e696e; text-align: center;">
                                     A/C Code

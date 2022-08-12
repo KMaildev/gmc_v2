@@ -52,7 +52,7 @@ class StoreHpSalesInvoices extends FormRequest
             'hp_total_downpayment' => "required|numeric",
             'hp_monthly_payment' => "required|numeric",
             'hp_account_opening' => "required|numeric",
-
+            'hp_total_services_fees' => "required|numeric",
         ];
     }
 }

@@ -16,7 +16,7 @@ class SaleCashBookController extends Controller
      */
     public function index()
     {
-        $sales_invoices = SalesInvoices::all();
+        $sales_invoices = SalesInvoices::orderBy('id')->where('hp_or_dealer', 'dealer')->get();
         return view('accounting.sale_cahs_book.index', compact('sales_invoices'));
     }
 

@@ -71,9 +71,11 @@
         <td>
             <span id="PrincipleInterest">
                 <select class="select3 form-select form-select-sm" data-allow-clear="false" id="PrincipleAndInterest">
-                    <option value="">-- Select --</option>
+                    <option value="">-- Select Type --</option>
+                    <option value="down_payment">Down Payment</option>
                     <option value="Principle">Principle</option>
                     <option value="Interest">Interest</option>
+                    <option value="service_fee">Service Fee</option>
                 </select>
             </span>
         </td>
