@@ -29,14 +29,19 @@ Route::middleware('auth')->group(function () {
     Route::resource('bankform', 'Accounting\BankFormController');
 
     // Customer 
-    Route::resource('customer', 'CustomerController');
-    Route::get('get_customer_ajax/{id}', array('as' => 'get_customer_ajax', 'uses' => 'CustomerController@get_customer_ajax'));
-    Route::get('get_dealer_customer_ajax/{id}', array('as' => 'get_dealer_customer_ajax', 'uses' => 'CustomerController@get_dealer_customer_ajax'));
-    Route::post('dealer_customer_import', 'CustomerController@dealer_customer_import')->name('dealer_customer_import');
-    Route::get('dealer_customer_export', 'CustomerController@dealer_customer_export')->name('dealer_customer_export');
+    Route::resource('customer', 'Customer\CustomerController');
+    Route::get('get_customer_ajax/{id}', array('as' => 'get_customer_ajax', 'uses' => 'Customer\CustomerController@get_customer_ajax'));
+    Route::get('get_dealer_customer_ajax/{id}', array('as' => 'get_dealer_customer_ajax', 'uses' => 'Customer\CustomerController@get_dealer_customer_ajax'));
+    Route::post('dealer_customer_import', 'Customer\CustomerController@dealer_customer_import')->name('dealer_customer_import');
+    Route::get('dealer_customer_export', 'Customer\CustomerController@dealer_customer_export')->name('dealer_customer_export');
 
-    Route::resource('hp_customer', 'HpCustomerController');
-    Route::get('hp_customer_export', 'HpCustomerController@hp_customer_export')->name('hp_customer_export');
+    // HP Customer
+    Route::resource('hp_customer', 'Customer\HpCustomerController');
+    Route::get('hp_customer_export', 'Customer\HpCustomerController@hp_customer_export')->name('hp_customer_export');
+
+    // Cash Sale Customer
+    Route::resource('cash_sale_customer', 'Customer\CashSaleCustomerController');
+
 
     // Supplier 
     Route::resource('supplier', 'SupplierController');
@@ -111,11 +116,18 @@ Route::middleware('auth')->group(function () {
 
 
 
-
     // Purchase 
     Route::resource('purchase_order', 'Purchase\PurchaseOrderController');
     Route::resource('purchase_item', 'Purchase\PurchaseItemController');
     Route::get('purchase_item_remove/{id}', array('as' => 'purchase_item_remove', 'uses' => 'Purchase\PurchaseItemController@purchase_item_remove'));
+
+
+    // Cash Sales Invoice 
+    Route::resource('cash_sales_invoices', 'CashSales\CashSalesInvoicesController');
+
+
+
+
 
     Route::resource('department', 'DepartmentController');
     Route::resource('employee', 'EmployeeController');

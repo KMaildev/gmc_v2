@@ -27,7 +27,6 @@ class StoreCustomer extends FormRequest
             'name' => 'required',
             'address' => 'required',
             'phone' => 'required',
-            'dealer_code' => 'required',
         ];
     }
 }

@@ -35,6 +35,14 @@
                             <div data-i2n="Without menu"> HP Customers</div>
                         </a>
                     </li>
+
+                    <li class="menu-item">
+                        <a href="{{ route('cash_sale_customer.index') }}" class="menu-link">
+                            <div data-i2n="Without menu"> 
+                                Cash Sale Customers
+                            </div>
+                        </a>
+                    </li>
                 </ul>
             </li>
 
@@ -55,7 +63,6 @@
                         </a>
                     </li>
 
-
                     <li class="menu-item">
                         <a href="{{ route('hire_purchase.index') }}" class="menu-link">
                             <div data-i2n="Without menu">
@@ -64,7 +71,6 @@
                         </a>
                     </li>
 
-
                     <li class="menu-item">
                         <a href="{{ route('hp_sales_account.index') }}" class="menu-link">
                             <div data-i2n="Without menu">
@@ -72,7 +78,6 @@
                             </div>
                         </a>
                     </li>
-
 
                     <li class="menu-item">
                         <a href="{{ route('hp_interest_suspense_account.index') }}" class="menu-link">
@@ -140,7 +145,7 @@
                         </a>
                     </li>
 
-                    
+
 
                     <li class="menu-item" hidden>
                         <a href="{{ route('hp_sale_cash_book.index') }}" class="menu-link">
@@ -155,7 +160,9 @@
 
             <li class="menu-item">
                 <a href="javascript:void(0)" class="menu-link menu-toggle">
-                    <div data-i2n="Layouts">Sales</div>
+                    <div data-i2n="Layouts">
+                        Dealer Sales
+                    </div>
                 </a>
 
                 <ul class="menu-sub">
@@ -212,6 +219,26 @@
                 </ul>
             </li>
 
+            <li class="menu-item">
+                <a href="javascript:void(0)" class="menu-link menu-toggle">
+                    <div data-i2n="Layouts">
+                        Cash Sales
+                    </div>
+                </a>
+
+                <ul class="menu-sub">
+
+                    <li class="menu-item">
+                        <a href="{{ route('cash_sales_invoices.index') }}" class="menu-link">
+                            <div data-i2n="Without menu">
+                                Cash Sales Invoices
+                            </div>
+                        </a>
+                    </li>
+
+                </ul>
+            </li>
+
 
             <li class="menu-item">
                 <a href="javascript:void(0)" class="menu-link menu-toggle">
@@ -261,7 +288,6 @@
                         </li>
                     @endcan
 
-
                     @can('import_car')
                         <li class="menu-item">
                             <a href="{{ route('import_car.index') }}" class="menu-link">
@@ -297,19 +323,6 @@
                 </ul>
             </li>
 
-            <li class="menu-item">
-                <a href="javascript:void(0)" class="menu-link menu-toggle">
-                    <div data-i2n="Layouts">Accounting</div>
-                </a>
-
-                <ul class="menu-sub">
-                    <li class="menu-item">
-                        <a href="{{ route('bankform.index') }}" class="menu-link">
-                            <div data-i2n="Without menu"> Bank Form</div>
-                        </a>
-                    </li>
-                </ul>
-            </li>
 
             <li class="menu-item">
                 <a href="javascript:void(0)" class="menu-link menu-toggle">
@@ -348,6 +361,13 @@
                             </a>
                         </li>
                     @endcan
+
+
+                    <li class="menu-item">
+                        <a href="{{ route('bankform.index') }}" class="menu-link">
+                            <div data-i2n="Without menu"> Bank Form</div>
+                        </a>
+                    </li>
                 </ul>
             </li>
         </ul>

@@ -24,8 +24,8 @@ class StoreHpSalesInvoices extends FormRequest
     public function rules()
     {
         return [
-            'customer_id' => 'required',
-            'id_no' => 'required',
+            'name' => 'required',
+            'dealer_customer_id' => 'required',
             'invoice_no' => 'required|unique:sales_invoices,invoice_no',
             'invoice_date' => 'required',
             'showroom_name' => 'required',

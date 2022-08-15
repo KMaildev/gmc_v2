@@ -34,7 +34,7 @@ class SalesInvoiceController extends Controller
     public function create()
     {
         $session_id = session()->getId();
-        $customers = Customers::orderBy('id')->where('dealer_or_hp', 'hp')->get();
+        $customers = Customers::orderBy('id')->where('dealer_or_hp', 'dealer')->get();
         $products = Products::all();
         $sales_persons = User::all();
         $temporary_sales_items = TemporarySalesItem::orderBy('id')->where('session_id', $session_id)->get();
@@ -49,8 +49,20 @@ class SalesInvoiceController extends Controller
      */
     public function store(StoreHpSalesInvoices $request)
     {
+
+        $customer = new Customers();
+        $customer->name = $request->name;
+        $customer->phone = $request->phone;
+        $customer->email = $request->email;
+        $customer->address = $request->address;
+        $customer->dealer_customer_id = $request->dealer_customer_id;
+        $customer->dealer_or_hp = $request->dealer_or_hp;
+        $customer->save();
+        $customer_id = $customer->id;
+
+
         $sale_invoice = new SalesInvoices();
-        $sale_invoice->customer_id = $request->customer_id;
+        $sale_invoice->customer_id = $customer_id;
         $sale_invoice->invoice_no = $request->invoice_no;
         $sale_invoice->invoice_date = $request->invoice_date;
         $sale_invoice->id_no = $request->id_no;
@@ -101,7 +113,7 @@ class SalesInvoiceController extends Controller
         $sale_inv_payment->hp_monthly_payment = $request->hp_monthly_payment ?? 0;
         $sale_inv_payment->hp_total_services_fees = $request->hp_total_services_fees ?? 0;
 
-        $sale_inv_payment->customer_id = $request->customer_id;
+        $sale_inv_payment->customer_id = $customer_id;
         $sale_inv_payment->sales_invoice_id = $sale_invoice_id;
 
 

@@ -7,7 +7,7 @@
                 <div class="card-body">
                     <div class="card-title header-elements">
                         <h5 class="m-0 me-2">
-                            Sales Invoices
+                            Cash Sales Invoices
                         </h5>
                         <div class="card-title-elements ms-auto">
                             <a href="#" class="dt-button create-new btn btn-success btn-sm"
@@ -21,7 +21,7 @@
                             </a>
 
                             @can('dealer_sales_invoice_create')
-                                <a href="{{ route('sales_invoices.create') }}"
+                                <a href="{{ route('cash_sales_invoices.create') }}"
                                     class="dt-button create-new btn btn-primary btn-sm">
                                     <span>
                                         <i class="bx bx-plus me-sm-2"></i>
@@ -37,6 +37,7 @@
                     <table class="table table-bordered main-table py-5" style="margin-bottom: 1px !important;"
                         id="tbl_exporttable_to_xls">
                         <thead class="tbbg">
+
                             <th style="background-color: #296166; color: white; text-align: center; width: 1%;">
                                 Sr.No
                             </th>
@@ -47,10 +48,7 @@
                                 Date
                             </th>
                             <th style="background-color: #296166; color: white; text-align: center; width: 10%;">
-                                Company Name
-                            </th>
-                            <th style="background-color: #296166; color: white; text-align: center; width: 10%;">
-                                Dealer Name
+                                Name
                             </th>
 
                             <th style="background-color: #296166; color: white; text-align: center; width: 10%;">
@@ -61,7 +59,7 @@
                                 Date
                             </th>
 
-                            <th colspan="2"
+                            <th colspan="3"
                                 style="background-color: #296166; color: white; text-align: center; width: 10%;">
                             </th>
 
@@ -113,29 +111,15 @@
                                                 </button>
                                                 <ul class="dropdown-menu">
 
-                                                    <li hidden>
-                                                        <a class="dropdown-item"
-                                                            href="{{ route('sales_inv_paynow_create', $sales_invoice->id) }}">
-                                                            Pay Now
-                                                        </a>
-                                                    </li>
-
                                                     <li>
                                                         <a class="dropdown-item"
-                                                            href="{{ route('sale_pay_now.show', $sales_invoice->id) }}">
-                                                            Payment History
-                                                        </a>
-                                                    </li>
-
-                                                    <li>
-                                                        <a class="dropdown-item"
-                                                            href="{{ route('sales_invoices.show', $sales_invoice->id) }}"
+                                                            href="{{ route('cash_sales_invoices.show', $sales_invoice->id) }}"
                                                             target="_blank">
                                                             View Invoice
                                                         </a>
                                                     </li>
 
-                                                    <li>
+                                                    <li hidden>
                                                         <a class="dropdown-item"
                                                             href="{{ route('sales_invoices.edit', $sales_invoice->id) }}">
                                                             Edit
@@ -226,48 +210,25 @@
                                 @endforeach
 
                                 <tr style="background-color: #D3DCE3; color: black; text-align: right;">
-                                    <td colspan="3"></td>
+                                    <td colspan="7"></td>
                                     <td>
                                         Total Amount
-                                    </td>
-                                    <td>
-                                        Down Payment
                                     </td>
                                     <td>
                                         Discount
                                     </td>
                                     <td>
-                                        Dealer Percentage
-                                    </td>
-
-                                    <td>
                                         Balance to Pay
-                                    </td>
-
-                                    <td>
-                                        Dealer Percentage
-                                    </td>
-
-                                    <td>
-                                        Amount
                                     </td>
                                 </tr>
 
                                 <tr style="color: black; text-align: center;">
-                                    <td colspan="3"></td>
+                                    <td colspan="7"></td>
                                     {{-- Total Amount --}}
                                     <td style="text-align: right; font-weight: bold;">
                                         @php
                                             $amount_total = array_sum($total_amount);
                                             echo number_format($amount_total, 2);
-                                        @endphp
-                                    </td>
-
-                                    {{-- Down Payment --}}
-                                    <td style="text-align: right; font-weight: bold;">
-                                        @php
-                                            $down_payment = $sales_invoice->sales_invoices_payments_table->down_payment ?? 0;
-                                            echo number_format($down_payment, 2);
                                         @endphp
                                     </td>
 
@@ -279,51 +240,11 @@
                                         @endphp
                                     </td>
 
-                                    {{-- dealer_ercentage --}}
-                                    <td style="text-align: right; font-weight: bold;">
-                                        @php
-                                            $amount_total = array_sum($total_amount);
-                                            $dealer_ercentage = $sales_invoice->sales_invoices_payments_table->dealer_ercentage ?? 0;
-                                            $dealer_ercentage_total = $amount_total * ($dealer_ercentage / 100);
-                                            echo number_format($dealer_ercentage_total, 2);
-                                        @endphp
-                                    </td>
-
                                     {{-- Balance to Pay --}}
                                     <td style="text-align: right; font-weight: bold;">
                                         @php
-                                            $amount_total = array_sum($total_amount);
-                                            $down_payment = $sales_invoice->sales_invoices_payments_table->down_payment ?? 0;
-                                            $discount = $sales_invoice->sales_invoices_payments_table->discount ?? 0;
-                                            $dealer_ercentage_total = $dealer_ercentage_total;
-                                            $balance_to_pay = $amount_total - $down_payment - $discount - $dealer_ercentage_total;
+                                            $balance_to_pay = $amount_total - $discount;
                                             echo number_format($balance_to_pay, 2);
-                                        @endphp
-                                    </td>
-
-                                    <td style="text-align: right; font-weight: bold;">
-                                        @php
-                                            $dealer_percentage_percent = $sales_invoice->sales_invoices_payments_table->dealer_ercentage ?? 0;
-                                            echo number_format($dealer_percentage_percent);
-                                            echo '%';
-                                        @endphp
-                                    </td>
-
-                                    <td style="text-align: right; font-weight: bold;">
-                                        @php
-                                            $CashBookCreditTotal = [];
-                                        @endphp
-                                        @foreach ($sales_invoice->cash_books_table as $cash_books)
-                                            @php
-                                                $cash_book_cash_in = $cash_books->cash_in;
-                                                $cash_book_bank_in = $cash_books->bank_in;
-                                                $TotalBankCash = $cash_book_cash_in + $cash_book_bank_in;
-                                                $CashBookCreditTotal[] = $TotalBankCash;
-                                            @endphp
-                                        @endforeach
-                                        @php
-                                            $CashBookCreditTotal = array_sum($CashBookCreditTotal);
-                                            echo number_format($CashBookCreditTotal, 2);
                                         @endphp
                                     </td>
                                 </tr>

@@ -1,15 +1,16 @@
 <?php
 
-namespace App\Http\Controllers;
-
-use App\Exports\HpCustomersExport;
-use App\Http\Requests\StoreHpCustomer;
-use App\Http\Requests\UpdateHpCustomer;
+namespace App\Http\Controllers\Customer;
+use App\Http\Controllers\Controller;
+use App\Exports\CustomersExport;
+use App\Http\Requests\StoreCustomer;
+use App\Http\Requests\UpdateCustomer;
+use App\Imports\CustomerImport;
 use App\Models\Customers;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
-class HpCustomerController extends Controller
+class CustomerController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,11 +19,11 @@ class HpCustomerController extends Controller
      */
     public function index()
     {
-        $customers = Customers::where('dealer_or_hp', 'hp')->get();
+        $customers = Customers::where('dealer_or_hp', 'dealer')->get();
         if (request('search')) {
             $customers->where('name', 'Like', '%' . request('search') . '%');
         }
-        return view('hp_customer.index', compact('customers'));
+        return view('customer.index', compact('customers'));
     }
 
     /**
@@ -32,8 +33,8 @@ class HpCustomerController extends Controller
      */
     public function create()
     {
-        $customers = Customers::where('dealer_or_hp', 'dealer')->get();
-        return view('hp_customer.create', compact('customers'));
+        $customers = Customers::all();
+        return view('customer.create', compact('customers'));
     }
 
     /**
@@ -42,7 +43,7 @@ class HpCustomerController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreHpCustomer $request)
+    public function store(StoreCustomer $request)
     {
         $customer = new Customers();
         $customer->name = $request->name;
@@ -81,8 +82,8 @@ class HpCustomerController extends Controller
     public function edit($id)
     {
         $customer = Customers::findOrFail($id);
-        $dealer_customers = Customers::where('dealer_or_hp', 'dealer')->get();
-        return view('hp_customer.edit', compact('customer', 'dealer_customers'));
+        $customers = Customers::all();
+        return view('customer.edit', compact('customer', 'customers'));
     }
 
     /**
@@ -92,7 +93,7 @@ class HpCustomerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateHpCustomer $request, $id)
+    public function update(UpdateCustomer $request, $id)
     {
         $customer = Customers::findOrFail($id);
         $customer->name = $request->name;
@@ -119,16 +120,49 @@ class HpCustomerController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $customer = Customers::findOrFail($id);
+        $customer->delete();
+        return redirect()->back()->with('success', 'Deleted successfully.');
     }
-
 
     /**
      * @return \Illuminate\Support\Collection
      */
-    public function hp_customer_export()
+    public function dealer_customer_import()
     {
-        $customers = Customers::where('dealer_or_hp', 'hp')->get();
-        return Excel::download(new HpCustomersExport($customers), 'hp_customers' . date("Y-m-d H:i:s") . '.xlsx');
+        Excel::import(new CustomerImport, request()->file('file'));
+        return redirect()->back()->with('success', 'Your processing has been completed.');
+    }
+
+    /**
+     * @return \Illuminate\Support\Collection
+     */
+    public function dealer_customer_export()
+    {
+        $customers = Customers::where('dealer_or_hp', 'dealer')->get();
+        return Excel::download(new CustomersExport($customers), 'dealer_customers' . date("Y-m-d H:i:s") . '.xlsx');
+    }
+
+
+    /**
+     * Get Ajax Request and restun Data
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function get_customer_ajax($id)
+    {
+        $customers_data = Customers::findOrFail($id);
+        return json_encode($customers_data);
+    }
+
+    /**
+     * Get Ajax Request and restun Data
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function get_dealer_customer_ajax($id)
+    {
+        $customers_data = Customers::findOrFail($id);
+        return json_encode($customers_data);
     }
 }
