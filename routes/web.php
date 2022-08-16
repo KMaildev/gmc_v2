@@ -115,7 +115,6 @@ Route::middleware('auth')->group(function () {
     Route::get('sales_items_remove/{id}', array('as' => 'sales_items_remove', 'uses' => 'Accounting\SalesItemsController@sales_items_remove'));
 
 
-
     // Purchase 
     Route::resource('purchase_order', 'Purchase\PurchaseOrderController');
     Route::resource('purchase_item', 'Purchase\PurchaseItemController');
@@ -125,6 +124,15 @@ Route::middleware('auth')->group(function () {
     // Cash Sales Invoice 
     Route::resource('cash_sales_invoices', 'CashSales\CashSalesInvoicesController');
 
+
+    // Sales Return 
+    Route::resource('sales_return', 'SalesReturn\SalesReturnController');
+    Route::get('select_return_invoice/{id}', array('as' => 'select_return_invoice', 'uses' => 'SalesReturn\SalesReturnController@SelectReturnInvoice'));
+    Route::resource('sales_return_item', 'SalesReturn\SalesReturnItemController');
+    Route::get('save_sales_return_item/{id}', array('as' => 'save_sales_return_item', 'uses' => 'SalesReturn\SalesReturnItemController@SaveSalesReturnItem'));
+    Route::get('remove_sales_return_item/{id}', array('as' => 'remove_sales_return_item', 'uses' => 'SalesReturn\SalesReturnItemController@RemoveSalesReturnItem'));
+    Route::post('update_sales_return_item_description', 'SalesReturn\SalesReturnItemController@update_sales_return_item_description');
+    Route::post('update_sales_return_item_unit_price', 'SalesReturn\SalesReturnItemController@update_sales_return_item_unit_price');
 
 
 

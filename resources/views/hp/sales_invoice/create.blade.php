@@ -22,6 +22,8 @@
                                         </div>
                                     </div>
 
+                                    
+
                                     <div class="row mb-1">
                                         <label class="col-sm-3 col-form-label" for="basic-default-name">
                                             Dealer
@@ -36,6 +38,18 @@
                                                     </option>
                                                 @endforeach
                                             </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-1">
+                                        <label class="col-sm-3 col-form-label" for="basic-default-name">ID NO</label>
+                                        <div class="col-sm-9">
+                                            <input type="text"
+                                                class="form-control form-control-sm @error('id_no') is-invalid @enderror"
+                                                value="{{ old('id_no') }}" name="id_no">
+                                            @error('id_no')
+                                                <div class="invalid-feedback"> {{ $message }} </div>
+                                            @enderror
                                         </div>
                                     </div>
 

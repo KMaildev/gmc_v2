@@ -45,7 +45,7 @@
                 <option value="">-- Sale Type --</option>
                 <option value="dealer">Dealer Invoice</option>
                 <option value="hp">HP Invoice</option>
-                <option value="cash_sale_invoice">Cash Sale Invoice</option>
+                <option value="cash_sale">Cash Sale Invoice</option>
             </select>
         </td>
 

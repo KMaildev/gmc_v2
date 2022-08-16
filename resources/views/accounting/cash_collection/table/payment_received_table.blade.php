@@ -28,8 +28,8 @@
                     Respectively
                 @endif
             </td>
-            <td style="font-size: 12px;">
-                Received Date
+            <td style="font-size: 12px; text-align: center;">
+                Received
             </td>
         @endforeach
     </tr>
@@ -48,7 +48,7 @@
                     echo number_format($TotalBankCash, 2);
                 @endphp
             </td>
-            <td style="font-size: 12px;">
+            <td style="font-size: 12px; text-align: right;">
                 {{ $cash_books->cash_book_date ?? '' }}
             </td>
         @endforeach

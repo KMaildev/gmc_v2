@@ -38,7 +38,7 @@
 
                     <li class="menu-item">
                         <a href="{{ route('cash_sale_customer.index') }}" class="menu-link">
-                            <div data-i2n="Without menu"> 
+                            <div data-i2n="Without menu">
                                 Cash Sale Customers
                             </div>
                         </a>
@@ -242,6 +242,27 @@
 
             <li class="menu-item">
                 <a href="javascript:void(0)" class="menu-link menu-toggle">
+                    <div data-i2n="Layouts">
+                        Sales return
+                    </div>
+                </a>
+
+                <ul class="menu-sub">
+
+                    <li class="menu-item">
+                        <a href="{{ route('sales_return.index') }}" class="menu-link">
+                            <div data-i2n="Without menu">
+                                Sales return
+                            </div>
+                        </a>
+                    </li>
+
+                </ul>
+            </li>
+
+
+            <li class="menu-item">
+                <a href="javascript:void(0)" class="menu-link menu-toggle">
                     <div data-i2n="Layouts">Suppliers</div>
                 </a>
 
@@ -326,7 +347,7 @@
 
             <li class="menu-item">
                 <a href="javascript:void(0)" class="menu-link menu-toggle">
-                    <div data-i2n="Layouts">Chart of accounts</div>
+                    <div data-i2n="Layouts">COA</div>
                 </a>
 
                 <ul class="menu-sub">

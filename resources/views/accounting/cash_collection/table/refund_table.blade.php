@@ -12,8 +12,8 @@
             <td style="font-size: 12px; text-align: center;">
                 Refund
             </td>
-            <td style="font-size: 12px;">
-                Refund Date
+            <td style="font-size: 12px; text-align: center;">
+                Date
             </td>
         @endforeach
     </tr>
@@ -32,7 +32,7 @@
                     echo number_format($TotalBankCashRefund, 2);
                 @endphp
             </td>
-            <td style="font-size: 12px;">
+            <td style="font-size: 12px; text-align: right;">
                 {{ $cash_books->cash_book_date ?? '' }}
             </td>
         @endforeach
