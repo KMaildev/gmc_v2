@@ -292,8 +292,6 @@
 
                             <div class="col-md-6">
                                 <dl class="row mb-2">
-
-                                    {{-- Sale Price --}}
                                     <div class="row mb-1">
                                         <label class="col-sm-4 col-form-label">
                                             Sale Price
@@ -310,7 +308,7 @@
                                         </div>
                                     </div>
 
-                                    {{-- Loan --}}
+
                                     <div class="row mb-1">
                                         <label class="col-sm-4 col-form-label">
                                             Loan
@@ -333,7 +331,6 @@
                                         </div>
                                     </div>
 
-                                    {{-- Downpayment --}}
                                     <div class="row mb-1">
                                         <label class="col-sm-4 col-form-label">
                                             Downpayment
@@ -355,7 +352,7 @@
                                         </div>
                                     </div>
 
-                                    {{-- Interest Rate --}}
+
                                     <div class="row mb-1">
                                         <label class="col-sm-4 col-form-label">
                                             Interest Rate
@@ -376,7 +373,7 @@
                                         </div>
                                     </div>
 
-                                    {{-- Tenor --}}
+
                                     <div class="row mb-1">
                                         <label class="col-sm-4 col-form-label">
                                             Tenor
@@ -396,7 +393,6 @@
                                         </div>
                                     </div>
 
-                                    {{-- A/C Opening --}}
                                     <div class="row mb-1">
                                         <label class="col-sm-4 col-form-label">
                                             A/C Opening
@@ -413,7 +409,6 @@
                                         </div>
                                     </div>
 
-                                    {{-- Document Fees --}}
                                     <div class="row mb-1">
                                         <label class="col-sm-4 col-form-label">
                                             Document Fees
@@ -430,7 +425,6 @@
                                         </div>
                                     </div>
 
-                                    {{-- Downpayment --}}
                                     <div class="row mb-1">
                                         <label class="col-sm-4 col-form-label">
                                             Downpayment
@@ -442,59 +436,37 @@
                                         </div>
                                     </div>
 
-                                    {{-- Stamp Duty --}}
                                     <div class="row mb-1">
                                         <label class="col-sm-4 col-form-label">
                                             Stamp Duty
                                         </label>
                                         <div class="col-sm-8">
-                                            <div class="input-group">
-                                                <input type="text"
-                                                    class="form-control form-control-sm @error('hp_stamp_duty') is-invalid @enderror"
-                                                    style="text-align:right;" name="hp_stamp_duty" id="StampDuty"
-                                                    oninput="CalculatePaymentMethod()"
-                                                    value="{{ old('hp_stamp_duty') }}" />
-                                                @error('hp_downpayment_percentage')
-                                                    <div class="invalid-feedback"> {{ $message }} </div>
-                                                @enderror
-                                                <span class="input-group-text sm">%</span>
-                                                <input type="text" class="form-control form-control-sm"
-                                                    style="text-align:right;" id="StampDutyAmount"
-                                                    name="hp_stamp_duty_amount" readonly>
-                                                @error('hp_stamp_duty_amount')
-                                                    <div class="invalid-feedback"> {{ $message }} </div>
-                                                @enderror
-                                            </div>
+                                            <input type="text"
+                                                class="form-control form-control-sm @error('hp_stamp_duty') is-invalid @enderror"
+                                                style="text-align:right;" name="hp_stamp_duty" id="StampDuty"
+                                                oninput="CalculatePaymentMethod()" value="{{ old('hp_stamp_duty') }}" />
+                                            @error('hp_stamp_duty')
+                                                <div class="invalid-feedback"> {{ $message }} </div>
+                                            @enderror
                                         </div>
                                     </div>
 
-                                    {{-- Insurance --}}
                                     <div class="row mb-1">
                                         <label class="col-sm-4 col-form-label">
                                             Insurance
                                         </label>
                                         <div class="col-sm-8">
-                                            <div class="input-group">
-                                                <input type="text"
-                                                    class="form-control form-control-sm @error('hp_insurance') is-invalid @enderror"
-                                                    style="text-align:right;" name="hp_insurance" id="Insurance"
-                                                    oninput="CalculatePaymentMethod()" name="hp_insurance"
-                                                    value="{{ old('hp_insurance') }}" />
-                                                @error('hp_insurance')
-                                                    <div class="invalid-feedback"> {{ $message }} </div>
-                                                @enderror
-                                                <span class="input-group-text sm">%</span>
-                                                <input type="text" class="form-control form-control-sm"
-                                                    style="text-align:right;" id="HpInsuranceAmount"
-                                                    name="hp_insurance_amount" readonly>
-                                                @error('hp_insurance_amount')
-                                                    <div class="invalid-feedback"> {{ $message }} </div>
-                                                @enderror
-                                            </div>
+                                            <input type="text"
+                                                class="form-control form-control-sm @error('hp_insurance') is-invalid @enderror"
+                                                style="text-align:right;" name="hp_insurance" id="Insurance"
+                                                oninput="CalculatePaymentMethod()" name="hp_insurance"
+                                                value="{{ old('hp_insurance') }}" />
+                                            @error('hp_insurance')
+                                                <div class="invalid-feedback"> {{ $message }} </div>
+                                            @enderror
                                         </div>
                                     </div>
 
-                                    {{-- Commission Fees --}}
                                     <div class="row mb-1">
                                         <label class="col-sm-4 col-form-label">
                                             Commission Fees
@@ -505,15 +477,15 @@
                                                     class="form-control form-control-sm @error('hp_commission_fees') is-invalid @enderror"
                                                     name="hp_commission_fees" id="HpCommissionFees"
                                                     style="text-align:right;" name="hp_commission_fees"
-                                                    value="{{ old('hp_commission_fees') }}"
-                                                    oninput="CalculatePaymentMethod()" />
+                                                    value="{{ old('hp_commission_fees') }}" />
 
                                                 <span class="input-group-text sm">%</span>
 
                                                 <input type="text"
                                                     class="form-control form-control-sm @error('hp_commission') is-invalid @enderror"
                                                     style="text-align:right;" name="hp_commission" id="Commission"
-                                                    value="{{ old('hp_commission') }}" readonly />
+                                                    oninput="CalculatePaymentMethod()"
+                                                    value="{{ old('hp_commission') }}" />
                                             </div>
                                             @error('hp_commission_fees')
                                                 <div class="invalid-feedback"> {{ $message }} </div>
@@ -521,36 +493,23 @@
                                         </div>
                                     </div>
 
-                                    {{-- Service Charges --}}
+
                                     <div class="row mb-1">
                                         <label class="col-sm-4 col-form-label">
                                             Service Charges
                                         </label>
                                         <div class="col-sm-8">
-                                            <div class="input-group">
-                                                <input type="text"
-                                                    class="form-control form-control-sm @error('hp_service_charges') is-invalid @enderror"
-                                                    style="text-align:right;" name="hp_service_charges"
-                                                    id="ServiceCharges" oninput="CalculatePaymentMethod()"
-                                                    value="{{ old('hp_service_charges') }}" />
-                                                @error('hp_service_charges')
-                                                    <div class="invalid-feedback"> {{ $message }} </div>
-                                                @enderror
-                                                <span class="input-group-text sm">%</span>
-
-                                                <input type="text"
-                                                    class="form-control form-control-sm @error('hp_service_charges_amount') is-invalid @enderror"
-                                                    style="text-align:right;" name="hp_service_charges_amount"
-                                                    id="HpServiceChargesAmount"
-                                                    value="{{ old('hp_service_charges_amount') }}" readonly />
-                                            </div>
-                                            @error('hp_service_charges_amount')
+                                            <input type="text"
+                                                class="form-control form-control-sm @error('hp_service_charges') is-invalid @enderror"
+                                                style="text-align:right;" name="hp_service_charges" id="ServiceCharges"
+                                                oninput="CalculatePaymentMethod()"
+                                                value="{{ old('hp_service_charges') }}" />
+                                            @error('hp_service_charges')
                                                 <div class="invalid-feedback"> {{ $message }} </div>
                                             @enderror
                                         </div>
                                     </div>
 
-                                    {{-- Total Services Fees --}}
                                     <div class="row mb-1">
                                         <label class="col-sm-4 col-form-label">
                                             Total Services Fees
@@ -566,7 +525,6 @@
                                         </div>
                                     </div>
 
-                                    {{-- Total Downpayment --}}
                                     <div class="row mb-1">
                                         <label class="col-sm-4 col-form-label">
                                             Total Downpayment
@@ -582,7 +540,7 @@
                                         </div>
                                     </div>
 
-                                    {{-- Monthly Payment (Principle + Interest ) --}}
+
                                     <div class="row mb-1">
                                         <label class="col-sm-4 col-form-label">
                                             Monthly Payment (Principle + Interest )
@@ -597,6 +555,7 @@
                                             @enderror
                                         </div>
                                     </div>
+
 
                                     <div class="row mb-1">
                                         <div class="col-sm-12">
@@ -649,30 +608,17 @@
             var DocumentFees = document.getElementById("DocumentFees").value;
             var StampDuty = document.getElementById("StampDuty").value;
             var Insurance = document.getElementById("Insurance").value;
-            var HpCommissionFees = document.getElementById("HpCommissionFees").value;
+            var Commission = document.getElementById("Commission").value;
             var ServiceCharges = document.getElementById("ServiceCharges").value;
+            var TotalDownpayment = Number(AccountOpening) + Number(DocumentFees) + Number(StampDuty) + Number(Insurance) +
+                Number(Commission) + Number(ServiceCharges) + Number(hpDownpaymentAmount);
+            document.getElementById("TotalDownpayment").value = TotalDownpayment;
 
-            var StampDutyTotalAmount = Laon * StampDuty / 100;
-            document.getElementById("StampDutyAmount").value = StampDutyTotalAmount;
+            var TotalServicefees = Number(AccountOpening) + Number(DocumentFees) + Number(StampDuty) + Number(Insurance) +
+                Number(Commission) + Number(ServiceCharges);
+            document.getElementById("TotalServicesFees").value = TotalServicefees;
 
-            var HpInsuranceTotalAmount = getTotalAmount * Insurance / 100;
-            document.getElementById("HpInsuranceAmount").value = HpInsuranceTotalAmount;
 
-            var HpCommissionFeesAmount = Laon * HpCommissionFees / 100;
-            document.getElementById("Commission").value = HpCommissionFeesAmount;
-
-            var ServiceChargesAmount = Laon * ServiceCharges / 100;
-            document.getElementById("HpServiceChargesAmount").value = ServiceChargesAmount;
-
-            var HpTotalServicesFees = parseFloat(AccountOpening) + parseFloat(DocumentFees) + parseFloat(
-                    StampDutyTotalAmount) + parseFloat(HpInsuranceTotalAmount) +
-                parseFloat(HpCommissionFeesAmount) + parseFloat(ServiceChargesAmount);
-            document.getElementById("TotalServicesFees").value = HpTotalServicesFees;
-
-            var HPTotalDownpayment = parseFloat(AccountOpening) + parseFloat(DocumentFees) + parseFloat(
-                    StampDutyTotalAmount) + parseFloat(HpInsuranceTotalAmount) +
-                parseFloat(HpCommissionFeesAmount) + parseFloat(ServiceChargesAmount) + parseFloat(hpDownpaymentAmount);
-            document.getElementById("TotalDownpayment").value = HPTotalDownpayment;
         }
 
 
@@ -685,6 +631,8 @@
             var pmt = ir * pv * (presentValueInterstFector + fv) / (presentValueInterstFector - 1);
             return pmt;
         }
+
+
 
 
         // Qty * Price

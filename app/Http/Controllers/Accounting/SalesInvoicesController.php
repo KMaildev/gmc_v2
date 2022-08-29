@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Accounting;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreSalesInvoices;
+use App\Http\Requests\UpdateSalesInvoices;
 use App\Models\Customers;
 use App\Models\Products;
 use App\Models\SalesInvoices;
@@ -134,7 +135,7 @@ class SalesInvoicesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateSalesInvoices $request, $id)
     {
         $sale_invoice = SalesInvoices::findOrFail($id);
         $sale_invoice->customer_id = $request->customer_id;

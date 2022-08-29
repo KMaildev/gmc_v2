@@ -1,358 +1,862 @@
 @extends('layouts.menus.invoice')
 @section('content')
-    <link rel="stylesheet" href="{{ asset('invoice/invoice.css') }}" />
-    <div class="row invoice-add justify-content-center" style="background-color: white;">
-        <div class="col-lg-12 col-12 mb-lg-0 py-5" hidden>
-            <div class="row gy-3">
+    <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+    <html>
+
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
+        <title></title>
+        <meta name="generator" content="https://conversiontools.io" />
+
+        <style type="text/css">
+            body,
+            div,
+            table,
+            thead,
+            tbody,
+            tfoot,
+            tr,
+            th,
+            td,
+            p {
+                font-family: "Calibri";
+                font-size: x-small
+            }
+
+            a.comment-indicator:hover+comment {
+                background: #ffd;
+                position: absolute;
+                display: block;
+                border: 1px solid black;
+                padding: 0.5em;
+            }
+
+            a.comment-indicator {
+                background: red;
+                display: inline-block;
+                border: 1px solid black;
+                width: 0.5em;
+                height: 0.5em;
+            }
+
+            comment {
+                display: none;
+            }
+        </style>
+
+    </head>
+
+    <body style="background-color: white;">
+        <div class="row invoice-add justify-content-center">
+            <div class="col-lg-12 col-12">
                 <center>
-                    <div class="col-lg-12">
-                        <div class="demo-inline-spacing">
-                            <a href="{{ route('sales_invoices.index') }}" class="btn btn-primary">
-                                <span class="tf-icons fa fa-arrow-left"></span>
-                                Back
-                            </a>
-                            <a href="{{ route('sale_invoice_pdf_download', $sales_invoice->id) }}"
-                                class="btn btn-secondary">
-                                <span class="tf-icons fa fa-download"></span>
-                                Download
-                            </a>
-                        </div>
-                    </div>
-                </center>
-            </div>
-        </div>
+                    <table cellspacing="0" border="0">
+                        <colgroup width="52"></colgroup>
+                        <colgroup width="78"></colgroup>
+                        <colgroup width="156"></colgroup>
+                        <colgroup width="125"></colgroup>
+                        <colgroup width="48"></colgroup>
+                        <colgroup width="114"></colgroup>
+                        <colgroup width="137"></colgroup>
+                        <colgroup width="65"></colgroup>
+                        <tr>
+                            <td colspan=8 rowspan=4 height="121" align="left" valign=bottom>
+                                <font color="#000000"><br><img src="{{ asset('invoice/dealer_inv_logo.jpg') }}" width=670
+                                        height=95 hspace=32 vspace=14>
+                                </font>
+                            </td>
+                        </tr>
+                        <tr>
+                        </tr>
+                        <tr>
+                        </tr>
+                        <tr>
+                        </tr>
+                        <tr>
+                            <td height="20" align="left" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
+                            <td align="left" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
+                            <td align="left" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
+                            <td align="left" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
+                            <td align="left" valign=bottom><b>
+                                    <font color="#000000"><br></font>
+                                </b></td>
+                            <td align="left" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
+                            <td align="left" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
+                            <td align="left" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
+                                height="20" align="left" valign=bottom><b>
+                                    <font color="#000000">Name</font>
+                                </b></td>
+                            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                colspan=2 align="center" valign=bottom><b>
+                                    <font face="Zawgyi-One" color="#000000">
+                                        {{ $sales_invoice->customers_table->name ?? '' }}</font>
+                                </b></td>
+                            <td align="center" valign=bottom>
+                                <font color="#000000">Invoice No</font>
+                            </td>
+                            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                colspan=3 align="center" valign=bottom sdval="10" sdnum="1033;"><b>
+                                    <font color="#000000">{{ $sales_invoice->invoice_no ?? '' }}</font>
+                                </b></td>
+                            <td align="left" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                height="20" align="left" valign=bottom>
+                                <font color="#000000">ID No.</font>
+                            </td>
+                            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                colspan=2 align="center" valign=bottom sdval="100" sdnum="1033;1109;[$-455][NatNum1]0">
+                                <b>
+                                    <font face="Zawgyi-One" color="#000000">{{ $sales_invoice->id_no ?? '' }}</font>
+                                </b>
+                            </td>
+                            <td align="left" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
+                            <td align="left" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
+                            <td align="left" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
+                            <td align="left" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
+                            <td align="left" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td height="20" align="left" valign=top>
+                                <font color="#000000">Address</font>
+                            </td>
+                            <td align="left" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
+                            <td align="left" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
+                            <td align="center" valign=bottom>
+                                <font color="#000000">Date</font>
+                            </td>
+                            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                colspan=3 align="center" valign=bottom sdnum="1033;1033;M/D/YYYY"><b>
+                                    <font color="#000000">{{ $sales_invoice->invoice_date ?? '' }}</font>
+                                </b></td>
+                            <td align="left" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                colspan=3 rowspan=3 height="60" align="center" valign=top>
+                                <font color="#000000">{{ $sales_invoice->customers_table->address ?? '' }}</font>
+                            </td>
+                            <td align="center" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
+                            <td align="center" valign=bottom sdnum="1033;1033;M/D/YYYY"><b>
+                                    <font color="#000000"><br></font>
+                                </b></td>
+                            <td align="center" valign=bottom><b>
+                                    <font color="#000000"><br></font>
+                                </b></td>
+                            <td align="center" valign=bottom><b>
+                                    <font color="#000000"><br></font>
+                                </b></td>
+                            <td align="left" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center" valign=bottom>
+                                <font color="#000000">Showroom Name</font>
+                            </td>
+                            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                colspan=3 align="center" valign=bottom><b>
+                                    <font color="#000000">{{ $sales_invoice->showroom_name ?? '' }}</font>
+                                </b></td>
+                            <td align="left" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center" valign=bottom>
+                                <font color="#000000">Dealer Code</font>
+                            </td>
+                            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                colspan=3 align="center" valign=middle bgcolor="#FFFFFF"><b>
+                                    <font color="#000000" face="Times New Roman">
+                                        {{ $sales_invoice->customers_table->dealer_code ?? '' }}</font>
+                                </b></td>
+                            <td align="left" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                colspan=2 height="20" align="center" valign=middle>
+                                <font color="#000000">PH</font>
+                            </td>
+                            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                align="left" valign=top sdval="9123123123" sdnum="1033;">
+                                <font color="#000000">{{ $sales_invoice->customers_table->phone ?? '' }}</font>
+                            </td>
+                            <td align="center" valign=bottom>
+                                <font color="#000000">Sales Type</font>
+                            </td>
+                            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                colspan=3 align="center" valign=bottom><b>
+                                    <font color="#000000">{{ $sales_invoice->sales_type ?? '' }}</font>
+                                </b></td>
+                            <td align="left" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                colspan=2 height="20" align="center" valign=middle>
+                                <font color="#000000">E-Mail Address</font>
+                            </td>
+                            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                align="left" valign=middle><u>
+                                    <font color="#0563C1">{{ $sales_invoice->customers_table->email ?? '' }}</font>
+                                </u></td>
+                            <td align="left" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
+                            <td align="left" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
+                            <td align="left" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
+                            <td align="left" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
+                            <td align="left" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td height="20" align="left" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
+                            <td align="left" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
+                            <td align="left" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
+                            <td align="center" valign=bottom>
+                                <font color="#000000">Payment Team</font>
+                            </td>
+                            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                colspan=3 align="center" valign=bottom><b>
+                                    <font color="#000000">{{ $sales_invoice->payment_team ?? '' }}</font>
+                                </b></td>
+                            <td align="left" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td height="20" align="left" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
+                            <td align="left" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
+                            <td align="left" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
+                            <td align="left" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
+                            <td align="left" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
+                            <td align="left" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
+                            <td align="left" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
+                            <td align="left" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
+                        </tr>
 
-        <div class="col-lg-12 col-12 mb-lg-0">
-            <center>
 
-                <body link='blue' vlink='purple'>
-                    <table border='0' cellpadding='0' cellspacing='0' width='700'
-                        style='border-collapse: collapse;table-layout:fixed;width:550pt'>
-                        <col width='60' style='mso-width-source:userset;width:45pt'>
-                        <col width='84' style='mso-width-source:userset;width:63pt'>
-                        <col width='204' style='mso-width-source:userset;width:153pt'>
-                        <col width='123' style='mso-width-source:userset;width:92.25pt'>
-                        <col width='46' style='mso-width-source:userset;width:34.5pt'>
-                        <col width='88' style='mso-width-source:userset;width:66pt'>
-                        <col width='72' style='mso-width-source:userset;width:54pt'>
-
-                        <td height='20' width='60' style='text-align: left;height:15pt;width:45pt;' align='left'
-                            valign='top'>
-                            <span
-                                style='mso-ignore:vglayout;position:absolute;z-index:1;margin-left:10px;margin-top:0px;width:666px;height:94px'>
-                                <img width='666' height='94' src="{{ asset('invoice/logo.png') }}" />
-                            </span>
-                        </td>
-
-                        <tr height='20' style='mso-height-source:userset;height:15pt'>
-                            <td colspan='6' width='617' style='mso-ignore:colspan;'></td>
-                        </tr>
-                        <tr height='34' style='mso-height-source:userset;height:26pt'>
-                            <td colspan='7' height='34' class='x23' style='mso-ignore:colspan;height:26pt;'></td>
-                        </tr>
-                        <tr height='34' style='mso-height-source:userset;height:26pt'>
-                            <td colspan='7' height='34' class='x23' style='mso-ignore:colspan;height:26pt;'></td>
-                        </tr>
-                        <tr height='32' style='mso-height-source:userset;height:24pt'>
-                            <td colspan='7' height='32' class='x69' style='height:24pt;'>Sale Invoice</td>
-                        </tr>
-                        <tr height='20' style='mso-height-source:userset;height:15pt'>
-                            <td colspan='7' height='20' style='mso-ignore:colspan;height:15pt;'></td>
-                        </tr>
-                        <tr height='20' style='mso-height-source:userset;height:15pt'>
-                            <td height='18' class='x26' style='height:13.5pt;'>Name</td>
-                            <td colspan='2' class='x70'
-                                style='border-right:1px solid windowtext;border-bottom:1px solid windowtext;'>
-                                {{ $sales_invoice->customers_table->name ?? '' }}
+                        <tr>
+                            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                height="43" align="center" valign=middle><b>
+                                    <font color="#000000">Sr.No</font>
+                                </b></td>
+                            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                align="center" valign=middle><b>
+                                    <font color="#000000">Model</font>
+                                </b></td>
+                            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                align="center" valign=middle><b>
+                                    <font color="#000000">Chassis No.&amp; Vehicle No.</font>
+                                </b></td>
+                            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                align="center" valign=middle><b>
+                                    <font color="#000000">Description</font>
+                                </b></td>
+                            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                align="center" valign=middle><b>
+                                    <font color="#000000">Qty</font>
+                                </b></td>
+                            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                align="center" valign=middle><b>
+                                    <font color="#000000">Price</font>
+                                </b></td>
+                            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                align="center" valign=middle><b>
+                                    <font color="#000000">Amount (MMK)</font>
+                                </b></td>
+                            <td align="left" valign=bottom>
+                                <font color="#000000"><br></font>
                             </td>
-                            <td class='x27'>Invoice No</td>
-                            <td colspan='3' class='x63'
-                                style='border-right:1px solid windowtext;border-bottom:1px solid windowtext;'>
-                                {{ $sales_invoice->invoice_no ?? '' }}
-                            </td>
-                        </tr>
-                        <tr height='20' style='mso-height-source:userset;height:15pt'>
-                            <td height='18' class='x28' style='height:13.5pt;'>ID No.</td>
-                            <td colspan='2' class='x72'
-                                style='border-right:1px solid windowtext;border-bottom:1px solid windowtext;'>
-                                {{ $sales_invoice->id_no ?? '' }}
-                            </td>
-                            <td colspan='4' style='mso-ignore:colspan;'></td>
-                        </tr>
-                        <tr height='20' style='mso-height-source:userset;height:15pt'>
-                            <td height='18' class='x99' style='height:13.5pt;'>Address</td>
-                            <td colspan='2' class='x98'
-                                style='border-right:1px solid windowtext;border-bottom:1px solid windowtext;'>
-                                <p>
-                                    {{ $sales_invoice->customers_table->address ?? '' }}
-                                </p>
-                            </td>
-                            <td class='x27'>Date</td>
-                            <td colspan='3' class='x74'
-                                style='border-right:1px solid windowtext;border-bottom:1px solid windowtext;'>
-                                {{ $sales_invoice->invoice_date ?? '' }}
-                            </td>
-                        </tr>
-                        <tr height='20' style='mso-height-source:userset;height:15pt'>
-                            <td colspan='7' height='20' class='x29' style='mso-ignore:colspan;height:15pt;'>
-                            </td>
-                        </tr>
-                        <tr height='20' style='mso-height-source:userset;height:15pt'>
-                            <td colspan='3' rowspan='2' height='39' class='x57'
-                                style='border-right:1px solid windowtext;border-bottom:1px solid windowtext;height:29.25pt;'>
-                            </td>
-                            <td class='x27'>Showroom Name</td>
-                            <td colspan='3' class='x63'
-                                style='border-right:1px solid windowtext;border-bottom:1px solid windowtext;'>
-                                {{ $sales_invoice->showroom_name ?? '' }}
-                            </td>
-                        </tr>
-                        <tr height='20' style='mso-height-source:userset;height:15pt'>
-                            <td class='x27'>Dealer Code</td>
-                            <td colspan='3' class='x66'
-                                style='border-right:1px solid windowtext;border-bottom:1px solid windowtext;'>
-                                {{ $sales_invoice->customers_table->dealer_code ?? '' }}
-                            </td>
-                        </tr>
-                        <tr height='20' style='mso-height-source:userset;height:15pt'>
-                            <td colspan='2' height='18' class='x75'
-                                style='border-right:1px solid windowtext;border-bottom:1px dotted windowtext;height:13.5pt;'>
-                                PH</td>
-                            <td class='x34'>
-                                {{ $sales_invoice->customers_table->phone ?? '' }}
-                            </td>
-                            <td class='x27'>Sales Type</td>
-                            <td colspan='3' class='x63'
-                                style='border-right:1px solid windowtext;border-bottom:1px solid windowtext;'>
-                                {{ $sales_invoice->sales_type ?? '' }}
-                            </td>
-                        </tr>
-                        <tr height='20' style='mso-height-source:userset;height:15pt'>
-                            <td colspan='2' height='18' class='x76'
-                                style='border-right:1px solid windowtext;border-bottom:1px solid windowtext;height:13.5pt;'>
-                                E-Mail Address</td>
-                            <td class='x35'>
-                                {{ $sales_invoice->customers_table->email ?? '' }}
-                            </td>
-                            <td colspan='4' style='mso-ignore:colspan;'></td>
                         </tr>
 
-                        <tr height='20' style='mso-height-source:userset;height:15pt'>
-                            <td colspan='3' height='20' style='mso-ignore:colspan;height:15pt;'></td>
-                            <td class='x27'>Payment Team</td>
-                            <td colspan='3' class='x63'
-                                style='border-right:1px solid windowtext;border-bottom:1px solid windowtext;'>
-                                {{ $sales_invoice->payment_team ?? '' }}
-                            </td>
-                        </tr>
-                        <tr height='20' style='mso-height-source:userset;height:15pt'>
-                            <td colspan='7' height='20' style='mso-ignore:colspan;height:15pt;'></td>
-                        </tr>
-
-
-
-
-                        {{-- Item List --}}
-                        <tr height='42' style='mso-height-source:userset;height:32pt'>
-                            <td height='40' class='x36' style='height:30.5pt;'>Sr.No</td>
-                            <td class='x36'>Model</td>
-                            <td class='x36'>Chassis No.&amp; Vehicle No.</td>
-                            <td class='x36'>Description</td>
-                            <td class='x36'>Qty</td>
-                            <td class='x36'>Price</td>
-                            <td class='x37'>Amount (MMK)</td>
-                        </tr>
 
                         @php
                             $total_amount = [];
                         @endphp
                         @foreach ($sales_items as $key => $sales_item)
-                            <tr height='20' style='mso-height-source:userset;height:15pt'>
-                                <td height='18' class='x38' style='height:13.5pt;'>
-                                    {{ $key + 1 }}
+                            <tr>
+                                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                    height="20" align="center" valign=middle sdval="1" sdnum="1033;">
+                                    <font color="#000000">{{ $key + 1 }}</font>
                                 </td>
-                                <td class='x38'>
-                                    {{ $sales_item->products_table->model_no ?? '' }}
+                                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                    align="center" valign=middle sdval="1" sdnum="1033;">
+                                    <font color="#000000">{{ $sales_item->products_table->model_no ?? '' }}</font>
                                 </td>
-                                <td class='x39'>
-                                    {{ $sales_item->products_table->chessi_no ?? '' }}
+                                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                    align="left" valign=bottom sdval="1" sdnum="1033;">
+                                    <font color="#000000">{{ $sales_item->products_table->chessi_no ?? '' }}</font>
                                 </td>
-                                <td class='x40'>
-                                    {{ $sales_item->description ?? '' }}
+                                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                    align="right" valign=bottom sdval="1" sdnum="1033;">
+                                    <font color="#000000">{{ $sales_item->description ?? '' }}</font>
                                 </td>
-                                <td class='x40' align='right'>
-                                    {{ $sales_item->qty ?? 0 }}
+                                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                    align="right" valign=bottom sdval="1" sdnum="1033;">
+                                    <font color="#000000">{{ $sales_item->qty ?? 0 }}</font>
                                 </td>
-                                <td class='x41' align='right' x:num="1000">
-                                    {{ number_format($sales_item->unit_price, 2) }}
+                                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                    align="right" valign=bottom sdval="1"
+                                    sdnum="1033;0;_(* #,##0_);_(* \(#,##0\);_(* &quot;-&quot;??_);_(@_)">
+                                    <font color="#000000"> {{ number_format($sales_item->unit_price, 2) }} </font>
                                 </td>
-                                <td class='x42' align='right' x:num="1000">
-                                    @php
-                                        $amount = $sales_item->qty * $sales_item->unit_price;
-                                        echo number_format($amount, 2);
-                                        $total_amount[] = $amount;
-                                    @endphp
+                                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                    align="right" valign=bottom sdval="1"
+                                    sdnum="1033;0;_(* #,##0_);_(* \(#,##0\);_(* &quot;-&quot;??_);_(@_)">
+                                    <font color="#000000">
+                                        @php
+                                            $amount = $sales_item->qty * $sales_item->unit_price;
+                                            echo number_format($amount, 2);
+                                            $total_amount[] = $amount;
+                                        @endphp
+                                    </font>
                                 </td>
                             </tr>
                         @endforeach
 
-
-
-
-
-
-                        <tr height='20' style='mso-height-source:userset;height:15pt'>
-                            <td height='20' class='x48' style='height:15pt;'></td>
-                            <td class='x48'></td>
-                            <td class='x48'></td>
-                            <td class='x48'></td>
-                            <td colspan='3' class='x24' style='mso-ignore:colspan;'></td>
-                        </tr>
-                        <tr height='20' style='mso-height-source:userset;height:15pt'>
-                            <td colspan='2' height='18' class='x77'
-                                style='border-right:1px solid windowtext;border-bottom:1px solid windowtext;height:13.5pt;'>
-                                Sales Person</td>
-                            <td class='x36'>
-                                {{ $sales_invoice->users_table->name ?? '' }}
+                        <tr>
+                            <td height="20" align="right" valign=bottom>
+                                <font color="#000000"><br></font>
                             </td>
-                            <td colspan='3' class='x77'
-                                style='border-right:1px solid windowtext;border-bottom:1px solid windowtext;'>Total
-                                Amount
+                            <td align="right" valign=bottom>
+                                <font color="#000000"><br></font>
                             </td>
-                            <td class='x49' align='right' x:num="1000">
-                                @php
-                                    $total_amount = array_sum($total_amount);
-                                    echo number_format($total_amount, 2);
-                                @endphp
+                            <td align="right" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
+                            <td align="right" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
+                            <td align="left" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
+                            <td align="left" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
+                            <td align="left" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
+                            <td align="left" valign=bottom>
+                                <font color="#000000"><br></font>
                             </td>
                         </tr>
 
-                        <tr height='20' style='mso-height-source:userset;height:15pt'>
-                            <td colspan='2' rowspan='4' height='79' class='x90'
-                                style='border-right:1px solid windowtext;border-bottom:1px solid windowtext;height:59.25pt;'>
+                        <tr>
+                            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                colspan=2 height="20" align="center" valign=middle><b>
+                                    <font color="#000000">Sales Person</font>
+                                </b></td>
+                            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                align="center" valign=middle><b>
+                                    <font color="#000000">{{ $sales_invoice->users_table->name ?? '' }}</font>
+                                </b></td>
+                            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                colspan=3 align="center" valign=middle><b>
+                                    <font color="#000000">Total Amount</font>
+                                </b></td>
+                            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                align="right" valign=bottom sdval="1000"
+                                sdnum="1033;0;_(* #,##0_);_(* \(#,##0\);_(* &quot;-&quot;??_);_(@_)">
+                                <font color="#000000">
+                                    @php
+                                        $total_amount = array_sum($total_amount);
+                                        echo number_format($total_amount, 2);
+                                    @endphp
+                                </font>
                             </td>
-                            <td rowspan='3' height='58' class='x96'
-                                style='border-bottom:1px solid windowtext;height:43.5pt;'></td>
-                            <td colspan='2' class='x97'
-                                style='border-right:1px solid windowtext;border-bottom:1px solid windowtext;'>DOWN
-                                PAYMENT
-                            </td>
-                            <td class='x50'></td>
-                            <td class='x49' align='right' x:num="1000">
-                                {{ number_format($sales_invoices_payment->down_payment, 2) }}
+                            <td align="left" valign=bottom>
+                                <font color="#000000"><br></font>
                             </td>
                         </tr>
+                        <tr>
+                            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                colspan=2 rowspan=5 height="100" align="center" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
+                            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                rowspan=3 align="center" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
+                            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                colspan=3 align="center" valign=middle>
+                                <font color="#000000">Discount</font>
+                            </td>
+                            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                align="right" valign=bottom sdval="1000"
+                                sdnum="1033;0;_(* #,##0_);_(* \(#,##0\);_(* &quot;-&quot;??_);_(@_)">
+                                <font color="#000000">
+                                    @php
+                                        $discount = $sales_invoice->sales_invoices_payments_table->discount ?? 0;
+                                        echo number_format($discount, 2);
+                                    @endphp
+                                </font>
+                            </td>
+                            <td align="left" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                colspan=3 align="center" valign=bottom>
+                                <font color="#000000">Deposit</font>
+                            </td>
+                            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                align="right" valign=bottom sdval="1000"
+                                sdnum="1033;0;_(* #,##0_);_(* \(#,##0\);_(* &quot;-&quot;??_);_(@_)">
+                                <font color="#000000">
+                                    {{-- Deposit Here --}}
+                                </font>
+                            </td>
+                            <td align="left" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                colspan=3 align="center" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
+                            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                align="right" valign=bottom sdval="3000"
+                                sdnum="1033;0;_(* #,##0_);_(* \(#,##0\);_(* &quot;-&quot;??_);_(@_)">
+                                <font color="#000000">
+                                    {{-- Here --}}
+                                </font>
+                            </td>
+                            <td align="left" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                align="center" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
+                            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
+                                colspan=2 align="center" valign=bottom>
+                                <font color="#000000">Dealer (%)</font>
+                            </td>
+                            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                align="center" valign=bottom sdval="1" sdnum="1033;">
+                                <font color="#000000">
+                                    {{ $sales_invoice->sales_invoices_payments_table->dealer_ercentage ?? 0 }}%
+                                </font>
+                            </td>
+                            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                align="right" valign=bottom sdval="1000"
+                                sdnum="1033;0;_(* #,##0_);_(* \(#,##0\);_(* &quot;-&quot;??_);_(@_)">
+                                <font color="#000000">
+                                    @php
+                                        $amount_total = $total_amount;
+                                        $dealer_ercentage = $sales_invoice->sales_invoices_payments_table->dealer_ercentage ?? 0;
+                                        $dealer_ercentage_total = $amount_total * ($dealer_ercentage / 100);
+                                        echo number_format($dealer_ercentage_total, 2);
+                                    @endphp
+                                </font>
+                            </td>
+                            <td align="left" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                align="left" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
+                            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                colspan=3 align="center" valign=bottom>
+                                <font color="#000000">Balance To Be Pay</font>
+                            </td>
+                            <td style="text-align: right; border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                align="center" valign=bottom sdval="5000"
+                                sdnum="1033;0;_(* #,##0_);_(* \(#,##0\);_(* &quot;-&quot;??_);_(@_)">
+                                <font color="#000000">
+                                    @php
+                                        $amount_total = $total_amount;
+                                        $down_payment = $sales_invoice->sales_invoices_payments_table->down_payment ?? 0;
+                                        $discount = $sales_invoice->sales_invoices_payments_table->discount ?? 0;
+                                        $dealer_ercentage_total = $dealer_ercentage_total;
+                                        $balance_to_pay = $amount_total - $down_payment - $discount - $dealer_ercentage_total;
+                                        echo number_format($balance_to_pay, 2);
+                                    @endphp
+                                </font>
+                            </td>
+                            <td align="left" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"
+                                style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
+                                height="20" align="left" valign=middle>
+                                <font color="#000000">Delivery Date</font>
+                            </td>
+                            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                align="left" valign=middle>
+                                <font color="#000000"><br></font>
+                            </td>
 
-                        <tr height='20' style='mso-height-source:userset;height:15pt'>
-                            <td colspan='2' class='x97'
-                                style='border-right:1px solid windowtext;border-bottom:1px solid windowtext;'>Dealer %
+                            <td align="center" valign=bottom>
+                                <font color="#000000"><br></font>
                             </td>
-                            <td class='x50'></td>
-                            <td class='x49' align='right' x:num="2">
-                                {{ $sales_invoices_payment->dealer_ercentage ?? 0 }}
+                            <td align="center" valign=bottom>
+                                <font color="#000000"><br></font>
                             </td>
-                        </tr>
-
-                        <tr height='20' style='mso-height-source:userset;height:15pt'>
-                            <td colspan='2' class='x97'
-                                style='border-right:1px solid windowtext;border-bottom:1px solid windowtext;'>
-                                BALANCE TO BE
-                                PAY</td>
-                            <td class='x51'></td>
-                            <td class='x49' align='right' x:num="1000">
-                                @php
-                                    $TotalAmount = $total_amount;
-                                    $DownPayment = $sales_invoices_payment->down_payment;
-                                    $DealerPercentage = $sales_invoices_payment->dealer_ercentage;
-                                    $DealerPercentageValue = ($TotalAmount / 100) * $DealerPercentage;
-                                    $BalanceToPay = $TotalAmount - $DownPayment - $DealerPercentageValue;
-                                    echo number_format($BalanceToPay, 2);
-                                @endphp
+                            <td style="border-top: 1px solid #000000" align="center" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
+                            <td align="left" valign=bottom>
+                                <font color="#000000"><br></font>
                             </td>
                         </tr>
-
-                        <tr height='20' style='mso-height-source:userset;height:15pt'>
-                            <td class='x28'></td>
-                            <td colspan='3' class='x97'
-                                style='border-right:1px solid windowtext;border-bottom:1px solid windowtext;'>TOTAL
-                                BALANCE
-                                TO BE PAY DATE&nbsp;</td>
-                            <td class='x52' x:num="1000">
-                                {{ $sales_invoices_payment->balance_to_pay_be_date ?? '' }}
+                        <tr>
+                            <td height="20" align="center" valign=middle>
+                                <font color="#000000"><br></font>
+                            </td>
+                            <td align="center" valign=middle>
+                                <font color="#000000"><br></font>
+                            </td>
+                            <td align="left" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
+                            <td align="center" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
+                            <td align="center" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
+                            <td align="center" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
+                            <td align="left" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
+                            <td align="left" valign=bottom>
+                                <font color="#000000"><br></font>
                             </td>
                         </tr>
-
-                        <tr height='20' style='mso-height-source:userset;height:15pt'>
-                            <td colspan='2' height='18' class='x80'
-                                style='border-right:1px solid windowtext;border-bottom:1px solid windowtext;height:13.5pt;'>
-                                Delivery Date</td>
-                            <td class='x53'></td>
-                            <td class='x31'></td>
-                            <td class='x31'></td>
-                            <td class='x31'></td>
-                            <td class='x54'></td>
+                        <tr>
+                            <td height="20" align="center" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
+                            <td align="center" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
+                            <td align="left" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
+                            <td align="center" valign=bottom><b>
+                                    <font color="#000000"><br></font>
+                                </b></td>
+                            <td align="left" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
+                            <td align="center" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
+                            <td align="left" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
+                            <td align="left" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
                         </tr>
-                        <tr height='20' style='mso-height-source:userset;height:15pt'>
-                            <td height='20' class='x55' style='height:15pt;'></td>
-                            <td class='x55'></td>
-                            <td colspan='5' class='x24' style='mso-ignore:colspan;'></td>
+                        <tr>
+                            <td height="20" align="left" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
+                            <td align="left" valign=bottom><b>
+                                    <font color="#000000">Prepared By</font>
+                                </b></td>
+                            <td align="center" valign=bottom><b>
+                                    <font color="#000000">Received By</font>
+                                </b></td>
+                            <td align="center" valign=bottom><b>
+                                    <font color="#000000"><br></font>
+                                </b></td>
+                            <td align="left" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
+                            <td align="left" valign=bottom><b>
+                                    <font color="#000000">Authorised Signature</font>
+                                </b></td>
+                            <td align="left" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
+                            <td align="left" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
                         </tr>
-                        <tr height='20' style='mso-height-source:userset;height:15pt'>
-                            <td height='20' class='x31' style='height:15pt;'></td>
-                            <td class='x31'></td>
-                            <td colspan='5' class='x24' style='mso-ignore:colspan;'></td>
+                        <tr>
+                            <td height="20" align="left" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
+                            <td align="left" valign=bottom><b>
+                                    <font color="#000000"><br></font>
+                                </b></td>
+                            <td align="center" valign=bottom><b>
+                                    <font color="#000000">Customer</font>
+                                </b></td>
+                            <td align="left" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
+                            <td align="left" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
+                            <td align="left" valign=bottom>
+                                <font color="#000000">Sale Manager</font>
+                            </td>
+                            <td align="left" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
+                            <td align="left" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
                         </tr>
-                        <tr height='20' style='mso-height-source:userset;height:15pt'>
-                            <td height='20' style='height:15pt;'></td>
-                            <td class='x56'>Prepared By</td>
-                            <td colspan='2' class='x82'>Received By</td>
-                            <td></td>
-                            <td colspan='2' class='x56' style='mso-ignore:colspan;'>Authorised Signature</td>
+                        <tr>
+                            <td height="20" align="left" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
+                            <td align="left" valign=bottom><b>
+                                    <font color="#000000"><br></font>
+                                </b></td>
+                            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                colspan=4 rowspan=2 align="center" valign=middle><b>
+                                    <font face="Zawgyi-One" color="#000000">
+                                        {{ $sales_invoice->customers_table->name ?? '' }}
+                                    </font>
+                                </b></td>
+                            <td align="left" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
+                            <td align="left" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
                         </tr>
-                        <tr height='20' style='mso-height-source:userset;height:15pt'>
-                            <td colspan='2' height='20' style='mso-ignore:colspan;height:15pt;'></td>
-                            <td colspan='2' class='x83' style='border-bottom:1px solid windowtext;'>Customer</td>
-                            <td></td>
-                            <td>Sales Manager</td>
-                            <td></td>
+                        <tr>
+                            <td height="20" align="left" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
+                            <td align="left" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
+                            <td align="left" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
+                            <td align="left" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
                         </tr>
-                        <tr height='20' style='mso-height-source:userset;height:15pt'>
-                            <td colspan='2' height='20' style='mso-ignore:colspan;height:15pt;'></td>
-                            <td colspan='3' rowspan='2' height='39' class='x84'
-                                style='border-right:1px solid windowtext;border-bottom:1px solid windowtext;height:29.25pt;'>
-                                Customre MGMG</td>
-                            <td colspan='2' style='mso-ignore:colspan;'></td>
+                        <tr>
+                            <td height="20" align="left" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
+                            <td align="left" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
+                            <td align="left" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
+                            <td align="left" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
+                            <td align="left" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
+                            <td align="left" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
+                            <td align="left" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
+                            <td align="left" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
                         </tr>
-                        <tr height='20' style='mso-height-source:userset;height:15pt'>
-                            <td colspan='2' height='20' style='mso-ignore:colspan;height:15pt;'></td>
-                            <td colspan='2' style='mso-ignore:colspan;'></td>
+                        <tr>
+                            <td height="20" align="left" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
+                            <td align="left" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
+                            <td align="left" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
+                            <td align="left" valign=bottom><b>
+                                    <font color="#000000"><br></font>
+                                </b></td>
+                            <td align="left" valign=bottom><b>
+                                    <font color="#000000"><br></font>
+                                </b></td>
+                            <td align="left" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
+                            <td align="left" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
+                            <td align="left" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
                         </tr>
-                        <tr height='80' style='mso-height-source:userset;height:60pt;mso-xlrowspan:4'>
-                            <td colspan='7' height='20' style='mso-ignore:colspan;height:15pt;'></td>
+                        <tr>
+                            <td height="20" align="left" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
+                            <td align="left" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
+                            <td align="left" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
+                            <td align="left" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
+                            <td align="left" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
+                            <td align="left" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
+                            <td align="left" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
+                            <td align="left" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
                         </tr>
-                        <tr height='20' style='mso-height-source:userset;height:15pt'>
-                            <td colspan='2' height='20' style='mso-ignore:colspan;height:15pt;'></td>
-                            <td class='x56'>Approve by Account</td>
-                            <td class='x56'></td>
-                            <td colspan='2' class='x56' style='mso-ignore:colspan;'>Approve by Manager</td>
-                            <td></td>
+                        <tr>
+                            <td height="20" align="left" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
+                            <td align="left" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
+                            <td align="left" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
+                            <td align="left" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
+                            <td align="left" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
+                            <td align="left" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
+                            <td align="left" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
+                            <td align="left" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
                         </tr>
-                        <tr height='20' style='mso-height-source:userset;height:15pt'>
-                            <td colspan='5' height='20' style='mso-ignore:colspan;height:15pt;'></td>
-                            <td colspan='2' class='x56' style='mso-ignore:colspan;'>Security Guard</td>
+                        <tr>
+                            <td height="20" align="left" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
+                            <td align="left" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
+                            <td align="left" valign=bottom><b>
+                                    <font color="#000000">Approve by Account</font>
+                                </b></td>
+                            <td align="left" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
+                            <td colspan=2 align="center" valign=bottom>
+                                <font color="#000000">Approved by Manager</font>
+                            </td>
+                            <td align="left" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
+                            <td align="left" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
                         </tr>
                     </table>
-                </body>
-
-            </center>
-            <br><br><br>
+                </center>
+            </div>
         </div>
-    </div>
-@endsection
+    </body>
 
+    </html>
+@endsection
 <script type="text/javascript">
     window.onload = function() {
-        window.print();
+        // window.print();
     }
 </script>
 @section('script')

@@ -80,21 +80,18 @@
 
                                     {{-- Debit --}}
                                     <td style="text-align: right; font-weight: bold;">
-                                        @php
-                                            $total_amount = [];
-                                        @endphp
-                                        @foreach ($sales_invoice->sales_items_table as $sales_items)
+                                        @foreach ($sales_invoice->cash_books_table as $key => $cash_books)
                                             @php
-                                                $qty = $sales_items->qty;
-                                                $unit_price = $sales_items->unit_price;
-                                                $sale_value = $qty * $unit_price;
-                                                $total_amount[] = $sale_value;
+                                                $cash_book_cash_in = $cash_books->cash_in;
+                                                $cash_book_bank_in = $cash_books->bank_in;
+                                                $BankCashInTotal = $cash_book_cash_in + $cash_book_bank_in;
+                                                $TotalBankCashIn[] = $BankCashInTotal;
                                             @endphp
                                         @endforeach
                                         @php
-                                            $amount_total = array_sum($total_amount);
-                                            echo number_format($amount_total, 2);
-                                            $DebitTotal[] = $amount_total;
+                                            $BankCashInTotal = array_sum($TotalBankCashIn);
+                                            echo number_format($BankCashInTotal, 2);
+                                            $DebitTotal[] = $BankCashInTotal;
                                         @endphp
                                     </td>
 
@@ -121,7 +118,7 @@
                                     {{-- Balance Debit --}}
                                     <td style="text-align: right; font-weight: bold;">
                                         @php
-                                            $TotalDebitAmount = $amount_total;
+                                            $TotalDebitAmount = $BankCashInTotal;
                                             $TotalBankInCashOut = $BankCashOutTotal;
                                             $BalanceDebit = $TotalDebitAmount - $TotalBankInCashOut;
                                             if ($BalanceDebit > 0) {
@@ -142,33 +139,6 @@
                                     </td>
                                 </tr>
                             @endforeach
-                            <tr>
-                                <td colspan="4">Total:</td>
-                                <td style="text-align: right; font-weight: bold;">
-                                    @php
-                                        $TotalDebit = array_sum($DebitTotal);
-                                        echo number_format($TotalDebit, 2);
-                                    @endphp
-                                </td>
-                                <td style="text-align: right; font-weight: bold;">
-                                    @php
-                                        $TotalCredit = array_sum($CreditTotal);
-                                        echo number_format($TotalCredit, 2);
-                                    @endphp
-                                </td>
-                                <td style="text-align: right; font-weight: bold;">
-                                    @php
-                                        $TotalBalanceDebit = array_sum($BalanceDebitTotal);
-                                        echo number_format($TotalBalanceDebit, 2);
-                                    @endphp
-                                </td>
-                                <td style="text-align: right; font-weight: bold;">
-                                    @php
-                                        $TotalBalanceCredit = array_sum($BalanceCreditTotal);
-                                    @endphp
-                                    {{ number_format(abs($TotalBalanceCredit), 2) }}
-                                </td>
-                            </tr>
                         </tbody>
                     </table>
                 </div>

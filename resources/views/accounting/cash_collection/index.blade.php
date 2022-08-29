@@ -40,20 +40,37 @@
                 </th>
 
                 <th style="color: white; background-color: #2e696e; text-align: center; widht: 10%">
+                    Cash-Credit
+                </th>
+
+                <th style="color: white; background-color: #2e696e; text-align: center; widht: 10%">
                     Sales <br> Discount -Debited
+                </th>
+
+                <th style="color: white; background-color: #2e696e; text-align: center; widht: 10%">
+                    Sales <br> Discount -Credit
+                </th>
+
+                <th style="color: white; background-color: #2e696e; text-align: center; widht: 10%">
+                    AR <br> (Vehicle )-Debit
                 </th>
 
                 <th style="color: white; background-color: #2e696e; text-align: center; widht: 10%">
                     AR <br> (Vehicle )-Credited
                 </th>
 
-                <th style="color: white; background-color: #2e696e; text-align: center; widht: 20%">
+                {{-- <th style="color: white; background-color: #2e696e; text-align: center; widht: 20%">
                     Payment
+                </th> --}}
+
+                <th style="color: white; background-color: #2e696e; text-align: center; widht: 20%">
+                    Refund - Debit
                 </th>
 
                 <th style="color: white; background-color: #2e696e; text-align: center; widht: 20%">
-                    Refund
+                    Refund - Credit
                 </th>
+
             </thead>
             <tbody class="table-border-bottom-0">
                 @foreach ($sales_invoices as $key => $sales_invoice)
@@ -81,31 +98,6 @@
                         {{-- Cash-Debited --}}
                         <td style="text-align: right; font-weight: bold;">
                             @php
-                                $total_amount = [];
-                            @endphp
-                            @foreach ($sales_invoice->sales_items_table as $sales_items)
-                                @php
-                                    $qty = $sales_items->qty;
-                                    $unit_price = $sales_items->unit_price;
-                                    $sale_value = $qty * $unit_price;
-                                    $total_amount[] = $sale_value;
-                                @endphp
-                            @endforeach
-                            @php
-                                $amount_total = array_sum($total_amount);
-                                echo number_format($amount_total, 2);
-                                $DebitTotal[] = $amount_total;
-                            @endphp
-                        </td>
-
-                        {{-- Sales Discount -Debited --}}
-                        <td style="text-align: right; font-weight: bold;">
-                            {{ $sales_invoice->sales_invoices_payments_table->discount ?? 0 }}
-                        </td>
-
-                        {{-- AR (Vehicle )-Credited --}}
-                        <td style="text-align: right; font-weight: bold;">
-                            @php
                                 $CashBookCreditTotal = [];
                             @endphp
                             @foreach ($sales_invoice->cash_books_table as $cash_books)
@@ -122,14 +114,58 @@
                             @endphp
                         </td>
 
+                        {{-- Cash-Credit --}}
+                        <td style="text-align: right; font-weight: bold;">
+                            0
+                        </td>
+
+                        {{-- Sales Discount -Debited --}}
+                        <td style="text-align: right; font-weight: bold;">
+                            {{ $sales_invoice->sales_invoices_payments_table->discount ?? 0 }}
+                        </td>
+
+                        {{-- Sales Discount -Credit --}}
+                        <td style="text-align: right; font-weight: bold;">
+                            0
+                        </td>
+
+                        {{-- AR (Vehicle )-Debit --}}
+                        <td style="text-align: right; font-weight: bold;">
+                            @php
+                                $ar_debit = [];
+                            @endphp
+                            @foreach ($sales_invoice->cash_books_table as $key => $cash_books)
+                                @php
+                                    $cash_book_cash_out = $cash_books->cash_out;
+                                    $cash_book_bank_out = $cash_books->bank_out;
+                                    $TotalBankCashRefund = $cash_book_cash_out + $cash_book_bank_out;
+                                    $ar_debit[] = $TotalBankCashRefund;
+                                @endphp
+                            @endforeach
+                            @php
+                                $ar_debit_total = array_sum($ar_debit);
+                                echo number_format($ar_debit_total, 2);
+                            @endphp
+                        </td>
+
+                        {{-- AR (Vehicle )-Credited --}}
+                        <td style="text-align: right; font-weight: bold;">
+                            @php
+                                echo number_format($CashBookCreditTotal, 2);
+                            @endphp
+                        </td>
+
                         {{-- Payment --}}
-                        <td>
-                            @include('accounting.cash_collection.table.payment_received_table')
+                        <td style="text-align: right; font-weight: bold;">
+                            0
+                            {{-- @include('accounting.cash_collection.table.payment_received_table') --}}
                         </td>
 
                         {{-- Refund --}}
-                        <td>
-                            @include('accounting.cash_collection.table.refund_table')
+                        <td style="text-align: right; font-weight: bold;">
+                            @php
+                                echo number_format($ar_debit_total, 2);
+                            @endphp
                         </td>
                     </tr>
                 @endforeach

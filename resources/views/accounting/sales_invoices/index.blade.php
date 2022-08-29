@@ -181,7 +181,9 @@
                                         Sales Value
                                     </td>
                                 </tr>
-
+                                @php
+                                    $total_amount = [];
+                                @endphp
                                 @foreach ($sales_invoice->sales_items_table as $item_key => $sales_items)
                                     <tr style="border: 1px solid black;">
                                         <td style="text-align: center;">

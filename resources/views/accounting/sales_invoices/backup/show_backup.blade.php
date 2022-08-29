@@ -2,12 +2,32 @@
 @section('content')
     <link rel="stylesheet" href="{{ asset('invoice/invoice.css') }}" />
     <div class="row invoice-add justify-content-center" style="background-color: white;">
-        <div class="col-lg-12 col-12 mb-lg-0" id="data">
+        <div class="col-lg-12 col-12 mb-lg-0 py-5" hidden>
+            <div class="row gy-3">
+                <center>
+                    <div class="col-lg-12">
+                        <div class="demo-inline-spacing">
+                            <a href="{{ route('sales_invoices.index') }}" class="btn btn-primary">
+                                <span class="tf-icons fa fa-arrow-left"></span>
+                                Back
+                            </a>
+                            <a href="{{ route('sale_invoice_pdf_download', $sales_invoice->id) }}"
+                                class="btn btn-secondary">
+                                <span class="tf-icons fa fa-download"></span>
+                                Download
+                            </a>
+                        </div>
+                    </div>
+                </center>
+            </div>
+        </div>
+
+        <div class="col-lg-12 col-12 mb-lg-0">
             <center>
 
                 <body link='blue' vlink='purple'>
-                    <table border='0' cellpadding='0' cellspacing='0' width='750'
-                        style='border-collapse: collapse;table-layout:fixed;width:650pt'>
+                    <table border='0' cellpadding='0' cellspacing='0' width='700'
+                        style='border-collapse: collapse;table-layout:fixed;width:550pt'>
                         <col width='60' style='mso-width-source:userset;width:45pt'>
                         <col width='84' style='mso-width-source:userset;width:63pt'>
                         <col width='204' style='mso-width-source:userset;width:153pt'>
@@ -60,11 +80,9 @@
                             <td colspan='4' style='mso-ignore:colspan;'></td>
                         </tr>
                         <tr height='20' style='mso-height-source:userset;height:15pt'>
-                            <td height='18' class='x99' style='height:13.5pt; padding-top: 5px;'>
-                                Address
-                            </td>
+                            <td height='18' class='x99' style='height:13.5pt;'>Address</td>
                             <td colspan='2' class='x98'
-                                style='border-right:1px solid windowtext;border-bottom:1px solid windowtext; padding-top: 5px;'>
+                                style='border-right:1px solid windowtext;border-bottom:1px solid windowtext;'>
                                 <p>
                                     {{ $sales_invoice->customers_table->address ?? '' }}
                                 </p>
@@ -79,8 +97,7 @@
                             <td colspan='7' height='20' class='x29' style='mso-ignore:colspan;height:15pt;'>
                             </td>
                         </tr>
-
-                        <tr colspan="2" height='20' style='mso-height-source:userset;height:15pt'>
+                        <tr height='20' style='mso-height-source:userset;height:15pt'>
                             <td colspan='3' rowspan='2' height='39' class='x57'
                                 style='border-right:1px solid windowtext;border-bottom:1px solid windowtext;height:29.25pt;'>
                             </td>
@@ -90,7 +107,6 @@
                                 {{ $sales_invoice->showroom_name ?? '' }}
                             </td>
                         </tr>
-
                         <tr height='20' style='mso-height-source:userset;height:15pt'>
                             <td class='x27'>Dealer Code</td>
                             <td colspan='3' class='x66'
@@ -98,7 +114,6 @@
                                 {{ $sales_invoice->customers_table->dealer_code ?? '' }}
                             </td>
                         </tr>
-
                         <tr height='20' style='mso-height-source:userset;height:15pt'>
                             <td colspan='2' height='18' class='x75'
                                 style='border-right:1px solid windowtext;border-bottom:1px dotted windowtext;height:13.5pt;'>
@@ -135,6 +150,8 @@
                         </tr>
 
 
+
+
                         {{-- Item List --}}
                         <tr height='42' style='mso-height-source:userset;height:32pt'>
                             <td height='40' class='x36' style='height:30.5pt;'>Sr.No</td>
@@ -142,55 +159,47 @@
                             <td class='x36'>Chassis No.&amp; Vehicle No.</td>
                             <td class='x36'>Description</td>
                             <td class='x36'>Qty</td>
-                            <td class='x36'>
-                                Price
-                            </td>
+                            <td class='x36'>Price</td>
                             <td class='x37'>Amount (MMK)</td>
                         </tr>
 
                         @php
                             $total_amount = [];
                         @endphp
+                        @foreach ($sales_items as $key => $sales_item)
+                            <tr height='20' style='mso-height-source:userset;height:15pt'>
+                                <td height='18' class='x38' style='height:13.5pt;'>
+                                    {{ $key + 1 }}
+                                </td>
+                                <td class='x38'>
+                                    {{ $sales_item->products_table->model_no ?? '' }}
+                                </td>
+                                <td class='x39'>
+                                    {{ $sales_item->products_table->chessi_no ?? '' }}
+                                </td>
+                                <td class='x40'>
+                                    {{ $sales_item->description ?? '' }}
+                                </td>
+                                <td class='x40' align='right'>
+                                    {{ $sales_item->qty ?? 0 }}
+                                </td>
+                                <td class='x41' align='right' x:num="1000">
+                                    {{ number_format($sales_item->unit_price, 2) }}
+                                </td>
+                                <td class='x42' align='right' x:num="1000">
+                                    @php
+                                        $amount = $sales_item->qty * $sales_item->unit_price;
+                                        echo number_format($amount, 2);
+                                        $total_amount[] = $amount;
+                                    @endphp
+                                </td>
+                            </tr>
+                        @endforeach
 
-                        <tr height='20' style='mso-height-source:userset;height:15pt'>
-                            <td height='18' class='x38' style='height:13.5pt;'>
-                                1
-                            </td>
 
-                            <td class='x38' style="text-align: center">
-                                {{ $sales_invoice->hp_sales_sales_items_table->products_table->model_year ?? '' }}
-                            </td>
 
-                            <td class='x39' style="text-align: center">
-                                {{ $sales_invoice->hp_sales_sales_items_table->products_table->chessi_no ?? '' }}
-                            </td>
 
-                            <td class='x40' style="text-align: center">
-                                {{ $sales_invoice->hp_sales_sales_items_table->products_table->model_year ?? '' }}
-                            </td>
 
-                            <td class='x40' align='right'>
-                                1
-                            </td>
-
-                            <td class='x41' align='right' x:num="1000">
-                                @php
-                                    $hp_total_downpayment = $sales_invoice->sales_invoices_payments_table->hp_loan_amount ?? 0;
-                                    $total_principle = $sales_invoice->sales_invoices_payments_table->total_principle ?? 0;
-                                    $total_hp_interest = $sales_invoice->sales_invoices_payments_table->total_interest ?? 0;
-                                    $hp_total_services_fees = $sales_invoice->sales_invoices_payments_table->hp_total_services_fees ?? 0;
-                                    $HPInvoicePrice = $hp_total_downpayment + $total_principle + $total_hp_interest + $hp_total_services_fees;
-                                    echo number_format($HPInvoicePrice, 2);
-                                @endphp
-                            </td>
-
-                            <td class='x42' align='right' x:num="1000">
-                                @php
-                                    echo number_format($HPInvoicePrice, 2);
-                                    $total_amount[] = $HPInvoicePrice;
-                                @endphp
-                            </td>
-                        </tr>
 
                         <tr height='20' style='mso-height-source:userset;height:15pt'>
                             <td height='20' class='x48' style='height:15pt;'></td>
@@ -230,57 +239,19 @@
                             </td>
                             <td class='x50'></td>
                             <td class='x49' align='right' x:num="1000">
-                                @php
-                                    $TotalReceivePrinciple = [];
-                                @endphp
-                                @foreach ($sales_invoice->cash_books_table as $key => $cash_books)
-                                    @if ($cash_books->principle_interest == 'Principle')
-                                        @php
-                                            $cash_book_cash_in = $cash_books->cash_in;
-                                            $cash_book_bank_in = $cash_books->bank_in;
-                                            $BankCashInTotal = $cash_book_cash_in + $cash_book_bank_in;
-                                            $TotalReceivePrinciple[] = $BankCashInTotal;
-                                        @endphp
-                                    @endif
-                                @endforeach
-                                @php
-                                    $TotalReceivePrinciple = array_sum($TotalReceivePrinciple);
-                                @endphp
-
-                                @php
-                                    $TotalReceiveInterest = [];
-                                @endphp
-                                @foreach ($sales_invoice->cash_books_table as $key => $cash_books)
-                                    @if ($cash_books->principle_interest == 'Interest')
-                                        @php
-                                            $cash_book_cash_in = $cash_books->cash_in;
-                                            $cash_book_bank_in = $cash_books->bank_in;
-                                            $BankCashInTotal = $cash_book_cash_in + $cash_book_bank_in;
-                                            $TotalReceiveInterest[] = $BankCashInTotal;
-                                        @endphp
-                                    @endif
-                                @endforeach
-                                @php
-                                    $TotalReceiveInterest = array_sum($TotalReceiveInterest);
-                                @endphp
-
-                                @php
-                                    $HPTotalReceived = $hp_total_downpayment + $TotalReceivePrinciple + $TotalReceiveInterest + $hp_total_services_fees;
-                                    echo number_format($HPTotalReceived, 2);
-                                @endphp
+                                {{ number_format($sales_invoices_payment->down_payment, 2) }}
                             </td>
                         </tr>
 
-                        {{-- <tr height='20' style='mso-height-source:userset;height:15pt'>
+                        <tr height='20' style='mso-height-source:userset;height:15pt'>
                             <td colspan='2' class='x97'
-                                style='border-right:1px solid windowtext;border-bottom:1px solid windowtext;'>
-                                Dealer %
+                                style='border-right:1px solid windowtext;border-bottom:1px solid windowtext;'>Dealer %
                             </td>
                             <td class='x50'></td>
                             <td class='x49' align='right' x:num="2">
                                 {{ $sales_invoices_payment->dealer_ercentage ?? 0 }}
                             </td>
-                        </tr> --}}
+                        </tr>
 
                         <tr height='20' style='mso-height-source:userset;height:15pt'>
                             <td colspan='2' class='x97'
@@ -290,34 +261,36 @@
                             <td class='x51'></td>
                             <td class='x49' align='right' x:num="1000">
                                 @php
-                                    $BalanceToBePay = $total_amount - $HPTotalReceived;
-                                    echo number_format($BalanceToBePay, 2);
+                                    $TotalAmount = $total_amount;
+                                    $DownPayment = $sales_invoices_payment->down_payment;
+                                    $DealerPercentage = $sales_invoices_payment->dealer_ercentage;
+                                    $DealerPercentageValue = ($TotalAmount / 100) * $DealerPercentage;
+                                    $BalanceToPay = $TotalAmount - $DownPayment - $DealerPercentageValue;
+                                    echo number_format($BalanceToPay, 2);
                                 @endphp
                             </td>
                         </tr>
 
                         <tr height='20' style='mso-height-source:userset;height:15pt'>
+                            <td class='x28'></td>
                             <td colspan='3' class='x97'
                                 style='border-right:1px solid windowtext;border-bottom:1px solid windowtext;'>TOTAL
-                                BALANCE TO BE PAY &nbsp;
-                            </td>
-                            <td class='x52' x:num="1000" style="text-align: right">
-                                @php
-                                    $BalanceToBePay = $total_amount - $HPTotalReceived;
-                                    echo number_format($BalanceToBePay, 2);
-                                @endphp
+                                BALANCE
+                                TO BE PAY DATE&nbsp;</td>
+                            <td class='x52' x:num="1000">
+                                {{ $sales_invoices_payment->balance_to_pay_be_date ?? '' }}
                             </td>
                         </tr>
 
                         <tr height='20' style='mso-height-source:userset;height:15pt'>
-                            <td height='18' class='x80'
+                            <td colspan='2' height='18' class='x80'
                                 style='border-right:1px solid windowtext;border-bottom:1px solid windowtext;height:13.5pt;'>
-                                Delivery Date
-                            </td>
+                                Delivery Date</td>
                             <td class='x53'></td>
                             <td class='x31'></td>
                             <td class='x31'></td>
-                            <td class='x32'></td>
+                            <td class='x31'></td>
+                            <td class='x54'></td>
                         </tr>
                         <tr height='20' style='mso-height-source:userset;height:15pt'>
                             <td height='20' class='x55' style='height:15pt;'></td>
@@ -370,13 +343,17 @@
                         </tr>
                     </table>
                 </body>
+
             </center>
             <br><br><br>
         </div>
     </div>
 @endsection
+
 <script type="text/javascript">
     window.onload = function() {
         window.print();
     }
 </script>
+@section('script')
+@endsection

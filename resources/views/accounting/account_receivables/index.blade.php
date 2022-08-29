@@ -80,6 +80,20 @@
 
                                     {{-- Debit --}}
                                     <td style="text-align: right; font-weight: bold;">
+
+                                        @php
+                                            $BankCashOutTotal = [];
+                                        @endphp
+                                        @foreach ($sales_invoice->cash_books_table as $cash_books)
+                                            @php
+                                                $cash_book_cash_out = $cash_books->cash_out;
+                                                $cash_book_bank_out = $cash_books->bank_out;
+                                                $TotalBankCashOut = $cash_book_cash_out + $cash_book_bank_out;
+                                                $BankCashOutTotal[] = $TotalBankCashOut;
+                                            @endphp
+                                        @endforeach
+
+
                                         @php
                                             $total_amount = [];
                                         @endphp
@@ -93,8 +107,10 @@
                                         @endforeach
                                         @php
                                             $amount_total = array_sum($total_amount);
-                                            echo number_format($amount_total, 2);
-                                            $DebitTotal[] = $amount_total;
+                                            $BankCashOutTotal = array_sum($BankCashOutTotal);
+                                            $total_amounts = $amount_total - $BankCashOutTotal;
+                                            echo number_format($total_amounts, 2);
+                                            $DebitTotal[] = $total_amounts;
                                         @endphp
                                     </td>
 
@@ -121,7 +137,7 @@
                                     {{-- Balance Debit --}}
                                     <td style="text-align: right; font-weight: bold;">
                                         @php
-                                            $TotalDebitAmount = $amount_total;
+                                            $TotalDebitAmount = $total_amounts;
                                             $TotalBankInCashIn = $CashBookCreditTotal;
                                             $BalanceDebit = $TotalDebitAmount - $TotalBankInCashIn;
                                             if ($BalanceDebit > 0) {

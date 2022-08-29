@@ -38,55 +38,74 @@
                         id="tbl_exporttable_to_xls">
                         <thead class="tbbg">
                             <th style="background-color: #296166; color: white; text-align: center; width: 1%;">
-                                Sr.No
+                                No.
                             </th>
+
                             <th style="background-color: #296166; color: white; text-align: center; width: 10%;">
-                                Name
+                                HP Customer Name
                             </th>
+
                             <th style="background-color: #296166; color: white; text-align: center; width: 10%;">
                                 Dealer
                             </th>
+
                             <th style="background-color: #296166; color: white; text-align: center; width: 10%;">
-                                Join Date
+                                Purchase Date
                             </th>
+
                             <th style="background-color: #296166; color: white; text-align: center; width: 10%;">
                                 Invoice
                             </th>
+
                             <th style="background-color: #296166; color: white; text-align: center; width: 10%;">
                                 Year
                             </th>
+
                             <th style="background-color: #296166; color: white; text-align: center; width: 10%;">
                                 Model
                             </th>
+
                             <th style="background-color: #296166; color: white; text-align: center; width: 10%;">
                                 Vehicle Type
                             </th>
+
                             <th style="background-color: #296166; color: white; text-align: center; width: 10%;">
                                 Chassis No.
                             </th>
+
                             <th style="background-color: #296166; color: white; text-align: center; width: 10%;">
                                 Sale Price
                             </th>
+
                             <th style="background-color: #296166; color: white; text-align: center; width: 10%;">
                                 Downpayment
                             </th>
+
                             <th style="background-color: #296166; color: white; text-align: center; width: 10%;">
                                 HP Principle
                             </th>
+
                             <th style="background-color: #296166; color: white; text-align: center; width: 10%;">
-                                Principle Receive
+                                Received
                             </th>
                             <th style="background-color: #296166; color: white; text-align: center; width: 10%;">
-                                Principle Balance
+                                Receivable
                             </th>
+
                             <th style="background-color: #296166; color: white; text-align: center; width: 10%;">
                                 HP Interest
                             </th>
+
                             <th style="background-color: #296166; color: white; text-align: center; width: 10%;">
-                                Interest Receive
+                                Received
                             </th>
+
                             <th style="background-color: #296166; color: white; text-align: center; width: 10%;">
-                                Interest Balance
+                                Receivable
+                            </th>
+
+                            <th style="background-color: #296166; color: white; text-align: center; width: 10%;">
+                                Balance
                             </th>
 
                             <th style="background-color: #296166; color: white; text-align: center; width: 10%;">
@@ -99,6 +118,42 @@
 
                             <th style="background-color: #296166; color: white; text-align: center; width: 10%;">
                                 Balance
+                            </th>
+
+                            <th style="background-color: #296166; color: white; text-align: center; width: 10%;">
+                                A/C Opening
+                            </th>
+
+                            <th style="background-color: #296166; color: white; text-align: center; width: 10%;">
+                                Document Fee
+                            </th>
+
+                            <th style="background-color: #296166; color: white; text-align: center; width: 10%;">
+                                Stamp Duty
+                            </th>
+
+                            <th style="background-color: #296166; color: white; text-align: center; width: 10%;">
+                                Insurance
+                            </th>
+
+                            <th style="background-color: #296166; color: white; text-align: center; width: 10%;">
+                                Commission
+                            </th>
+
+                            <th style="background-color: #296166; color: white; text-align: center; width: 10%;">
+                                Service Charges
+                            </th>
+
+                            <th style="background-color: #296166; color: white; text-align: center; width: 10%;">
+                                HP Service Fee
+                            </th>
+
+                            <th style="background-color: #296166; color: white; text-align: center; width: 10%;">
+                                HP Invoice Price
+                            </th>
+
+                            <th style="background-color: #296166; color: white; text-align: center; width: 10%;">
+                                Total Received
                             </th>
 
                             <th style="background-color: #296166; color: white; text-align: center; width: 10%;">
@@ -147,13 +202,16 @@
 
                                     {{-- Sale Price --}}
                                     <td style="text-align: right; font-weight: bold;">
-                                        {{ $sales_invoice->sales_invoices_payments_table->total_amount ?? 0 }}
+                                        @php
+                                            $sale_price = $sales_invoice->sales_invoices_payments_table->total_amount ?? 0;
+                                            echo number_format($sale_price, 2);
+                                        @endphp
                                     </td>
 
                                     {{-- Downpayment --}}
                                     <td style="text-align: right; font-weight: bold;">
                                         @php
-                                            $hp_total_downpayment = $sales_invoice->sales_invoices_payments_table->hp_total_downpayment ?? 0;
+                                            $hp_total_downpayment = $sales_invoice->sales_invoices_payments_table->hp_loan_amount ?? 0;
                                             echo number_format($hp_total_downpayment, 2);
                                         @endphp
                                     </td>
@@ -233,10 +291,16 @@
                                         @endphp
                                     </td>
 
+                                    {{-- Balance --}}
+                                    <td style="text-align: right; font-weight: bold;">
+                                        @php
+                                            $TotalBalance = $PrincipleBalance + $TotalInterestBalance;
+                                            echo number_format($TotalBalance, 2);
+                                        @endphp
+                                    </td>
 
                                     {{-- Total Sale --}}
                                     <td style="text-align: right; font-weight: bold;">
-                                        {{-- Downpayment + HP Principle + HP Interest --}}
                                         @php
                                             $TotalSale = $hp_total_downpayment + $total_principle + $total_hp_interest;
                                             echo number_format($TotalSale, 2);
@@ -257,6 +321,78 @@
                                         @php
                                             $HpBalance = $TotalSale - $TotalInterestBalance;
                                             echo number_format($HpBalance, 2);
+                                        @endphp
+                                    </td>
+
+                                    {{-- A/C Opening --}}
+                                    <td style="text-align: right; font-weight: bold;">
+                                        @php
+                                            $hp_account_opening = $sales_invoice->sales_invoices_payments_table->hp_account_opening ?? 0;
+                                            echo number_format($hp_account_opening, 2);
+                                        @endphp
+                                    </td>
+
+                                    {{-- Document Fee --}}
+                                    <td style="text-align: right; font-weight: bold;">
+                                        @php
+                                            $hp_document_fees = $sales_invoice->sales_invoices_payments_table->hp_document_fees ?? 0;
+                                            echo number_format($hp_document_fees, 2);
+                                        @endphp
+                                    </td>
+
+                                    {{-- Stamp Duty --}}
+                                    <td style="text-align: right; font-weight: bold;">
+                                        @php
+                                            $hp_stamp_duty_amount = $sales_invoice->sales_invoices_payments_table->hp_stamp_duty_amount ?? 0;
+                                            echo number_format($hp_stamp_duty_amount, 2);
+                                        @endphp
+                                    </td>
+
+                                    {{-- Insurance --}}
+                                    <td style="text-align: right; font-weight: bold;">
+                                        @php
+                                            $hp_insurance_amount = $sales_invoice->sales_invoices_payments_table->hp_insurance_amount ?? 0;
+                                            echo number_format($hp_insurance_amount, 2);
+                                        @endphp
+                                    </td>
+
+                                    {{-- Commission --}}
+                                    <td style="text-align: right; font-weight: bold;">
+                                        @php
+                                            $hp_commission = $sales_invoice->sales_invoices_payments_table->hp_commission ?? 0;
+                                            echo number_format($hp_commission, 2);
+                                        @endphp
+                                    </td>
+
+                                    {{-- Service Charges --}}
+                                    <td style="text-align: right; font-weight: bold;">
+                                        @php
+                                            $hp_service_charges_amount = $sales_invoice->sales_invoices_payments_table->hp_service_charges_amount ?? 0;
+                                            echo number_format($hp_service_charges_amount, 2);
+                                        @endphp
+                                    </td>
+
+                                    {{-- HP Service Fee --}}
+                                    <td style="text-align: right; font-weight: bold;">
+                                        @php
+                                            $hp_total_services_fees = $sales_invoice->sales_invoices_payments_table->hp_total_services_fees ?? 0;
+                                            echo number_format($hp_total_services_fees, 2);
+                                        @endphp
+                                    </td>
+
+                                    {{-- HP Invoice Price --}}
+                                    <td style="text-align: right; font-weight: bold;">
+                                        @php
+                                            $HPInvoicePrice = $hp_total_downpayment + $total_principle + $total_hp_interest + $hp_total_services_fees;
+                                            echo number_format($HPInvoicePrice, 2);
+                                        @endphp
+                                    </td>
+
+                                    {{-- Total Received --}}
+                                    <td style="text-align: right; font-weight: bold;">
+                                        @php
+                                            $HPTotalReceived = $hp_total_downpayment +  $TotalReceivePrinciple + $TotalReceiveInterest + $hp_total_services_fees;
+                                            echo number_format($HPTotalReceived, 2);
                                         @endphp
                                     </td>
 

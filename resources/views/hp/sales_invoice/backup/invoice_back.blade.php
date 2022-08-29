@@ -151,46 +151,35 @@
                         @php
                             $total_amount = [];
                         @endphp
-
-                        <tr height='20' style='mso-height-source:userset;height:15pt'>
-                            <td height='18' class='x38' style='height:13.5pt;'>
-                                1
-                            </td>
-
-                            <td class='x38' style="text-align: center">
-                                {{ $sales_invoice->hp_sales_sales_items_table->products_table->model_year ?? '' }}
-                            </td>
-
-                            <td class='x39' style="text-align: center">
-                                {{ $sales_invoice->hp_sales_sales_items_table->products_table->chessi_no ?? '' }}
-                            </td>
-
-                            <td class='x40' style="text-align: center">
-                                {{ $sales_invoice->hp_sales_sales_items_table->products_table->model_year ?? '' }}
-                            </td>
-
-                            <td class='x40' align='right'>
-                                1
-                            </td>
-
-                            <td class='x41' align='right' x:num="1000">
-                                @php
-                                    $hp_total_downpayment = $sales_invoice->sales_invoices_payments_table->hp_loan_amount ?? 0;
-                                    $total_principle = $sales_invoice->sales_invoices_payments_table->total_principle ?? 0;
-                                    $total_hp_interest = $sales_invoice->sales_invoices_payments_table->total_interest ?? 0;
-                                    $hp_total_services_fees = $sales_invoice->sales_invoices_payments_table->hp_total_services_fees ?? 0;
-                                    $HPInvoicePrice = $hp_total_downpayment + $total_principle + $total_hp_interest + $hp_total_services_fees;
-                                    echo number_format($HPInvoicePrice, 2);
-                                @endphp
-                            </td>
-
-                            <td class='x42' align='right' x:num="1000">
-                                @php
-                                    echo number_format($HPInvoicePrice, 2);
-                                    $total_amount[] = $HPInvoicePrice;
-                                @endphp
-                            </td>
-                        </tr>
+                        @foreach ($sales_items as $key => $sales_item)
+                            <tr height='20' style='mso-height-source:userset;height:15pt'>
+                                <td height='18' class='x38' style='height:13.5pt;'>
+                                    {{ $key + 1 }}
+                                </td>
+                                <td class='x38' style="text-align: center">
+                                    {{ $sales_item->products_table->model_no ?? '' }}
+                                </td>
+                                <td class='x39' style="text-align: center">
+                                    {{ $sales_item->products_table->chessi_no ?? '' }}
+                                </td>
+                                <td class='x40' style="text-align: center">
+                                    {{ $sales_item->description ?? '' }}
+                                </td>
+                                <td class='x40' align='right'>
+                                    {{ $sales_item->qty ?? 0 }}
+                                </td>
+                                <td class='x41' align='right' x:num="1000">
+                                    {{ number_format($sales_item->unit_price, 2) }}
+                                </td>
+                                <td class='x42' align='right' x:num="1000">
+                                    @php
+                                        $amount = $sales_item->qty * $sales_item->unit_price;
+                                        echo number_format($amount, 2);
+                                        $total_amount[] = $amount;
+                                    @endphp
+                                </td>
+                            </tr>
+                        @endforeach
 
                         <tr height='20' style='mso-height-source:userset;height:15pt'>
                             <td height='20' class='x48' style='height:15pt;'></td>
@@ -230,44 +219,7 @@
                             </td>
                             <td class='x50'></td>
                             <td class='x49' align='right' x:num="1000">
-                                @php
-                                    $TotalReceivePrinciple = [];
-                                @endphp
-                                @foreach ($sales_invoice->cash_books_table as $key => $cash_books)
-                                    @if ($cash_books->principle_interest == 'Principle')
-                                        @php
-                                            $cash_book_cash_in = $cash_books->cash_in;
-                                            $cash_book_bank_in = $cash_books->bank_in;
-                                            $BankCashInTotal = $cash_book_cash_in + $cash_book_bank_in;
-                                            $TotalReceivePrinciple[] = $BankCashInTotal;
-                                        @endphp
-                                    @endif
-                                @endforeach
-                                @php
-                                    $TotalReceivePrinciple = array_sum($TotalReceivePrinciple);
-                                @endphp
-
-                                @php
-                                    $TotalReceiveInterest = [];
-                                @endphp
-                                @foreach ($sales_invoice->cash_books_table as $key => $cash_books)
-                                    @if ($cash_books->principle_interest == 'Interest')
-                                        @php
-                                            $cash_book_cash_in = $cash_books->cash_in;
-                                            $cash_book_bank_in = $cash_books->bank_in;
-                                            $BankCashInTotal = $cash_book_cash_in + $cash_book_bank_in;
-                                            $TotalReceiveInterest[] = $BankCashInTotal;
-                                        @endphp
-                                    @endif
-                                @endforeach
-                                @php
-                                    $TotalReceiveInterest = array_sum($TotalReceiveInterest);
-                                @endphp
-
-                                @php
-                                    $HPTotalReceived = $hp_total_downpayment + $TotalReceivePrinciple + $TotalReceiveInterest + $hp_total_services_fees;
-                                    echo number_format($HPTotalReceived, 2);
-                                @endphp
+                                {{ number_format($sales_invoices_payment->down_payment, 2) }}
                             </td>
                         </tr>
 
@@ -290,8 +242,12 @@
                             <td class='x51'></td>
                             <td class='x49' align='right' x:num="1000">
                                 @php
-                                    $BalanceToBePay = $total_amount - $HPTotalReceived;
-                                    echo number_format($BalanceToBePay, 2);
+                                    $TotalAmount = $total_amount;
+                                    $DownPayment = $sales_invoices_payment->down_payment;
+                                    $DealerPercentage = $sales_invoices_payment->dealer_ercentage;
+                                    $DealerPercentageValue = ($TotalAmount / 100) * $DealerPercentage;
+                                    $BalanceToPay = $TotalAmount - $DownPayment - $DealerPercentageValue;
+                                    echo number_format($BalanceToPay, 2);
                                 @endphp
                             </td>
                         </tr>
@@ -301,11 +257,8 @@
                                 style='border-right:1px solid windowtext;border-bottom:1px solid windowtext;'>TOTAL
                                 BALANCE TO BE PAY &nbsp;
                             </td>
-                            <td class='x52' x:num="1000" style="text-align: right">
-                                @php
-                                    $BalanceToBePay = $total_amount - $HPTotalReceived;
-                                    echo number_format($BalanceToBePay, 2);
-                                @endphp
+                            <td class='x52' x:num="1000">
+                                {{ $sales_invoices_payment->balance_to_pay_be_date ?? '' }}
                             </td>
                         </tr>
 

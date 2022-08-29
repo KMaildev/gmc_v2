@@ -31,16 +31,22 @@
                                 Post Ref.
                             </th>
                             <th style="color: white; background-color: #2e696e; text-align: center; widht: 10%">
-                                Account Receivable ( Vehicle )-Debited
+                                AR-Debited
                             </th>
                             <th style="color: white; background-color: #2e696e; text-align: center; widht: 10%">
-                                Revenue (Vehicle)-Credited
+                                AR-Credit
+                            </th>
+                            <th style="color: white; background-color: #2e696e; text-align: center; widht: 10%">
+                                Revenue Debit
+                            </th>
+                            <th style="color: white; background-color: #2e696e; text-align: center; widht: 10%">
+                                Revenue Credited
                             </th>
                         </thead>
                         <tbody class="table-border-bottom-0">
                             @php
                                 $AccountReceivableTotal = [];
-                                $RevenueTotal = [];
+                                $RevenueCredited = [];
                             @endphp
                             @foreach ($sales_invoices as $key => $sales_invoice)
                                 <tr>
@@ -65,7 +71,21 @@
                                         {{ $sales_invoice->post_ref ?? '' }}
                                     </td>
 
+                                    {{-- AR-Debited --}}
                                     <td style="text-align: right; font-weight: bold;">
+
+                                        @php
+                                            $BankCashOutTotal = [];
+                                        @endphp
+                                        @foreach ($sales_invoice->cash_books_table as $cash_books)
+                                            @php
+                                                $cash_book_cash_out = $cash_books->cash_out;
+                                                $cash_book_bank_out = $cash_books->bank_out;
+                                                $TotalBankCashOut = $cash_book_cash_out + $cash_book_bank_out;
+                                                $BankCashOutTotal[] = $TotalBankCashOut;
+                                            @endphp
+                                        @endforeach
+
                                         @php
                                             $total_amount = [];
                                         @endphp
@@ -79,16 +99,38 @@
                                         @endforeach
                                         @php
                                             $amount_total = array_sum($total_amount);
-                                            echo number_format($amount_total, 2);
-                                            $AccountReceivableTotal[] = $amount_total;
+                                            $BankCashOutTotal = array_sum($BankCashOutTotal);
+                                            $total_amounts = $amount_total - $BankCashOutTotal;
+                                            echo number_format($total_amounts, 2);
+                                            $AccountReceivableTotal[] = $total_amounts;
                                         @endphp
+                                    </td>
+
+                                    {{-- AR-Credit --}}
+                                    <td style="text-align: right; font-weight: bold;">
+                                        0
+                                    </td>
+
+                                    <td style="text-align: right; font-weight: bold;">
+                                        0
                                     </td>
 
                                     <td style="text-align: right; font-weight: bold;">
                                         @php
-                                            $amount_total = array_sum($total_amount);
-                                            echo number_format($amount_total, 2);
-                                            $RevenueTotal[] = $amount_total;
+                                            $CashBookCreditTotal = [];
+                                        @endphp
+                                        @foreach ($sales_invoice->cash_books_table as $cash_books)
+                                            @php
+                                                $cash_book_cash_in = $cash_books->cash_in;
+                                                $cash_book_bank_in = $cash_books->bank_in;
+                                                $TotalBankCash = $cash_book_cash_in + $cash_book_bank_in;
+                                                $CashBookCreditTotal[] = $TotalBankCash;
+                                            @endphp
+                                        @endforeach
+                                        @php
+                                            $CashBookCreditTotal = array_sum($CashBookCreditTotal);
+                                            $RevenueCredited[] = $CashBookCreditTotal;
+                                            echo number_format($CashBookCreditTotal, 2);
                                         @endphp
                                     </td>
                                 </tr>
@@ -102,10 +144,12 @@
                                     echo number_format($TotalAccountReceivable, 2);
                                 @endphp
                             </td>
+                            <td style="text-align: right; font-weight: bold;"></td>
+                            <td style="text-align: right; font-weight: bold;"></td>
                             <td style="text-align: right; font-weight: bold;">
                                 @php
-                                    $TotalRevenue = array_sum($RevenueTotal);
-                                    echo number_format($TotalRevenue, 2);
+                                    $TotalRevenueCredited = array_sum($RevenueCredited);
+                                    echo number_format($TotalRevenueCredited, 2);
                                 @endphp
                             </td>
                         </tr>
@@ -116,6 +160,5 @@
         </div>
     </div>
 @endsection
-
 @section('script')
 @endsection

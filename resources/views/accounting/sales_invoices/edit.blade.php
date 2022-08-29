@@ -567,5 +567,5 @@
             getCustomerAjaxAuto();
         });
     </script>
-    {!! JsValidator::formRequest('App\Http\Requests\StoreSalesInvoices', '#create-form') !!}
+    {!! JsValidator::formRequest('App\Http\Requests\UpdateSalesInvoices', '#create-form') !!}
 @endsection

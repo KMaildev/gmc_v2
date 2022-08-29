@@ -104,19 +104,25 @@ class SalesInvoiceController extends Controller
         $sale_inv_payment->hp_commission_fees = $request->hp_commission_fees ?? 0;
         $sale_inv_payment->hp_tenor = $request->hp_tenor ?? 0;
         $sale_inv_payment->hp_account_opening = $request->hp_account_opening ?? 0;
-        $sale_inv_payment->hp_document_fees = $request->hp_document_fees ?? 0;
+
         $sale_inv_payment->hp_stamp_duty = $request->hp_stamp_duty ?? 0;
+        $sale_inv_payment->hp_stamp_duty_amount = $request->hp_stamp_duty_amount ?? 0;
+
         $sale_inv_payment->hp_insurance = $request->hp_insurance ?? 0;
+        $sale_inv_payment->hp_insurance_amount = $request->hp_insurance_amount ?? 0;
+
+        $sale_inv_payment->hp_document_fees = $request->hp_document_fees ?? 0;
         $sale_inv_payment->hp_commission = $request->hp_commission ?? 0;
-        $sale_inv_payment->hp_service_charges = $request->hp_service_charges ?? 0;
+
         $sale_inv_payment->hp_total_downpayment = $request->hp_total_downpayment ?? 0;
         $sale_inv_payment->hp_monthly_payment = $request->hp_monthly_payment ?? 0;
-        $sale_inv_payment->hp_total_services_fees = $request->hp_total_services_fees ?? 0;
 
+        $sale_inv_payment->hp_service_charges = $request->hp_service_charges ?? 0;
+        $sale_inv_payment->hp_service_charges_amount = $request->hp_service_charges_amount ?? 0;
+
+        $sale_inv_payment->hp_total_services_fees = $request->hp_total_services_fees ?? 0;
         $sale_inv_payment->customer_id = $customer_id;
         $sale_inv_payment->sales_invoice_id = $sale_invoice_id;
-
-
 
         // Total Principle And Interest
         $number_of_month = $request->hp_tenor ?? 0;
@@ -208,6 +214,8 @@ class SalesInvoiceController extends Controller
         $sales_invoice = SalesInvoices::findOrFail($id);
         $sales_items = SalesItems::orderBy('id')->where('sales_invoice_id', $id)->get();
         $sales_invoices_payment = SalesInvoicesPayments::where('sales_invoice_id', $id)->first();
+
+        
         return view('hp.sales_invoice.invoice', compact('sales_invoice', 'sales_items', 'sales_invoices_payment'));
     }
 }

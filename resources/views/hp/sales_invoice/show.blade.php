@@ -151,7 +151,7 @@
                                 </th>
                                 <th colspan="2" style="text-align: right" class="none-border">
                                     @php
-                                        $hp_stamp_duty = $sales_invoice->sales_invoices_payments_table->hp_stamp_duty ?? 0;
+                                        $hp_stamp_duty = $sales_invoice->sales_invoices_payments_table->hp_stamp_duty_amount ?? 0;
                                         echo number_format($hp_stamp_duty, 2);
                                     @endphp
                                 </th>
@@ -172,7 +172,7 @@
                                 </th>
                                 <th colspan="2" style="text-align: right" class="none-border">
                                     @php
-                                        $hp_insurance = $sales_invoice->sales_invoices_payments_table->hp_insurance ?? 0;
+                                        $hp_insurance = $sales_invoice->sales_invoices_payments_table->hp_insurance_amount ?? 0;
                                         echo number_format($hp_insurance, 2);
                                     @endphp
                                 </th>
@@ -194,7 +194,7 @@
                                 </th>
                                 <th colspan="2" style="text-align: right" class="none-border">
                                     @php
-                                        $hp_service_charges = $sales_invoice->sales_invoices_payments_table->hp_service_charges ?? 0;
+                                        $hp_service_charges = $sales_invoice->sales_invoices_payments_table->hp_service_charges_amount ?? 0;
                                         echo number_format($hp_service_charges, 2);
                                     @endphp
                                 </th>
