@@ -31,4 +31,9 @@ class Products extends Model
     {
         return $this->belongsTo(SalesItems::class, 'id', 'product_id');
     }
+
+    public function sales_return_items_table()
+    {
+        return $this->belongsTo(SalesReturnItem::class, 'id', 'product_id');
+    }
 }

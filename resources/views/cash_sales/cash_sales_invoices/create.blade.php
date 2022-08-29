@@ -184,6 +184,14 @@
                                                         {{ $product->chessi_no }}
                                                     </option>
                                                 @endif
+                                                @php
+                                                    $sales_return_items = $product->sales_return_items_table->products_table ?? '';
+                                                @endphp
+                                                @if ($sales_return_items)
+                                                    <option value="{{ $sales_return_items->id }}">
+                                                        {{ $sales_return_items->chessi_no }}
+                                                    </option>
+                                                @endif
                                             @endforeach
                                         </select>
                                         @error('chessi_no')

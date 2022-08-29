@@ -856,7 +856,7 @@
 @endsection
 <script type="text/javascript">
     window.onload = function() {
-        // window.print();
+        window.print();
     }
 </script>
 @section('script')
