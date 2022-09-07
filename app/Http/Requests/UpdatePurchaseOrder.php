@@ -30,9 +30,10 @@ class UpdatePurchaseOrder extends FormRequest
             'purchase_date' => 'required',
             'purchase_representative_id' => 'required',
 
-            'productFields.*.product_id' => 'required',
+            'productFields.*.brand_id' => 'required',
+            'productFields.*.type_of_model_id' => 'required',
             'productFields.*.qty' => 'required|numeric',
-            'productFields.*.price' => 'required|numeric',
+            'productFields.*.cif_usd' => 'required|numeric',
 
             'total_amount' => "numeric",
         ];

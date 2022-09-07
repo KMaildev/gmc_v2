@@ -97,12 +97,12 @@ class PurchaseOrderController extends Controller
     public function edit($id)
     {
         $suppliers = Supplier::all();
-        $products = Products::all();
         $sales_persons = User::all();
+        $brands = Brand::all();
 
         $purchase_order = PurchaseOrder::findOrFail($id);
         $purchase_items = PurchaseItem::where('purchase_order_id', $id)->get();
-        return view('purchase.purchase_order.edit', compact('suppliers', 'products', 'sales_persons', 'purchase_order', 'purchase_items'));
+        return view('purchase.purchase_order.edit', compact('suppliers', 'brands', 'sales_persons', 'purchase_order', 'purchase_items'));
     }
 
     /**
@@ -121,14 +121,16 @@ class PurchaseOrderController extends Controller
         $purchase_order->purchase_representative_id = $request->purchase_representative_id;
         $purchase_order->user_id = auth()->user()->id ?? 0;
         $purchase_order->total_amount = $request->total_amount;
+        $purchase_order->order_status = $request->order_status;
         $purchase_order->update();
         $purchase_order_id = $purchase_order->id;
 
         if ($request->productFields) {
             foreach ($request->productFields as $key => $value) {
-                $insert[$key]['product_id'] = $value['product_id'];
+                $insert[$key]['brand_id'] = $value['brand_id'];
+                $insert[$key]['type_of_model_id'] = $value['type_of_model_id'];
                 $insert[$key]['qty'] = $value['qty'];
-                $insert[$key]['unit_price'] = $value['price'];
+                $insert[$key]['cif_usd'] = $value['cif_usd'];
                 $insert[$key]['description'] = $value['description'];
                 $insert[$key]['purchase_order_id'] = $purchase_order_id;
                 $insert[$key]['created_at'] =  date('Y-m-d H:i:s');
@@ -136,7 +138,7 @@ class PurchaseOrderController extends Controller
             }
             PurchaseItem::insert($insert);
         }
-        TemporarySalesItem::where('session_id', session()->getId())->delete();
+        TemporaryPurchaseItem::where('session_id', session()->getId())->delete();
         return redirect()->back()->with('success', 'Your processing has been completed.');
     }
 
