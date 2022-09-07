@@ -301,6 +301,15 @@
                         </li>
                     @endcan
 
+
+                    <li class="menu-item">
+                        <a href="{{ route('type_of_models.index') }}" class="menu-link">
+                            <div data-i2n="Without menu">
+                                Type of Models
+                            </div>
+                        </a>
+                    </li>
+
                     @can('products')
                         <li class="menu-item">
                             <a href="{{ route('products.index') }}" class="menu-link">

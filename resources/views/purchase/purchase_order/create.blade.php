@@ -49,7 +49,7 @@
                                 <dl class="row mb-2">
                                     <div class="row mb-1">
                                         <label class="col-sm-3 col-form-label">
-                                            Purchase No
+                                            Invoice No.
                                         </label>
                                         <div class="col-sm-9">
                                             <input type="text"

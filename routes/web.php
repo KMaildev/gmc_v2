@@ -49,9 +49,9 @@ Route::middleware('auth')->group(function () {
     Route::post('supplier_import', 'SupplierController@supplier_import')->name('supplier_import');
 
 
-
     // Brand & Products 
     Route::resource('brand', 'BrandController');
+    Route::resource('type_of_models', 'Accounting\TypeOfModelController');
     Route::resource('products', 'ProductsController');
     Route::get('get_products_ajax/{id}', array('as' => 'get_products_ajax', 'uses' => 'ProductsController@get_products_ajax'));
     Route::post('product_import', 'ProductsController@product_import')->name('product_import');
@@ -63,14 +63,12 @@ Route::middleware('auth')->group(function () {
     Route::resource('daily_report', 'Accounting\DailyReportController');
 
 
-
     // Dealer Sales 
     Route::resource('sales_invoices', 'Accounting\SalesInvoicesController');
     Route::get('get_sales_invoices/{id}', array('as' => 'get_sales_invoices', 'uses' => 'Accounting\SalesInvoicesController@get_sales_invoices'));
     Route::get('get_sales_invoices_ajax/{type}', array('as' => 'get_sales_invoices_ajax', 'uses' => 'Accounting\SalesInvoicesController@get_sales_invoices_ajax'));
     Route::get('get_sales_items/{id}', array('as' => 'get_sales_items', 'uses' => 'Accounting\SalesInvoicesController@get_sales_items'));
     Route::get('sale_invoice_pdf_download/{id}', array('as' => 'sale_invoice_pdf_download', 'uses' => 'Accounting\SalesInvoicesController@sale_invoice_pdf_download'));
-
 
     // Dealer Sales Group
     Route::resource('sales_journal', 'Accounting\SalesJournalController');
@@ -104,7 +102,6 @@ Route::middleware('auth')->group(function () {
     Route::get('sales_inv_paynow_create/{id}', array('as' => 'sales_inv_paynow_create', 'uses' => 'Accounting\SalePaynowController@salePayNow'));
 
 
-
     // Cart System
     Route::resource('sale_invoice_cart', 'Cart\SaleInvoiceCartController');
     Route::post('add_cart_temporary', 'Cart\SaleInvoiceCartController@store');
@@ -133,8 +130,6 @@ Route::middleware('auth')->group(function () {
     Route::get('remove_sales_return_item/{id}', array('as' => 'remove_sales_return_item', 'uses' => 'SalesReturn\SalesReturnItemController@RemoveSalesReturnItem'));
     Route::post('update_sales_return_item_description', 'SalesReturn\SalesReturnItemController@update_sales_return_item_description');
     Route::post('update_sales_return_item_unit_price', 'SalesReturn\SalesReturnItemController@update_sales_return_item_unit_price');
-
-
 
 
     Route::resource('department', 'DepartmentController');

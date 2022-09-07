@@ -155,7 +155,6 @@ class SalesInvoiceController extends Controller
 
     public function getPrincipleInterest()
     {
-        return "Ok";
     }
 
 
