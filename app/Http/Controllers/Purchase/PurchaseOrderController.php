@@ -58,6 +58,7 @@ class PurchaseOrderController extends Controller
         $purchase_order->purchase_representative_id = $request->purchase_representative_id;
         $purchase_order->user_id = auth()->user()->id ?? 0;
         $purchase_order->total_amount = $request->total_amount;
+        $purchase_order->order_status = $request->order_status;
         $purchase_order->save();
         $purchase_order_id = $purchase_order->id;
 

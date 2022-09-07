@@ -182,6 +182,7 @@
 
                             <div class="col-md-6">
                                 <dl class="row mb-2">
+
                                     <div class="row mb-1">
                                         <label class="col-sm-4 col-form-label">
                                             Total Amount
@@ -191,6 +192,19 @@
                                                 style="text-align:right;" id="totalAmountShow">
                                             <input type="hidden" value="0" name="total_amount"
                                                 id="totalAmountSave">
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-1">
+                                        <label class="col-sm-4 col-form-label">
+                                            Status
+                                        </label>
+                                        <div class="col-sm-8">
+                                            <select class="form-select" name="order_status">
+                                                <option value="Ordered">
+                                                    Ordered
+                                                </option>
+                                            </select>
                                         </div>
                                     </div>
 

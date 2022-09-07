@@ -23,66 +23,57 @@
                     </div>
                 </div>
 
-
                 <div class="table-responsive text-nowrap rowheaders table-scroll outer-wrapper">
                     <table class="table table-bordered main-table py-5" style="margin-bottom: 1px !important;"
                         id="tbl_exporttable_to_xls">
-                        <thead class="tbbg">
-                            <th style="color: white; background-color: #2e696e; text-align: center; width: 1%;">
-                                #
+                        <thead class="">
+                            <th style="background-color: #2e696e; color: white; text-align: center; width: 1%;">
+                                Sr.No
                             </th>
 
-                            <th style="color: white; background-color: #2e696e; text-align: center; width: 10%;">
+                            <th style="background-color: #2e696e; color: white; text-align: center; width: 10%;">
                                 Purchase No
                             </th>
 
-                            <th style="color: white; background-color: #2e696e; text-align: center; width: 10%;">
+                            <th style="background-color: #2e696e; color: white; text-align: center; width: 10%;">
                                 Date
                             </th>
 
-                            <th style="color: white; background-color: #2e696e; text-align: center; width: 10%;">
-                                Name
+                            <th colspan="3" style="background-color: #2e696e; color: white;"></th>
+
+                            <th style="background-color: #2e696e; color: white; text-align: center; width: 10%;">
+                                Status
                             </th>
 
-                            <th style="color: white; background-color: #2e696e; text-align: center; width: 10%;">
-                                PH
-                            </th>
-
-                            <th style="color: white; background-color: #2e696e; text-align: center; width: 10%;">
-                                Purchase Representative
-                            </th>
-
-                            <th style="color: white; background-color: #2e696e; text-align: center; width: 10%;">
-                                Total
-                            </th>
-
-                            <th style="color: white; background-color: #2e696e; text-align: center; width: 10%;">
+                            <th style="background-color: #2e696e; color: white; text-align: center; width: 10%;">
                                 Actions
                             </th>
                         </thead>
-                        <tbody class="table-border-bottom-0 t">
+
+                        <tbody class="table-border-bottom-0">
                             @foreach ($purchase_orders as $key => $purchase_order)
-                                <tr style="background-color: #6d8284; color: white;">
-                                    <td>
+                                <tr>
+                                    <td style="background-color: #F6B733; text-align: center;">
                                         {{ $key + 1 }}
                                     </td>
-                                    <td>
+
+                                    <td style="text-align: center;">
                                         {{ $purchase_order->purchase_no ?? '' }}
                                     </td>
-                                    <td>
+
+                                    <td style="text-align: center;">
                                         {{ $purchase_order->purchase_date ?? '' }}
                                     </td>
-                                    <td>
-                                        {{ $purchase_order->supplier_table->name ?? '' }}
-                                    </td>
-                                    <td>
-                                        {{ $purchase_order->supplier_table->phone ?? '' }}
-                                    </td>
-                                    <td>
-                                        {{ $purchase_order->users_table->name ?? '' }}
-                                    </td>
+
                                     <td></td>
-                                    <td>
+                                    <td></td>
+                                    <td></td>
+
+                                    <td style="text-align: center;">
+                                        {{ $purchase_order->order_status ?? '' }}
+                                    </td>
+
+                                    <td style="text-align: center;">
                                         <div class="demo-inline-spacing">
                                             <div class="btn-group">
                                                 <button class="btn btn-primary btn-sm dropdown-toggle" type="button"
@@ -111,59 +102,121 @@
                                         </div>
                                     </td>
                                 </tr>
+
+                                <tr style=" background-color: #DDEBF7; color: black">
+                                    <td style="text-align: center; width: 1%;">
+                                        #
+                                    </td>
+                                    <td style="text-align: center; width: 10%;">
+                                        Product Name
+                                    </td>
+
+                                    <td style="text-align: center; width: 10%;">
+                                        Models
+                                    </td>
+
+                                    <td style="text-align: center; width: 10%;">
+                                        Order Quantity
+                                    </td>
+
+                                    <td style="text-align: center; width: 10%;">
+                                        CIF Yangon ( USD )
+                                    </td>
+
+                                    <td style="text-align: center; width: 10%;">
+                                        Amount USD
+                                    </td>
+
+                                    <td style="text-align: center; width: 10%;">
+                                        Exchange Rate
+                                    </td>
+
+                                    <td style="text-align: center; width: 10%;">
+                                        Total MMK
+                                    </td>
+                                </tr>
+
                                 @php
-                                    $total_qty = [];
-                                    $total_unit_price = [];
+                                    $total_order_qty = [];
+                                    $total_CIF_USD = [];
+                                    $total_amount_USD = [];
                                 @endphp
                                 @foreach ($purchase_order->purchase_items_table as $key => $purchase_item)
                                     <tr>
                                         <td style="text-align: center">
                                             {{ $key + 1 }}
                                         </td>
+
                                         <td style="text-align: center">
-                                            {{ $purchase_item->products_table->type ?? '' }}
+                                            {{ $purchase_item->brands_table->name ?? '' }}
                                         </td>
+
                                         <td style="text-align: center">
-                                            {{ $purchase_item->products_table->product ?? '' }}
+                                            {{ $purchase_item->type_of_models_table->title ?? '' }}
                                         </td>
-                                        <td style="text-align: center">
-                                            {{ $purchase_item->description ?? '' }}
-                                        </td>
+
                                         <td style="text-align: right">
                                             {{ $purchase_item->qty ?? 0 }}
                                         </td>
+
                                         <td style="text-align: right">
-                                            {{ number_format($purchase_item->unit_price ?? 0, 2) }}
+                                            {{ number_format($purchase_item->cif_usd, 2) }}
                                         </td>
+
                                         <td style="text-align: right">
                                             @php
                                                 $qty = $purchase_item->qty ?? 0;
-                                                $total_qty[] = $qty;
-                                                $unit_price = $purchase_item->unit_price ?? 0;
-                                                $total = $qty * $unit_price;
-                                                echo number_format($total, 2);
-                                                $total_unit_price[] = $total;
+                                                $cif_usd = $purchase_item->cif_usd ?? 0;
+                                                $amount_usd = $qty * $cif_usd;
+                                                echo number_format($amount_usd, 2);
+                                                $total_order_qty[] = $qty;
+                                                $total_CIF_USD[] = $cif_usd;
+                                                $total_amount_USD[] = $amount_usd;
                                             @endphp
+                                        </td>
+
+                                        <td style="text-align: right">
+                                            EX Rate
+                                        </td>
+
+                                        <td style="text-align: right">
+                                            Total MMk
                                         </td>
                                     </tr>
                                 @endforeach
+
                                 <tr>
-                                    <td colspan="4">
+                                    <td style="text-align: center; width: 1%;">
                                         Total
                                     </td>
-                                    <td style="text-align: right; font-weight: bold;">
+                                    <td colspan="2"></td>
+
+                                    {{-- Total Order Quantity --}}
+                                    <td style="text-align: right">
                                         @php
-                                            $total_qty = array_sum($total_qty);
-                                            echo number_format($total_qty);
+                                            $total_order_qty = array_sum($total_order_qty);
+                                            echo number_format($total_order_qty);
                                         @endphp
                                     </td>
+
+                                    {{-- Total CIF Yangon ( USD ) --}}
+                                    <td style="text-align: right">
+                                        @php
+                                            $total_CIF_USD = array_sum($total_CIF_USD);
+                                            echo number_format($total_CIF_USD, 2);
+                                        @endphp
+                                    </td>
+
+                                    {{-- Amount USD --}}
+                                    <td style="text-align: right">
+                                        @php
+                                            $total_amount_USD = array_sum($total_amount_USD);
+                                            echo number_format($total_amount_USD, 2);
+                                        @endphp
+                                    </td>
+
                                     <td></td>
-                                    <td style="text-align: right; font-weight: bold;">
-                                        @php
-                                            $total_unit_price = array_sum($total_unit_price);
-                                            echo number_format($total_unit_price, 2);
-                                        @endphp
-                                    </td>
+                                    <td></td>
                                 </tr>
                             @endforeach
                         </tbody>

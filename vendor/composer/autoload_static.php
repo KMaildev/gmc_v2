@@ -768,6 +768,7 @@ class ComposerStaticInit47c02bcb897b27c6c7e40e39684ca80a
         'App\\Http\\Requests\\StoreSalesReturn' => __DIR__ . '/../..' . '/app/Http/Requests/StoreSalesReturn.php',
         'App\\Http\\Requests\\StoreSubAccount' => __DIR__ . '/../..' . '/app/Http/Requests/StoreSubAccount.php',
         'App\\Http\\Requests\\StoreSupplier' => __DIR__ . '/../..' . '/app/Http/Requests/StoreSupplier.php',
+        'App\\Http\\Requests\\StoreTemporaryPurchaseItem' => __DIR__ . '/../..' . '/app/Http/Requests/StoreTemporaryPurchaseItem.php',
         'App\\Http\\Requests\\StoreTemporarySalesItems' => __DIR__ . '/../..' . '/app/Http/Requests/StoreTemporarySalesItems.php',
         'App\\Http\\Requests\\StoreTypeOfModel' => __DIR__ . '/../..' . '/app/Http/Requests/StoreTypeOfModel.php',
         'App\\Http\\Requests\\UpdateAccountClassification' => __DIR__ . '/../..' . '/app/Http/Requests/UpdateAccountClassification.php',
