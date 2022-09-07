@@ -123,6 +123,13 @@ Route::middleware('auth')->group(function () {
     Route::post('store_temporary_purchase_item', 'Purchase\TemporaryPurchaseItemController@store');
     Route::get('get_temporary_purchase_items', array('as' => 'get_temporary_purchase_items', 'uses' => 'Purchase\TemporaryPurchaseItemController@index'));
     Route::get('remove_temporary_purchase_items/{id}', array('as' => 'remove_temporary_purchase_items', 'uses' => 'Purchase\TemporaryPurchaseItemController@remove_temporary_purchase_items'));
+
+    // Purchase Operation
+    Route::resource('purchase_operation', 'Purchase\OperationController');
+    Route::get('purchase_operation_create/{id}', array('as' => 'purchase_operation_create', 'uses' => 'Purchase\OperationController@operation_create'));
+
+
+
     // Cash Sales Invoice 
     Route::resource('cash_sales_invoices', 'CashSales\CashSalesInvoicesController');
 

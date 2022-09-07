@@ -84,7 +84,16 @@
 
                                                     <li>
                                                         <a class="dropdown-item"
-                                                            href="{{ route('purchase_order.edit', $purchase_order->id) }}">Edit</a>
+                                                            href="{{ route('purchase_operation_create', $purchase_order->id) }}">
+                                                            Operation
+                                                        </a>
+                                                    </li>
+
+                                                    <li>
+                                                        <a class="dropdown-item"
+                                                            href="{{ route('purchase_order.edit', $purchase_order->id) }}">
+                                                            Edit
+                                                        </a>
                                                     </li>
 
                                                     <li>
@@ -94,7 +103,9 @@
                                                             @csrf
                                                             @method('DELETE')
                                                             <button type="button" class="dropdown-item del_confirm"
-                                                                id="confirm-text" data-toggle="tooltip">Delete</button>
+                                                                id="confirm-text">
+                                                                Delete
+                                                            </button>
                                                         </form>
                                                     </li>
                                                 </ul>
