@@ -51,7 +51,10 @@ Route::middleware('auth')->group(function () {
 
     // Brand & Products 
     Route::resource('brand', 'BrandController');
+
     Route::resource('type_of_models', 'Accounting\TypeOfModelController');
+    Route::get('get_type_of_models_ajax/{id}', array('as' => 'get_type_of_models_ajax', 'uses' => 'Accounting\TypeOfModelController@get_type_of_models_ajax'));
+
     Route::resource('products', 'ProductsController');
     Route::get('get_products_ajax/{id}', array('as' => 'get_products_ajax', 'uses' => 'ProductsController@get_products_ajax'));
     Route::post('product_import', 'ProductsController@product_import')->name('product_import');
@@ -117,7 +120,9 @@ Route::middleware('auth')->group(function () {
     Route::resource('purchase_item', 'Purchase\PurchaseItemController');
     Route::get('purchase_item_remove/{id}', array('as' => 'purchase_item_remove', 'uses' => 'Purchase\PurchaseItemController@purchase_item_remove'));
 
-
+    Route::post('store_temporary_purchase_item', 'Purchase\TemporaryPurchaseItemController@store');
+    Route::get('get_temporary_purchase_items', array('as' => 'get_temporary_purchase_items', 'uses' => 'Purchase\TemporaryPurchaseItemController@index'));
+    Route::get('remove_temporary_purchase_items/{id}', array('as' => 'remove_temporary_purchase_items', 'uses' => 'Purchase\TemporaryPurchaseItemController@remove_temporary_purchase_items'));
     // Cash Sales Invoice 
     Route::resource('cash_sales_invoices', 'CashSales\CashSalesInvoicesController');
 

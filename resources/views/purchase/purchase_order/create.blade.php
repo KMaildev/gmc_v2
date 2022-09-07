@@ -1,7 +1,7 @@
 @extends('layouts.menus.accounting')
 @section('content')
     <div class="row invoice-add justify-content-center">
-        <div class="col-lg-9 col-12 mb-lg-0 mb-4">
+        <div class="col-lg-10 col-12 mb-lg-0 mb-4">
             <form action="{{ route('purchase_order.store') }}" method="POST" autocomplete="off" id="create-form">
                 @csrf
                 <div class="card invoice-preview-card">
@@ -72,7 +72,6 @@
                                             @enderror
                                         </div>
                                     </div>
-
                                 </dl>
                             </div>
                         </div>
@@ -83,12 +82,12 @@
                                 <thead class="tbbg">
                                     <tr>
                                         <th style="color: white; text-align: center; width: 1%;">Sr.No</th>
-                                        <th style="color: white; text-align: center;">Model</th>
-                                        <th style="color: white; text-align: center;">Chassis No.& Vehicle No.</th>
+                                        <th style="color: white; text-align: center;">Product Name</th>
+                                        <th style="color: white; text-align: center;">Models</th>
                                         <th style="color: white; text-align: center;">Description</th>
-                                        <th style="color: white; text-align: center;">Qty</th>
-                                        <th style="color: white; text-align: center;">Price</th>
-                                        <th style="color: white; text-align: center;">Amount (MMK)</th>
+                                        <th style="color: white; text-align: center;">Order Quantity</th>
+                                        <th style="color: white; text-align: center;">CIF Yangon ( USD )</th>
+                                        <th style="color: white; text-align: center;">Amount USD</th>
                                         <th style="color: white; text-align: center;">Action</th>
                                     </tr>
                                 </thead>
@@ -96,55 +95,59 @@
 
                                     <td></td>
 
-                                    {{-- Model --}}
+                                    {{-- Product Name --}}
                                     <td>
-                                        <input type="text" class="form-control" id="Model">
-                                    </td>
-
-                                    {{-- Chassis No.& Vehicle No --}}
-                                    <td>
-                                        <select class="select2 form-select form-select-sm" data-allow-clear="false"
-                                            id="ChessiNO">
-                                            <option value="">--Select Type --</option>
-                                            @foreach ($products as $product)
-                                                <option value="{{ $product->id }}">
-                                                    {{ $product->type ?? '' }}
+                                        <select class="form-select" id="BrandId">
+                                            <option value="">--Select Product Name --</option>
+                                            @foreach ($brands as $brand)
+                                                <option value="{{ $brand->id }}">
+                                                    {{ $brand->name ?? '' }}
                                                 </option>
                                             @endforeach
                                         </select>
-                                        @error('chessi_no')
+                                        @error('brand_id')
                                             <div class="invalid-feedback"> {{ $message }} </div>
                                         @enderror
                                     </td>
+
+                                    {{-- Models --}}
+                                    <td>
+                                        <div id="Models">
+                                            <select class="form-select" style="width: 170px;">
+                                                <option value="">--Please Select--</option>
+                                            </select>
+                                        </div>
+                                    </td>
+
 
                                     {{-- Description --}}
                                     <td>
                                         <input type="text" class="form-control" id="Description">
                                     </td>
 
-                                    {{-- Qty --}}
+                                    {{-- Order Quantity --}}
                                     <td>
                                         <input type="text" class="form-control" required id="Qty"
                                             oninput="SetCalculator()" />
                                     </td>
 
-                                    {{-- Price --}}
+                                    {{-- CIF Yangon ( USD ) --}}
                                     <td>
-                                        <input type="text" class="form-control" id="UnitPrice" oninput="SetCalculator()">
+                                        <input type="text" class="form-control" id="CIFUSD" oninput="SetCalculator()">
                                     </td>
 
-                                    {{-- Amount --}}
+                                    {{-- Amount USD --}}
                                     <td>
-                                        <input type="text" class="form-control" id="TotalAmount">
+                                        <input type="text" class="form-control" id="TotalAmountUSD">
                                     </td>
 
                                     <td>
                                         <input type="button" value="Add" class="btn btn-sm btn-primary"
-                                            onclick="setSaleInvoiceCart()">
+                                            onclick="setPurchaseInvoiceCart()">
                                     </td>
                                 </tr>
 
-                                <tbody id="TemporarySalesItemsList">
+                                <tbody id="TemporaryPurchaseItemsList">
                                     @php
                                         $amount_total = [];
                                     @endphp
@@ -213,32 +216,65 @@
         var totalAmountShow = document.getElementById("totalAmountShow");
         var totalAmountSave = document.getElementById("totalAmountSave");
 
+        $('select[id="BrandId"]').on('change', function() {
+            var BrandId = $(this).val();
+            if (BrandId) {
+                $.ajax({
+                    url: '/get_type_of_models_ajax/' + BrandId,
+                    type: "GET",
+                    dataType: "json",
+                    success: function(data) {
+                        let models =
+                            '<select id="type_of_model_id" name="type_of_model_id" class="form-select" style="width: 170px;">';
+                        $.each(data, function(key, value) {
+                            var id = value.id;
+                            var value = value.title;
+                            models += '<option value=' + id + '>' + value + '</option>';
+                        });
+                        models += '</select>';
+                        $('#Models').html(models);
+                    }
+
+                });
+            } else {
+                let models = '<select class="form-select" style="width: 170px;">';
+                models += '<option>--Please Select--</option>';
+                models += '</select>';
+                $('#Models').html(models);
+            }
+        });
+
+
         // Qty * Price
         function SetCalculator() {
             var Qty = document.getElementById("Qty").value;
-            var UnitPrice = document.getElementById("UnitPrice").value;
-            var AmountTotal = Qty * UnitPrice;
-            TotalAmount.value = AmountTotal;
+            var CIFUSD = document.getElementById("CIFUSD").value;
+            var AmountTotal = Qty * CIFUSD;
+            TotalAmountUSD.value = AmountTotal;
         }
 
-        function setSaleInvoiceCart() {
-            var ChessiNO = document.getElementById("ChessiNO").value;
-            var Qty = document.getElementById("Qty").value;
-            var UnitPrice = document.getElementById("UnitPrice").value;
-            var Description = document.getElementById("Description").value;
+        function setPurchaseInvoiceCart() {
+            var brand_id = document.getElementById("BrandId").value;
+            var type_of_model_id = document.getElementById("type_of_model_id").value;
+            var qty = document.getElementById("Qty").value;
+            var cif_usd = document.getElementById("CIFUSD").value;
+            var description = document.getElementById("Description").value;
 
-            if (ChessiNO == null || ChessiNO == "") {
-                alert("Chassis No.& Vehicle No.");
+            if (brand_id == null || brand_id == "") {
+                alert("Please Select Product Name");
                 return false;
-            } else if (Qty == null || Qty == "" || isNaN(Qty)) {
+            } else if (type_of_model_id == null || type_of_model_id == "") {
+                alert("Please Select Models");
+                return false;
+            } else if (qty == null || qty == "" || isNaN(qty)) {
                 alert("Enter Numeric value only.");
                 return false;
-            } else if (UnitPrice == null || UnitPrice == "" || isNaN(UnitPrice)) {
+            } else if (cif_usd == null || cif_usd == "" || isNaN(cif_usd)) {
                 alert("Enter Numeric value only.");
                 return false;
             }
 
-            var url = '{{ url('add_cart_temporary') }}';
+            var url = '{{ url('store_temporary_purchase_item') }}';
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -249,59 +285,49 @@
                 method: 'POST',
                 url: url,
                 data: {
-                    ChessiNO: ChessiNO,
-                    Qty: Qty,
-                    Price: UnitPrice,
-                    Description: Description,
+                    brand_id: brand_id,
+                    type_of_model_id: type_of_model_id,
+                    qty: qty,
+                    cif_usd: cif_usd,
+                    description: description,
                 },
                 success: function(data) {
-                    getTemporarySalesItems();
+                    getTemporaryPurchaseItems();
                 },
                 error: function(data) {}
             });
         }
 
-        $('select[id="ChessiNO"]').on('change', function() {
-            var ChessiNO = $(this).val();
-            if (ChessiNO) {
-                $.ajax({
-                    url: '/get_products_ajax/' + ChessiNO,
-                    type: "GET",
-                    dataType: "json",
-                    success: function(data) {
-                        Model.value = data.product;
-                    }
-                });
-            }
-        });
 
-
-        function getTemporarySalesItems() {
-            var url = '{{ url('get_temporary_sales_items') }}';
+        function getTemporaryPurchaseItems() {
+            var url = '{{ url('get_temporary_purchase_items') }}';
             $.ajax({
                 url: url,
                 method: "GET",
                 success: function(data) {
+                    console.log(data);
                     let sales_items = '';
                     var totalAmount = 0;
                     $.each(JSON.parse(data), function(key, value) {
-                        totalAmount += value.qty * value.price;
+                        totalAmount += value.qty * value.cif_usd;
                         let k = key + 1;
                         sales_items += '<tr>';
                         sales_items += '<td>' + k + '</td>' //Sr.No	
 
 
-                        // Model 
+                        // Product Name	 
                         sales_items += '<td>'
-                        sales_items += value.products_table.product;
+                        sales_items += value.brands_table.name;
+                        sales_items += '<input type="hidden" name="productFields[' + k +
+                            '][brand_id]" value="' + value.brand_id + '" required />'
                         sales_items += '</td>'
 
-                        // Chassis No.& Vehicle No
+                        // Models
                         sales_items += '<td>'
-                        sales_items += value.products_table.type;
+                        sales_items += value.type_of_models_table.title;
 
                         sales_items += '<input type="hidden" name="productFields[' + k +
-                            '][product_id]" value="' + value.products_table.id + '" required />'
+                            '][type_of_model_id]" value="' + value.type_of_model_id + '" required />'
 
                         sales_items += '</td>'
 
@@ -312,23 +338,23 @@
                             '][description]" value="' + value.description + '" required />'
                         sales_items += '</td>'
 
-                        // Qty
+                        // Order Quantity	
                         sales_items += '<td>'
                         sales_items += value.qty;
                         sales_items += '<input type="hidden" name="productFields[' + k +
                             '][qty]" value="' + value.qty + '" required />'
                         sales_items += '</td>'
 
-                        // Price	
+                        // CIF Yangon ( USD )		
                         sales_items += '<td>'
-                        sales_items += value.price;
+                        sales_items += value.cif_usd;
                         sales_items += '<input type="hidden" name="productFields[' + k +
-                            '][price]" value="' + value.price + '" required />'
+                            '][cif_usd]" value="' + value.cif_usd + '" required />'
                         sales_items += '</td>'
 
-                        // Amount
+                        // Amount USD	
                         sales_items += '<td>'
-                        sales_items += value.qty * value.price;
+                        sales_items += value.qty * value.cif_usd;
                         sales_items += '</td>'
 
                         // Action
@@ -338,27 +364,26 @@
                         sales_items += '</td>'
                         sales_items += '</tr>';
                     });
-                    $('#TemporarySalesItemsList').html(sales_items);
+                    $('#TemporaryPurchaseItemsList').html(sales_items);
                     totalAmountShow.value = (totalAmount).toLocaleString('en');
                     totalAmountSave.value = totalAmount;
                 }
             });
         }
 
-        getTemporarySalesItems();
+        getTemporaryPurchaseItems();
 
         // RemoveItem
         $(document).on("click", ".remove_item", function() {
             var id = $(this).data('id');
             $.ajax({
-                url: `/temporary_sales_items_remove/${id}`,
+                url: `/remove_temporary_purchase_items/${id}`,
                 method: "GET",
                 success: function(data) {
-                    getTemporarySalesItems();
+                    getTemporaryPurchaseItems();
                 }
             });
         });
-
 
         $('select[id="SupplierID"]').on('change', function() {
             var supplierID = $(this).val();

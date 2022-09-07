@@ -263,7 +263,7 @@
 
             <li class="menu-item">
                 <a href="javascript:void(0)" class="menu-link menu-toggle">
-                    <div data-i2n="Layouts">Suppliers</div>
+                    <div data-i2n="Layouts">Purchase</div>
                 </a>
 
                 <ul class="menu-sub">

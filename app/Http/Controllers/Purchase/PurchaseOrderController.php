@@ -5,11 +5,14 @@ namespace App\Http\Controllers\Purchase;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePurchaseOrder;
 use App\Http\Requests\UpdatePurchaseOrder;
+use App\Models\Brand;
 use App\Models\Products;
 use App\Models\PurchaseItem;
 use App\Models\PurchaseOrder;
 use App\Models\Supplier;
+use App\Models\TemporaryPurchaseItem;
 use App\Models\TemporarySalesItem;
+use App\Models\TypeOfModel;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -34,9 +37,10 @@ class PurchaseOrderController extends Controller
     public function create()
     {
         $suppliers = Supplier::all();
-        $products = Products::all();
         $sales_persons = User::all();
-        return view('purchase.purchase_order.create', compact('suppliers', 'products', 'sales_persons'));
+
+        $brands = Brand::all();
+        return view('purchase.purchase_order.create', compact('suppliers', 'brands', 'sales_persons'));
     }
 
     /**
@@ -58,16 +62,17 @@ class PurchaseOrderController extends Controller
         $purchase_order_id = $purchase_order->id;
 
         foreach ($request->productFields as $key => $value) {
-            $insert[$key]['product_id'] = $value['product_id'];
+            $insert[$key]['brand_id'] = $value['brand_id'];
+            $insert[$key]['type_of_model_id'] = $value['type_of_model_id'];
             $insert[$key]['qty'] = $value['qty'];
-            $insert[$key]['unit_price'] = $value['price'];
+            $insert[$key]['cif_usd'] = $value['cif_usd'];
             $insert[$key]['description'] = $value['description'];
             $insert[$key]['purchase_order_id'] = $purchase_order_id;
             $insert[$key]['created_at'] =  date('Y-m-d H:i:s');
             $insert[$key]['updated_at'] =  date('Y-m-d H:i:s');
         }
         PurchaseItem::insert($insert);
-        TemporarySalesItem::where('session_id', session()->getId())->delete();
+        TemporaryPurchaseItem::where('session_id', session()->getId())->delete();
         return redirect()->back()->with('success', 'Your processing has been completed.');
     }
 

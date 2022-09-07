@@ -99,4 +99,16 @@ class TypeOfModelController extends Controller
         $delete->delete();
         return redirect()->back()->with('success', 'Your processing has been completed.');
     }
+
+
+    /**
+     * Get Ajax Request and restun Data
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function get_type_of_models_ajax($id)
+    {
+        $type_of_models = TypeOfModel::get()->where('brand_id', $id);
+        return json_encode($type_of_models);
+    }
 }
