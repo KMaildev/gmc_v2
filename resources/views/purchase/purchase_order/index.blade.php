@@ -39,7 +39,16 @@
                                 Date
                             </th>
 
-                            <th colspan="3" style="background-color: #2e696e; color: white;"></th>
+                            <th style="background-color: #2e696e; color: white; text-align: center; width: 10%;">
+                                Particular
+                            </th>
+
+                            <th style="background-color: #2e696e; color: white; text-align: center; width: 10%;">
+                            </th>
+                            <th style="background-color: #2e696e; color: white; text-align: center; width: 10%;">
+                            </th>
+                            <th style="background-color: #2e696e; color: white; text-align: center; width: 10%;">
+                            </th>
 
                             <th style="background-color: #2e696e; color: white; text-align: center; width: 10%;">
                                 Status
@@ -52,6 +61,7 @@
 
                         <tbody class="table-border-bottom-0">
                             @foreach ($purchase_orders as $key => $purchase_order)
+                                {{-- Invoice --}}
                                 <tr>
                                     <td style="background-color: #F6B733; text-align: center;">
                                         {{ $key + 1 }}
@@ -65,6 +75,7 @@
                                         {{ $purchase_order->purchase_date ?? '' }}
                                     </td>
 
+                                    <td></td>
                                     <td></td>
                                     <td></td>
                                     <td></td>
@@ -114,6 +125,7 @@
                                     </td>
                                 </tr>
 
+                                {{-- Products Info --}}
                                 <tr style=" background-color: #DDEBF7; color: black">
                                     <td style="text-align: center; width: 1%;">
                                         #
@@ -138,13 +150,9 @@
                                         Amount USD
                                     </td>
 
-                                    <td style="text-align: center; width: 10%;">
-                                        Exchange Rate
-                                    </td>
-
-                                    <td style="text-align: center; width: 10%;">
-                                        Total MMK
-                                    </td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
                                 </tr>
 
                                 @php
@@ -186,16 +194,13 @@
                                             @endphp
                                         </td>
 
-                                        <td style="text-align: right">
-                                            EX Rate
-                                        </td>
-
-                                        <td style="text-align: right">
-                                            Total MMk
-                                        </td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
                                     </tr>
                                 @endforeach
 
+                                {{-- Product Payment Info --}}
                                 <tr>
                                     <td style="text-align: center; width: 1%;">
                                         Total
@@ -225,8 +230,120 @@
                                             echo number_format($total_amount_USD, 2);
                                         @endphp
                                     </td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+
+                                {{-- Operation Info --}}
+                                <tr>
+                                    <td style="text-align: center; width: 1%;">
+                                        #
+                                    </td>
 
                                     <td></td>
+
+                                    <td>
+                                        29/6/2020
+                                    </td>
+
+                                    {{-- Total Order Quantity --}}
+                                    <td style="text-align: center">
+                                        Order Quantity
+                                    </td>
+
+                                    {{-- Amount USD --}}
+                                    <td style="text-align: center">
+                                        Deposit
+                                    </td>
+
+                                    <td style="text-align: center">
+                                        Amount USD
+                                    </td>
+
+                                    <td style="text-align: center">
+                                        Exchange Rate
+                                    </td>
+
+                                    <td style="text-align: center">
+                                        Total MMK
+                                    </td>
+
+                                    <td style="text-align: center; color: red;">
+                                        Paid
+                                    </td>
+
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        1
+                                    </td>
+
+                                    <td style="text-align: cener ">
+                                        Karry
+                                    </td>
+
+                                    <td style="text-align: center">
+                                        Q22B
+                                    </td>
+
+                                    <td style="text-align: right">
+                                        70
+                                    </td>
+
+                                    <td style="text-align: right">
+                                        710
+                                    </td>
+
+                                    <td style="text-align: right">
+                                        49700
+                                    </td>
+
+                                    <td style="text-align: right">
+                                        1403
+                                    </td>
+
+                                    <td style="text-align: right">
+                                        69729100
+                                    </td>
+
+                                    <td></td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        1
+                                    </td>
+
+                                    <td style="text-align: cener ">
+                                        Karry
+                                    </td>
+
+                                    <td style="text-align: center">
+                                        Q22D
+                                    </td>
+
+                                    <td style="text-align: right">
+                                        52
+                                    </td>
+
+                                    <td style="text-align: right">
+                                        1320
+                                    </td>
+
+                                    <td style="text-align: right">
+                                        49700
+                                    </td>
+
+                                    <td style="text-align: right">
+                                        1403
+                                    </td>
+
+                                    <td style="text-align: right">
+                                        69729100
+                                    </td>
+
                                     <td></td>
                                 </tr>
                             @endforeach
