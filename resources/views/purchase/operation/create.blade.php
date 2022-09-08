@@ -17,7 +17,7 @@
                                         <label class="col-sm-3 col-form-label">Name</label>
                                         <div class="col-sm-9">
                                             <input type="text" class="form-control form-control-sm"
-                                                value="{{ $supplier->name ?? '' }}">
+                                                value="{{ $supplier->name ?? '' }}" readonly>
                                         </div>
                                     </div>
 
@@ -25,7 +25,7 @@
                                         <label class="col-sm-3 col-form-label">Address</label>
                                         <div class="col-sm-9">
                                             <input type="text" class="form-control form-control-sm"
-                                                value="{{ $supplier->address ?? '' }}">
+                                                value="{{ $supplier->address ?? '' }}" readonly>
                                         </div>
                                     </div>
 
@@ -33,7 +33,7 @@
                                         <label class="col-sm-3 col-form-label">PH</label>
                                         <div class="col-sm-9">
                                             <input type="text" class="form-control form-control-sm"
-                                                value="{{ $supplier->phone ?? '' }}">
+                                                value="{{ $supplier->phone ?? '' }}" readonly>
                                         </div>
                                     </div>
                                 </dl>
@@ -48,7 +48,8 @@
                                         <div class="col-sm-9">
                                             <input type="text"
                                                 class="form-control form-control-sm @error('purchase_no') is-invalid @enderror"
-                                                value="{{ $purchase_order->purchase_no ?? '' }}" name="purchase_no">
+                                                value="{{ $purchase_order->purchase_no ?? '' }}" name="purchase_no"
+                                                readonly>
                                             @error('purchase_no')
                                                 <div class="invalid-feedback"> {{ $message }} </div>
                                             @enderror
@@ -56,7 +57,19 @@
                                     </div>
 
                                     <div class="row mb-1">
-                                        <label class="col-sm-3 col-form-label">Date</label>
+                                        <label class="col-sm-3 col-form-label">
+                                            Invoice Date
+                                        </label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="date_picker form-control form-control-sm"
+                                                value="{{ $purchase_order->purchase_date ?? '' }}" readonly>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-1">
+                                        <label class="col-sm-3 col-form-label">
+                                            Date
+                                        </label>
                                         <div class="col-sm-9">
                                             <input type="text"
                                                 class="date_picker form-control form-control-sm @error('purchase_date') is-invalid @enderror"
@@ -76,17 +89,50 @@
                             <table class="table table-bordered table-sm">
                                 <thead class="tbbg">
                                     <tr>
-                                        <th style="color: white; text-align: center; width: 1%;">Sr.No</th>
-                                        <th style="color: white; text-align: center;">Product Name</th>
-                                        <th style="color: white; text-align: center;">Models</th>
-                                        <th style="color: white; text-align: center;">Description</th>
-                                        <th style="color: white; text-align: center;">Order Quantity</th>
-                                        <th style="color: white; text-align: center;">CIF Yangon ( USD )</th>
-                                        <th style="color: white; text-align: center;">Amount USD</th>
-                                        <th style="color: white; text-align: center;">Particular</th>
-                                        <th style="color: white; text-align: center;">Payment Operation</th>
-                                        <th style="color: white; text-align: center;">Amount</th>
-                                        <th style="color: white; text-align: center;">Action</th>
+                                        <th style="color: white; text-align: center; width: 1%;">
+                                            Sr
+                                        </th>
+
+                                        <th style="color: white; text-align: center; width: 5%;">
+                                            Product Name
+                                        </th>
+
+                                        <th style="color: white; text-align: center; width: 2%;">
+                                            Models
+                                        </th>
+
+                                        <th style="color: white; text-align: center; width: 3%;">
+                                            Order <br> Quantity
+                                        </th>
+
+                                        <th style="color: white; text-align: center; width: 3%;">
+                                            CIF Yangon <br> ( USD )
+                                        </th>
+
+                                        <th style="color: white; text-align: center; width: 5%;">
+                                            Amount <br> USD
+                                        </th>
+
+                                        <th style="color: white; text-align: center; width: 15%;">
+                                            Particular
+                                            <br>
+                                            <span style="color: red;">
+                                                You can entry custom message.
+                                            </span>
+                                        </th>
+
+                                        <th style="color: white; text-align: center; width: 15%;">
+                                            Payment Operation
+                                            <br>
+                                            <span style="color: red;">
+                                                You can entry custom message.
+                                            </span>
+                                        </th>
+
+                                        <th style="color: white; text-align: center; width: 10%;">
+                                            Amount
+                                        </th>
+
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -107,10 +153,6 @@
                                                 {{ $purchase_item->type_of_models_table->title ?? '' }}
                                             </td>
 
-                                            <td>
-                                                {{ $purchase_item->description ?? '' }}
-                                            </td>
-
                                             <td style="text-align: right; font-weight: bold;">
                                                 {{ $purchase_item->qty ?? 0 }}
                                             </td>
@@ -127,47 +169,50 @@
                                                 @endphp
                                             </td>
 
+                                            {{-- Particular --}}
                                             <td>
                                                 <div class="input-group">
-                                                    <input type="text" class="form-control" list="particular">
+                                                    <input type="text" class="form-control" list="particular"
+                                                        style="width: 50%;">
                                                     <datalist id="particular">
-                                                        <option value="Deposit ( USD )">
+                                                        <option value="Deposit (USD)">
                                                         <option value="Balance Units">
                                                         <option value="Order Quantity">
                                                         <option value="Allocation-1">
                                                         <option value="Allocation-2">
                                                         <option value="Allocation-3">
-                                                        <option value="Allocation-4">
-                                                        <option value="Allocation-5">
                                                     </datalist>
-                                                    <input type="text" class="form-control" placeholder="QTY" style="text-align: right">
+
+                                                    <input type="text" class="form-control ParticularQty"
+                                                        placeholder="QTY" style="text-align: right; width: 5%;"
+                                                        data-id="{{ $purchase_item->id }}">
                                                 </div>
                                             </td>
 
+                                            {{-- Payment Operation --}}
                                             <td>
                                                 <div class="input-group">
-                                                    <input type="text" class="form-control" list="payment_operation">
+                                                    <input type="text" class="form-control" list="payment_operation"
+                                                        style="width: 30%;">
                                                     <datalist id="payment_operation">
                                                         <option value="30% Payment">
                                                         <option value="70% Payment">
-                                                        <option value="Deposit ( USD )">
+                                                        <option value="Deposit (USD)">
                                                         <option value="2nd Payment">
                                                         <option value="3rd Payment">
                                                         <option value="4th Payment">
                                                     </datalist>
-                                                    <input type="text" class="form-control" placeholder="Amount" style="text-align: right">
+
+                                                    <input type="text" class="form-control PaymentOperationAmount"
+                                                        placeholder="Amount" style="text-align: right; width: 20%;">
                                                 </div>
                                             </td>
 
                                             <td>
-                                                <input type="text" class="form-control">
+                                                <input type="text" class="form-control TotalAmountValue"
+                                                    id="PaymentAmount_{{ $purchase_item->id }}">
                                             </td>
 
-                                            <td>
-                                                <button class="btn btn-sm btn-primary">
-                                                    Save
-                                                </button>
-                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -186,14 +231,8 @@
                                             Total Amount
                                         </label>
                                         <div class="col-sm-8">
-                                            @php
-                                                $total_amount = array_sum($amount_total);
-                                            @endphp
                                             <input type="text" class="form-control form-control-sm"
-                                                style="text-align: right;" value="{{ number_format($total_amount, 2) }}">
-
-                                            <input type="hidden" value="{{ $total_amount }}" name="total_amount"
-                                                id="totalAmountSave">
+                                                style="text-align: right;" id="totalAmountShowId" readonly>
                                         </div>
                                     </div>
 
@@ -202,14 +241,8 @@
                                             Exchange Rate
                                         </label>
                                         <div class="col-sm-8">
-                                            @php
-                                                $total_amount = array_sum($amount_total);
-                                            @endphp
                                             <input type="text" class="form-control form-control-sm"
-                                                style="text-align: right;" value="{{ number_format($total_amount, 2) }}">
-
-                                            <input type="hidden" value="{{ $total_amount }}" name="total_amount"
-                                                id="totalAmountSave">
+                                                style="text-align: right;" id="ExchangeRateId" onkeyup="setCalculate()">
                                         </div>
                                     </div>
 
@@ -218,14 +251,8 @@
                                             Total MMK
                                         </label>
                                         <div class="col-sm-8">
-                                            @php
-                                                $total_amount = array_sum($amount_total);
-                                            @endphp
                                             <input type="text" class="form-control form-control-sm"
-                                                style="text-align: right;" value="{{ number_format($total_amount, 2) }}">
-
-                                            <input type="hidden" value="{{ $total_amount }}" name="total_amount"
-                                                id="totalAmountSave">
+                                                style="text-align: right;" id="TotalMMKId" readonly>
                                         </div>
                                     </div>
 
@@ -260,5 +287,49 @@
     </div>
 @endsection
 @section('script')
-    <script></script>
+    <script>
+        var particular_qty = 0;
+        var input_id = 0;
+        $(document).on("keyup", ".ParticularQty", function() {
+            input_id = $(this).data('id');
+            particular_qty = $(this).val();
+            if (particular_qty == null || particular_qty == "" || isNaN(particular_qty)) {
+                alert("Enter Numeric value only.");
+                return false;
+            }
+            setCalculateOperationAmount();
+        });
+
+        var PaymentOperationAmount = 0;
+        $(document).on("keyup", ".PaymentOperationAmount", function() {
+            PaymentOperationAmount = $(this).val();
+            if (PaymentOperationAmount == null || PaymentOperationAmount == "" || isNaN(PaymentOperationAmount)) {
+                alert("Enter Numeric value only.");
+                return false;
+            }
+            setCalculateOperationAmount();
+        });
+
+
+        function setCalculateOperationAmount() {
+            var amount_input_id = input_id;
+            var total_particular_qty = particular_qty;
+            var total_payment_operation_amount = PaymentOperationAmount;
+            var total = total_particular_qty * total_payment_operation_amount;
+            document.getElementById("PaymentAmount_" + amount_input_id).value = total;
+            setCalculate();
+        }
+
+
+        function setCalculate() {
+            var total_amount_show = 0;
+            $(".TotalAmountValue").each(function() {
+                total_amount_show += +$(this).val();
+            });
+            document.getElementById("totalAmountShowId").value = total_amount_show;
+            var ExchangeRateId = document.getElementById("ExchangeRateId").value;
+            var getTotalMMK = total_amount_show * ExchangeRateId;
+            document.getElementById("TotalMMKId").value = getTotalMMK;
+        }
+    </script>
 @endsection
