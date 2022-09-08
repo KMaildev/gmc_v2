@@ -128,7 +128,9 @@ Route::middleware('auth')->group(function () {
     Route::resource('purchase_operation', 'Purchase\OperationController');
     Route::get('purchase_operation_create/{id}', array('as' => 'purchase_operation_create', 'uses' => 'Purchase\OperationController@operation_create'));
 
-
+    // Arrival Management 
+    Route::resource('arrival_management', 'Purchase\ArrivalManagementController');
+    Route::get('arrival_management_create/{id}', array('as' => 'arrival_management_create', 'uses' => 'Purchase\ArrivalManagementController@arrival_management_create'));
 
     // Cash Sales Invoice 
     Route::resource('cash_sales_invoices', 'CashSales\CashSalesInvoicesController');

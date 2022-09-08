@@ -101,6 +101,13 @@
 
                                                     <li>
                                                         <a class="dropdown-item"
+                                                            href="{{ route('arrival_management_create', $purchase_order->id) }}">
+                                                            Arrival Management
+                                                        </a>
+                                                    </li>
+
+                                                    <li>
+                                                        <a class="dropdown-item"
                                                             href="{{ route('purchase_order.edit', $purchase_order->id) }}">
                                                             Edit
                                                         </a>
@@ -236,7 +243,7 @@
 
                                 {{-- Operation Info --}}
                                 @foreach ($purchase_order->purchase_operation_infos_table as $key => $purchase_operation_info)
-                                    <tr style="background-color: gray; color: white;">
+                                    <tr style="background-color: #DDEBF7; color: black;">
                                         <td style="text-align: center; width: 1%;">
                                             #
                                         </td>
