@@ -21,4 +21,9 @@ class PurchaseOrder extends Model
     {
         return $this->hasMany(PurchaseItem::class, 'purchase_order_id', 'id');
     }
+
+    public function purchase_operation_infos_table()
+    {
+        return $this->hasMany(PurchaseOperationInfo::class, 'purchase_order_id', 'id');
+    }
 }

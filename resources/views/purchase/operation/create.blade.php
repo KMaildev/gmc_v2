@@ -326,7 +326,7 @@
         $(document).on("keyup", ".PaymentOperationAmount", function() {
             PaymentOperationAmount = $(this).val();
             if (PaymentOperationAmount == null || PaymentOperationAmount == "" || isNaN(PaymentOperationAmount)) {
-                alert("Enter Numeric value only.");
+                // alert("Enter Numeric value only.");
                 return false;
             }
             setCalculateOperationAmount()

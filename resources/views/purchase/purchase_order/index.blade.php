@@ -3,7 +3,6 @@
     <div class="row justify-content-center">
         <div class="col-md-12 col-sm-12 col-lg-12">
             <div class="card">
-
                 <div class="card-body">
                     <div class="card-title header-elements">
                         <h5 class="m-0 me-2">
@@ -236,121 +235,104 @@
                                 </tr>
 
                                 {{-- Operation Info --}}
-                                <tr>
-                                    <td style="text-align: center; width: 1%;">
-                                        #
-                                    </td>
+                                @foreach ($purchase_order->purchase_operation_infos_table as $key => $purchase_operation_info)
+                                    <tr style="background-color: gray; color: white;">
+                                        <td style="text-align: center; width: 1%;">
+                                            #
+                                        </td>
 
-                                    <td></td>
+                                        <td></td>
 
-                                    <td>
-                                        29/6/2020
-                                    </td>
+                                        <td style="text-align: center">
+                                            {{ $purchase_operation_info->operation_date ?? '' }}
+                                        </td>
 
-                                    {{-- Total Order Quantity --}}
-                                    <td style="text-align: center">
-                                        Order Quantity
-                                    </td>
+                                        <td style="text-align: center">
+                                            {{ $purchase_operation_info->particular ?? '' }}
+                                        </td>
 
-                                    {{-- Amount USD --}}
-                                    <td style="text-align: center">
-                                        Deposit
-                                    </td>
+                                        {{-- Amount USD --}}
+                                        <td style="text-align: center">
+                                            {{ $purchase_operation_info->payment_operation ?? '' }}
+                                        </td>
 
-                                    <td style="text-align: center">
-                                        Amount USD
-                                    </td>
+                                        <td style="text-align: center">
+                                            Amount USD
+                                        </td>
 
-                                    <td style="text-align: center">
-                                        Exchange Rate
-                                    </td>
+                                        <td style="text-align: center">
+                                            Exchange Rate
+                                        </td>
 
-                                    <td style="text-align: center">
-                                        Total MMK
-                                    </td>
+                                        <td style="text-align: center">
+                                            Total MMK
+                                        </td>
 
-                                    <td style="text-align: center; color: red;">
-                                        Paid
-                                    </td>
+                                        <td style="text-align: center; color: red;">
+                                            {{ $purchase_operation_info->operation_status ?? '' }}
+                                        </td>
+                                    </tr>
 
-                                </tr>
+                                    {{-- Operation Items --}}
+                                    @foreach ($purchase_operation_info->purchase_operation_items_table as $key => $purchase_operation_item)
+                                        <tr>
+                                            <td>
+                                                {{ $key + 1 }}
+                                            </td>
 
-                                <tr>
-                                    <td>
-                                        1
-                                    </td>
+                                            <td style="text-align: center">
+                                                {{ $purchase_operation_item->purchase_items_table->brands_table->name ?? '' }}
+                                            </td>
 
-                                    <td style="text-align: cener ">
-                                        Karry
-                                    </td>
+                                            <td style="text-align: center">
+                                                {{ $purchase_operation_item->purchase_items_table->type_of_models_table->title ?? '' }}
+                                            </td>
 
-                                    <td style="text-align: center">
-                                        Q22B
-                                    </td>
+                                            <td style="text-align: right">
+                                                @php
+                                                    $particular_qty = $purchase_operation_item->particular_qty ?? 0;
+                                                    echo $particular_qty;
+                                                @endphp
+                                            </td>
 
-                                    <td style="text-align: right">
-                                        70
-                                    </td>
+                                            <td style="text-align: right">
+                                                @php
+                                                    $payment_operation_amount = $purchase_operation_item->payment_operation_amount ?? 0;
+                                                    echo number_format($payment_operation_amount, 2);
+                                                @endphp
+                                            </td>
 
-                                    <td style="text-align: right">
-                                        710
-                                    </td>
+                                            {{-- Amount USD --}}
+                                            <td style="text-align: right">
+                                                @php
+                                                    $amount_usd = $particular_qty * $payment_operation_amount;
+                                                    echo number_format($amount_usd, 2);
+                                                @endphp
+                                            </td>
 
-                                    <td style="text-align: right">
-                                        49700
-                                    </td>
+                                            {{-- Exchange Rate --}}
+                                            <td style="text-align: right">
+                                                @php
+                                                    $exchange_rate = $purchase_operation_item->exchange_rate ?? 0;
+                                                    echo number_format($exchange_rate, 2);
+                                                @endphp
+                                            </td>
 
-                                    <td style="text-align: right">
-                                        1403
-                                    </td>
+                                            <td style="text-align: right">
+                                                @php
+                                                    $total_mmk = $amount_usd * $exchange_rate;
+                                                    echo number_format($total_mmk, 2);
+                                                @endphp
+                                            </td>
 
-                                    <td style="text-align: right">
-                                        69729100
-                                    </td>
-
-                                    <td></td>
-                                </tr>
-
-                                <tr>
-                                    <td>
-                                        1
-                                    </td>
-
-                                    <td style="text-align: cener ">
-                                        Karry
-                                    </td>
-
-                                    <td style="text-align: center">
-                                        Q22D
-                                    </td>
-
-                                    <td style="text-align: right">
-                                        52
-                                    </td>
-
-                                    <td style="text-align: right">
-                                        1320
-                                    </td>
-
-                                    <td style="text-align: right">
-                                        49700
-                                    </td>
-
-                                    <td style="text-align: right">
-                                        1403
-                                    </td>
-
-                                    <td style="text-align: right">
-                                        69729100
-                                    </td>
-
-                                    <td></td>
-                                </tr>
+                                            <td></td>
+                                        </tr>
+                                    @endforeach
+                                @endforeach
                             @endforeach
                         </tbody>
                     </table>
                 </div>
-
             </div>
         </div>
     </div>

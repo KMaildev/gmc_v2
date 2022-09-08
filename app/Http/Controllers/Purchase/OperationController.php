@@ -61,7 +61,7 @@ class OperationController extends Controller
         $operation_info->remark = $request->remark;
         $operation_info->operation_status = $request->operation_status;
         $operation_info->purchase_order_id = $request->purchase_order_id;
-        $operation_info->user_id = auth()->user()->id ?? 0;
+        $operation_info->user_id = $request->user_id;
         $operation_info->save();
 
         $operation_info_id = $operation_info->id;

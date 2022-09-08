@@ -29,6 +29,7 @@ class StorePurchaseOperationInfo extends FormRequest
             'payment_operation' => 'required',
             'operation_status' => 'required',
             'purchase_order_id' => 'required',
+            'user_id' => 'required',
 
             'inputFields.*.purchase_item_id' => 'required',
         ];
