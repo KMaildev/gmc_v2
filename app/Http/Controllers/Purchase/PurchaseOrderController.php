@@ -11,8 +11,6 @@ use App\Models\PurchaseItem;
 use App\Models\PurchaseOrder;
 use App\Models\Supplier;
 use App\Models\TemporaryPurchaseItem;
-use App\Models\TemporarySalesItem;
-use App\Models\TypeOfModel;
 use App\User;
 use Illuminate\Http\Request;
 

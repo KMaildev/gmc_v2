@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Purchase;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePurchaseOperationInfo;
-use App\Models\Brand;
 use App\Models\PurchaseItem;
 use App\Models\PurchaseOperationInfo;
 use App\Models\PurchaseOperationItem;
@@ -103,7 +102,18 @@ class OperationController extends Controller
      */
     public function edit($id)
     {
-        //
+        $purchase_operation_info = PurchaseOperationInfo::findOrFail($id);
+        $purchase_operation_items = PurchaseOperationItem::where('purchase_operation_info_id', $id)->get();
+
+
+
+        $purchase_order_id = $purchase_operation_info->purchase_order_id;
+        $purchase_order = PurchaseOrder::findOrFail($purchase_order_id);
+        $supplier_id = $purchase_order->supplier_id;
+        $supplier = Supplier::findOrFail($supplier_id);
+        $users = User::all();
+
+        return view('purchase.operation.edit', compact('supplier', 'purchase_order', 'purchase_operation_items', 'users', 'purchase_operation_info'));
     }
 
     /**
@@ -126,6 +136,10 @@ class OperationController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $purchase_operation_info = PurchaseOperationInfo::findOrFail($id);
+        $purchase_operation_info->delete();
+
+        PurchaseOperationItem::where('purchase_operation_info_id', $id)->delete();
+        return redirect()->back()->with('success', 'Your processing has been completed.');
     }
 }
