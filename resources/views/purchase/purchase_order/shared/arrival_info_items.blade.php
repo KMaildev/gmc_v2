@@ -30,7 +30,36 @@
             {{ $arrival_information->arrival_status ?? '' }}
         </td>
 
-        <td>Edit</td>
+        <td>
+            <div class="demo-inline-spacing">
+                <div class="btn-group">
+                    <button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        Action
+                    </button>
+                    <ul class="dropdown-menu">
+
+                        <li>
+                            <a class="dropdown-item"
+                                href="{{ route('arrival_management.edit', $arrival_information->id) }}">
+                                Edit Arrival Management
+                            </a>
+                        </li>
+
+                        <li>
+                            <form action="{{ route('arrival_management.destroy', $arrival_information->id) }}"
+                                method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="button" class="dropdown-item del_confirm" id="confirm-text">
+                                    Delete Arrival
+                                </button>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </td>
     </tr>
 
     {{-- Arrived Items --}}

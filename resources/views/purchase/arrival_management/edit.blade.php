@@ -2,8 +2,10 @@
 @section('content')
     <div class="row invoice-add justify-content-center">
         <div class="col-lg-12 col-12 mb-lg-0 mb-4">
-            <form action="{{ route('arrival_management.store') }}" method="POST" autocomplete="off" id="create-form">
+            <form action="{{ route('arrival_management.update', $arrival_info->id) }}" method="POST" autocomplete="off"
+                id="edit-form">
                 @csrf
+                @method('PUT')
 
                 <input type="hidden" value="{{ $purchase_order->id }}" required name="purchase_order_id">
 
@@ -74,7 +76,7 @@
                                         <div class="col-sm-9">
                                             <input type="text"
                                                 class="date_picker form-control form-control-sm @error('arrival_date') is-invalid @enderror"
-                                                name="arrival_date">
+                                                name="arrival_date" value="{{ $arrival_info->arrival_date ?? '' }}">
                                             @error('arrival_date')
                                                 <div class="invalid-feedback"> {{ $message }} </div>
                                             @enderror
@@ -123,33 +125,33 @@
                                     @php
                                         $amount_total = [];
                                     @endphp
-                                    @foreach ($purchase_items as $item => $purchase_item)
+                                    @foreach ($arrival_items as $item => $arrival_item)
                                         <tr>
                                             <input type="hidden" name="inputFields[{{ $item }}][purchase_item_id]"
-                                                value="{{ $purchase_item->id }}">
+                                                value="{{ $arrival_item->purchase_items_table->id }}">
                                             <td>
                                                 {{ $item + 1 }}
                                             </td>
 
                                             <td>
-                                                {{ $purchase_item->brands_table->name ?? '' }}
+                                                {{ $arrival_item->purchase_items_table->brands_table->name ?? '' }}
                                             </td>
 
                                             <td>
-                                                {{ $purchase_item->type_of_models_table->title ?? '' }}
+                                                {{ $arrival_item->purchase_items_table->type_of_models_table->title ?? '' }}
                                             </td>
 
                                             <td style="text-align: right; font-weight: bold;">
-                                                {{ $purchase_item->qty ?? 0 }}
+                                                {{ $arrival_item->purchase_items_table->qty ?? 0 }}
                                             </td>
 
                                             <td style="text-align: right; font-weight: bold;">
-                                                {{ number_format($purchase_item->cif_usd, 2) }}
+                                                {{ number_format($arrival_item->purchase_items_table->cif_usd, 2) }}
                                             </td>
 
                                             <td style="text-align: right; font-weight: bold;">
                                                 @php
-                                                    $item_total_amount = $purchase_item->qty * $purchase_item->cif_usd ?? 0;
+                                                    $item_total_amount = $arrival_item->purchase_items_table->qty * $arrival_item->purchase_items_table->cif_usd ?? 0;
                                                     echo number_format($item_total_amount, 2);
                                                     $amount_total[] = $item_total_amount;
                                                 @endphp
@@ -158,9 +160,11 @@
                                             {{-- Shipping Quantity --}}
                                             <td>
                                                 <div class="input-group">
-                                                    <input type="text" class="form-control" placeholder="QTY"
-                                                        style="text-align: right; width: 5%;"
-                                                        name="inputFields[{{ $item }}][shipping_qty]">
+                                                    <input type="text" class="form-control shipping_quantity"
+                                                        placeholder="QTY" style="text-align: right; width: 5%;"
+                                                        name="inputFields[{{ $item }}][shipping_qty]"
+                                                        value="{{ $arrival_item->shipping_qty ?? 0 }}"
+                                                        data-id="{{ $arrival_item->id }}">
                                                 </div>
                                             </td>
 
@@ -183,7 +187,7 @@
                                         <div class="col-sm-8">
                                             <input type="text"
                                                 class="form-control form-control-sm @error('remark') is-invalid @enderror"
-                                                name="remark">
+                                                name="remark" value="{{ $arrival_info->remark ?? '' }}">
                                             @error('remark')
                                                 <div class="invalid-feedback"> {{ $message }} </div>
                                             @enderror
@@ -199,7 +203,8 @@
                                                 name="user_id">
                                                 <option value="">-- Select Users --</option>
                                                 @foreach ($users as $sales_person)
-                                                    <option value="{{ $sales_person->id }}">
+                                                    <option value="{{ $sales_person->id }}"
+                                                        @if ($sales_person->id == $arrival_info->user_id) selected @endif>
                                                         {{ $sales_person->name }}
                                                     </option>
                                                 @endforeach
@@ -216,16 +221,16 @@
                                         </label>
                                         <div class="col-sm-8">
                                             <select class="form-select" name="arrival_status">
-                                                <option value="Arrived">
+                                                <option value="Arrived" @if ('Arrived' == $arrival_info->arrival_status) selected @endif>
                                                     Arrived
                                                 </option>
-                                                <option value="Paid">
+                                                <option value="Paid" @if ('Paid' == $arrival_info->arrival_status) selected @endif>
                                                     Paid
                                                 </option>
-                                                <option value="Balanced">
+                                                <option value="Balanced" @if ('Balanced' == $arrival_info->arrival_status) selected @endif>
                                                     Balanced
                                                 </option>
-                                                <option value="Shipped">
+                                                <option value="Shipped" @if ('Shipped' == $arrival_info->arrival_status) selected @endif>
                                                     Shipped
                                                 </option>
                                             </select>
@@ -250,5 +255,37 @@
     </div>
 @endsection
 @section('script')
-    {!! JsValidator::formRequest('App\Http\Requests\StoreArrivalInformation', '#create-form') !!}
+    {!! JsValidator::formRequest('App\Http\Requests\UpdateArrivalInformation', '#edit-form') !!}
+    <script>
+        $(document).on("keyup", ".shipping_quantity", function() {
+            var arrival_item_id = $(this).data('id');
+            var shipping_qty = $(this).val();
+            if (shipping_qty == null || shipping_qty == "" || isNaN(shipping_qty)) {
+                alert("Enter Numeric value only.");
+                return false;
+            }
+
+
+            var url = '{{ url('update_arrival_items') }}';
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                method: 'POST',
+                url: url,
+                data: {
+                    arrival_item_id: arrival_item_id,
+                    shipping_qty: shipping_qty,
+                },
+                success: function(data) {
+                    console.log("Ok")
+                },
+                error: function(data) {
+                    console.log("Error")
+                }
+            });
+        });
+    </script>
 @endsection

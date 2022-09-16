@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Purchase;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreArrivalInformation;
+use App\Http\Requests\UpdateArrivalInformation;
+use App\Http\Requests\UpdateArrivalItems;
 use App\Models\ArrivalInformation;
 use App\Models\ArrivalItem;
 use App\Models\PurchaseItem;
@@ -50,7 +53,7 @@ class ArrivalManagementController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreArrivalInformation $request)
     {
         $arrival_info = new ArrivalInformation();
         $arrival_info->arrival_date = $request->arrival_date;
@@ -98,7 +101,16 @@ class ArrivalManagementController extends Controller
      */
     public function edit($id)
     {
-        //
+        $arrival_info = ArrivalInformation::findOrFail($id);
+        $arrival_items = ArrivalItem::where('arrival_information_id', $id)->get();
+
+        $purchase_order_id = $arrival_info->purchase_order_id;
+        $purchase_order = PurchaseOrder::findOrFail($purchase_order_id);
+        $supplier_id = $purchase_order->supplier_id;
+        $supplier = Supplier::findOrFail($supplier_id);
+        $users = User::all();
+
+        return view('purchase.arrival_management.edit', compact('supplier', 'purchase_order', 'users', 'arrival_info', 'arrival_items'));
     }
 
     /**
@@ -108,9 +120,16 @@ class ArrivalManagementController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateArrivalInformation $request, $id)
     {
-        //
+        $arrival_info = ArrivalInformation::findOrFail($id);
+        $arrival_info->arrival_date = $request->arrival_date;
+        $arrival_info->remark = $request->remark;
+        $arrival_info->arrival_status = $request->arrival_status;
+        $arrival_info->purchase_order_id = $request->purchase_order_id;
+        $arrival_info->user_id = $request->user_id;
+        $arrival_info->update();
+        return redirect()->back()->with('success', 'Your processing has been completed.');
     }
 
     /**
@@ -121,6 +140,22 @@ class ArrivalManagementController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $arrival_info = ArrivalInformation::findOrFail($id);
+        $arrival_info->delete();
+
+        ArrivalItem::where('arrival_information_id', $id)->delete();
+        return redirect()->back()->with('success', 'Your processing has been completed.');
+    }
+
+
+    public function UpdateArrivalItems(UpdateArrivalItems $request)
+    {
+        $id = $request->arrival_item_id;
+        $arrival_items = ArrivalItem::findOrFail($id);
+        $arrival_items->shipping_qty = $request->shipping_qty;
+        $arrival_items->update();
+        return json_encode(array(
+            "statusCode" => 200,
+        ));
     }
 }

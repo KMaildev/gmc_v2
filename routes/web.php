@@ -132,6 +132,7 @@ Route::middleware('auth')->group(function () {
     // Arrival Management 
     Route::resource('arrival_management', 'Purchase\ArrivalManagementController');
     Route::get('arrival_management_create/{id}', array('as' => 'arrival_management_create', 'uses' => 'Purchase\ArrivalManagementController@arrival_management_create'));
+    Route::post('update_arrival_items', 'Purchase\ArrivalManagementController@UpdateArrivalItems');
 
     // Cash Sales Invoice 
     Route::resource('cash_sales_invoices', 'CashSales\CashSalesInvoicesController');
