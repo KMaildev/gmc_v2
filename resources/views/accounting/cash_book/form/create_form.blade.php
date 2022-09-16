@@ -46,6 +46,7 @@
                 <option value="dealer">Dealer Invoice</option>
                 <option value="hp">HP Invoice</option>
                 <option value="cash_sale">Cash Sale Invoice</option>
+                <option value="purchase_orders">Purchase Invoice</option>
             </select>
         </td>
 
@@ -301,7 +302,6 @@
             }
             document.getElementById("cashDateField").addEventListener("blur", getCashBookDate)
         });
-
 
 
         $(document).ready(function() {
