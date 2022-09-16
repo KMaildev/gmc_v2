@@ -127,6 +127,7 @@ Route::middleware('auth')->group(function () {
     // Purchase Operation
     Route::resource('purchase_operation', 'Purchase\OperationController');
     Route::get('purchase_operation_create/{id}', array('as' => 'purchase_operation_create', 'uses' => 'Purchase\OperationController@operation_create'));
+    Route::post('update_purchase_operation_items', 'Purchase\OperationController@UpdatePurchaseOperationItems');
 
     // Arrival Management 
     Route::resource('arrival_management', 'Purchase\ArrivalManagementController');

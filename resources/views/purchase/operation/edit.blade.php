@@ -2,8 +2,10 @@
 @section('content')
     <div class="row invoice-add justify-content-center">
         <div class="col-lg-12 col-12 mb-lg-0 mb-4">
-            <form action="{{ route('purchase_operation.store') }}" method="POST" autocomplete="off" id="create-form">
+            <form action="{{ route('purchase_operation.update', $purchase_operation_info->id) }}" method="POST"
+                autocomplete="off" id="create-form">
                 @csrf
+                @method('PUT')
                 <input type="hidden" value="{{ $purchase_order->id }}" required name="purchase_order_id">
                 <div class="card invoice-preview-card">
                     <div class="card-body">
@@ -114,7 +116,8 @@
                                         </th>
 
                                         <th style="color: white; text-align: center; width: 15%;">
-                                            <input type="text" class="form-control" list="particular" name="particular">
+                                            <input type="text" class="form-control" list="particular" name="particular"
+                                                value="{{ $purchase_operation_info->particular ?? '' }}">
                                             <datalist id="particular">
                                                 <option value="Deposit (USD)">
                                                 <option value="Balance Units">
@@ -127,7 +130,8 @@
 
                                         <th style="color: white; text-align: center; width: 15%;">
                                             <input type="text" class="form-control" list="payment_operation"
-                                                name="payment_operation">
+                                                name="payment_operation"
+                                                value="{{ $purchase_operation_info->payment_operation ?? '' }}">
                                             <datalist id="payment_operation">
                                                 <option value="30% Payment">
                                                 <option value="70% Payment">
@@ -209,16 +213,19 @@
                                                 </div>
                                             </td>
 
+                                            {{-- Amount USD --}}
                                             <td>
                                                 @php
                                                     $particular_qty = $purchase_item->particular_qty ?? 0;
                                                     $payment_operation_amount = $purchase_item->payment_operation_amount ?? 0;
+                                                    $TotalUSDAmount = $particular_qty * $payment_operation_amount;
                                                 @endphp
                                                 <input type="text" class="form-control TotalAmountValue"
                                                     id="PaymentAmount_{{ $purchase_item->id }}" style="text-align: right"
-                                                    value="{{ $particular_qty * $payment_operation_amount }}">
+                                                    value="{{ $TotalUSDAmount }}">
                                             </td>
 
+                                            {{-- Exchange Rate --}}
                                             <td>
                                                 <input type="text" class="form-control EntryExchange"
                                                     data-id="{{ $purchase_item->id }}"
@@ -227,9 +234,15 @@
                                                     value="{{ $purchase_item->exchange_rate ?? 0 }}">
                                             </td>
 
+                                            {{-- Total MMK --}}
                                             <td>
+                                                @php
+                                                    $total_exchange_rate = $purchase_item->exchange_rate ?? 0;
+                                                    $TotalMMK = $TotalUSDAmount * $total_exchange_rate;
+                                                @endphp
                                                 <input type="text" class="form-control"
-                                                    id="TotalAmount_{{ $purchase_item->id }}" style="text-align: right">
+                                                    id="TotalAmount_{{ $purchase_item->id }}" style="text-align: right"
+                                                    value="{{ $TotalMMK }}">
                                             </td>
 
                                         </tr>
@@ -251,7 +264,7 @@
                                         <div class="col-sm-8">
                                             <input type="text"
                                                 class="form-control form-control-sm @error('remark') is-invalid @enderror"
-                                                name="remark">
+                                                name="remark" value="{{ $purchase_operation_info->remark ?? '' }}">
                                             @error('remark')
                                                 <div class="invalid-feedback"> {{ $message }} </div>
                                             @enderror
@@ -267,7 +280,8 @@
                                                 name="user_id">
                                                 <option value="">-- Select Users --</option>
                                                 @foreach ($users as $sales_person)
-                                                    <option value="{{ $sales_person->id }}">
+                                                    <option value="{{ $sales_person->id }}"
+                                                        @if ($sales_person->id == $purchase_operation_info->user_id) selected @endif>
                                                         {{ $sales_person->name }}
                                                     </option>
                                                 @endforeach
@@ -284,13 +298,13 @@
                                         </label>
                                         <div class="col-sm-8">
                                             <select class="form-select" name="operation_status">
-                                                <option value="Paid">
+                                                <option value="Paid" @if ('Paid' == $purchase_operation_info->operation_status) selected @endif>
                                                     Paid
                                                 </option>
-                                                <option value="Balanced">
+                                                <option value="Balanced" @if ('Balanced' == $purchase_operation_info->operation_status) selected @endif>
                                                     Balanced
                                                 </option>
-                                                <option value="Shipped">
+                                                <option value="Shipped" @if ('Shipped' == $purchase_operation_info->operation_status) selected @endif>
                                                     Shipped
                                                 </option>
                                             </select>
@@ -345,7 +359,6 @@
             setCalculateOperationAmount()
         });
 
-
         function setCalculateOperationAmount() {
             var amount_input_id = input_id;
             var total_particular_qty = particular_qty;
@@ -356,7 +369,33 @@
             var TotalEntryExchange = EntryExchange;
             var GetTotalMMK = TotalEntryExchange * total
             document.getElementById("TotalAmount_" + amount_input_id).value = GetTotalMMK;
+
+
+
+            var url = '{{ url('update_purchase_operation_items') }}';
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $.ajax({
+                method: 'POST',
+                url: url,
+                data: {
+                    purchase_operation_item_id: input_id,
+                    particular_qty: total_particular_qty,
+                    payment_operation_amount: total_payment_operation_amount,
+                    exchange_rate: TotalEntryExchange,
+                },
+                success: function(data) {
+                    console.log("Ok")
+                },
+                error: function(data) {
+                    console.log("Error")
+                }
+            });
         }
     </script>
-    {!! JsValidator::formRequest('App\Http\Requests\StorePurchaseOperationInfo', '#create-form') !!}
+    {!! JsValidator::formRequest('App\Http\Requests\UpdatePurchaseOperationInfo', '#create-form') !!}
 @endsection
