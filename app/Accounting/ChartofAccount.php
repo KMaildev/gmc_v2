@@ -31,4 +31,5 @@ class ChartofAccount extends Model
     {
         return $this->hasMany(ChartofAccount::class);
     }
+    
 }

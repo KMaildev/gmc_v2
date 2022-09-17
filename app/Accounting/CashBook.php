@@ -2,6 +2,7 @@
 
 namespace App\Accounting;
 
+use App\Models\PurchaseOrder;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Traits\LogsActivity;
 use App\Models\SalesInvoices;
@@ -11,7 +12,7 @@ class CashBook extends Model
 {
     use LogsActivity;
     protected static $logName = 'cash_books_log';
-    protected static $logAttributes = ['cash_book_date', 'month', 'year', 'iv_one', 'iv_two', 'description', 'cash_in', 'cash_out', 'bank_in', 'bank_out', 'created_at', 'updated_at'];
+    protected static $logAttributes = ['cash_book_date', 'month', 'year', 'iv_one', 'iv_two', 'description', 'cash_in', 'cash_out', 'bank_in', 'bank_out', 'created_at', 'updated_at', 'purchase_order_id'];
 
     public function chartof_account_table()
     {
@@ -41,5 +42,10 @@ class CashBook extends Model
     public function user_table()
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+
+    public function purchase_orders_table()
+    {
+        return $this->belongsTo(PurchaseOrder::class, 'purchase_order_id', 'id');
     }
 }

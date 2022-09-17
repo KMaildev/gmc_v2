@@ -81,6 +81,18 @@
             </span>
         </td>
 
+        {{-- Purchase Invoice --}}
+        <td>
+            <select class="select3 form-select form-select-sm" data-allow-clear="false" name="purchase_order_id">
+                <option value="">-- Select Pruchase IV --</option>
+                @foreach ($purchase_orders as $purchase_order)
+                    <option value="{{ $purchase_order->id }}">
+                        {{ $purchase_order->purchase_no ?? '' }}
+                    </option>
+                @endforeach
+            </select>
+        </td>
+
         <td>
             <select class="select2 form-select form-select-sm" data-allow-clear="false" id="AccountCodeSelect">
                 <option value="">--Please Select A/C Code --</option>

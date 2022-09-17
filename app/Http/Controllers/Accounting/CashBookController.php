@@ -8,6 +8,7 @@ use App\Exports\CashBookExport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreCashBook;
 use App\Http\Requests\UpdateCashBook;
+use App\Models\PurchaseOrder;
 use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -24,21 +25,24 @@ class CashBookController extends Controller
     public function index()
     {
         $sales_invoices = SalesInvoices::all();
+        $purchase_orders = PurchaseOrder::all();
+
+
         $chartof_accounts = ChartofAccount::orderBy('coa_number', 'ASC')->get();
         $cash_book_form_status = 'is_create';
 
-        $cash_books = CashBook::orderBy('cash_book_date', 'ASC')->paginate(100000);
+        $cash_books = CashBook::orderBy('cash_book_date', 'ASC')->paginate(10);
         // $cash_books = CashBook::orderBy('cash_book_date', 'ASC')->get();
         if (request('search')) {
             $cash_books = CashBook::where(function ($query) {
                 $query->where('iv_one', 'Like', '%' . request('search') . '%');
                 $query->orWhere('iv_two', 'Like', '%' . request('search') . '%');
                 $query->orWhere('description', 'Like', '%' . request('search') . '%');
-            })->paginate(100000);
+            })->paginate(10);
         }
 
         if (request('from_date') && request('to_date')) {
-            $cash_books = CashBook::whereBetween('cash_book_date', [request('from_date'), request('to_date')])->paginate(100000);
+            $cash_books = CashBook::whereBetween('cash_book_date', [request('from_date'), request('to_date')])->paginate(10);
 
             // Closing Clash and Bank Balance
             $from_date = request('from_date');
@@ -50,15 +54,15 @@ class CashBookController extends Controller
         } else {
             $from_date = '2019-06-01'; //date('Y-m-d', strtotime('first day of this month'));
             $to_date = date('Y-m-d', strtotime('last day of this month'));
-            $cash_books = CashBook::whereBetween('cash_book_date', [$from_date, $to_date])->orderBy('cash_book_date', 'ASC')->paginate(100000);
+            $cash_books = CashBook::whereBetween('cash_book_date', [$from_date, $to_date])->orderBy('cash_book_date', 'ASC')->paginate(10);
             // Closing Clash and Bank Balance
             $beforeFirstDays = DB::table('cash_books')
                 ->whereDate('cash_book_date', '<', $from_date)
-                ->paginate(100000);
-                // ->get();
+                ->paginate(10);
+            // ->get();
         }
         $filter_date = ['from_date' => $from_date, 'to_date' => $to_date];
-        return view('accounting.cash_book.index', compact('cash_books', 'chartof_accounts', 'beforeFirstDays', 'cash_book_form_status', 'filter_date', 'sales_invoices'));
+        return view('accounting.cash_book.index', compact('cash_books', 'chartof_accounts', 'beforeFirstDays', 'cash_book_form_status', 'filter_date', 'sales_invoices', 'purchase_orders'));
     }
 
     /**
@@ -98,9 +102,10 @@ class CashBookController extends Controller
         $cash_book->sales_invoice_id = $request->sales_invoice_id;
         $cash_book->sale_type = $request->sale_type;
         $cash_book->principle_interest = $request->principle_interest;
+        $cash_book->purchase_order_id = $request->purchase_order_id;
         $cash_book->user_id = auth()->user()->id;
         $cash_book->save();
-        return redirect()->back()->with('success', 'Created successfully.');
+        return redirect()->back()->with('success', 'Your processing has been completed.');
     }
 
     /**
