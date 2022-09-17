@@ -134,8 +134,10 @@ Route::middleware('auth')->group(function () {
     Route::get('arrival_management_create/{id}', array('as' => 'arrival_management_create', 'uses' => 'Purchase\ArrivalManagementController@arrival_management_create'));
     Route::post('update_arrival_items', 'Purchase\ArrivalManagementController@UpdateArrivalItems');
 
+    Route::resource('purchase_journal', 'Purchase\PurchaseJournalController');
+
     // Cash Sales Invoice 
-    Route::resource('cash_sales_invoices', 'CashSales\CashSalesInvoicesController');
+    Route::resource('cash_sales_invoices', 'Purchase\CashSalesInvoicesController');
 
 
     // Sales Return 

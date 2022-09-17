@@ -278,7 +278,15 @@
                     <li class="menu-item">
                         <a href="{{ route('purchase_order.index') }}" class="menu-link">
                             <div data-i2n="Without menu">
-                                Purchase Order
+                                Purchase Invoice
+                            </div>
+                        </a>
+                    </li>
+
+                    <li class="menu-item">
+                        <a href="{{ route('purchase_journal.index') }}" class="menu-link">
+                            <div data-i2n="Without menu">
+                                Purchase Journal
                             </div>
                         </a>
                     </li>
