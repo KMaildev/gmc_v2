@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Inventory;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreShippingChassisManagement;
 use App\Imports\ShippingChassisManagementImport;
 use App\Models\ArrivalInformation;
 use App\Models\ArrivalItem;
@@ -107,12 +108,22 @@ class ChassisManagementController extends Controller
         return view('inventory.chassis_management.create', compact('purchase_order', 'supplier', 'arrival_information', 'arrival_item'));
     }
 
+
+
     /**
-     * @return \Illuminate\Support\Collection
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
      */
-    public function importShippingChassisManagement()
+    public function importShippingChassisManagement(StoreShippingChassisManagement $request)
     {
-        Excel::import(new ShippingChassisManagementImport, request()->file('file'));
+        $arrival_item_id = $request->arrival_item_id;
+        $purchase_item_id = $request->purchase_item_id;
+        $purchase_order_id = $request->purchase_order_id;
+        $arrival_information_id = $request->arrival_information_id;
+
+        Excel::import(new ShippingChassisManagementImport($arrival_item_id, $purchase_item_id, $purchase_order_id, $arrival_information_id), request()->file('file'));
         return redirect()->back()->with('success', 'Your processing has been completed.');
     }
 }

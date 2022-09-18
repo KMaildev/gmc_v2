@@ -34,7 +34,5 @@
 @endsection
 
 @section('script')
-@section('script')
     {!! JsValidator::formRequest('App\Http\Requests\StorePermission', '#create-form') !!}
-@endsection
 @endsection
