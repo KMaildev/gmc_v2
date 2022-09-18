@@ -150,6 +150,14 @@ Route::middleware('auth')->group(function () {
     Route::post('update_sales_return_item_unit_price', 'SalesReturn\SalesReturnItemController@update_sales_return_item_unit_price');
 
 
+
+    // Inventory
+    Route::resource('inventory_dashboard', 'Inventory\InventoryDashboard');
+    Route::resource('inventory', 'Inventory\InventoryController');
+    Route::resource('chassis_management', 'Inventory\ChassisManagementController');
+    Route::get('create_chassis_management/{id}', 'Inventory\ChassisManagementController@CreateChassisManagement')->name('create_chassis_management');
+    Route::post('import_shipping_chassis_management', 'ProductsController@importShippingChassisManagement')->name('import_shipping_chassis_management');
+
     Route::resource('department', 'DepartmentController');
     Route::resource('employee', 'EmployeeController');
     Route::get('emp_export', 'EmployeeController@emp_export')->name('emp_export');
