@@ -8,6 +8,7 @@ use App\Imports\ShippingChassisManagementImport;
 use App\Models\ArrivalInformation;
 use App\Models\ArrivalItem;
 use App\Models\PurchaseOrder;
+use App\Models\ShippingChassisManagement;
 use App\Models\Supplier;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
@@ -53,7 +54,20 @@ class ChassisManagementController extends Controller
      */
     public function show($id)
     {
-        //
+        $arrival_item = ArrivalItem::findOrFail($id);
+
+        $purchase_order_id = $arrival_item->purchase_order_id;
+        $purchase_order = PurchaseOrder::findOrFail($purchase_order_id);
+
+        $supplier_id = $purchase_order->supplier_id;
+        $supplier = Supplier::findOrFail($supplier_id);
+
+        $arrival_information_id = $arrival_item->arrival_information_id;
+        $arrival_information = ArrivalInformation::findOrFail($arrival_information_id);
+
+        $shipping_chassis_managements = ShippingChassisManagement::where('arrival_item_id', $id)->get();
+
+        return view('inventory.chassis_management.show', compact('purchase_order', 'supplier', 'arrival_information', 'arrival_item', 'shipping_chassis_managements'));
     }
 
     /**
@@ -103,7 +117,6 @@ class ChassisManagementController extends Controller
         $arrival_information_id = $arrival_item->arrival_information_id;
         $arrival_information = ArrivalInformation::findOrFail($arrival_information_id);
 
-        $arrival_item = ArrivalItem::findOrFail($id);
 
         return view('inventory.chassis_management.create', compact('purchase_order', 'supplier', 'arrival_information', 'arrival_item'));
     }

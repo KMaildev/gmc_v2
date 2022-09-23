@@ -92,6 +92,13 @@
                                                                 Import Chassis No
                                                             </a>
                                                         </li>
+
+                                                        <li>
+                                                            <a class="dropdown-item"
+                                                                href="{{ route('chassis_management.show', $arrival_items->id) }}">
+                                                                View Chassis No
+                                                            </a>
+                                                        </li>
                                                     </ul>
                                                 </div>
                                             </div>
