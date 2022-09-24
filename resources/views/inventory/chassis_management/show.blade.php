@@ -152,8 +152,6 @@
                             </table>
                         </div>
 
-
-
                         <div class="col-md-12 col-lg-12 col-sm-12 py-5">
                             <table class="table table-bordered table-sm" style="margin-bottom: 10px;">
                                 <thead class="tbbg">
@@ -220,13 +218,117 @@
                                         </th>
 
                                         <th style="color: white; text-align: center; width: 10%;">
-                                            Action
+                                            Remark
+                                        </th>
+
+                                        <th style="color: white; text-align: center; width: 10%;">
+                                            Actions
                                         </th>
                                     </tr>
-
                                 </thead>
                                 <tbody>
-                                    
+                                    @foreach ($shipping_chassis_managements as $key => $product)
+                                        <tr>
+                                            <td style="text-align: center;">
+                                                {{ $key + 1 }}
+                                            </td>
+
+                                            <td style="text-align: center;">
+                                                {{ $product->brand_name ?? '' }}
+                                            </td>
+
+                                            <td style="text-align: center;">
+                                                {{ $product->product }}
+                                            </td>
+
+                                            <td style="text-align: center;">
+                                                {{ $product->type }}
+                                            </td>
+
+                                            <td style="text-align: right;">
+                                                {{ $product->model_no }}
+                                            </td>
+
+                                            <td style="text-align: right;">
+                                                {{ $product->model_year }}
+                                            </td>
+
+                                            <td style="text-align: center;">
+                                                {{ $product->configuration }}
+                                            </td>
+
+                                            <td style="text-align: right;">
+                                                {{ $product->engine_power }}
+                                            </td>
+
+                                            <td style="text-align: center;">
+                                                {{ $product->chassis_no }}
+                                            </td>
+
+                                            <td style="text-align: center;">
+                                                {{ $product->engine_no }}
+                                            </td>
+
+                                            <td style="text-align: center;">
+                                                {{ $product->weight }}
+                                            </td>
+
+                                            <td style="text-align: center;">
+                                                {{ $product->door }}
+                                            </td>
+
+                                            <td style="text-align: center;">
+                                                {{ $product->seater }}
+                                            </td>
+
+                                            <td style="text-align: center;">
+                                                {{ $product->vehicle_no }}
+                                            </td>
+
+                                            <td style="text-align: center;">
+                                                {{ $product->quantity }}
+                                            </td>
+
+                                            <td style="text-align: center;">
+                                                {{ $product->remark ?? '' }}
+                                            </td>
+
+                                            <td style="text-align: center;">
+                                                <div class="demo-inline-spacing">
+                                                    <div class="btn-group">
+                                                        <button class="btn btn-info btn-sm dropdown-toggle" type="button"
+                                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                                            Action
+                                                        </button>
+                                                        <ul class="dropdown-menu">
+
+                                                            <li>
+                                                                <a class="dropdown-item"
+                                                                    href="{{ route('chassis_management.edit', $product->id) }}">
+                                                                    Edit
+                                                                </a>
+                                                            </li>
+
+                                                            <li>
+                                                                <form
+                                                                    action="{{ route('chassis_management.destroy', $product->id) }}"
+                                                                    method="POST">
+                                                                    @csrf
+                                                                    @method('DELETE')
+                                                                    <button type="button"
+                                                                        class="dropdown-item del_confirm"
+                                                                        id="confirm-text" data-toggle="tooltip">
+                                                                        Delete
+                                                                    </button>
+                                                                </form>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </td>
+
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -239,5 +341,4 @@
 @endsection
 
 @section('script')
-    {!! JsValidator::formRequest('App\Http\Requests\StoreShippingChassisManagement', '#import-form') !!}
 @endsection

@@ -7,6 +7,7 @@ use App\Http\Requests\StoreShippingChassisManagement;
 use App\Imports\ShippingChassisManagementImport;
 use App\Models\ArrivalInformation;
 use App\Models\ArrivalItem;
+use App\Models\Brand;
 use App\Models\PurchaseOrder;
 use App\Models\ShippingChassisManagement;
 use App\Models\Supplier;
@@ -78,7 +79,8 @@ class ChassisManagementController extends Controller
      */
     public function edit($id)
     {
-        //
+        $product = ShippingChassisManagement::findOrFail($id);
+        return view('inventory.chassis_management.edit', compact('product'));
     }
 
     /**
@@ -90,7 +92,30 @@ class ChassisManagementController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user_id = auth()->user()->id;
+        $product = ShippingChassisManagement::findOrFail($id);
+        $product->product = $request->product;
+        $product->type = $request->type;
+        $product->model_no = $request->model_no;
+        $product->model_year = $request->model_year;
+        $product->configuration = $request->configuration;
+        $product->body_color = $request->body_color;
+        $product->interior_color = $request->interior_color;
+        $product->engine_power = $request->engine_power;
+        $product->chassis_no = $request->chassis_no;
+        $product->engine_no = $request->engine_no;
+        $product->weight = $request->weight;
+        $product->door = $request->door;
+        $product->seater = $request->seater;
+        $product->vehicle_no = $request->vehicle_no;
+        $product->quantity = $request->quantity;
+        $product->remark = $request->remark;
+        $product->user_id = $user_id ?? 0;
+        $product->brand_name = $request->brand_name;
+        $product->commodity = $request->commodity;
+        $product->id_no = $request->id_no;
+        $product->update();
+        return redirect()->back()->with('success', 'Your processing has been completed.');
     }
 
     /**
@@ -101,7 +126,9 @@ class ChassisManagementController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $product = ShippingChassisManagement::findOrFail($id);
+        $product->delete();
+        return redirect()->back()->with('success', 'Your processing has been completed.');
     }
 
     public function CreateChassisManagement($id = null)
@@ -116,7 +143,6 @@ class ChassisManagementController extends Controller
 
         $arrival_information_id = $arrival_item->arrival_information_id;
         $arrival_information = ArrivalInformation::findOrFail($arrival_information_id);
-
 
         return view('inventory.chassis_management.create', compact('purchase_order', 'supplier', 'arrival_information', 'arrival_item'));
     }

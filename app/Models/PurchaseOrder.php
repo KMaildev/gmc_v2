@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Accounting\CashBook;
 use App\User;
 use Illuminate\Database\Eloquent\Model;
 
@@ -30,5 +31,10 @@ class PurchaseOrder extends Model
     public function arrival_information_table()
     {
         return $this->hasMany(ArrivalInformation::class, 'purchase_order_id', 'id');
+    }
+
+    public function cash_books_table()
+    {
+        return $this->hasMany(CashBook::class, 'purchase_order_id', 'id');
     }
 }

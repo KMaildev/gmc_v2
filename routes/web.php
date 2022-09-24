@@ -135,6 +135,9 @@ Route::middleware('auth')->group(function () {
     Route::post('update_arrival_items', 'Purchase\ArrivalManagementController@UpdateArrivalItems');
 
     Route::resource('purchase_journal', 'Purchase\PurchaseJournalController');
+    Route::resource('purchase_account_payable', 'Purchase\PurchaseAccountPayableController');
+
+
 
     // Cash Sales Invoice 
     Route::resource('cash_sales_invoices', 'Purchase\CashSalesInvoicesController');

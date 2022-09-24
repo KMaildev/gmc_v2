@@ -291,6 +291,15 @@
                         </a>
                     </li>
 
+
+                    <li class="menu-item">
+                        <a href="{{ route('purchase_account_payable.index') }}" class="menu-link">
+                            <div data-i2n="Without menu">
+                                Account Payable
+                            </div>
+                        </a>
+                    </li>
+
                 </ul>
             </li>
 
