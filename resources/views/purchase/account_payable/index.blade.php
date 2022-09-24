@@ -121,7 +121,7 @@
                                     </td>
 
                                     {{-- Balance Debit --}}
-                                    <td>
+                                    <td style="text-align: right; font-weight: bold;">
                                         @php
                                             $BalanceDebit = $total_amount_USD - $CashBookDebitTotal;
                                             if ($BalanceDebit < 0) {
