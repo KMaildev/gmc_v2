@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Purchase;
 
 use App\Http\Controllers\Controller;
-use App\Models\PurchaseItem;
+use App\Models\PurchaseOrder;
 use Illuminate\Http\Request;
 
-class PurchaseItemController extends Controller
+class GroupInvoiceController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +15,7 @@ class PurchaseItemController extends Controller
      */
     public function index()
     {
-        //
+        return view('purchase.group_invoice.index');
     }
 
     /**
@@ -24,8 +24,9 @@ class PurchaseItemController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
-        //
+    {   
+        $purchase_orders = PurchaseOrder::all();
+        return view('purchase.group_invoice.create', compact('purchase_orders'));
     }
 
     /**
@@ -81,25 +82,6 @@ class PurchaseItemController extends Controller
      */
     public function destroy($id)
     {
-    }
-
-
-    public function purchase_item_remove($id)
-    {
-        $purchase_item = PurchaseItem::findOrFail($id);
-        $purchase_item->delete();
-        return redirect()->back()->with('success', 'Your processing has been completed.');
-    }
-
-
-    public function getPurchaseItemsAjax($id = null)
-    {
-        $purchase_items = PurchaseItem::with('brands_table', 'type_of_models_table')
-            ->where('purchase_order_id', $id)->get();
-
-        return json_encode(array(
-            "purchase_items" => $purchase_items,
-            "statusCode" => 200,
-        ));
+        //
     }
 }
