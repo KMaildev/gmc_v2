@@ -2,7 +2,6 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use Spatie\Activitylog\Models\Activity;
 
 Route::get('/', function () {
     return view('auth.login');
@@ -120,16 +119,27 @@ Route::middleware('auth')->group(function () {
     Route::resource('purchase_item', 'Purchase\PurchaseItemController');
     Route::get('purchase_item_remove/{id}', array('as' => 'purchase_item_remove', 'uses' => 'Purchase\PurchaseItemController@purchase_item_remove'));
     Route::get('get_purchase_items_ajax/{id}', 'Purchase\PurchaseItemController@getPurchaseItemsAjax')->name('get_purchase_items_ajax');
+    Route::get('get_purchase_item_detail_ajax/{id}', 'Purchase\PurchaseItemController@getPurchaseItemsDetailAjax')->name('get_purchase_item_detail_ajax');
 
+    // Temporary Purchase Item 
     Route::post('store_temporary_purchase_item', 'Purchase\TemporaryPurchaseItemController@store');
     Route::get('get_temporary_purchase_items', array('as' => 'get_temporary_purchase_items', 'uses' => 'Purchase\TemporaryPurchaseItemController@index'));
     Route::get('remove_temporary_purchase_items/{id}', array('as' => 'remove_temporary_purchase_items', 'uses' => 'Purchase\TemporaryPurchaseItemController@remove_temporary_purchase_items'));
-    
+
+    // Temporary Purchase Group Item
+    Route::get('get_temporary_purchase_group_item', 'Purchase\TemporaryPurchaseGroupItemContriller@index');
+    Route::post('store_temporary_purchase_group_item', 'Purchase\TemporaryPurchaseGroupItemContriller@store');
+    Route::get('remove_temporary_purchase_group_items/{id}', 'Purchase\TemporaryPurchaseGroupItemContriller@remove')->name('remove_temporary_purchase_group_items');
 
     // Purchase Operation
     Route::resource('purchase_operation', 'Purchase\OperationController');
     Route::get('purchase_operation_create/{id}', array('as' => 'purchase_operation_create', 'uses' => 'Purchase\OperationController@operation_create'));
     Route::post('update_purchase_operation_items', 'Purchase\OperationController@UpdatePurchaseOperationItems');
+
+
+
+
+
 
     // Arrival Management 
     Route::resource('arrival_management', 'Purchase\ArrivalManagementController');

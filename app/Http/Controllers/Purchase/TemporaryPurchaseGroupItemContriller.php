@@ -4,9 +4,10 @@ namespace App\Http\Controllers\Purchase;
 
 use App\Http\Controllers\Controller;
 use App\Models\PurchaseItem;
+use App\TemporaryPurchaseGroupItem;
 use Illuminate\Http\Request;
 
-class PurchaseItemController extends Controller
+class TemporaryPurchaseGroupItemContriller extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +16,11 @@ class PurchaseItemController extends Controller
      */
     public function index()
     {
-        //
+        $session_id = session()->getId();
+        $temporary_purchase_items = TemporaryPurchaseGroupItem::with('purchase_order_table', 'purchase_item', 'brands_table', 'type_of_models_table')
+            ->where('session_id', $session_id)
+            ->get();
+        echo json_encode($temporary_purchase_items);
     }
 
     /**
@@ -36,7 +41,26 @@ class PurchaseItemController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $purchase_item_id = $request->purchase_item_id;
+        $purchaseItem = PurchaseItem::findOrFail($purchase_item_id);
+        $brand_id = $purchaseItem->brand_id;
+        $type_of_model_id = $purchaseItem->type_of_model_id;
+
+        $temp = new TemporaryPurchaseGroupItem();
+        $temp->purchase_order_id = $request->purchase_order_id;
+        $temp->purchase_item_id = $purchase_item_id;
+        $temp->brand_id = $brand_id;
+        $temp->type_of_model_id = $type_of_model_id;
+        $temp->qty = $request->qty;
+        $temp->cif_usd = $request->cif_usd;
+        $temp->description = $request->description ?? '';
+        $temp->session_id = session()->getId();
+        $temp->user_id = auth()->user()->id ?? 0;
+        $temp->save();
+        return json_encode(array(
+            "statusCode" => 200,
+        ));
     }
 
     /**
@@ -81,39 +105,14 @@ class PurchaseItemController extends Controller
      */
     public function destroy($id)
     {
+        //
     }
 
-
-    public function purchase_item_remove($id)
+    public function remove($id)
     {
-        $purchase_item = PurchaseItem::findOrFail($id);
-        $purchase_item->delete();
-        return redirect()->back()->with('success', 'Your processing has been completed.');
-    }
-
-
-    public function getPurchaseItemsAjax($id = null)
-    {
-        $purchase_items = PurchaseItem::with('type_of_models_table')
-            ->where('purchase_order_id', $id)->get();
-
-        $purchase_item = PurchaseItem::with('brands_table')
-            ->where('purchase_order_id', $id)->first();
-
+        $temp = TemporaryPurchaseGroupItem::findOrFail($id);
+        $temp->delete();
         return json_encode(array(
-            "purchase_items" => $purchase_items,
-            "purchase_item" => $purchase_item,
-            "statusCode" => 200,
-        ));
-    }
-
-
-    public function getPurchaseItemsDetailAjax($id = null)
-    {
-        $purchase_item = PurchaseItem::findOrFail($id);
-
-        return json_encode(array(
-            "purchase_item" => $purchase_item,
             "statusCode" => 200,
         ));
     }
