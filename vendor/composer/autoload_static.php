@@ -780,6 +780,7 @@ class ComposerStaticInit47c02bcb897b27c6c7e40e39684ca80a
         'App\\Http\\Requests\\StoreShippingChassisManagement' => __DIR__ . '/../..' . '/app/Http/Requests/StoreShippingChassisManagement.php',
         'App\\Http\\Requests\\StoreSubAccount' => __DIR__ . '/../..' . '/app/Http/Requests/StoreSubAccount.php',
         'App\\Http\\Requests\\StoreSupplier' => __DIR__ . '/../..' . '/app/Http/Requests/StoreSupplier.php',
+        'App\\Http\\Requests\\StoreTemporaryPurchaseGroupItem' => __DIR__ . '/../..' . '/app/Http/Requests/StoreTemporaryPurchaseGroupItem.php',
         'App\\Http\\Requests\\StoreTemporaryPurchaseItem' => __DIR__ . '/../..' . '/app/Http/Requests/StoreTemporaryPurchaseItem.php',
         'App\\Http\\Requests\\StoreTemporarySalesItems' => __DIR__ . '/../..' . '/app/Http/Requests/StoreTemporarySalesItems.php',
         'App\\Http\\Requests\\StoreTypeOfModel' => __DIR__ . '/../..' . '/app/Http/Requests/StoreTypeOfModel.php',

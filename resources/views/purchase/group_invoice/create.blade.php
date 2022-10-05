@@ -2,7 +2,7 @@
 @section('content')
     <div class="row invoice-add justify-content-center">
         <div class="col-lg-12 col-12 mb-lg-0 mb-4">
-            <form action="{{ route('purchase_order.store') }}" method="POST" autocomplete="off" id="create-form">
+            <form action="{{ route('group_invoice.store') }}" method="POST" autocomplete="off" id="create-form">
                 @csrf
                 <div class="card invoice-preview-card">
                     <div class="card-body">
@@ -127,6 +127,71 @@
                                 <tbody id="TemporaryPurchaseItemsList">
                                 </tbody>
                             </table>
+                        </div>
+
+                        <div class="row p-sm-3 p-0">
+                            <div class="col-md-6">
+                                <dl class="row mb-2">
+                                    <div class="row mb-1">
+                                        <label class="col-sm-3 col-form-label">
+                                            Representative
+                                        </label>
+                                        <div class="col-sm-9">
+                                            <select class="select2 form-select form-select-sm" data-allow-clear="false"
+                                                name="purchase_representative_id">
+                                                <option value="">-- Select Representative --</option>
+                                                @foreach ($sales_persons as $sales_person)
+                                                    <option value="{{ $sales_person->id }}">
+                                                        {{ $sales_person->name }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                            @error('purchase_representative_id')
+                                                <div class="invalid-feedback"> {{ $message }} </div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                </dl>
+                            </div>
+
+                            <div class="col-md-6">
+                                <dl class="row mb-2">
+
+                                    <div class="row mb-1">
+                                        <label class="col-sm-4 col-form-label">
+                                            Total Amount
+                                        </label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control form-control-sm"
+                                                style="text-align:right;" id="totalAmountShow">
+                                            <input type="hidden" value="0" name="total_amount"
+                                                id="totalAmountSave">
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-1">
+                                        <label class="col-sm-4 col-form-label">
+                                            Status
+                                        </label>
+                                        <div class="col-sm-8">
+                                            <select class="form-select" name="order_status">
+                                                <option value="Group Invoice">
+                                                    Group Invoice
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-1">
+                                        <div class="col-sm-12">
+                                            <button type="submit" class="btn btn-primary" style='float: right;'>
+                                                Save
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                </dl>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -275,7 +340,7 @@
                         sales_items += '<td>'
                         sales_items += value.qty;
                         sales_items += '<input type="hidden" name="productFields[' + k +
-                            '][brand_id]" value="' + value.qty + '" required />'
+                            '][qty]" value="' + value.qty + '" required />'
                         sales_items += '</td>'
 
 
@@ -313,7 +378,6 @@
             });
         }
         getTemporaryPurchaseGroupItems();
-
 
         // RemoveItem
         $(document).on("click", ".remove_item", function() {

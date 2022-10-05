@@ -165,6 +165,7 @@ return array(
     'App\\Http\\Requests\\StoreShippingChassisManagement' => $baseDir . '/app/Http/Requests/StoreShippingChassisManagement.php',
     'App\\Http\\Requests\\StoreSubAccount' => $baseDir . '/app/Http/Requests/StoreSubAccount.php',
     'App\\Http\\Requests\\StoreSupplier' => $baseDir . '/app/Http/Requests/StoreSupplier.php',
+    'App\\Http\\Requests\\StoreTemporaryPurchaseGroupItem' => $baseDir . '/app/Http/Requests/StoreTemporaryPurchaseGroupItem.php',
     'App\\Http\\Requests\\StoreTemporaryPurchaseItem' => $baseDir . '/app/Http/Requests/StoreTemporaryPurchaseItem.php',
     'App\\Http\\Requests\\StoreTemporarySalesItems' => $baseDir . '/app/Http/Requests/StoreTemporarySalesItems.php',
     'App\\Http\\Requests\\StoreTypeOfModel' => $baseDir . '/app/Http/Requests/StoreTypeOfModel.php',
