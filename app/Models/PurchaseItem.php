@@ -20,4 +20,9 @@ class PurchaseItem extends Model
     {
         return $this->belongsTo(TypeOfModel::class, 'type_of_model_id', 'id');
     }
+
+    public function purchase_orders_table()
+    {
+        return $this->belongsTo(PurchaseOrder::class, 'purchase_order_original_id', 'id');
+    }
 }

@@ -18,7 +18,8 @@ class GroupInvoiceController extends Controller
      */
     public function index()
     {
-        return view('purchase.group_invoice.index');
+        $purchase_orders = PurchaseOrder::where('invoice_status', 'group_invoice')->get();
+        return view('purchase.group_invoice.index', compact('purchase_orders'));
     }
 
     /**
@@ -60,6 +61,7 @@ class GroupInvoiceController extends Controller
             $insert[$key]['cif_usd'] = $value['cif_usd'];
             $insert[$key]['description'] = $value['description'];
             $insert[$key]['purchase_order_id'] = $purchase_order_id;
+            $insert[$key]['purchase_order_original_id'] = $value['purchase_order_id'];
             $insert[$key]['created_at'] =  date('Y-m-d H:i:s');
             $insert[$key]['updated_at'] =  date('Y-m-d H:i:s');
         }

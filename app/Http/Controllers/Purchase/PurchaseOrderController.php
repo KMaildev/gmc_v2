@@ -23,7 +23,7 @@ class PurchaseOrderController extends Controller
      */
     public function index()
     {
-        $purchase_orders = PurchaseOrder::all();
+        $purchase_orders = PurchaseOrder::where('invoice_status', NULL)->get();
         return view('purchase.purchase_order.index', compact('purchase_orders'));
     }
 
