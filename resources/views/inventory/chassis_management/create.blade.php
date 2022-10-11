@@ -7,35 +7,37 @@
                 <div class="card-body">
 
                     <div class="row p-sm-3 p-0">
-                        <div class="col-md-6">
-                            <dl class="row mb-2">
+                        @if ($purchase_order->invoice_status == null)
+                            <div class="col-md-6">
+                                <dl class="row mb-2">
 
-                                <div class="row mb-1">
-                                    <label class="col-sm-3 col-form-label">Name</label>
-                                    <div class="col-sm-9">
-                                        <input type="text" class="form-control form-control-sm"
-                                            value="{{ $supplier->name ?? '' }}" readonly>
+                                    <div class="row mb-1">
+                                        <label class="col-sm-3 col-form-label">Name</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control form-control-sm"
+                                                value="{{ $supplier->name ?? '' }}" readonly>
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div class="row mb-1">
-                                    <label class="col-sm-3 col-form-label">Address</label>
-                                    <div class="col-sm-9">
-                                        <input type="text" class="form-control form-control-sm"
-                                            value="{{ $supplier->address ?? '' }}" readonly>
+                                    <div class="row mb-1">
+                                        <label class="col-sm-3 col-form-label">Address</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control form-control-sm"
+                                                value="{{ $supplier->address ?? '' }}" readonly>
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div class="row mb-1">
-                                    <label class="col-sm-3 col-form-label">PH</label>
-                                    <div class="col-sm-9">
-                                        <input type="text" class="form-control form-control-sm"
-                                            value="{{ $supplier->phone ?? '' }}" readonly>
+                                    <div class="row mb-1">
+                                        <label class="col-sm-3 col-form-label">PH</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control form-control-sm"
+                                                value="{{ $supplier->phone ?? '' }}" readonly>
+                                        </div>
                                     </div>
-                                </div>
-                            </dl>
-                        </div>
-
+                                </dl>
+                            </div>
+                        @endif
+                        
                         <div class="col-md-6">
                             <dl class="row mb-2">
                                 <div class="row mb-1">

@@ -14,25 +14,27 @@
                 <div class="table-responsive text-nowrap rowheaders table-scroll outer-wrapper">
                     <table class="table table-bordered main-table">
                         <thead style="background-color: #2e696e;">
-                            <th style="color: white; text-align: center; width: 1%;">
+
+                            <th style="color: white; background-color: #2e696e; text-align: center; width: 1%;">
                                 Sr.No
                             </th>
 
-                            <th style="color: white; text-align: center; width: 10%;">
+                            <th style="color: white; background-color: #2e696e; text-align: center; width: 10%;">
                                 Product Name
                             </th>
 
-                            <th style="color: white; text-align: center; width: 10%;">
+                            <th style="color: white; background-color: #2e696e; text-align: center; width: 10%;">
                                 Models
                             </th>
 
-                            <th style="color: white; text-align: center; width: 10%;">
+                            <th style="color: white; background-color: #2e696e; text-align: center; width: 10%;">
                                 "MGM" WAREHOUSE
                             </th>
 
-                            <th style="color: white; text-align: center; width: 1%;">
+                            <th style="color: white; background-color: #2e696e; text-align: center; width: 1%;">
                                 Actions
                             </th>
+
                         </thead>
 
                         <tbody class="table-border-bottom-0">

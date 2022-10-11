@@ -61,7 +61,11 @@ class ChassisManagementController extends Controller
         $purchase_order = PurchaseOrder::findOrFail($purchase_order_id);
 
         $supplier_id = $purchase_order->supplier_id;
-        $supplier = Supplier::findOrFail($supplier_id);
+        if ($supplier_id == 0) {
+            $supplier = [];
+        } else {
+            $supplier = Supplier::findOrFail($supplier_id);
+        }
 
         $arrival_information_id = $arrival_item->arrival_information_id;
         $arrival_information = ArrivalInformation::findOrFail($arrival_information_id);
@@ -139,7 +143,11 @@ class ChassisManagementController extends Controller
         $purchase_order = PurchaseOrder::findOrFail($purchase_order_id);
 
         $supplier_id = $purchase_order->supplier_id;
-        $supplier = Supplier::findOrFail($supplier_id);
+        if ($supplier_id == 0) {
+            $supplier = [];
+        } else {
+            $supplier = Supplier::findOrFail($supplier_id);
+        }
 
         $arrival_information_id = $arrival_item->arrival_information_id;
         $arrival_information = ArrivalInformation::findOrFail($arrival_information_id);

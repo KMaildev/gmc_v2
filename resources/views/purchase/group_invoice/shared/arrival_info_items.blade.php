@@ -5,6 +5,8 @@
         </td>
 
         <td></td>
+        <td></td>
+
 
         <td style="text-align: center">
             {{ $arrival_information->arrival_date ?? '' }}
@@ -41,7 +43,7 @@
 
                         <li>
                             <a class="dropdown-item"
-                                href="{{ route('arrival_management.edit', $arrival_information->id) }}">
+                                href="{{ route('group_invoice_arrival_management.edit', $arrival_information->id) }}">
                                 Edit Arrival Management
                             </a>
                         </li>
@@ -72,6 +74,8 @@
                 {{ $key + 1 }}
             </td>
 
+            <td></td>
+
             <td style="text-align: center">
                 {{ $arrival_items->purchase_items_table->brands_table->name ?? '' }}
             </td>
@@ -98,7 +102,7 @@
         </tr>
     @endforeach
     <tr style="background-color: #FEF2CC;">
-        <td colspan="3">
+        <td colspan="4">
             Total
         </td>
 

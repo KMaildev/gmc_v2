@@ -153,7 +153,10 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('group_invoice', 'Purchase\GroupInvoiceController');
 
-
+    // Arrival Management  Group Invoice
+    Route::resource('group_invoice_arrival_management', 'Purchase\GroupInvoiceArrivalManagementController');
+    Route::get('group_invoice_arrival_management_create/{id}', 'Purchase\GroupInvoiceArrivalManagementController@group_invoice_arrival_management_create')->name('group_invoice_arrival_management_create');
+ 
 
     // Cash Sales Invoice 
     Route::resource('cash_sales_invoices', 'Purchase\CashSalesInvoicesController');

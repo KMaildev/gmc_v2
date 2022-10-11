@@ -68,7 +68,7 @@
                                 @include('purchase.group_invoice.shared.operation_info_items')
 
                                 {{-- Arrived --}}
-                                {{-- @include('purchase.group_invoice.shared.arrival_info_items') --}}
+                                @include('purchase.group_invoice.shared.arrival_info_items')
                             @endforeach
                         </tbody>
                     </table>

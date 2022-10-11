@@ -39,7 +39,8 @@
                     </li>
 
                     <li>
-                        <a class="dropdown-item" href="{{ route('arrival_management_create', $purchase_order->id) }}">
+                        <a class="dropdown-item"
+                            href="{{ route('group_invoice_arrival_management_create', $purchase_order->id) }}">
                             Arrival Management
                         </a>
                     </li>
