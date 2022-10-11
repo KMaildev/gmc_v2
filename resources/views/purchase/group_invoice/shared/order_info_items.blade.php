@@ -33,7 +33,7 @@
                 <ul class="dropdown-menu">
 
                     <li>
-                        <a class="dropdown-item" href="{{ route('purchase_operation_create', $purchase_order->id) }}">
+                        <a class="dropdown-item" href="{{ route('group_operation_create', $purchase_order->id) }}">
                             Operation
                         </a>
                     </li>

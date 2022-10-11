@@ -43,7 +43,6 @@ class OperationController extends Controller
         $supplier_id = $purchase_order->supplier_id;
         $supplier = Supplier::findOrFail($supplier_id);
         $users = User::all();
-
         return view('purchase.operation.create', compact('supplier', 'purchase_order', 'purchase_items', 'users'));
     }
 

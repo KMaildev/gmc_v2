@@ -136,7 +136,9 @@ Route::middleware('auth')->group(function () {
     Route::get('purchase_operation_create/{id}', array('as' => 'purchase_operation_create', 'uses' => 'Purchase\OperationController@operation_create'));
     Route::post('update_purchase_operation_items', 'Purchase\OperationController@UpdatePurchaseOperationItems');
 
-
+    // Purchase Operation Group Invoice
+    Route::resource('group_invoice_operation', 'Purchase\GroupInvoiceOperationController');
+    Route::get('group_operation_create/{id}', 'Purchase\GroupInvoiceOperationController@group_operation_create')->name('group_operation_create');
 
 
 

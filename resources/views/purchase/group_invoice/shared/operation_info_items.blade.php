@@ -5,6 +5,7 @@
         </td>
 
         <td></td>
+        <td></td>
 
         <td style="text-align: center">
             {{ $purchase_operation_info->operation_date ?? '' }}
@@ -48,7 +49,7 @@
 
                         <li>
                             <a class="dropdown-item"
-                                href="{{ route('purchase_operation.edit', $purchase_operation_info->id) }}">
+                                href="{{ route('group_invoice_operation.edit', $purchase_operation_info->id) }}">
                                 Edit Operation
                             </a>
                         </li>
@@ -82,6 +83,8 @@
             <td>
                 {{ $key + 1 }}
             </td>
+
+            <td></td>
 
             <td style="text-align: center">
                 {{ $purchase_operation_item->purchase_items_table->brands_table->name ?? '' }}
@@ -140,7 +143,7 @@
         </tr>
     @endforeach
     <tr style="background-color: #FEF2CC;">
-        <td colspan="3">
+        <td colspan="4">
             Total
         </td>
 

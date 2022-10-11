@@ -2,8 +2,10 @@
 @section('content')
     <div class="row invoice-add justify-content-center">
         <div class="col-lg-12 col-12 mb-lg-0 mb-4">
-            <form action="{{ route('group_invoice.store') }}" method="POST" autocomplete="off" id="create-form">
+            <form action="{{ route('group_invoice.update', $purchase_order_info->id) }}" method="POST" autocomplete="off"
+                id="create-form">
                 @csrf
+                @method('PUT')
                 <div class="card invoice-preview-card">
                     <div class="card-body">
 
@@ -203,7 +205,8 @@
                                                 name="purchase_representative_id">
                                                 <option value="">-- Select Representative --</option>
                                                 @foreach ($sales_persons as $sales_person)
-                                                    <option value="{{ $sales_person->id }}">
+                                                    <option value="{{ $sales_person->id }}"
+                                                        @if ($sales_person->id == $purchase_order->purchase_representative_id) selected @endif>
                                                         {{ $sales_person->name }}
                                                     </option>
                                                 @endforeach
@@ -224,9 +227,13 @@
                                             Total Amount
                                         </label>
                                         <div class="col-sm-8">
+                                            @php
+                                                $total_amount = array_sum($amount_total);
+                                            @endphp
                                             <input type="text" class="form-control form-control-sm"
-                                                style="text-align:right;" id="totalAmountShow">
-                                            <input type="hidden" value="0" name="total_amount"
+                                                style="text-align: right;" value="{{ number_format($total_amount, 2) }}">
+
+                                            <input type="hidden" value="{{ $total_amount }}" name="total_amount"
                                                 id="totalAmountSave">
                                         </div>
                                     </div>
@@ -376,6 +383,10 @@
                         sales_items += value.purchase_order_table.purchase_no;
                         sales_items += '<input type="hidden" name="productFields[' + k +
                             '][purchase_order_id]" value="' + value.purchase_order_id +
+                            '" required />'
+
+                        sales_items += '<input type="hidden" name="productFields[' + k +
+                            '][purchase_item_id]" value="' + value.purchase_item_id +
                             '" required />'
 
 

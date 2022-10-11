@@ -11,35 +11,6 @@
                     <div class="card-body">
 
                         <div class="row p-sm-3 p-0">
-                            
-                            <div class="col-md-6">
-                                <dl class="row mb-2">
-
-                                    <div class="row mb-1">
-                                        <label class="col-sm-3 col-form-label">Name</label>
-                                        <div class="col-sm-9">
-                                            <input type="text" class="form-control form-control-sm"
-                                                value="{{ $supplier->name ?? '' }}" readonly>
-                                        </div>
-                                    </div>
-
-                                    <div class="row mb-1">
-                                        <label class="col-sm-3 col-form-label">Address</label>
-                                        <div class="col-sm-9">
-                                            <input type="text" class="form-control form-control-sm"
-                                                value="{{ $supplier->address ?? '' }}" readonly>
-                                        </div>
-                                    </div>
-
-                                    <div class="row mb-1">
-                                        <label class="col-sm-3 col-form-label">PH</label>
-                                        <div class="col-sm-9">
-                                            <input type="text" class="form-control form-control-sm"
-                                                value="{{ $supplier->phone ?? '' }}" readonly>
-                                        </div>
-                                    </div>
-                                </dl>
-                            </div>
 
                             <div class="col-md-6">
                                 <dl class="row mb-2">
@@ -211,8 +182,7 @@
 
                                             <td>
                                                 <input type="text" class="form-control TotalAmountValue"
-                                                    id="PaymentAmount_{{ $purchase_item->id }}"
-                                                    style="text-align: right">
+                                                    id="PaymentAmount_{{ $purchase_item->id }}" style="text-align: right">
                                             </td>
 
                                             <td>
@@ -339,8 +309,6 @@
             EntryExchange = $(this).val();
             setCalculateOperationAmount()
         });
-
-
 
         function setCalculateOperationAmount() {
             var amount_input_id = input_id;
