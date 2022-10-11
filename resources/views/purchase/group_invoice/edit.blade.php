@@ -17,7 +17,7 @@
                                         <div class="col-sm-9">
                                             <input type="text"
                                                 class="form-control form-control-sm @error('purchase_no') is-invalid @enderror"
-                                                value="{{ old('purchase_no') }}" name="purchase_no">
+                                                value="{{ $purchase_order_info->purchase_no ?? '' }}" name="purchase_no">
                                             @error('purchase_no')
                                                 <div class="invalid-feedback"> {{ $message }} </div>
                                             @enderror
@@ -29,7 +29,8 @@
                                         <div class="col-sm-9">
                                             <input type="text"
                                                 class="date_picker form-control form-control-sm @error('purchase_date') is-invalid @enderror"
-                                                value="{{ old('purchase_date') }}" name="purchase_date">
+                                                value="{{ $purchase_order_info->purchase_date ?? '' }}"
+                                                name="purchase_date">
                                             @error('purchase_date')
                                                 <div class="invalid-feedback"> {{ $message }} </div>
                                             @enderror
@@ -125,6 +126,67 @@
                                 </tr>
 
                                 <tbody id="TemporaryPurchaseItemsList">
+                                </tbody>
+
+
+                                <tbody>
+                                    @php
+                                        $amount_total = [];
+                                    @endphp
+                                    @foreach ($purchase_items as $item => $purchase_item)
+                                        <tr>
+                                            <td>
+                                                {{ $item + 1 }}
+                                            </td>
+
+                                            {{-- Purchase No	 --}}
+                                            <td>
+                                                {{ $purchase_item->purchase_orders_table->purchase_no ?? '' }}
+                                            </td>
+
+                                            {{-- Product Name --}}
+                                            <td>
+                                                {{ $purchase_item->brands_table->name ?? '' }}
+                                            </td>
+
+                                            {{-- Models --}}
+                                            <td>
+                                                {{ $purchase_item->type_of_models_table->title ?? '' }}
+                                            </td>
+
+
+                                            {{-- Entry Quantity --}}
+                                            <td style="text-align: right; font-weight: bold;">
+                                                {{ $purchase_item->purchase_items_table->qty ?? 0 }}
+                                            </td>
+
+                                            <td style="text-align: right; font-weight: bold;">
+                                                {{ $purchase_item->qty ?? 0 }}
+                                            </td>
+
+                                            <td style="text-align: right; font-weight: bold;">
+                                                {{ number_format($purchase_item->cif_usd, 2) }}
+                                            </td>
+
+                                            <td style="text-align: right; font-weight: bold;">
+                                                @php
+                                                    $item_total_amount = $purchase_item->qty * $purchase_item->cif_usd ?? 0;
+                                                    echo number_format($item_total_amount, 2);
+                                                    $amount_total[] = $item_total_amount;
+                                                @endphp
+                                            </td>
+
+                                            <td>
+                                                {{ $purchase_item->description ?? '' }}
+                                            </td>
+
+                                            <td>
+                                                <a href="{{ route('purchase_item_remove', $purchase_item->id) }}">
+                                                    Remove
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -309,18 +371,13 @@
                         sales_items += '<td>' + k + '</td>' //Sr.No	
 
 
-
                         // Purchase No
                         sales_items += '<td>'
-
                         sales_items += value.purchase_order_table.purchase_no;
                         sales_items += '<input type="hidden" name="productFields[' + k +
                             '][purchase_order_id]" value="' + value.purchase_order_id +
                             '" required />'
 
-                        sales_items += '<input type="hidden" name="productFields[' + k +
-                            '][purchase_item_id]" value="' + value.purchase_item_id +
-                            '" required />'
 
                         sales_items += '</td>'
 
@@ -372,6 +429,8 @@
                         sales_items += '<input type="hidden" name="productFields[' + k +
                             '][description]" value="' + value.description + '" required />'
                         sales_items += '</td>'
+
+
 
                         // Action
                         sales_items += '<td>'

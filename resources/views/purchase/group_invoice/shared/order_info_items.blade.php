@@ -45,8 +45,8 @@
                     </li>
 
                     <li>
-                        <a class="dropdown-item" href="{{ route('purchase_order.edit', $purchase_order->id) }}">
-                            Edit Invoice
+                        <a class="dropdown-item" href="{{ route('group_invoice.edit', $purchase_order->id) }}">
+                            Edit Data
                         </a>
                     </li>
 

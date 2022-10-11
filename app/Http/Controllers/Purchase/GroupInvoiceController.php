@@ -62,6 +62,7 @@ class GroupInvoiceController extends Controller
             $insert[$key]['description'] = $value['description'];
             $insert[$key]['purchase_order_id'] = $purchase_order_id;
             $insert[$key]['purchase_order_original_id'] = $value['purchase_order_id'];
+            $insert[$key]['purchase_item_id'] = $value['purchase_item_id'];
             $insert[$key]['created_at'] =  date('Y-m-d H:i:s');
             $insert[$key]['updated_at'] =  date('Y-m-d H:i:s');
         }
@@ -89,7 +90,14 @@ class GroupInvoiceController extends Controller
      */
     public function edit($id)
     {
-        //
+        // $suppliers = Supplier::all();
+        // $brands = Brand::all();
+
+        $sales_persons = User::all();
+        $purchase_order_info = PurchaseOrder::findOrFail($id);
+        $purchase_orders = PurchaseOrder::all();
+        $purchase_items = PurchaseItem::where('purchase_order_id', $id)->get();
+        return view('purchase.group_invoice.edit', compact('sales_persons', 'purchase_orders', 'purchase_order_info', 'purchase_items'));
     }
 
     /**

@@ -38,9 +38,7 @@
                             </th>
 
                             <th style="background-color: #2e696e; color: white; text-align: center; width: 10%;">
-                                Particular
                             </th>
-
                             <th style="background-color: #2e696e; color: white; text-align: center; width: 10%;">
                             </th>
                             <th style="background-color: #2e696e; color: white; text-align: center; width: 10%;">
