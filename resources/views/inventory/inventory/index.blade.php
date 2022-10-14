@@ -32,34 +32,35 @@
                             </th>
 
                             <th style="color: white; background-color: #2e696e; text-align: center; width: 10%;">
+                                Sale Returned
+                            </th>
+
+                            <th style="color: white; background-color: #2e696e; text-align: center; width: 10%;">
+                                Total
+                            </th>
+
+                            <th style="color: white; background-color: #2e696e; text-align: center; width: 10%;">
                                 Sale
                             </th>
 
                             <th style="color: white; background-color: #2e696e; text-align: center; width: 10%;">
-                                Sale Returned
+                                "MGM" WAREHOUSE
                             </th>
+
                         </thead>
 
                         <tbody class="table-border-bottom-0">
                             @foreach ($arrival_informations as $key => $arrival_information)
                                 {{-- arrival_information --}}
-                                <tr style="background-color: #DDEBF7;">
-                                    <td>
-                                        {{ $key + 1 }}
-                                    </td>
+                                @include('inventory.inventory.shared.arrival_information')
 
-                                    <td colspan="5" style="text-align: center">
-                                        Myanmar Great Motor Co.,Ltd Vehicle List for
-                                        {{ $arrival_information->arrival_date ?? '' }}
-                                        <span style="font-weight: bold">
-                                            ({{ $arrival_information->arrival_items_table->sum('shipping_qty') }} Unit)
-                                        </span>
-                                    </td>
-                                </tr>
-
-                                {{-- Arrived Items --}}
+                                {{-- qty_management --}}
                                 @php
                                     $total_shipping_qty = [];
+                                    $total_sale_return_qty = [];
+                                    $total_warehouse_plus_return = [];
+                                    $total_sale_item_qty = [];
+                                    $total_remaining_warehouse = [];
                                 @endphp
                                 @foreach ($arrival_information->arrival_items_table as $key => $arrival_items)
                                     <tr>
@@ -84,6 +85,37 @@
                                             @endphp
                                         </td>
 
+                                        {{-- Sale Returned --}}
+                                        <td style="text-align: right;">
+                                            @php
+                                                $sale_item_return_qty = [];
+                                            @endphp
+                                            @foreach ($arrival_items->shipping_chassis_management_table as $shipping_chassis_management)
+                                                @foreach ($shipping_chassis_management->products_table ?? '' as $product)
+                                                    @foreach ($product->sales_return_items_table_for_inventory as $sales_return_items)
+                                                        @php
+                                                            $sale_item_return_qty[] = $sales_return_items->qty;
+                                                        @endphp
+                                                    @endforeach
+                                                @endforeach
+                                            @endforeach
+                                            @php
+                                                $sale_item_return_qty = array_sum($sale_item_return_qty);
+                                                echo $sale_item_return_qty;
+                                                $total_sale_return_qty[] = $sale_item_return_qty;
+                                            @endphp
+                                        </td>
+
+
+                                        {{-- Total  --}}
+                                        <td style="text-align: right;">
+                                            @php
+                                                $warehouse_plus_return = $shipping_qty + $sale_item_return_qty;
+                                                echo $warehouse_plus_return;
+                                                $total_warehouse_plus_return[] = $warehouse_plus_return;
+                                            @endphp
+                                        </td>
+
                                         {{-- Sale --}}
                                         <td style="text-align: right;">
                                             @php
@@ -101,16 +133,69 @@
                                             @php
                                                 $sale_item_qty = array_sum($sale_item_qty);
                                                 echo $sale_item_qty;
+                                                $total_sale_item_qty[] = $sale_item_qty;
                                             @endphp
                                         </td>
 
-
-                                        {{-- Sale Returned --}}
+                                        {{-- "MGM" WAREHOUSE --}}
                                         <td style="text-align: right;">
-
+                                            @php
+                                                $remaining_qty = $shipping_qty - $sale_item_qty;
+                                                echo $remaining_qty;
+                                                $total_remaining_warehouse[] = $remaining_qty;
+                                            @endphp
                                         </td>
                                     </tr>
                                 @endforeach
+
+                                <tr style="background-color: #FEF2CC;">
+                                    <td colspan="3">
+                                        Total:
+                                    </td>
+
+                                    {{-- "MGM" WAREHOUSE --}}
+                                    <td style="text-align: right;">
+                                        @php
+                                            $total_shipping_qty = array_sum($total_shipping_qty);
+                                            echo $total_shipping_qty;
+                                        @endphp
+                                    </td>
+
+                                    {{-- Sale Returned --}}
+                                    <td style="text-align: right;">
+                                        @php
+                                            $total_sale_return_qty = array_sum($total_sale_return_qty);
+                                            echo $total_sale_return_qty;
+                                        @endphp
+                                    </td>
+
+                                    {{-- Total  --}}
+                                    <td style="text-align: right;">
+                                        @php
+                                            $total_warehouse_plus_return = array_sum($total_warehouse_plus_return);
+                                            echo $total_warehouse_plus_return;
+                                        @endphp
+                                    </td>
+
+
+                                    {{-- Sale --}}
+                                    <td style="text-align: right;">
+                                        @php
+                                            $total_sale_item_qty = array_sum($total_sale_item_qty);
+                                            echo $total_sale_item_qty;
+                                        @endphp
+                                    </td>
+
+                                    {{-- "MGM" WAREHOUSE Remaining --}}
+                                    <td style="text-align: right;">
+                                        @php
+                                            $total_remaining_warehouse = array_sum($total_remaining_warehouse);
+                                            echo $total_remaining_warehouse;
+                                        @endphp
+                                    </td>
+
+
+                                </tr>
                             @endforeach
                         </tbody>
                     </table>

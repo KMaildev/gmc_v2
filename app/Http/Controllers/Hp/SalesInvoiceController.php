@@ -83,6 +83,7 @@ class SalesInvoiceController extends Controller
             $insert[$key]['unit_price'] = $value['price'];
             $insert[$key]['description'] = $value['description'];
             $insert[$key]['sales_invoice_id'] = $sale_invoice_id;
+            $insert[$key]['sale_types'] = 'hp';
             $insert[$key]['created_at'] =  date('Y-m-d H:i:s');
             $insert[$key]['updated_at'] =  date('Y-m-d H:i:s');
         }
@@ -214,7 +215,7 @@ class SalesInvoiceController extends Controller
         $sales_items = SalesItems::orderBy('id')->where('sales_invoice_id', $id)->get();
         $sales_invoices_payment = SalesInvoicesPayments::where('sales_invoice_id', $id)->first();
 
-        
+
         return view('hp.sales_invoice.invoice', compact('sales_invoice', 'sales_items', 'sales_invoices_payment'));
     }
 }

@@ -73,6 +73,7 @@ class SalesInvoicesController extends Controller
             $insert[$key]['unit_price'] = $value['price'];
             $insert[$key]['description'] = $value['description'];
             $insert[$key]['sales_invoice_id'] = $sale_invoice_id;
+            $insert[$key]['sale_types'] = 'dealer';
             $insert[$key]['created_at'] =  date('Y-m-d H:i:s');
             $insert[$key]['updated_at'] =  date('Y-m-d H:i:s');
         }
@@ -158,6 +159,7 @@ class SalesInvoicesController extends Controller
                 $insert[$key]['unit_price'] = $value['price'];
                 $insert[$key]['description'] = $value['description'];
                 $insert[$key]['sales_invoice_id'] = $sale_invoice_id;
+                $insert[$key]['sale_types'] = 'dealer';
                 $insert[$key]['created_at'] =  date('Y-m-d H:i:s');
                 $insert[$key]['updated_at'] =  date('Y-m-d H:i:s');
             }
