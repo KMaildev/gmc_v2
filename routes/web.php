@@ -141,8 +141,6 @@ Route::middleware('auth')->group(function () {
     Route::get('group_operation_create/{id}', 'Purchase\GroupInvoiceOperationController@group_operation_create')->name('group_operation_create');
 
 
-
-
     // Arrival Management 
     Route::resource('arrival_management', 'Purchase\ArrivalManagementController');
     Route::get('arrival_management_create/{id}', array('as' => 'arrival_management_create', 'uses' => 'Purchase\ArrivalManagementController@arrival_management_create'));
@@ -156,7 +154,7 @@ Route::middleware('auth')->group(function () {
     // Arrival Management  Group Invoice
     Route::resource('group_invoice_arrival_management', 'Purchase\GroupInvoiceArrivalManagementController');
     Route::get('group_invoice_arrival_management_create/{id}', 'Purchase\GroupInvoiceArrivalManagementController@group_invoice_arrival_management_create')->name('group_invoice_arrival_management_create');
- 
+
 
     // Cash Sales Invoice 
     Route::resource('cash_sales_invoices', 'Purchase\CashSalesInvoicesController');
@@ -171,13 +169,14 @@ Route::middleware('auth')->group(function () {
     Route::post('update_sales_return_item_unit_price', 'SalesReturn\SalesReturnItemController@update_sales_return_item_unit_price');
 
 
-
     // Inventory
     Route::resource('inventory_dashboard', 'Inventory\InventoryDashboard');
     Route::resource('inventory', 'Inventory\InventoryController');
+    Route::resource('inventory_shipping', 'Inventory\ShippingController');
     Route::resource('chassis_management', 'Inventory\ChassisManagementController');
     Route::get('create_chassis_management/{id}', 'Inventory\ChassisManagementController@CreateChassisManagement')->name('create_chassis_management');
     Route::post('import_shipping_chassis_management', 'Inventory\ChassisManagementController@importShippingChassisManagement')->name('import_shipping_chassis_management');
+
 
     Route::resource('department', 'DepartmentController');
     Route::resource('employee', 'EmployeeController');

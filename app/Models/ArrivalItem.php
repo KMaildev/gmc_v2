@@ -10,4 +10,10 @@ class ArrivalItem extends Model
     {
         return $this->belongsTo(PurchaseItem::class, 'purchase_item_id', 'id');
     }
+
+
+    public function shipping_chassis_management_table()
+    {
+        return $this->hasMany(ShippingChassisManagement::class, 'arrival_item_id', 'id');
+    }
 }

@@ -36,4 +36,10 @@ class Products extends Model
     {
         return $this->belongsTo(SalesReturnItem::class, 'id', 'product_id');
     }
+
+
+    public function sales_items_table_for_inventory()
+    {
+        return $this->hasMany(SalesItems::class, 'product_id', 'id');
+    }
 }

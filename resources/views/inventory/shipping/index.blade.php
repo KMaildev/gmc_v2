@@ -6,7 +6,7 @@
                 <div class="card-body">
                     <div class="card-title header-elements">
                         <h5 class="m-0 me-2">
-                            Inventory
+                            Shipping
                         </h5>
                     </div>
                 </div>
@@ -31,13 +31,10 @@
                                 "MGM" WAREHOUSE
                             </th>
 
-                            <th style="color: white; background-color: #2e696e; text-align: center; width: 10%;">
-                                Sale
+                            <th style="color: white; background-color: #2e696e; text-align: center; width: 1%;">
+                                Actions
                             </th>
 
-                            <th style="color: white; background-color: #2e696e; text-align: center; width: 10%;">
-                                Sale Returned
-                            </th>
                         </thead>
 
                         <tbody class="table-border-bottom-0">
@@ -48,7 +45,7 @@
                                         {{ $key + 1 }}
                                     </td>
 
-                                    <td colspan="5" style="text-align: center">
+                                    <td colspan="4" style="text-align: center">
                                         Myanmar Great Motor Co.,Ltd Vehicle List for
                                         {{ $arrival_information->arrival_date ?? '' }}
                                         <span style="font-weight: bold">
@@ -75,7 +72,6 @@
                                             {{ $arrival_items->purchase_items_table->type_of_models_table->title ?? '' }}
                                         </td>
 
-                                        {{-- "MGM" WAREHOUSE --}}
                                         <td style="text-align: right;">
                                             @php
                                                 $shipping_qty = $arrival_items->shipping_qty ?? 0;
@@ -84,33 +80,48 @@
                                             @endphp
                                         </td>
 
-                                        {{-- Sale --}}
-                                        <td style="text-align: right;">
-                                            @php
-                                                $sale_item_qty = [];
-                                            @endphp
-                                            @foreach ($arrival_items->shipping_chassis_management_table as $shipping_chassis_management)
-                                                @foreach ($shipping_chassis_management->products_table ?? '' as $product)
-                                                    @foreach ($product->sales_items_table_for_inventory as $sales_items)
-                                                        @php
-                                                            $sale_item_qty[] = $sales_items->qty;
-                                                        @endphp
-                                                    @endforeach
-                                                @endforeach
-                                            @endforeach
-                                            @php
-                                                $sale_item_qty = array_sum($sale_item_qty);
-                                                echo $sale_item_qty;
-                                            @endphp
-                                        </td>
+                                        <td style="text-align: center;">
+                                            <div class="demo-inline-spacing">
+                                                <div class="btn-group">
+                                                    <button class="btn btn-primary btn-sm dropdown-toggle" type="button"
+                                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                                        Action
+                                                    </button>
+                                                    <ul class="dropdown-menu">
+                                                        <li>
+                                                            <a class="dropdown-item"
+                                                                href="{{ route('create_chassis_management', $arrival_items->id) }}">
+                                                                Import Chassis No
+                                                            </a>
+                                                        </li>
 
-
-                                        {{-- Sale Returned --}}
-                                        <td style="text-align: right;">
-
+                                                        <li>
+                                                            <a class="dropdown-item"
+                                                                href="{{ route('chassis_management.show', $arrival_items->id) }}">
+                                                                View Chassis No
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
                                         </td>
                                     </tr>
                                 @endforeach
+
+                                {{-- "MGM" WAREHOUSE Total --}}
+                                <tr style="background-color: #FEF2CC;">
+                                    <td colspan="3">
+                                        Total:
+                                    </td>
+
+                                    <td style="text-align: right;">
+                                        @php
+                                            $total_shipping_qty = array_sum($total_shipping_qty);
+                                            echo $total_shipping_qty;
+                                        @endphp
+                                    </td>
+                                    <td></td>
+                                </tr>
                             @endforeach
                         </tbody>
                     </table>

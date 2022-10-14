@@ -4,10 +4,9 @@ namespace App\Http\Controllers\Inventory;
 
 use App\Http\Controllers\Controller;
 use App\Models\ArrivalInformation;
-use App\Models\SalesItems;
 use Illuminate\Http\Request;
 
-class InventoryController extends Controller
+class ShippingController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,7 +16,7 @@ class InventoryController extends Controller
     public function index()
     {
         $arrival_informations = ArrivalInformation::all();
-        return view('inventory.inventory.index', compact('arrival_informations'));
+        return view('inventory.shipping.index', compact('arrival_informations'));
     }
 
     /**

@@ -35,4 +35,9 @@ class ShippingChassisManagement extends Model
         'purchase_order_id',
         'arrival_information_id',
     ];
+
+    public function products_table()
+    {
+        return $this->hasMany(Products::class, 'chessi_no', 'chassis_no');
+    }
 }
