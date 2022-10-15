@@ -40,11 +40,28 @@
                             </th>
 
                             <th style="color: white; background-color: #2e696e; text-align: center; width: 10%;">
-                                Sale
+                                "MGM Installment" / HP
+                            </th>
+
+                            <th style="color: white; background-color: #2e696e; text-align: center; width: 10%;">
+                                Dealer
+                            </th>
+
+                            <th style="color: white; background-color: #2e696e; text-align: center; width: 10%;">
+                                Cash Sales
+                            </th>
+
+                            <th style="color: white; background-color: #2e696e; text-align: center; width: 10%;">
+                                Total Sale
                             </th>
 
                             <th style="color: white; background-color: #2e696e; text-align: center; width: 10%;">
                                 "MGM" WAREHOUSE
+                            </th>
+
+
+                            <th style="color: white; background-color: #2e696e; text-align: center; width: 10%;">
+                                Total
                             </th>
 
                         </thead>
@@ -59,8 +76,12 @@
                                     $total_shipping_qty = [];
                                     $total_sale_return_qty = [];
                                     $total_warehouse_plus_return = [];
-                                    $total_sale_item_qty = [];
-                                    $total_remaining_warehouse = [];
+                                    $total_hp_sale_item_qty = [];
+                                    $total_dealer_sale_item_qty = [];
+                                    $total_cash_sale_sale_item_qty = [];
+                                    $total_sales = [];
+                                    $total_warehouse_balance = [];
+                                    $all_total_sale_warehouse_balance = [];
                                 @endphp
                                 @foreach ($arrival_information->arrival_items_table as $key => $arrival_items)
                                     <tr>
@@ -116,33 +137,102 @@
                                             @endphp
                                         </td>
 
-                                        {{-- Sale --}}
+                                        {{-- "MGM Installment" / HP --}}
                                         <td style="text-align: right;">
                                             @php
-                                                $sale_item_qty = [];
+                                                $hp_sale_item_qty = [];
                                             @endphp
                                             @foreach ($arrival_items->shipping_chassis_management_table as $shipping_chassis_management)
                                                 @foreach ($shipping_chassis_management->products_table ?? '' as $product)
                                                     @foreach ($product->sales_items_table_for_inventory as $sales_items)
-                                                        @php
-                                                            $sale_item_qty[] = $sales_items->qty;
-                                                        @endphp
+                                                        @if ($sales_items->sale_types == 'hp')
+                                                            @php
+                                                                $hp_sale_item_qty[] = $sales_items->qty;
+                                                            @endphp
+                                                        @endif
                                                     @endforeach
                                                 @endforeach
                                             @endforeach
                                             @php
-                                                $sale_item_qty = array_sum($sale_item_qty);
-                                                echo $sale_item_qty;
-                                                $total_sale_item_qty[] = $sale_item_qty;
+                                                $hp_sale_item_qty = array_sum($hp_sale_item_qty);
+                                                echo $hp_sale_item_qty;
+                                                $total_hp_sale_item_qty[] = $hp_sale_item_qty;
                                             @endphp
                                         </td>
+
+
+                                        {{-- Dealer --}}
+                                        <td style="text-align: right;">
+                                            @php
+                                                $dealer_sale_item_qty = [];
+                                            @endphp
+                                            @foreach ($arrival_items->shipping_chassis_management_table as $shipping_chassis_management)
+                                                @foreach ($shipping_chassis_management->products_table ?? '' as $product)
+                                                    @foreach ($product->sales_items_table_for_inventory as $sales_items)
+                                                        @if ($sales_items->sale_types == 'dealer')
+                                                            @php
+                                                                $dealer_sale_item_qty[] = $sales_items->qty;
+                                                            @endphp
+                                                        @endif
+                                                    @endforeach
+                                                @endforeach
+                                            @endforeach
+                                            @php
+                                                $dealer_sale_item_qty = array_sum($dealer_sale_item_qty);
+                                                echo $dealer_sale_item_qty;
+                                                $total_dealer_sale_item_qty[] = $dealer_sale_item_qty;
+                                            @endphp
+                                        </td>
+
+
+                                        {{-- Cash Sales --}}
+                                        <td style="text-align: right;">
+                                            @php
+                                                $cash_sale_sale_item_qty = [];
+                                            @endphp
+                                            @foreach ($arrival_items->shipping_chassis_management_table as $shipping_chassis_management)
+                                                @foreach ($shipping_chassis_management->products_table ?? '' as $product)
+                                                    @foreach ($product->sales_items_table_for_inventory as $sales_items)
+                                                        @if ($sales_items->sale_types == 'cash_sale')
+                                                            @php
+                                                                $cash_sale_sale_item_qty[] = $sales_items->qty;
+                                                            @endphp
+                                                        @endif
+                                                    @endforeach
+                                                @endforeach
+                                            @endforeach
+                                            @php
+                                                $cash_sale_sale_item_qty = array_sum($cash_sale_sale_item_qty);
+                                                echo $cash_sale_sale_item_qty;
+                                                $total_cash_sale_sale_item_qty[] = $cash_sale_sale_item_qty;
+                                            @endphp
+                                        </td>
+
+                                        {{-- Total Sale --}}
+                                        <td style="text-align: right;">
+                                            @php
+                                                $total_sale = $hp_sale_item_qty + $dealer_sale_item_qty + $cash_sale_sale_item_qty;
+                                                echo $total_sale;
+                                                $total_sales[] = $total_sale;
+                                            @endphp
+                                        </td>
+
 
                                         {{-- "MGM" WAREHOUSE --}}
                                         <td style="text-align: right;">
                                             @php
-                                                $remaining_qty = $shipping_qty - $sale_item_qty;
-                                                echo $remaining_qty;
-                                                $total_remaining_warehouse[] = $remaining_qty;
+                                                $warehouse_balance = $warehouse_plus_return - $total_sale;
+                                                echo $warehouse_balance;
+                                                $total_warehouse_balance[] = $warehouse_balance;
+                                            @endphp
+                                        </td>
+
+                                        {{-- Total --}}
+                                        <td style="text-align: right;">
+                                            @php
+                                                $total_sale_warehouse_balance = $total_sale + $warehouse_balance;
+                                                echo $total_sale_warehouse_balance;
+                                                $all_total_sale_warehouse_balance[] = $total_sale_warehouse_balance;
                                             @endphp
                                         </td>
                                     </tr>
@@ -178,22 +268,57 @@
                                     </td>
 
 
-                                    {{-- Sale --}}
+                                    {{-- "MGM Installment" / HP	 --}}
                                     <td style="text-align: right;">
                                         @php
-                                            $total_sale_item_qty = array_sum($total_sale_item_qty);
-                                            echo $total_sale_item_qty;
+                                            $total_hp_sale_item_qty = array_sum($total_hp_sale_item_qty);
+                                            echo $total_hp_sale_item_qty;
                                         @endphp
                                     </td>
 
-                                    {{-- "MGM" WAREHOUSE Remaining --}}
+
+                                    {{-- Dealer --}}
                                     <td style="text-align: right;">
                                         @php
-                                            $total_remaining_warehouse = array_sum($total_remaining_warehouse);
-                                            echo $total_remaining_warehouse;
+                                            $total_dealer_sale_item_qty = array_sum($total_dealer_sale_item_qty);
+                                            echo $total_dealer_sale_item_qty;
                                         @endphp
                                     </td>
 
+                                    {{-- Cash Sales	 --}}
+                                    <td style="text-align: right;">
+                                        @php
+                                            $total_cash_sale_sale_item_qty = array_sum($total_cash_sale_sale_item_qty);
+                                            echo $total_cash_sale_sale_item_qty;
+                                        @endphp
+                                    </td>
+
+
+                                    {{-- Total Sale --}}
+                                    <td style="text-align: right;">
+                                        @php
+                                            $total_sales = array_sum($total_sales);
+                                            echo $total_sales;
+                                        @endphp
+                                    </td>
+
+
+                                    {{-- "MGM" WAREHOUSE	--}}
+                                    <td style="text-align: right;">
+                                        @php
+                                            $total_warehouse_balance = array_sum($total_warehouse_balance);
+                                            echo $total_warehouse_balance;
+                                        @endphp
+                                    </td>
+
+
+                                    {{-- "MGM" WAREHOUSE	--}}
+                                    <td style="text-align: right;">
+                                        @php
+                                            $all_total_sale_warehouse_balance = array_sum($all_total_sale_warehouse_balance);
+                                            echo $all_total_sale_warehouse_balance;
+                                        @endphp
+                                    </td>
 
                                 </tr>
                             @endforeach

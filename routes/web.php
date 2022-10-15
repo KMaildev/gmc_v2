@@ -157,7 +157,7 @@ Route::middleware('auth')->group(function () {
 
 
     // Cash Sales Invoice 
-    Route::resource('cash_sales_invoices', 'Purchase\CashSalesInvoicesController');
+    Route::resource('cash_sales_invoices', 'CashSales\CashSalesInvoicesController');
 
     // Sales Return 
     Route::resource('sales_return', 'SalesReturn\SalesReturnController');
