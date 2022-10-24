@@ -405,7 +405,6 @@
                         </table>
                     </div>
                 </div>
-                {!! $cash_books->links() !!}
             </div>
         </div>
     </div>

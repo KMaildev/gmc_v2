@@ -31,18 +31,18 @@ class CashBookController extends Controller
         $chartof_accounts = ChartofAccount::orderBy('coa_number', 'ASC')->get();
         $cash_book_form_status = 'is_create';
 
-        $cash_books = CashBook::orderBy('cash_book_date', 'ASC')->paginate(10);
+        $cash_books = CashBook::orderBy('cash_book_date', 'ASC')->get();
         // $cash_books = CashBook::orderBy('cash_book_date', 'ASC')->get();
         if (request('search')) {
             $cash_books = CashBook::where(function ($query) {
                 $query->where('iv_one', 'Like', '%' . request('search') . '%');
                 $query->orWhere('iv_two', 'Like', '%' . request('search') . '%');
                 $query->orWhere('description', 'Like', '%' . request('search') . '%');
-            })->paginate(10);
+            })->get();
         }
 
         if (request('from_date') && request('to_date')) {
-            $cash_books = CashBook::whereBetween('cash_book_date', [request('from_date'), request('to_date')])->paginate(10);
+            $cash_books = CashBook::whereBetween('cash_book_date', [request('from_date'), request('to_date')])->get();
 
             // Closing Clash and Bank Balance
             $from_date = request('from_date');
@@ -54,11 +54,11 @@ class CashBookController extends Controller
         } else {
             $from_date = '2019-06-01'; //date('Y-m-d', strtotime('first day of this month'));
             $to_date = date('Y-m-d', strtotime('last day of this month'));
-            $cash_books = CashBook::whereBetween('cash_book_date', [$from_date, $to_date])->orderBy('cash_book_date', 'ASC')->paginate(10);
+            $cash_books = CashBook::whereBetween('cash_book_date', [$from_date, $to_date])->orderBy('cash_book_date', 'ASC')->get();
             // Closing Clash and Bank Balance
             $beforeFirstDays = DB::table('cash_books')
                 ->whereDate('cash_book_date', '<', $from_date)
-                ->paginate(10);
+                ->get();
             // ->get();
         }
         $filter_date = ['from_date' => $from_date, 'to_date' => $to_date];

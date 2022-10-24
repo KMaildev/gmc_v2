@@ -97,6 +97,7 @@
             <td></td>
         </tr>
     @endforeach
+
     <tr style="background-color: #FEF2CC;">
         <td colspan="3">
             Total

@@ -97,9 +97,9 @@
 
 {{-- Products Items --}}
 @php
-$total_order_qty = [];
-$total_CIF_USD = [];
-$total_amount_USD = [];
+    $total_order_qty = [];
+    $total_CIF_USD = [];
+    $total_amount_USD = [];
 @endphp
 @foreach ($purchase_order->purchase_items_table as $key => $purchase_item)
     <tr>
@@ -159,10 +159,12 @@ $total_amount_USD = [];
 
     {{-- Total CIF Yangon ( USD ) --}}
     <td style="text-align: right">
-        @php
-            $total_CIF_USD = array_sum($total_CIF_USD);
-            echo number_format($total_CIF_USD, 2);
-        @endphp
+        <span hidden>
+            @php
+                $total_CIF_USD = array_sum($total_CIF_USD);
+                echo number_format($total_CIF_USD, 2);
+            @endphp
+        </span>
     </td>
 
     {{-- Amount USD --}}

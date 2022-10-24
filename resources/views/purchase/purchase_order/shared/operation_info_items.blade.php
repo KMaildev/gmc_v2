@@ -143,18 +143,22 @@
         </td>
 
         <td style="text-align: right">
-            @php
-                $total_particular_qty = array_sum($total_particular_qty);
-                echo $total_particular_qty;
-            @endphp
+            <span hidden>
+                @php
+                    $total_particular_qty = array_sum($total_particular_qty);
+                    echo $total_particular_qty;
+                @endphp
+            </span>
         </td>
 
         {{-- Operation Amount Total --}}
         <td style="text-align: right">
-            @php
-                $total_payment_operation_amount = array_sum($total_payment_operation_amount);
-                echo number_format($total_payment_operation_amount, 2);
-            @endphp
+            <span hidden>
+                @php
+                    $total_payment_operation_amount = array_sum($total_payment_operation_amount);
+                    echo number_format($total_payment_operation_amount, 2);
+                @endphp
+            </span>
         </td>
 
         {{-- Amount USD --}}

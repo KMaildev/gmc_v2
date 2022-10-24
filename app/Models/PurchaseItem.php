@@ -30,4 +30,9 @@ class PurchaseItem extends Model
     {
         return $this->belongsTo(PurchaseItem::class, 'purchase_item_id', 'id');
     }
+
+    public function arrival_items_table()
+    {
+        return $this->hasMany(ArrivalItem::class, 'purchase_item_id', 'id');
+    }
 }
