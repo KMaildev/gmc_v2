@@ -9,6 +9,12 @@
             </li>
 
 
+            <li class="menu-item">
+                <a href="{{ route('spare_part_sale_invoice.index') }}" class="menu-link">
+                    Sales Invoice
+                </a>
+            </li>
+
         </ul>
     </div>
 </aside>

@@ -180,10 +180,17 @@ Route::middleware('auth')->group(function () {
 
     // Spare Part 
     Route::resource('spare_part_item', 'SpareParts\ItemController');
+    Route::get('get_spare_part_item_ajax/{id}', 'SpareParts\ItemController@getSparePartItemAjax')->name('get_spare_part_item_ajax');
     Route::post('spare_part_item_import', 'SpareParts\ItemController@item_import')->name('spare_part_item_import');
 
+    Route::resource('spare_part_sale_invoice', 'SpareParts\PartSaleInvoiceController');
+    Route::resource('temporary_part_item', 'SpareParts\TemporaryPartItemController');
+    Route::get('get_temporary_part_item', 'SpareParts\TemporaryPartItemController@index')->name('get_temporary_part_item');
+    Route::post('add_temporary_part_item', 'SpareParts\TemporaryPartItemController@store')->name('add_temporary_part_item');
+    Route::get('temporary_part_items_remove/{id}', 'SpareParts\TemporaryPartItemController@remove')->name('temporary_part_items_remove');
 
-
+    Route::resource('part_sale_items', 'SpareParts\PartSaleItemController');
+    Route::get('remove_part_sale_items/{id}', 'SpareParts\PartSaleItemController@remove')->name('remove_part_sale_items');
 
     Route::resource('department', 'DepartmentController');
     Route::resource('employee', 'EmployeeController');

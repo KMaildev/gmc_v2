@@ -113,4 +113,17 @@ class ItemController extends Controller
         Excel::import(new SparePartItemImport, request()->file('file'));
         return redirect()->back()->with('success', 'Your processing has been completed.');
     }
+
+
+    /**
+     * @return \Illuminate\Support\Collection
+     */
+    public function getSparePartItemAjax($id = null)
+    {
+        $item = SparePartItem::findOrFail($id);
+        return json_encode(array(
+            "item" => $item,
+            "statusCode" => 200,
+        ));
+    }
 }
