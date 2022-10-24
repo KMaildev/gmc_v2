@@ -96,7 +96,13 @@ class PartSaleInvoiceController extends Controller
      */
     public function show($id)
     {
-        //
+        $sales_invoice_edit = PartSaleInvoice::findOrFail($id);
+
+        $spare_part_items = SparePartItem::all();
+        $customers = Customers::all();
+        $sales_persons = User::all();
+
+        return view('spare_parts.sale_invoice.show', compact('spare_part_items', 'customers', 'sales_persons', 'sales_invoice_edit'));
     }
 
     /**

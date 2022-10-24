@@ -42,7 +42,7 @@
                 <ul class="dropdown-menu">
 
                     <li>
-                        <a class="dropdown-item" href="#" target="_blank">
+                        <a class="dropdown-item" href="{{ route('spare_part_sale_invoice.show', $sales_invoice->id) }}" target="_blank">
                             View Invoice
                         </a>
                     </li>
