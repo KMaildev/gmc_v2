@@ -67,16 +67,18 @@
 
 
                 <div class="col-xl-2 col-lg-2 col-md-4 col-sm-4 col-6 mb-4">
-                    <div class="card">
-                        <div class="card-body text-center">
-                            <div class="avatar avatar-md mx-auto mb-3">
-                                <span class="avatar-initial rounded-circle bg-label-warning">
-                                    <i class='bx bx-dock-top fs-3'></i>
-                                </span>
+                    <a href="{{ route('spare_part_item.index') }}">
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <div class="avatar avatar-md mx-auto mb-3">
+                                    <span class="avatar-initial rounded-circle bg-label-warning">
+                                        <i class='bx bx-dock-top fs-3'></i>
+                                    </span>
+                                </div>
+                                <span class="d-block mb-1 text-nowrap">Spare Parts</span>
                             </div>
-                            <span class="d-block mb-1 text-nowrap">Spare Parts</span>
                         </div>
-                    </div>
+                    </a>
                 </div>
 
                 <div class="col-xl-2 col-lg-2 col-md-4 col-sm-4 col-6 mb-4" hidden>

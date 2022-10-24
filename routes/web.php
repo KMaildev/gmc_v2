@@ -178,6 +178,13 @@ Route::middleware('auth')->group(function () {
     Route::post('import_shipping_chassis_management', 'Inventory\ChassisManagementController@importShippingChassisManagement')->name('import_shipping_chassis_management');
 
 
+    // Spare Part 
+    Route::resource('spare_part_item', 'SpareParts\ItemController');
+    Route::post('spare_part_item_import', 'SpareParts\ItemController@item_import')->name('spare_part_item_import');
+
+
+
+
     Route::resource('department', 'DepartmentController');
     Route::resource('employee', 'EmployeeController');
     Route::get('emp_export', 'EmployeeController@emp_export')->name('emp_export');
