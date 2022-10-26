@@ -283,6 +283,13 @@
                         </a>
                     </li>
 
+                    <li class="menu-item">
+                        <a href="{{ route('purchase_group_invoice.index') }}" class="menu-link">
+                            <div data-i2n="Without menu">
+                                Purchase Group Invoice
+                            </div>
+                        </a>
+                    </li>
 
                     <li class="menu-item">
                         <a href="{{ route('group_invoice.index') }}" class="menu-link">

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Purchase;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\AddTemporaryPurchaseGroupItem;
 use App\Models\PurchaseItem;
 use App\TemporaryPurchaseGroupItem;
 use Illuminate\Http\Request;
@@ -41,14 +42,38 @@ class TemporaryPurchaseGroupItemContriller extends Controller
      */
     public function store(Request $request)
     {
-
         $purchase_item_id = $request->purchase_item_id;
         $purchaseItem = PurchaseItem::findOrFail($purchase_item_id);
         $brand_id = $purchaseItem->brand_id;
         $type_of_model_id = $purchaseItem->type_of_model_id;
+        $purchase_order_id = $purchaseItem->purchase_order_id;
 
         $temp = new TemporaryPurchaseGroupItem();
-        $temp->purchase_order_id = $request->purchase_order_id;
+        $temp->purchase_order_id = $purchase_order_id;
+        $temp->purchase_item_id = $purchase_item_id;
+        $temp->brand_id = $brand_id;
+        $temp->type_of_model_id = $type_of_model_id;
+        $temp->qty = $request->qty;
+        $temp->cif_usd = $request->cif_usd;
+        $temp->description = $request->description ?? '';
+        $temp->session_id = session()->getId();
+        $temp->user_id = auth()->user()->id ?? 0;
+        $temp->save();
+        return json_encode(array(
+            "statusCode" => 200,
+        ));
+    }
+
+    public function add_temporary_purchase_group_item(AddTemporaryPurchaseGroupItem $request)
+    {
+        $purchase_item_id = $request->purchase_item_id;
+        $purchaseItem = PurchaseItem::findOrFail($purchase_item_id);
+        $brand_id = $purchaseItem->brand_id;
+        $type_of_model_id = $purchaseItem->type_of_model_id;
+        $purchase_order_id = $purchaseItem->purchase_order_id;
+
+        $temp = new TemporaryPurchaseGroupItem();
+        $temp->purchase_order_id = $purchase_order_id;
         $temp->purchase_item_id = $purchase_item_id;
         $temp->brand_id = $brand_id;
         $temp->type_of_model_id = $type_of_model_id;
@@ -115,5 +140,12 @@ class TemporaryPurchaseGroupItemContriller extends Controller
         return json_encode(array(
             "statusCode" => 200,
         ));
+    }
+
+    public function delete($id)
+    {
+        $temp = TemporaryPurchaseGroupItem::findOrFail($id);
+        $temp->delete();
+        return redirect()->back()->with('success', 'Your processing has been completed.');
     }
 }

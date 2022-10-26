@@ -129,7 +129,10 @@ Route::middleware('auth')->group(function () {
     // Temporary Purchase Group Item
     Route::get('get_temporary_purchase_group_item', 'Purchase\TemporaryPurchaseGroupItemContriller@index');
     Route::post('store_temporary_purchase_group_item', 'Purchase\TemporaryPurchaseGroupItemContriller@store');
+    Route::post('add_temporary_purchase_group_item', 'Purchase\TemporaryPurchaseGroupItemContriller@add_temporary_purchase_group_item')->name('add_temporary_purchase_group_item');
     Route::get('remove_temporary_purchase_group_items/{id}', 'Purchase\TemporaryPurchaseGroupItemContriller@remove')->name('remove_temporary_purchase_group_items');
+    Route::get('delete_temporary_purchase_group_items/{id}', 'Purchase\TemporaryPurchaseGroupItemContriller@delete')->name('delete_temporary_purchase_group_items');
+
 
     // Purchase Operation
     Route::resource('purchase_operation', 'Purchase\OperationController');
@@ -150,7 +153,6 @@ Route::middleware('auth')->group(function () {
     Route::resource('purchase_account_payable', 'Purchase\PurchaseAccountPayableController');
 
     Route::resource('group_invoice', 'Purchase\GroupInvoiceController');
-
     // Arrival Management  Group Invoice
     Route::resource('group_invoice_arrival_management', 'Purchase\GroupInvoiceArrivalManagementController');
     Route::get('group_invoice_arrival_management_create/{id}', 'Purchase\GroupInvoiceArrivalManagementController@group_invoice_arrival_management_create')->name('group_invoice_arrival_management_create');
@@ -199,4 +201,12 @@ Route::middleware('auth')->group(function () {
     Route::resource('activity', 'Activity\ActivityLogController');
     Route::resource('role', 'RoleController');
     Route::resource('permission', 'PermissionController');
+
+
+    Route::resource('purchase_group_invoice', 'PurchaseGroup\PurchaseGroupInvoiceController');
+
+    Route::get('purchase_group_invoice_create/{purchase_order_id}', [
+        'as' => 'purchase_group_invoice_create',
+        'uses' => 'PurchaseGroup\PurchaseGroupInvoiceController@purchase_group_invoice_create'
+    ]);
 });
