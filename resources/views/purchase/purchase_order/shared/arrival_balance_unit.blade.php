@@ -32,6 +32,8 @@
 {{-- Products Items --}}
 @php
     $total_balance_units_qty = [];
+    $balanced_total_deposit_usd = [];
+    $total_balanced_advance_payment = [];
 @endphp
 @foreach ($purchase_order->purchase_items_table as $key => $purchase_item)
     {{-- Balanced Unit Qty  --}}
@@ -58,18 +60,26 @@
             {{-- Balance Units --}}
             <td style="text-align: right">
                 @php
-                    echo $purchase_item->purchase_operation_items_table->id ?? 0;
                     echo $balance_units;
                 @endphp
             </td>
 
             {{-- Deposit ( USD ) --}}
             <td style="text-align: right">
+                @php
+                    $balanced_deposit_usd = $purchase_item->purchase_operation_items_table->payment_operation_amount ?? 0;
+                    echo number_format($balanced_deposit_usd, 2);
+                    $balanced_total_deposit_usd[] = $balanced_deposit_usd;
+                @endphp
             </td>
 
-            {{-- Advance Payment	 --}}
+            {{-- Advance Payment --}}
             <td style="text-align: right">
-
+                @php
+                    $balanced_total_advance_payment = $balance_units * $balanced_deposit_usd;
+                    echo number_format($balanced_total_advance_payment, 2);
+                    $total_balanced_advance_payment[] = $balanced_total_advance_payment;
+                @endphp
             </td>
 
             <td></td>
@@ -93,8 +103,21 @@
         @endphp
     </td>
 
-    <td></td>
-    <td></td>
+    {{-- Deposit ( USD ) --}}
+    <td style="text-align: right">
+        @php
+            $balanced_total_deposit_usd = array_sum($balanced_total_deposit_usd);
+            echo number_format($balanced_total_deposit_usd, 2);
+        @endphp
+    </td>
+
+    {{-- Advance Payment --}}
+    <td style="text-align: right">
+        @php
+            $total_balanced_advance_payment = array_sum($total_balanced_advance_payment);
+            echo number_format($total_balanced_advance_payment, 2);
+        @endphp
+    </td>
     <td></td>
     <td></td>
     <td></td>
