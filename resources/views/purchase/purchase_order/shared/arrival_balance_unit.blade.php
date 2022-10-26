@@ -30,38 +30,73 @@
 </tr>
 
 {{-- Products Items --}}
+@php
+    $total_balance_units_qty = [];
+@endphp
 @foreach ($purchase_order->purchase_items_table as $key => $purchase_item)
-    <tr>
-        <td style="text-align: center">
-            {{ $key + 1 }}
-        </td>
+    {{-- Balanced Unit Qty  --}}
+    @php
+        $total_shipping_qty = $purchase_item->arrival_items_table->sum('shipping_qty');
+        $purchase_item_qty = $purchase_item->qty ?? 0;
+        $balance_units = $purchase_item_qty - $total_shipping_qty;
+        $total_balance_units_qty[] = $balance_units;
+    @endphp
+    @if ($balance_units > 0)
+        <tr>
+            <td style="text-align: center">
+                {{ $key + 1 }}
+            </td>
 
-        <td style="text-align: center">
-            {{ $purchase_item->brands_table->name ?? '' }}
-        </td>
+            <td style="text-align: center">
+                {{ $purchase_item->brands_table->name ?? '' }}
+            </td>
 
-        <td style="text-align: center">
-            {{ $purchase_item->type_of_models_table->title ?? '' }}
-        </td>
+            <td style="text-align: center">
+                {{ $purchase_item->type_of_models_table->title ?? '' }}
+            </td>
 
-        <td style="text-align: right">
-            {{-- {{ $purchase_item->qty ?? 0 }} --}}
+            {{-- Balance Units --}}
+            <td style="text-align: right">
+                @php
+                    echo $purchase_item->purchase_operation_items_table->id ?? 0;
+                    echo $balance_units;
+                @endphp
+            </td>
 
-            @foreach ($purchase_item->arrival_items_table as $arrival_items)
-                {{ $arrival_items->shipping_qty ?? 0 }}
-            @endforeach
-        </td>
+            {{-- Deposit ( USD ) --}}
+            <td style="text-align: right">
+            </td>
 
-        <td style="text-align: right">
-        </td>
+            {{-- Advance Payment	 --}}
+            <td style="text-align: right">
 
-        <td style="text-align: right">
+            </td>
 
-        </td>
-
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+    @endif
 @endforeach
+
+<tr style="background-color: #FEF2CC;">
+    <td colspan="3">
+        Total Balanced
+    </td>
+
+    {{-- Shipping Quantity	Total --}}
+    <td style="text-align: right">
+        @php
+            $total_balance_units_qty = array_sum($total_balance_units_qty);
+            echo $total_balance_units_qty;
+        @endphp
+    </td>
+
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+</tr>

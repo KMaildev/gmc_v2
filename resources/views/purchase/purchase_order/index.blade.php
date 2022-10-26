@@ -71,7 +71,6 @@
                                 {{-- Arrived --}}
                                 @include('purchase.purchase_order.shared.arrival_info_items')
 
-
                                 {{-- Arrived Balance Unit  --}}
                                 @include('purchase.purchase_order.shared.arrival_balance_unit')
                             @endforeach
