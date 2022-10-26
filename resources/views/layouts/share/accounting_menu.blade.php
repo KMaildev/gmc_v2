@@ -284,7 +284,7 @@
                     </li>
 
                     <li class="menu-item">
-                        <a href="{{ route('purchase_group_invoice.index') }}" class="menu-link">
+                        <a href="{{ route('purchase_group_invoice.index') }}" class="menu-link" hidden>
                             <div data-i2n="Without menu">
                                 Purchase Group Invoice
                             </div>

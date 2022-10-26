@@ -2,7 +2,7 @@
 @section('content')
     <div class="row invoice-add justify-content-center">
         <div class="col-lg-12 col-12 mb-lg-0 mb-4">
-            <form action="{{ route('group_invoice.store') }}" method="POST" autocomplete="off" id="create-form">
+            <form action="{{ route('purchase_group_invoice.store') }}" method="POST" autocomplete="off" id="create-form">
                 @csrf
                 <div class="card invoice-preview-card">
                     <div class="card-body">
@@ -56,5 +56,4 @@
 @endsection
 
 @section('script')
-
 @endsection

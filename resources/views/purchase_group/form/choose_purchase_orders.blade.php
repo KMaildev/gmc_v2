@@ -24,8 +24,9 @@
             @foreach ($purchase_items as $key => $purchase_item)
                 @php
                     $id = $purchase_item->id;
-                    $total_shipping_qty = $purchase_item->arrival_items_table->sum('shipping_qty');
                     $purchase_item_qty = $purchase_item->qty ?? 0;
+
+                    $total_shipping_qty = $purchase_item->arrival_items_table->sum('shipping_qty');
                     $balance_units = $purchase_item_qty - $total_shipping_qty;
                 @endphp
                 @if ($balance_units > 0)

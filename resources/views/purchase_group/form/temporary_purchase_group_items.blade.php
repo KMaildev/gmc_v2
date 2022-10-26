@@ -24,6 +24,7 @@
         <tbody>
             @php
                 $total_balance_qty = [];
+                $all_total_balanced_advance_payment = [];
             @endphp
             @foreach ($temporary_purchase_group_items as $key => $temporary_purchase_group_item)
                 @php
@@ -88,6 +89,7 @@
                         @php
                             $balanced_total_advance_payment = $balance_units * $temporary_purchase_group_item->cif_usd;
                             echo number_format($balanced_total_advance_payment, 2);
+                            $all_total_balanced_advance_payment[] = $balanced_total_advance_payment;
                         @endphp
                     </td>
 
@@ -109,8 +111,15 @@
             @endforeach
         </tbody>
         <tr>
-            <td colspan="10">
+            <td colspan="9">
                 Total
+            </td>
+
+            <td style="text-align: right">
+                @php
+                    $all_total_balanced_advance_payment = array_sum($all_total_balanced_advance_payment);
+                    echo number_format($all_total_balanced_advance_payment, 2);
+                @endphp
             </td>
 
             <td style="text-align: right">
@@ -123,4 +132,66 @@
             <td></td>
         </tr>
     </table>
+</div>
+
+<div class="row p-sm-3 p-0">
+    <div class="col-md-6"></div>
+
+    <div class="col-md-6">
+        <dl class="row mb-2">
+
+            <div class="row mb-1">
+                <label class="col-sm-4 col-form-label">
+                    Total Amount
+                </label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control form-control-sm" style="text-align:right;"
+                        value="{{ number_format($all_total_balanced_advance_payment ?? 0, 2) }}">
+                    <input type="hidden" value="{{ $all_total_balanced_advance_payment ?? 0 }}" name="total_amount">
+                </div>
+            </div>
+
+            <div class="row mb-1">
+                <label class="col-sm-4 col-form-label">
+                    Status
+                </label>
+                <div class="col-sm-8">
+                    <select class="form-select" name="order_status">
+                        <option value="Group Invoice">
+                            Group Invoice
+                        </option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row mb-1">
+                <label class="col-sm-4 col-form-label">
+                    Representative
+                </label>
+                <div class="col-sm-8">
+                    <select class="select2 form-select form-select-sm" data-allow-clear="false"
+                        name="purchase_representative_id">
+                        <option value="">-- Select Representative --</option>
+                        @foreach ($sales_persons as $sales_person)
+                            <option value="{{ $sales_person->id }}">
+                                {{ $sales_person->name }}
+                            </option>
+                        @endforeach
+                    </select>
+                    @error('purchase_representative_id')
+                        <div class="invalid-feedback"> {{ $message }} </div>
+                    @enderror
+                </div>
+            </div>
+
+            <div class="row mb-1">
+                <div class="col-sm-12">
+                    <button type="submit" class="btn btn-primary" style='float: right;'>
+                        Save
+                    </button>
+                </div>
+            </div>
+
+        </dl>
+    </div>
 </div>

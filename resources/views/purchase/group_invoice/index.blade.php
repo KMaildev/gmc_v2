@@ -10,7 +10,7 @@
                             Group Invoice
                         </h5>
                         <div class="card-title-elements ms-auto">
-                            <a href="{{ route('group_invoice.create') }}" class="dt-button create-new btn btn-primary btn-sm">
+                            <a href="{{ route('purchase_group_invoice.create') }}" class="dt-button create-new btn btn-primary btn-sm">
                                 <span>
                                     <i class="bx bx-plus me-sm-2"></i>
                                     <span class="d-none d-sm-inline-block">Create</span>
