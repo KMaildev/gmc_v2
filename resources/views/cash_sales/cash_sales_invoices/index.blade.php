@@ -119,9 +119,9 @@
                                                         </a>
                                                     </li>
 
-                                                    <li hidden>
+                                                    <li>
                                                         <a class="dropdown-item"
-                                                            href="{{ route('sales_invoices.edit', $sales_invoice->id) }}">
+                                                            href="{{ route('cash_sales_invoices.edit', $sales_invoice->id) }}">
                                                             Edit
                                                         </a>
                                                     </li>

@@ -564,8 +564,8 @@
                                 <font color="#000000">Delivery Date</font>
                             </td>
                             <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
-                                align="left" valign=middle>
-                                <font color="#000000"><br></font>
+                                align="center" valign=middle>
+                                <font color="#000000">{{ $sales_invoice->delivery_date ?? ''}}</font>
                             </td>
 
                             <td align="center" valign=bottom>

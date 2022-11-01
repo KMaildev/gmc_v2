@@ -310,7 +310,7 @@
                                             <input type="text" class="form-control form-control-sm"
                                                 style="text-align:right;" id="totalAmountShow">
 
-                                            <input type="hidden" value="0" name="total_amount"
+                                            <input type="text" value="0" name="total_amount"
                                                 id="totalAmountSave">
                                             @error('total_amount')
                                                 <div class="invalid-feedback"> {{ $message }} </div>
@@ -377,6 +377,10 @@
                                                     name="hp_interest_rate_percentage"
                                                     value="{{ old('hp_interest_rate_percentage') }}" />
                                                 <span class="input-group-text sm">%</span>
+
+                                                <input type="text" class="form-control form-control-sm"
+                                                    style="text-align:right;" id="InterestRateValue" readonly>
+
                                             </div>
                                             @error('hp_interest_rate_percentage')
                                                 <div class="invalid-feedback"> {{ $message }} </div>
@@ -413,7 +417,8 @@
                                             <input type="text"
                                                 class="form-control form-control-sm @error('hp_account_opening') is-invalid @enderror"
                                                 style="text-align:right;" name="hp_account_opening" id="AccountOpening"
-                                                oninput="CalculatePaymentMethod()" value="0" />
+                                                oninput="CalculatePaymentMethod()"
+                                                value="{{ old('hp_account_opening') }}" />
                                             @error('hp_account_opening')
                                                 <div class="invalid-feedback"> {{ $message }} </div>
                                             @enderror
@@ -429,7 +434,8 @@
                                             <input type="text"
                                                 class="form-control form-control-sm @error('hp_document_fees') is-invalid @enderror"
                                                 style="text-align:right;" name="hp_document_fees" id="DocumentFees"
-                                                oninput="CalculatePaymentMethod()" value="0" />
+                                                oninput="CalculatePaymentMethod()"
+                                                value="{{ old('hp_document_fees') }}" />
                                             @error('hp_document_fees')
                                                 <div class="invalid-feedback"> {{ $message }} </div>
                                             @enderror
@@ -458,7 +464,8 @@
                                                 <input type="text"
                                                     class="form-control form-control-sm @error('hp_stamp_duty') is-invalid @enderror"
                                                     style="text-align:right;" name="hp_stamp_duty" id="StampDuty"
-                                                    oninput="CalculatePaymentMethod()" value="0" />
+                                                    oninput="CalculatePaymentMethod()"
+                                                    value="{{ old('hp_stamp_duty') }}" />
                                                 @error('hp_downpayment_percentage')
                                                     <div class="invalid-feedback"> {{ $message }} </div>
                                                 @enderror
@@ -484,7 +491,7 @@
                                                     class="form-control form-control-sm @error('hp_insurance') is-invalid @enderror"
                                                     style="text-align:right;" name="hp_insurance" id="Insurance"
                                                     oninput="CalculatePaymentMethod()" name="hp_insurance"
-                                                    value="0" />
+                                                    value="{{ old('hp_insurance') }}" />
                                                 @error('hp_insurance')
                                                     <div class="invalid-feedback"> {{ $message }} </div>
                                                 @enderror
@@ -509,7 +516,8 @@
                                                 <input type="text"
                                                     class="form-control form-control-sm @error('hp_commission_fees') is-invalid @enderror"
                                                     name="hp_commission_fees" id="HpCommissionFees"
-                                                    style="text-align:right;" name="hp_commission_fees" value="0"
+                                                    style="text-align:right;" name="hp_commission_fees"
+                                                    value="{{ old('hp_commission_fees') }}"
                                                     oninput="CalculatePaymentMethod()" />
 
                                                 <span class="input-group-text sm">%</span>
@@ -644,9 +652,8 @@
             var HpInterestRatePercentage = document.getElementById("HpInterestRatePercentage").value;
             var Tenor = document.getElementById("Tenor").value;
             var r = (HpInterestRatePercentage / 100);
-            var pmt = PMT(r / 12, Tenor, Laon);
+            var pmt = PMT(r / 12, hpInterestRatePercentage, Laon);
             MonthlyPaymentValue.value = pmt.toFixed(2);
-            // MonthlyPaymentValue.value = pmt;
 
 
             // Clear 
@@ -687,7 +694,13 @@
             // pv: present value or loan amount
             // fv: future value. default is 0
             var presentValueInterstFector = Math.pow((1 + ir), np);
+            console.log("PVI" + presentValueInterstFector)
             var pmt = ir * pv * (presentValueInterstFector + fv) / (presentValueInterstFector - 1);
+            console.log("IR" + ir)
+            console.log("np" + np)
+            console.log("pv" + pv)
+            console.log("pmt" + pmt)
+            console.log("fv" + fv)
             return pmt;
         }
 

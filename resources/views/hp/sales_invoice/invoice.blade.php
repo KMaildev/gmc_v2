@@ -285,8 +285,8 @@
                         <tr height='20' style='mso-height-source:userset;height:15pt'>
                             <td colspan='2' class='x97'
                                 style='border-right:1px solid windowtext;border-bottom:1px solid windowtext;'>
-                                BALANCE TO BE
-                                PAY</td>
+                                BALANCE TO BE PAY
+                            </td>
                             <td class='x51'></td>
                             <td class='x49' align='right' x:num="1000">
                                 @php
@@ -314,7 +314,9 @@
                                 style='border-right:1px solid windowtext;border-bottom:1px solid windowtext;height:13.5pt;'>
                                 Delivery Date
                             </td>
-                            <td class='x53'></td>
+                            <td class='x53'>
+                                {{ $sales_invoice->delivery_date ?? ''}}
+                            </td>
                             <td class='x31'></td>
                             <td class='x31'></td>
                             <td class='x32'></td>

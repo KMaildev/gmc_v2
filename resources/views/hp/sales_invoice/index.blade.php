@@ -37,6 +37,7 @@
                     <table class="table table-bordered main-table py-5" style="margin-bottom: 1px !important;"
                         id="tbl_exporttable_to_xls">
                         <thead class="tbbg">
+
                             <th style="background-color: #296166; color: white; text-align: center; width: 1%;">
                                 No.
                             </th>
@@ -391,7 +392,7 @@
                                     {{-- Total Received --}}
                                     <td style="text-align: right; font-weight: bold;">
                                         @php
-                                            $HPTotalReceived = $hp_total_downpayment +  $TotalReceivePrinciple + $TotalReceiveInterest + $hp_total_services_fees;
+                                            $HPTotalReceived = $hp_total_downpayment + $TotalReceivePrinciple + $TotalReceiveInterest + $hp_total_services_fees;
                                             echo number_format($HPTotalReceived, 2);
                                         @endphp
                                     </td>
@@ -420,9 +421,9 @@
                                                         </a>
                                                     </li>
 
-                                                    <li hidden>
+                                                    <li>
                                                         <a class="dropdown-item"
-                                                            href="{{ route('sales_invoices.edit', $sales_invoice->id) }}">
+                                                            href="{{ route('hp_sales_invoices.edit', $sales_invoice->id) }}">
                                                             Edit
                                                         </a>
                                                     </li>

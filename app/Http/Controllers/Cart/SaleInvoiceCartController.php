@@ -106,4 +106,12 @@ class SaleInvoiceCartController extends Controller
         ));
         // return redirect()->back()->with('success', 'Deleted successfully.');
     }
+
+
+    public function temporary_sales_items_delete($id)
+    {
+        $temp = TemporarySalesItem::findOrFail($id);
+        $temp->delete();
+        return redirect()->back()->with('success', 'Deleted successfully.');
+    }
 }

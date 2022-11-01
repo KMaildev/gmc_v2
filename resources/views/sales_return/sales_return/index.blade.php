@@ -87,7 +87,8 @@
                                                 <ul class="dropdown-menu">
 
                                                     <li>
-                                                        <a class="dropdown-item" href="#">
+                                                        <a class="dropdown-item"
+                                                            href="{{ route('sales_return.edit', $sales_return->sales_invoice_id) }}">
                                                             Edit
                                                         </a>
                                                     </li>

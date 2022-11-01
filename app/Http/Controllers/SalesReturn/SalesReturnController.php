@@ -99,7 +99,22 @@ class SalesReturnController extends Controller
      */
     public function edit($id)
     {
-        //
+        $session_id = session()->getId();
+        $customers = Customers::all();
+        $products = Products::all();
+        $sales_persons = User::all();
+        $temporary_sales_items = TemporarySalesItem::orderBy('id')->where('session_id', $session_id)->get();
+
+        // Edit 
+        $sales_invoice_edit = SalesInvoices::findOrFail($id);
+        $sales_items_edits = SalesItems::orderBy('id')->where('sales_invoice_id', $id)->get();
+        $sales_invoices_payments_edit = SalesInvoicesPayments::where('sales_invoice_id', $id)->first();
+
+        $sales_return_items = SalesReturnItem::orderBy('id')->where('sales_invoice_id', $id)->get();
+
+        $sale_inv_id = $sales_invoice_edit->id;
+        $sales_return_edit = SalesReturn::where('sales_invoice_id', $sale_inv_id)->first();
+        return view('sales_return.sales_return.edit', compact('sales_invoice_edit', 'sales_items_edits', 'sales_invoices_payments_edit', 'customers', 'products', 'temporary_sales_items', 'sales_persons', 'sales_return_items', 'sales_return_edit'));
     }
 
     /**
@@ -111,7 +126,12 @@ class SalesReturnController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $sale_return = SalesReturn::findOrFail($id);
+        $sale_return->sales_invoice_id = $request->sales_invoice_id ?? 0;
+        $sale_return->sales_return_person_id = $request->sales_return_person_id ?? 0;
+        $sale_return->return_date = $request->return_date ?? 0;
+        $sale_return->update();
+        return redirect()->back()->with('success', 'Your processing has been completed.');
     }
 
     /**

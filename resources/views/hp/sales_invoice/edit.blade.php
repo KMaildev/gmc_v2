@@ -2,8 +2,14 @@
 @section('content')
     <div class="row invoice-add justify-content-center">
         <div class="col-lg-9 col-12 mb-lg-0 mb-4">
-            <form action="{{ route('hp_sales_invoices.store') }}" method="POST" autocomplete="off" id="create-form">
+            <form action="{{ route('hp_sales_invoices.update', $sales_invoice->id) }}" method="POST" autocomplete="off"
+                id="edit-form">
                 @csrf
+                @method('PUT')
+
+                <input type="hidden" value="{{ $sales_invoices_payment->id }}" name="sales_invoices_payment_id">
+                <input type="hidden" name="customer_id" value="{{ $sales_invoice->customers_table->id ?? 0 }}" required>
+
                 <div class="card invoice-preview-card">
                     <div class="card-body">
 
@@ -18,7 +24,9 @@
                                             Name
                                         </label>
                                         <div class="col-sm-9">
-                                            <input type="text" class="form-control form-control-sm" name="name">
+
+                                            <input type="text" class="form-control form-control-sm" name="name"
+                                                value="{{ $sales_invoice->customers_table->name ?? '' }}">
                                         </div>
                                     </div>
 
@@ -32,7 +40,8 @@
                                                 name="dealer_customer_id">
                                                 <option value="">--Please Select Customer --</option>
                                                 @foreach ($customers as $customer)
-                                                    <option value="{{ $customer->id }}">
+                                                    <option value="{{ $customer->id }}"
+                                                        @if ($customer->id == $sales_invoice->customers_table->dealer_customer_id ?? 0) selected @endif>
                                                         {{ $customer->name }}
                                                     </option>
                                                 @endforeach
@@ -45,7 +54,7 @@
                                         <div class="col-sm-9">
                                             <input type="text"
                                                 class="form-control form-control-sm @error('id_no') is-invalid @enderror"
-                                                value="{{ old('id_no') }}" name="id_no">
+                                                value="{{ $sales_invoice->customers_table->id_no ?? '' }}" name="id_no">
                                             @error('id_no')
                                                 <div class="invalid-feedback"> {{ $message }} </div>
                                             @enderror
@@ -57,7 +66,7 @@
                                         <label class="col-sm-3 col-form-label" for="basic-default-name">Address</label>
                                         <div class="col-sm-9">
                                             <input type="text" class="form-control form-control-sm" id="Address"
-                                                name="address">
+                                                name="address" value="{{ $sales_invoice->customers_table->address ?? '' }}">
                                         </div>
                                     </div>
 
@@ -65,7 +74,7 @@
                                         <label class="col-sm-3 col-form-label" for="basic-default-name">PH</label>
                                         <div class="col-sm-9">
                                             <input type="text" class="form-control form-control-sm" id="Ph"
-                                                name="phone">
+                                                name="phone" value="{{ $sales_invoice->customers_table->phone ?? '' }}">
                                         </div>
                                     </div>
 
@@ -75,7 +84,7 @@
                                         </label>
                                         <div class="col-sm-9">
                                             <input type="text" class="form-control form-control-sm" id="Email"
-                                                name="email">
+                                                name="email" value="{{ $sales_invoice->customers_table->email ?? '' }}">
                                         </div>
                                     </div>
 
@@ -89,7 +98,7 @@
                                         <div class="col-sm-9">
                                             <input type="text"
                                                 class="form-control form-control-sm @error('invoice_no') is-invalid @enderror"
-                                                value="{{ old('invoice_no') }}" name="invoice_no">
+                                                value="{{ $sales_invoice->invoice_no ?? '' }}" name="invoice_no">
                                             @error('invoice_no')
                                                 <div class="invalid-feedback"> {{ $message }} </div>
                                             @enderror
@@ -101,7 +110,7 @@
                                         <div class="col-sm-9">
                                             <input type="text"
                                                 class="date_picker form-control form-control-sm @error('invoice_date') is-invalid @enderror"
-                                                value="{{ old('invoice_date') }}" name="invoice_date">
+                                                value="{{ $sales_invoice->invoice_date ?? '' }}" name="invoice_date">
                                             @error('invoice_date')
                                                 <div class="invalid-feedback"> {{ $message }} </div>
                                             @enderror
@@ -115,7 +124,7 @@
                                         <div class="col-sm-9">
                                             <input type="text"
                                                 class="form-control form-control-sm @error('showroom_name') is-invalid @enderror"
-                                                value="{{ old('showroom_name') }}" name="showroom_name">
+                                                value="{{ $sales_invoice->showroom_name ?? '' }}" name="showroom_name">
                                             @error('showroom_name')
                                                 <div class="invalid-feedback"> {{ $message }} </div>
                                             @enderror
@@ -125,7 +134,8 @@
                                     <div class="row mb-1">
                                         <label class="col-sm-3 col-form-label">Dealer Code</label>
                                         <div class="col-sm-9">
-                                            <input type="text" class="form-control form-control-sm" id="DealerCode">
+                                            <input type="text" class="form-control form-control-sm" id="DealerCode"
+                                                value="{{ $sales_invoice->customers_table->dealer_code ?? '' }}">
                                         </div>
                                     </div>
 
@@ -134,7 +144,7 @@
                                         <div class="col-sm-9">
                                             <input type="text"
                                                 class="form-control form-control-sm @error('sales_type') is-invalid @enderror"
-                                                value="{{ old('sales_type') }}" name="sales_type">
+                                                value="{{ $sales_invoice->sales_type ?? '' }}" name="sales_type">
                                             @error('sales_type')
                                                 <div class="invalid-feedback"> {{ $message }} </div>
                                             @enderror
@@ -146,7 +156,7 @@
                                         <div class="col-sm-9">
                                             <input type="text"
                                                 class="form-control form-control-sm @error('payment_team') is-invalid @enderror"
-                                                value="{{ old('payment_team') }}" name="payment_team">
+                                                value="{{ $sales_invoice->payment_team ?? '' }}" name="payment_team">
                                             @error('payment_team')
                                                 <div class="invalid-feedback"> {{ $message }} </div>
                                             @enderror
@@ -160,7 +170,7 @@
                                         <div class="col-sm-9">
                                             <input type="text"
                                                 class="form-control form-control-sm @error('post_ref') is-invalid @enderror"
-                                                value="{{ old('post_ref') }}" name="post_ref">
+                                                value="{{ $sales_invoice->post_ref ?? '' }}" name="post_ref">
                                             @error('post_ref')
                                                 <div class="invalid-feedback"> {{ $message }} </div>
                                             @enderror
@@ -251,11 +261,47 @@
                                     </td>
                                 </tr>
 
-                                <tbody id="TemporarySalesItemsList">
-                                    @php
-                                        $amount_total = [];
-                                    @endphp
-                                </tbody>
+                                <tbody id="TemporarySalesItemsList"></tbody>
+
+                                @php
+                                    $amount_total = [];
+                                @endphp
+                                @foreach ($sales_items_edits as $item => $sales_items_edit)
+                                    <tr>
+                                        <td>
+                                            {{ $item + 1 }}
+                                        </td>
+                                        <td>
+                                            {{ $sales_items_edit->products_table->model_no ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $sales_items_edit->products_table->chessi_no ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $sales_items_edit->description ?? '' }}
+                                        </td>
+                                        <td style="text-align: right; font-weight: bold;">
+                                            {{ $sales_items_edit->qty ?? 0 }}
+                                        </td>
+                                        <td style="text-align: right; font-weight: bold;">
+                                            {{ number_format($sales_items_edit->unit_price, 2) }}
+                                        </td>
+                                        <td style="text-align: right; font-weight: bold;">
+                                            @php
+                                                $item_total_amount = $sales_items_edit->qty * $sales_items_edit->unit_price ?? 0;
+                                                echo number_format($item_total_amount, 2);
+                                                $amount_total[] = $item_total_amount;
+                                            @endphp
+                                        </td>
+
+                                        <td>
+                                            <a href="{{ route('sales_items_remove', $sales_items_edit->id) }}"
+                                                class="">
+                                                Remove
+                                            </a>
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </table>
                         </div>
 
@@ -269,7 +315,8 @@
                                                 name="sales_persons_id">
                                                 <option value="">-- Select Sales Person --</option>
                                                 @foreach ($sales_persons as $sales_person)
-                                                    <option value="{{ $sales_person->id }}">
+                                                    <option value="{{ $sales_person->id }}"
+                                                        @if ($sales_person->id == $sales_invoice->sales_persons_id) selected @endif>
                                                         {{ $sales_person->name }}
                                                     </option>
                                                 @endforeach
@@ -287,7 +334,8 @@
                                         <div class="col-sm-9">
                                             <input type="text"
                                                 class="date_picker form-control form-control-sm @error('delivery_date') is-invalid @enderror"
-                                                value="{{ old('delivery_date') }}" name="delivery_date">
+                                                value="{{ $sales_invoice_edit->delivery_date ?? '' }}"
+                                                name="delivery_date">
                                             @error('delivery_date')
                                                 <div class="invalid-feedback"> {{ $message }} </div>
                                             @enderror
@@ -307,16 +355,31 @@
                                             Sale Price
                                         </label>
                                         <div class="col-sm-8">
-                                            <input type="text" class="form-control form-control-sm"
-                                                style="text-align:right;" id="totalAmountShow">
+                                            <div class="input-group input-group-sm">
+                                                @php
+                                                    $EditTotalAmountValue = array_sum($amount_total);
+                                                @endphp
 
-                                            <input type="hidden" value="0" name="total_amount"
-                                                id="totalAmountSave">
-                                            @error('total_amount')
-                                                <div class="invalid-feedback"> {{ $message }} </div>
-                                            @enderror
+                                                <input type="hidden" id="EditTotalAmount"
+                                                    value="{{ $EditTotalAmountValue }}">
+
+                                                <input type="text" class="form-control form-control-sm"
+                                                    style="text-align: right;" id="totalAmountShow">
+
+                                                <input type="hidden" name="total_amount" id="totalAmountSave">
+
+                                                @error('total_amount')
+                                                    <div class="invalid-feedback"> {{ $message }} </div>
+                                                @enderror
+
+                                                <span class="input-group-text sm btn btn-primary"
+                                                    onclick="CalculatePaymentMethod()">
+                                                    Calc
+                                                </span>
+                                            </div>
                                         </div>
                                     </div>
+
 
                                     {{-- Loan --}}
                                     <div class="row mb-1">
@@ -329,8 +392,10 @@
                                                     class="form-control form-control-sm @error('hp_loan_percentage') is-invalid @enderror"
                                                     style="text-align:right;" name="hp_loan_percentage"
                                                     id="HpLoanPercentage" oninput="CalculatePaymentMethod()"
-                                                    value="{{ old('hp_loan_percentage') }}">
+                                                    value="{{ $sales_invoices_payment->hp_loan_percentage ?? 0 }}">
+
                                                 <span class="input-group-text sm">%</span>
+
                                                 <input type="text" class="form-control form-control-sm"
                                                     style="text-align:right;" id="HpLoanAmount" name="hp_loan_amount"
                                                     value="{{ old('hp_loan_amount') }}">
@@ -353,9 +418,12 @@
                                                     style="text-align:right;" id="HpDownpaymentPercentage"
                                                     name="hp_downpayment_percentage"
                                                     value="{{ old('hp_downpayment_percentage') }}" readonly>
+
                                                 <span class="input-group-text sm">%</span>
+
                                                 <input type="text" class="form-control form-control-sm"
                                                     style="text-align:right;" id="HpDownpaymentAmount" readonly>
+
                                                 @error('hp_downpayment_percentage')
                                                     <div class="invalid-feedback"> {{ $message }} </div>
                                                 @enderror
@@ -375,7 +443,7 @@
                                                     name="hp_interest_rate_percentage" id="HpInterestRatePercentage"
                                                     style="text-align:right;" oninput="CalculatePaymentMethod()"
                                                     name="hp_interest_rate_percentage"
-                                                    value="{{ old('hp_interest_rate_percentage') }}" />
+                                                    value="{{ $sales_invoices_payment->hp_interest_rate_percentage ?? 0 }}" />
                                                 <span class="input-group-text sm">%</span>
                                             </div>
                                             @error('hp_interest_rate_percentage')
@@ -394,7 +462,8 @@
                                                 <input type="text"
                                                     class="form-control form-control-sm @error('hp_tenor') is-invalid @enderror"
                                                     name="hp_tenor" id="Tenor" style="text-align:right;"
-                                                    value="12" oninput="CalculatePaymentMethod()" name="hp_tenor"
+                                                    value="{{ $sales_invoices_payment->hp_tenor ?? 0 }}"
+                                                    oninput="CalculatePaymentMethod()" name="hp_tenor"
                                                     value="{{ old('hp_tenor') }}" />
                                                 <span class="input-group-text sm">Months</span>
                                             </div>
@@ -413,7 +482,8 @@
                                             <input type="text"
                                                 class="form-control form-control-sm @error('hp_account_opening') is-invalid @enderror"
                                                 style="text-align:right;" name="hp_account_opening" id="AccountOpening"
-                                                oninput="CalculatePaymentMethod()" value="0" />
+                                                oninput="CalculatePaymentMethod()"
+                                                value="{{ $sales_invoices_payment->hp_account_opening ?? 0 }}" />
                                             @error('hp_account_opening')
                                                 <div class="invalid-feedback"> {{ $message }} </div>
                                             @enderror
@@ -429,7 +499,8 @@
                                             <input type="text"
                                                 class="form-control form-control-sm @error('hp_document_fees') is-invalid @enderror"
                                                 style="text-align:right;" name="hp_document_fees" id="DocumentFees"
-                                                oninput="CalculatePaymentMethod()" value="0" />
+                                                oninput="CalculatePaymentMethod()"
+                                                value="{{ $sales_invoices_payment->hp_document_fees ?? 0 }}" />
                                             @error('hp_document_fees')
                                                 <div class="invalid-feedback"> {{ $message }} </div>
                                             @enderror
@@ -458,10 +529,13 @@
                                                 <input type="text"
                                                     class="form-control form-control-sm @error('hp_stamp_duty') is-invalid @enderror"
                                                     style="text-align:right;" name="hp_stamp_duty" id="StampDuty"
-                                                    oninput="CalculatePaymentMethod()" value="0" />
+                                                    oninput="CalculatePaymentMethod()"
+                                                    value="{{ $sales_invoices_payment->hp_stamp_duty ?? 0 }}" />
+
                                                 @error('hp_downpayment_percentage')
                                                     <div class="invalid-feedback"> {{ $message }} </div>
                                                 @enderror
+
                                                 <span class="input-group-text sm">%</span>
                                                 <input type="text" class="form-control form-control-sm"
                                                     style="text-align:right;" id="StampDutyAmount"
@@ -484,7 +558,7 @@
                                                     class="form-control form-control-sm @error('hp_insurance') is-invalid @enderror"
                                                     style="text-align:right;" name="hp_insurance" id="Insurance"
                                                     oninput="CalculatePaymentMethod()" name="hp_insurance"
-                                                    value="0" />
+                                                    value="{{ $sales_invoices_payment->hp_insurance ?? 0 }}" />
                                                 @error('hp_insurance')
                                                     <div class="invalid-feedback"> {{ $message }} </div>
                                                 @enderror
@@ -509,7 +583,8 @@
                                                 <input type="text"
                                                     class="form-control form-control-sm @error('hp_commission_fees') is-invalid @enderror"
                                                     name="hp_commission_fees" id="HpCommissionFees"
-                                                    style="text-align:right;" name="hp_commission_fees" value="0"
+                                                    style="text-align:right;" name="hp_commission_fees"
+                                                    value="{{ $sales_invoices_payment->hp_commission_fees ?? 0 }}"
                                                     oninput="CalculatePaymentMethod()" />
 
                                                 <span class="input-group-text sm">%</span>
@@ -536,7 +611,8 @@
                                                     class="form-control form-control-sm @error('hp_service_charges') is-invalid @enderror"
                                                     style="text-align:right;" name="hp_service_charges"
                                                     id="ServiceCharges" oninput="CalculatePaymentMethod()"
-                                                    value="{{ old('hp_service_charges') }}" />
+                                                    value="{{ $sales_invoices_payment->hp_service_charges ?? 0 }}" />
+
                                                 @error('hp_service_charges')
                                                     <div class="invalid-feedback"> {{ $message }} </div>
                                                 @enderror
@@ -624,7 +700,6 @@
     <script>
         var totalAmountShow = document.getElementById("totalAmountShow");
 
-
         // Loan
         function CalculatePaymentMethod() {
             var getTotalAmount = document.getElementById("totalAmountSave").value;
@@ -632,7 +707,6 @@
             var hpInterestRatePercentage = document.getElementById("HpInterestRatePercentage").value;
 
             var Laon = getTotalAmount / 100 * hpLoanPercentage;
-            console.log("Loan" + Laon)
             var hpDownpaymentPercentage = 100 - hpLoanPercentage;
             var hpDownpaymentAmount = getTotalAmount - Laon;
             document.getElementById("HpLoanAmount").value = Laon;
@@ -646,7 +720,6 @@
             var r = (HpInterestRatePercentage / 100);
             var pmt = PMT(r / 12, Tenor, Laon);
             MonthlyPaymentValue.value = pmt.toFixed(2);
-            // MonthlyPaymentValue.value = pmt;
 
 
             // Clear 
@@ -679,6 +752,7 @@
                 parseFloat(HpCommissionFeesAmount) + parseFloat(ServiceChargesAmount) + parseFloat(hpDownpaymentAmount);
             document.getElementById("TotalDownpayment").value = HPTotalDownpayment;
         }
+        CalculatePaymentMethod();
 
 
         function PMT(ir, np, pv, fv = 0) {
@@ -699,6 +773,7 @@
             var AmountTotal = Qty * UnitPrice;
             TotalAmount.value = AmountTotal;
         }
+        // SetCalculator()
 
 
 
@@ -710,7 +785,7 @@
             var DealerPercentageValue = TotalAmountValue / 100 * DealerPercentage;
             BalanceToPay.value = TotalAmountValue - DownPayment - DealerPercentageValue;
         }
-
+        // SetCalculateDownPayment();
 
         function setSaleInvoiceCart() {
             var ChessiNO = document.getElementById("ChessiNO").value;
@@ -785,6 +860,7 @@
         });
 
 
+
         function getTemporarySalesItems() {
             var url = '{{ url('get_temporary_sales_items') }}';
             $.ajax({
@@ -848,13 +924,15 @@
                         sales_items += '</tr>';
                     });
                     $('#TemporarySalesItemsList').html(sales_items);
-                    totalAmountShow.value = (totalAmount).toLocaleString('en');
-                    totalAmountSave.value = totalAmount;
+                    let EditOldTotalAmount = document.getElementById("EditTotalAmount").value;
+                    let AllTotalAmount = totalAmount + Number(EditOldTotalAmount);
+                    totalAmountShow.value = (AllTotalAmount).toLocaleString('en');
+                    totalAmountSave.value = AllTotalAmount;
                 }
             });
         }
-
         getTemporarySalesItems();
+
 
         // RemoveItem
         $(document).on("click", ".remove_item", function() {
@@ -882,5 +960,5 @@
             }
         }
     </script>
-    {!! JsValidator::formRequest('App\Http\Requests\StoreHpSalesInvoices', '#create-form') !!}
+    {!! JsValidator::formRequest('App\Http\Requests\UpdateHpSalesInvoices', '#edit-form') !!}
 @endsection

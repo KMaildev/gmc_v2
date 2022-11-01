@@ -286,7 +286,7 @@
                             <td colspan='2' height='18' class='x80'
                                 style='border-right:1px solid windowtext;border-bottom:1px solid windowtext;height:13.5pt;'>
                                 Delivery Date</td>
-                            <td class='x53'></td>
+                            <td class='x53'>{{ $sales_invoice->delivery_date ?? '' }}</td>
                             <td class='x31'></td>
                             <td class='x31'></td>
                             <td class='x31'></td>
