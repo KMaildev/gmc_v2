@@ -25,8 +25,8 @@ class CashBookViewController extends Controller
         //     ->get();
         // return view('cashbook_view.index', compact('cash_books', 'beforeFirstDays'));
 
-
-        $cash_books =  CashBook::paginate(10);
+        $page = $request->page ?? 0;
+        $cash_books =  CashBook::offset(0)->limit($page)->get(); //CashBook::paginate(10);
 
         // Closing Clash and Bank Balance
         $from_date = '2019-06-01';

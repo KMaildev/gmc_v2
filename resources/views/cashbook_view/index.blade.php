@@ -24,6 +24,8 @@
                             Load More Data...
                         </p>
                     </div>
+
+                    <button onclick="getData(20)">Load</button>
                 </div>
 
             </div>
@@ -34,6 +36,33 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jscroll/2.4.1/jquery.jscroll.min.js"></script>
     <script>
+        var clicks = 0;
+
+        function getData(page) {
+            clicks += 10;
+            $.ajax({
+                    url: '?page=' + clicks,
+                    type: 'get',
+                    beforeSend: function() {
+                        $(".ajax-load").show();
+                    }
+                })
+                .done(function(data) {
+                    if (data.html == "") {
+                        $('.ajax-load').html("No more data!");
+                        return;
+                    }
+                    $('.ajax-load').hide();
+                    // $("#post-data").append(data.html);
+                    $('#post-data').html(data.html);
+                })
+                // Call back function
+                .fail(function(jqXHR, ajaxOptions, thrownError) {
+                    alert("Server not responding.....");
+                });
+        }
+
+
         function loadMoreData(page) {
             $.ajax({
                     url: '?page=' + page,
@@ -48,7 +77,8 @@
                         return;
                     }
                     $('.ajax-load').hide();
-                    $("#post-data").append(data.html);
+                    // $("#post-data").append(data.html);
+                    $('#post-data').html(data.html);
                 })
                 // Call back function
                 .fail(function(jqXHR, ajaxOptions, thrownError) {
@@ -60,7 +90,8 @@
         var page = 1;
         $(window).scroll(function() {
             if ($(window).scrollTop() + $(window).height() >= $(document).height()) {
-                page++;
+                // page++;
+                page += 10;
                 loadMoreData(page);
             }
         });
