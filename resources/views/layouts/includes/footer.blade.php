@@ -52,7 +52,6 @@
     });
 
 
-
     $(document).on("click", ".rm", function() {
         if ($(this).text() == "More") {
             $(this).text("Less");
@@ -65,6 +64,5 @@
         }
     });
 </script>
-
 
 </html>

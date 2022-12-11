@@ -43,7 +43,6 @@ class CashBookController extends Controller
 
         if (request('from_date') && request('to_date')) {
             $cash_books = CashBook::whereBetween('cash_book_date', [request('from_date'), request('to_date')])->get();
-
             // Closing Clash and Bank Balance
             $from_date = request('from_date');
             $to_date = request('to_date');

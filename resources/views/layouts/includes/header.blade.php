@@ -36,7 +36,9 @@
 
     <link rel="stylesheet" type="text/css" href="{{ asset('css/daterangepicker.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/table.css') }}" />
-    <link rel="stylesheet" href="{{ asset('css/scrollbar.css') }}" />
+    {{-- <link rel="stylesheet" href="{{ asset('css/scrollbar.css') }}" /> --}}
+
+    {{-- <link rel="stylesheet" href="https://skgroupmm.com/css/scrollbar.css"> --}}
 </head>
 
 <style>

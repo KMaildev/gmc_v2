@@ -366,9 +366,17 @@
             </li>
 
             <li class="menu-item">
-                <a href="{{ route('cashbook.index') }}" class="menu-link">
+                <a href="{{ route('cash_book_view.index') }}" class="menu-link">
                     <div data-i1n="Layouts">
                         Cash Book
+                    </div>
+                </a>
+            </li>
+
+            <li class="menu-item">
+                <a href="{{ route('cashbook.index') }}" class="menu-link">
+                    <div data-i1n="Layouts">
+                        Cash Book OLD
                     </div>
                 </a>
             </li>

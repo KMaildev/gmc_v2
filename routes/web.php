@@ -64,6 +64,9 @@ Route::middleware('auth')->group(function () {
     Route::get('cashbook_export', 'Accounting\CashBookController@cashbook_export')->name('cashbook_export');
     Route::resource('daily_report', 'Accounting\DailyReportController');
 
+    // CashBook View Design Update 
+    Route::resource('cash_book_view', 'CashBook\CashBookViewController');
+
 
     // Dealer Sales 
     Route::resource('sales_invoices', 'Accounting\SalesInvoicesController');
