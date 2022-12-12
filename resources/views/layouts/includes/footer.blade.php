@@ -28,6 +28,10 @@
 <script type="text/javascript" src="{{ asset('js/custom.js') }}"></script>
 
 
+<script src="{{ asset('assets/vendor/libs/toastr/toastr.js') }}"></script>
+<script src="{{ asset('assets/js/main.js') }}"></script>
+<script src="{{ asset('assets/js/ui-toasts.js') }}"></script>
+
 @yield('script')
 
 <script type="text/javascript">
@@ -51,7 +55,6 @@
         });
     });
 
-
     $(document).on("click", ".rm", function() {
         if ($(this).text() == "More") {
             $(this).text("Less");
@@ -63,6 +66,14 @@
             $(this).parent().children(".short").show();
         }
     });
+
+    function success_alert(msg) {
+        toastr.success(msg);
+    }
+
+    function error_alert(msg) {
+        toastr.error(msg);
+    }
 </script>
 
 </html>

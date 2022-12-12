@@ -24,7 +24,7 @@
 @endforeach
 
 @foreach ($cash_books as $key => $cash_book)
-    <tr>
+    <tr >
         <td style="text-align: center;">
             {{ $key + 1 }}
         </td>

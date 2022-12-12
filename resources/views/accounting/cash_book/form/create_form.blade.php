@@ -208,9 +208,8 @@
         </td>
 
         <td>
-            <button type="submit" class="btn btn-primary btn-sm">Save</button>
+            <button type="submit" class="btn btn-info btn-sm" style="width: 100%;">Save</button>
         </td>
-
     </tr>
 
     <input type="hidden" class="form-control" id="account_type_id" name="account_type_id" />
