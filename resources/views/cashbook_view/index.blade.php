@@ -33,7 +33,7 @@
                 ])
 
                 {{-- onscroll="scrollLoadData()" --}}
-                <div class="table-responsive">
+                <div class="table-responsive" onscroll="scrollLoadData()">
                     <table class="table table-bordered main-table text-nowrap table-responsive">
                         @include('cashbook_view.table_header')
 
@@ -54,10 +54,6 @@
                         </tbody>
                     </table>
 
-                    <button onclick="scrollLoadData()">
-                        Load Data
-                    </button>
-
                     <div class="ajax-load text-center" style="display:none">
                         <p>
                             <img src="{{ asset('media/loading.gif') }}" style="width: 30px;">
@@ -70,39 +66,37 @@
         </div>
     </div>
 @endsection
-@section('script')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jscroll/2.4.1/jquery.jscroll.min.js"></script>
-    <script>
-        function loadMoreData(page) {
-            $.ajax({
-                    url: '?page=' + page,
-                    type: 'get',
-                    beforeSend: function() {
-                        $(".ajax-load").show();
-                    }
-                })
-                .done(function(data) {
-                    if (data.html == "") {
-                        $('.ajax-load').html("No more data!");
-                        return;
-                    }
-                    $('.ajax-load').hide();
-                    // $("#post-data").append(data.html);
-                    $('#post-data').html(data.html);
-                })
-                // Call back function
-                .fail(function(jqXHR, ajaxOptions, thrownError) {
-                    // alert("Server not responding.....");
-                });
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jscroll/2.4.1/jquery.jscroll.min.js"></script>
+<script>
+    function loadMoreData(page) {
+        $.ajax({
+                url: '?page=' + page,
+                type: 'get',
+                beforeSend: function() {
+                    $(".ajax-load").show();
+                }
+            })
+            .done(function(data) {
+                console.log(data)
+                if (data.html == "") {
+                    $('.ajax-load').html("No more data!");
+                    return;
+                }
+                $('.ajax-load').hide();
+                // $("#post-data").append(data.html);
+                $('#post-data').html(data.html);
+            })
+            // Call back function
+            .fail(function(jqXHR, ajaxOptions, thrownError) {
+                // alert("Server not responding.....");
+            });
+    }
 
-        }
+    var page = 1;
 
-        var page = 1;
-
-        function scrollLoadData() {
-            page += 20;
-            loadMoreData(page);
-        }
-    </script>
-@endsection
+    function scrollLoadData() {
+        page += 20;
+        loadMoreData(page);
+    }
+</script>
