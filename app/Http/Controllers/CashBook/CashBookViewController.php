@@ -45,6 +45,7 @@ class CashBookViewController extends Controller
             $view = view('cashbook_view.table_render', compact('cash_books', 'beforeFirstDays'))->render();
             return response()->json(['html' => $view]);
         }
+
         return view('cashbook_view.index', compact('cash_books', 'beforeFirstDays', 'chartof_accounts', 'cash_book_form_status', 'sales_invoices', 'purchase_orders'));
     }
 

@@ -1,6 +1,6 @@
 <link rel="stylesheet" href="{{ asset('assets/css/cash_book_form.css') }}" />
-<form class="card-body" action="{{ route('cashbook.update', $edit_cash_book_data->id) }}" method="POST"
-    autocomplete="off" id="edit-form">
+<form class="card-body" action="{{ route('cashbook.update', $edit_cash_book_data->id) }}" method="POST" autocomplete="off"
+    id="edit-form">
     @csrf
     @method('PUT')
     <tr>
@@ -143,8 +143,7 @@
                 <option value="">--Please Select Bank --</option>
                 @foreach ($chartof_accounts as $chartof_account)
                     @if ($chartof_account->chartof_account_id == 2)
-                        <option value="{{ $chartof_account->id }}"
-                            @if ($edit_cash_book_data->bank_account == $chartof_account->id) selected @endif>
+                        <option value="{{ $chartof_account->id }}" @if ($edit_cash_book_data->bank_account == $chartof_account->id) selected @endif>
                             {{ $chartof_account->coa_number }}
                         </option>
                     @endif
@@ -192,7 +191,8 @@
     <input type="hidden" name="cash_account" id="CashAccount">
     <input type="hidden" name="bank_account" id="BankAccount">
 
-    <input type="hidden" name="sales_invoice_id" id="SaleInvoiceIdValue" value="{{ $edit_cash_book_data->sales_invoice_id ?? 0 }}">
+    <input type="hidden" name="sales_invoice_id" id="SaleInvoiceIdValue"
+        value="{{ $edit_cash_book_data->sales_invoice_id ?? 0 }}">
 </form>
 
 @section('script')

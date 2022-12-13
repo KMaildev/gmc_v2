@@ -48,9 +48,12 @@
                             <td>
                                 <input type="text"
                                     class="form-control-custom input-text-center form-control-sm date_picker @error('date') is-invalid @enderror"
-                                    name="date" id="cashDateField" required />
+                                    name="date" id="cashDateField" required
+                                    value="" />
                                 @error('date')
-                                    <div class="invalid-feedback"> {{ $message }} </div>
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
                                 @enderror
                             </td>
 
