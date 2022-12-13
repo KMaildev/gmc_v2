@@ -4,7 +4,7 @@
             <form class="store_cashbook">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">
-                        Cash Book Entry
+                        Cash Book Edit
                     </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>

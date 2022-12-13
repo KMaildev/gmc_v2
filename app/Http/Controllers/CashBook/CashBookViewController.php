@@ -111,7 +111,13 @@ class CashBookViewController extends Controller
      */
     public function edit($id)
     {
-        //
+        $chartof_accounts = ChartofAccount::orderBy('coa_number', 'ASC')->get();
+        $sales_invoices = SalesInvoices::all();
+        $purchase_orders = PurchaseOrder::all();
+        $edit_cash_book_data = CashBook::findOrFail($id);
+
+        $view = view('cashbook_view.form.edit_render_form', compact('chartof_accounts', 'sales_invoices', 'purchase_orders', 'edit_cash_book_data'))->render();
+        return response()->json(['html' => $view]);
     }
 
     /**

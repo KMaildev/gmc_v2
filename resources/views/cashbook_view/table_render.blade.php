@@ -24,7 +24,7 @@
 @endforeach
 
 @foreach ($cash_books as $key => $cash_book)
-    <tr >
+    <tr>
         <td style="text-align: center;">
             {{ $key + 1 }}
         </td>
@@ -155,11 +155,9 @@
                     <ul class="dropdown-menu">
 
                         <li>
-                            <a class="dropdown-item" href="#" onclick="alert('Coming')">Detail</a>
-                        </li>
-
-                        <li>
-                            <a class="dropdown-item" href="{{ route('cashbook.edit', $cash_book->id) }}">Edit</a>
+                            <a class="dropdown-item" href="#" onclick="editCashBook({{ $cash_book->id }})">
+                                Edit
+                            </a>
                         </li>
 
                         <li>

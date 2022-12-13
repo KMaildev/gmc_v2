@@ -33,7 +33,7 @@
                 ])
 
                 {{-- onscroll="scrollLoadData()" --}}
-                <div class="table-responsive" onscroll="scrollLoadData()">
+                <div class="table-responsive">
                     <table class="table table-bordered main-table text-nowrap table-responsive">
                         @include('cashbook_view.table_header')
 
@@ -65,6 +65,8 @@
             </div>
         </div>
     </div>
+
+    @include('cashbook_view.form.quick_edit_form')
 @endsection
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jscroll/2.4.1/jquery.jscroll.min.js"></script>
@@ -98,5 +100,26 @@
     function scrollLoadData() {
         page += 20;
         loadMoreData(page);
+    }
+
+    function editCashBook(id) {
+        $('#quickEditModal').modal('show');
+
+        var url = '{{ url('cash_book_quick_edit') }}';
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            method: 'GET',
+            url: url,
+            url: `${url}/${id}`,
+            success: function(data) {
+                $('#quickEditFormData').html(data.html);
+            },
+            error: function(data) {}
+        });
     }
 </script>

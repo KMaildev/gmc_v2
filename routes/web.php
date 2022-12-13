@@ -67,6 +67,7 @@ Route::middleware('auth')->group(function () {
     // CashBook View Design Update 
     Route::resource('cash_book_view', 'CashBook\CashBookViewController');
     Route::post('cash_book_ajax_store', 'CashBook\CashBookViewController@store')->name('cash_book_ajax_store');
+    Route::get('cash_book_quick_edit/{id}', 'CashBook\CashBookViewController@edit')->name('cash_book_quick_edit');
 
     // Dealer Sales 
     Route::resource('sales_invoices', 'Accounting\SalesInvoicesController');
