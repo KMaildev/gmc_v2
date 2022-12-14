@@ -155,7 +155,8 @@
                     <ul class="dropdown-menu">
 
                         <li>
-                            <a class="dropdown-item" href="javascript:void(0);" onclick="editCashBook({{ $cash_book->id }})">
+                            <a class="dropdown-item" href="javascript:void(0);"
+                                onclick="editCashBook({{ $cash_book->id }})">
                                 Edit
                             </a>
                         </li>

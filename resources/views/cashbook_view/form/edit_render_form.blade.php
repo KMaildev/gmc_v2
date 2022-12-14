@@ -1,7 +1,7 @@
 <form class="store_cashbook">
     <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">
-            Cash Book Entry
+            Cash Book Edit
         </h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
     </div>
@@ -44,17 +44,20 @@
             <tbody>
                 <td>
                     <input type="text"
-                        class="form-control-custom input-text-center form-control-sm date_picker @error('date') is-invalid @enderror"
-                        name="date" id="cashDateField" required value="{{ $edit_cash_book_data->cash_book_date }}" />
+                        class="form-control input-text-center form-control-sm date_picker @error('date') is-invalid @enderror"
+                        name="date" id="cashDateField" required
+                        value="{{ $edit_cash_book_data->cash_book_date }}" />
                     @error('date')
-                        <div class="invalid-feedback"> {{ $message }} </div>
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
                     @enderror
                 </td>
 
                 <td>
                     <input type="text"
                         class="form-control-custom input-text-center form-control-sm @error('month') is-invalid @enderror"
-                        name="month" id="Month" readonly required />
+                        name="month" id="EditMonth" readonly required value="{{ $edit_cash_book_data->month }}" />
                     @error('month')
                         <div class="invalid-feedback"> {{ $message }} </div>
                     @enderror
@@ -63,7 +66,7 @@
                 <td>
                     <input type="text"
                         class="form-control-custom input-text-center form-control-sm @error('year') is-invalid @enderror"
-                        name="year" id="Year" readonly required />
+                        name="year" id="EditYear" readonly required value="{{ $edit_cash_book_data->year }}" />
                     @error('year')
                         <div class="invalid-feedback"> {{ $message }} </div>
                     @enderror
@@ -72,7 +75,7 @@
                 <td>
                     <input type="text"
                         class="form-control-custom input-text-center form-control-sm @error('iv_one') is-invalid @enderror"
-                        name="iv_one" />
+                        name="iv_one" value="{{ $edit_cash_book_data->iv_one }}" />
                     @error('iv_one')
                         <div class="invalid-feedback"> {{ $message }} </div>
                     @enderror
@@ -197,7 +200,7 @@
                 <td>
                     <input type="text"
                         class="form-control-custom input-text-center form-control-sm @error('description') is-invalid @enderror"
-                        name="description" />
+                        name="description" value="{{ $edit_cash_book_data->description }}" />
                     @error('description')
                         <div class="invalid-feedback"> {{ $message }} </div>
                     @enderror
@@ -223,7 +226,7 @@
                 <td>
                     <input type="text"
                         class="form-control-custom input-text-center form-control-sm  @error('cash_in') is-invalid @enderror"
-                        name="cash_in" value="0" />
+                        name="cash_in" value="{{ $edit_cash_book_data->cash_in }}" />
                     @error('cash_in')
                         <div class="invalid-feedback"> {{ $message }} </div>
                     @enderror
@@ -232,7 +235,7 @@
                 <td>
                     <input type="text"
                         class="form-control-custom input-text-center form-control-sm @error('cash_out') is-invalid @enderror"
-                        name="cash_out" value="0" />
+                        name="cash_out" value="{{ $edit_cash_book_data->cash_out }}" />
                     @error('cash_out')
                         <div class="invalid-feedback"> {{ $message }} </div>
                     @enderror
@@ -293,7 +296,7 @@
                 <td>
                     <input type="text"
                         class="form-control-custom input-text-center form-control-sm @error('bank_in') is-invalid @enderror"
-                        name="bank_in" value="0" />
+                        name="bank_in" value="{{ $edit_cash_book_data->bank_in }}" />
                     @error('bank_in')
                         <div class="invalid-feedback"> {{ $message }} </div>
                     @enderror
@@ -302,7 +305,7 @@
                 <td>
                     <input type="text"
                         class="form-control-custom input-text-center form-control-sm @error('bank_out') is-invalid @enderror"
-                        name="bank_out" value="0" />
+                        name="bank_out" value="{{ $edit_cash_book_data->bank_out }}" />
                     @error('bank_out')
                         <div class="invalid-feedback"> {{ $message }} </div>
                     @enderror

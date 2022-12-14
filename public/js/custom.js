@@ -8,6 +8,15 @@ $(".date_picker").daterangepicker({
     },
 });
 
+$(".date_picker1").daterangepicker({
+    singleDatePicker: true,
+    autoApply: true,
+    showDropdowns: true,
+    locale: {
+        format: "YYYY-MM-DD",
+    },
+});
+
 // Cash Book Search
 $("#SearchRadio").click(function () {
     $("#Search").show();

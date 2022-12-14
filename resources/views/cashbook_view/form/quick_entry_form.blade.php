@@ -4,7 +4,7 @@
             <form class="store_cashbook">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">
-                        Cash Book Edit
+                        Cash Book
                     </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
@@ -48,8 +48,7 @@
                             <td>
                                 <input type="text"
                                     class="form-control-custom input-text-center form-control-sm date_picker @error('date') is-invalid @enderror"
-                                    name="date" id="cashDateField" required
-                                    value="" />
+                                    name="date" id="cashDateFieldQuick" required value="" />
                                 @error('date')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -60,7 +59,7 @@
                             <td>
                                 <input type="text"
                                     class="form-control-custom input-text-center form-control-sm @error('month') is-invalid @enderror"
-                                    name="month" id="Month" readonly required />
+                                    name="month" id="MonthQuick" readonly required />
                                 @error('month')
                                     <div class="invalid-feedback"> {{ $message }} </div>
                                 @enderror
@@ -69,7 +68,7 @@
                             <td>
                                 <input type="text"
                                     class="form-control-custom input-text-center form-control-sm @error('year') is-invalid @enderror"
-                                    name="year" id="Year" readonly required />
+                                    name="year" id="YearQuick" readonly required />
                                 @error('year')
                                     <div class="invalid-feedback"> {{ $message }} </div>
                                 @enderror
@@ -86,7 +85,7 @@
 
                             {{-- Sale Type --}}
                             <td>
-                                <select class="form-select form-select-sm" id="SaleType">
+                                <select class="form-select form-select-sm" id="SaleTypeQuick">
                                     <option value="">-- Sale Type --</option>
                                     <option value="dealer">Dealer Invoice</option>
                                     <option value="hp">HP Invoice</option>
@@ -97,7 +96,8 @@
 
                             <!-- INV TWO -->
                             <td>
-                                <select class="form-select form-select-sm" data-allow-clear="false" id="SaleInvoiceId">
+                                <select class="form-select form-select-sm" data-allow-clear="false"
+                                    id="SaleInvoiceIdQuick">
                                     <option value="">--Select Invoice --</option>
                                 </select>
                                 @error('account_code')
@@ -115,9 +115,9 @@
 
                             {{-- Principle/Interest --}}
                             <td>
-                                <span id="PrincipleInterest">
+                                <span id="PrincipleInterestQuick">
                                     <select class=" form-select form-select-sm" data-allow-clear="false"
-                                        id="qPrincipleAndInterest">
+                                        id="PrincipleAndInterestQuick">
                                         <option value="">-- Select Type --</option>
                                         <option value="down_payment">Down Payment</option>
                                         <option value="Principle">Principle</option>
@@ -180,7 +180,7 @@
                         <tbody>
                             <td>
                                 <select class="form-select form-select-sm" data-allow-clear="false"
-                                    id="AccountCodeSelect">
+                                    id="AccountCodeSelectQuick">
                                     <option value="">--Select A/C Code --</option>
                                     @foreach ($chartof_accounts as $chartof_account)
                                         <option value="{{ $chartof_account->id }}">
@@ -195,12 +195,12 @@
 
                             <td>
                                 <input type="text" class="form-control-custom input-text-center form-control-sm"
-                                    id="accountHead" readonly />
+                                    id="accountHeadQuick" readonly />
                             </td>
 
                             <td>
                                 <input type="text" class="form-control-custom input-text-center form-control-sm"
-                                    id="accountName" readonly />
+                                    id="accountNameQuick" readonly />
                             </td>
 
                             <td>
@@ -215,7 +215,7 @@
 
                             <td>
                                 <select class="form-select form-select-sm" data-allow-clear="false"
-                                    id="CashAccountSelect">
+                                    id="CashAccountSelectQuick">
                                     <option value="">--Please Select Cash --</option>
                                     @foreach ($chartof_accounts as $chartof_account)
                                         @if ($chartof_account->id == 1)
@@ -286,7 +286,7 @@
                         <tbody>
                             <td>
                                 <select class="form-select form-select-sm" data-allow-clear="false"
-                                    id="BankAccountSelect">
+                                    id="BankAccountSelectQuick">
                                     <option value="">--Please Select Bank --</option>
                                     @foreach ($chartof_accounts as $chartof_account)
                                         @if ($chartof_account->chartof_account_id == 2)
@@ -324,7 +324,8 @@
                             <td></td>
 
                             <td>
-                                <input type="text" class="form-control-custom input-text-center" id="bankName" />
+                                <input type="text" class="form-control-custom input-text-center"
+                                    id="bankNameQuick" />
                             </td>
 
                         </tbody>
@@ -336,32 +337,31 @@
                     <button type="submit" class="btn btn-primary">Save</button>
                 </div>
 
-                <input type="hidden" class="form-control" id="account_type_id" name="account_type_id" />
-                <input type="hidden" name="account_code" id="AccountCode">
-                <input type="hidden" name="cash_account" id="CashAccount">
-                <input type="hidden" name="bank_account" id="BankAccount">
-                <input type="hidden" name="sales_invoice_id" id="SaleInvoiceIdValue" value="0">
-                <input type="hidden" name="sale_type" id="SaleTypeValue">
-                <input type="hidden" name="principle_interest" id="qPrincipleAndInterestValue">
+                <input type="hidden" class="form-control" id="account_type_idQuick" name="account_type_id" />
+                <input type="hidden" name="account_code" id="AccountCodeQuick">
+                <input type="hidden" name="cash_account" id="CashAccountQuick">
+                <input type="hidden" name="bank_account" id="BankAccountQuick">
+                <input type="hidden" name="sales_invoice_id" id="SaleInvoiceIdValueQuick" value="0">
+                <input type="hidden" name="sale_type" id="SaleTypeValueQuick">
+                <input type="hidden" name="principle_interest" id="PrincipleAndInterestValueQuick">
             </form>
         </div>
     </div>
-
 </div>
 
 <script script type="text/javascript">
-    var accountHead = document.getElementById("qaccountHead");
-    var accountName = document.getElementById("qaccountName");
-    var bankName = document.getElementById("qbankName");
-    var QMonth = document.getElementById("qMonth");
-    var Year = document.getElementById("qYear");
-    var account_type_id = document.getElementById("qaccount_type_id");
-    var AccountCode = document.getElementById("qAccountCode");
-    var CashAccount = document.getElementById("qCashAccount");
-    var BankAccount = document.getElementById("qBankAccount");
+    var accountHeadQuick = document.getElementById("accountHeadQuick");
+    var accountNameQuick = document.getElementById("accountNameQuick");
+    var bankNameQuick = document.getElementById("bankNameQuick");
+    var MonthQuick = document.getElementById("MonthQuick");
+    var YearQuick = document.getElementById("YearQuick");
+    var account_type_idQuick = document.getElementById("account_type_idQuick");
+    var AccountCodeQuick = document.getElementById("AccountCodeQuick");
+    var CashAccountQuick = document.getElementById("CashAccountQuick");
+    var BankAccountQuick = document.getElementById("BankAccountQuick");
 
     $(document).ready(function() {
-        $('select[id="AccountCodeSelect"]').on('change', function() {
+        $('select[id="AccountCodeSelectQuick"]').on('change', function() {
             var mainAccountCode = $(this).val();
             AccountCode.value = mainAccountCode;
             if (mainAccountCode) {
@@ -370,8 +370,8 @@
                     type: "GET",
                     dataType: "json",
                     success: function(data) {
-                        accountName.value = data.description;
-                        getAccountType(data.account_type_id);
+                        accountNameQuick.value = data.description;
+                        getAccountTypeQuick(data.account_type_id);
                     }
                 });
             }
@@ -379,7 +379,7 @@
         });
     });
 
-    function getAccountType(id) {
+    function getAccountTypeQuick(id) {
         var accountTypeId = id;
         if (accountTypeId) {
             $.ajax({
@@ -387,8 +387,8 @@
                 type: "GET",
                 dataType: "json",
                 success: function(data) {
-                    accountHead.value = data.description;
-                    account_type_id.value = data.id;
+                    accountHeadQuick.value = data.description;
+                    account_type_idQuick.value = data.id;
                 }
             });
         }
@@ -397,29 +397,29 @@
 
     $(document).ready(function() {
         $('select[id="CashAccountSelect"]').on('change', function() {
-            CashAccount.value = $(this).val();
+            CashAccountQuick.value = $(this).val();
         });
     });
 
 
     $(document).ready(function() {
         $('select[id="SaleInvoiceId"]').on('change', function() {
-            SaleInvoiceIdValue.value = $(this).val();
+            SaleInvoiceIdValueQuick.value = $(this).val();
         });
     });
 
 
     $(document).ready(function() {
-        $('select[id="BankAccountSelect"]').on('change', function() {
+        $('select[id="BankAccountSelectQuick"]').on('change', function() {
             var mainAccountCode = $(this).val();
-            BankAccount.value = mainAccountCode;
+            BankAccountQuick.value = mainAccountCode;
             if (mainAccountCode) {
                 $.ajax({
                     url: '/chartofaccountdependent/ajax/' + mainAccountCode,
                     type: "GET",
                     dataType: "json",
                     success: function(data) {
-                        bankName.value = data.description;
+                        bankNameQuick.value = data.description;
                     }
                 });
             }
@@ -429,27 +429,26 @@
 
 
     $(document).ready(function() {
-        function getCashBookDate(e) {
+        function getCashBookDateQuick(e) {
             var dateArr = e.srcElement.value.split('-');
             if (dateArr.length > 1) {
-                QMonth.value = dateArr[1];
-                Year.value = dateArr[0];
-                console.log(dateArr[1] + '/' + dateArr[2] + '/' + dateArr[0]);
+                MonthQuick.value = dateArr[1];
+                YearQuick.value = dateArr[0];
             }
         }
-        document.getElementById("qcashDateField").addEventListener("blur", getCashBookDate)
+        document.getElementById("cashDateFieldQuick").addEventListener("blur", getCashBookDateQuick)
     });
 
 
     $(document).ready(function() {
-        $('select[id="SaleType"]').on('change', function() {
+        $('select[id="SaleTypeQuick"]').on('change', function() {
             var SaleTypeValue = $(this).val();
-            document.getElementById("SaleTypeValue").value = SaleTypeValue;
+            document.getElementById("SaleTypeValueQuick").value = SaleTypeValue;
 
             if (SaleTypeValue === 'hp') {
-                $("#qPrincipleInterest").show();
+                $("#PrincipleInterestQuick").show();
             } else {
-                $("#qPrincipleInterest").hide();
+                $("#PrincipleInterestQuick").hide();
             }
 
             $.ajax({
@@ -458,31 +457,34 @@
                 dataType: "json",
                 success: function(data) {
                     if (data) {
-                        $('#SaleInvoiceId').empty();
-                        $('#SaleInvoiceId').append($('<option>', {
+                        $('#SaleInvoiceIdQuick').empty();
+                        $('#SaleInvoiceIdQuick').append($('<option>', {
                             text: "--Please Select Invoice--"
                         }));
                         $.each(data, function(key, value) {
-                            $('#SaleInvoiceId').append($('<option>', {
+                            $('#SaleInvoiceIdQuick').append($('<option>', {
                                 value: value.id,
                                 text: value.invoice_no
                             }));
                         });
                     } else {
-                        $('#SaleInvoiceId').empty();
+                        $('#SaleInvoiceIdQuick').empty();
                     }
                 }
             });
         });
-        $("#qPrincipleInterest").hide();
+        $("#PrincipleInterestQuick").hide();
     });
 
     $(document).ready(function() {
-        $('select[id="PrincipleAndInterest"]').on('change', function() {
-            document.getElementById("qPrincipleAndInterestValue").value = $(this).val();
+        $('select[id="PrincipleAndInterestQuick"]').on('change', function() {
+            document.getElementById("PrincipleAndInterestValueQuick").value = $(this).val();
         });
     });
+</script>
 
+
+<script>
     $('.store_cashbook').submit(function(e) {
         e.preventDefault();
         let form = $(this);
@@ -504,6 +506,9 @@
         const sale_type = form.find("input[name=sale_type]").val();
         const principle_interest = form.find("input[name=principle_interest]").val();
         const purchase_order_id = form.find("input[name=purchase_order_id]").val();
+        console.log(form)
+        console.log(month)
+        console.log(year)
 
         if (cash_book_date == null || cash_book_date == "" || month == null || month == "" || year == null ||
             year == "") {
@@ -522,7 +527,7 @@
             url: url,
             data: {
                 "_token": "{{ csrf_token() }}",
-                cash_book_date: cash_book_date,
+                date: cash_book_date,
                 month: month,
                 year: year,
                 iv_one: iv_one,

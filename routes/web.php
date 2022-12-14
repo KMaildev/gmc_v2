@@ -69,6 +69,7 @@ Route::middleware('auth')->group(function () {
     Route::post('cash_book_ajax_store', 'CashBook\CashBookViewController@store')->name('cash_book_ajax_store');
     Route::get('cash_book_quick_edit/{id}', 'CashBook\CashBookViewController@edit')->name('cash_book_quick_edit');
 
+
     // Dealer Sales 
     Route::resource('sales_invoices', 'Accounting\SalesInvoicesController');
     Route::get('get_sales_invoices/{id}', array('as' => 'get_sales_invoices', 'uses' => 'Accounting\SalesInvoicesController@get_sales_invoices'));
