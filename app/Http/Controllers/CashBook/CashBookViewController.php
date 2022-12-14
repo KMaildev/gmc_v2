@@ -6,6 +6,7 @@ use App\Accounting\CashBook;
 use App\Accounting\ChartofAccount;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreCashBook;
+use App\Http\Requests\UpdateCashBookVeiwUpdate;
 use App\Models\PurchaseOrder;
 use App\Models\SalesInvoices;
 use Illuminate\Http\Request;
@@ -128,9 +129,33 @@ class CashBookViewController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateCashBookVeiwUpdate $request)
     {
-        //
+        $cash_books_id = $request->cash_books_id;
+        $cash_book = CashBook::findOrFail($cash_books_id);
+        $cash_book->cash_book_date = $request->date;
+        $cash_book->month = $request->month;
+        $cash_book->year = $request->year;
+        $cash_book->iv_one = $request->iv_one;
+        $cash_book->iv_two = $request->iv_two;
+        $cash_book->account_code_id = $request->account_code ?? 0;
+        $cash_book->account_type_id = $request->account_type_id ?? 0;
+        $cash_book->description = $request->description;
+        $cash_book->cash_account_id = $request->cash_account ?? 0;
+        $cash_book->bank_account = $request->bank_account ?? 0;
+        $cash_book->cash_in = $request->cash_in ?? 0;
+        $cash_book->cash_out = $request->cash_out ?? 0;
+        $cash_book->bank_in = $request->bank_in ?? 0;
+        $cash_book->bank_out = $request->bank_out ?? 0;
+        $cash_book->sales_invoice_id = $request->sales_invoice_id;
+        $cash_book->sale_type = $request->sale_type;
+        $cash_book->principle_interest = $request->principle_interest;
+        $cash_book->purchase_order_id = $request->purchase_order_id;
+        $cash_book->user_id = auth()->user()->id;
+        $cash_book->update();
+        return json_encode(array(
+            "statusCode" => 200,
+        ));
     }
 
     /**

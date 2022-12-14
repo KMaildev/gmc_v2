@@ -53,6 +53,11 @@
             </div>
         </div>
     </div>
+
+    @include('cashbook_view.form.quick_edit_form', [
+        'chartof_accounts' => $chartof_accounts,
+        'sales_invoices' => $sales_invoices,
+    ])
 @endsection
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jscroll/2.4.1/jquery.jscroll.min.js"></script>

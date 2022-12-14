@@ -1,4 +1,4 @@
-<form class="store_cashbook">
+<form class="update_cashbook">
     <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">
             Cash Book Edit
@@ -44,9 +44,8 @@
             <tbody>
                 <td>
                     <input type="text"
-                        class="form-control input-text-center form-control-sm date_picker @error('date') is-invalid @enderror"
-                        name="date" id="cashDateField" required
-                        value="{{ $edit_cash_book_data->cash_book_date }}" />
+                        class="form-control-custom input-text-center form-control-sm date_picker @error('date') is-invalid @enderror"
+                        name="date" id="cashDateFieldEdit" required value="" />
                     @error('date')
                         <div class="invalid-feedback">
                             {{ $message }}
@@ -57,7 +56,7 @@
                 <td>
                     <input type="text"
                         class="form-control-custom input-text-center form-control-sm @error('month') is-invalid @enderror"
-                        name="month" id="EditMonth" readonly required value="{{ $edit_cash_book_data->month }}" />
+                        name="month" id="MonthEdit" readonly required />
                     @error('month')
                         <div class="invalid-feedback"> {{ $message }} </div>
                     @enderror
@@ -66,7 +65,7 @@
                 <td>
                     <input type="text"
                         class="form-control-custom input-text-center form-control-sm @error('year') is-invalid @enderror"
-                        name="year" id="EditYear" readonly required value="{{ $edit_cash_book_data->year }}" />
+                        name="year" id="YearEdit" readonly required />
                     @error('year')
                         <div class="invalid-feedback"> {{ $message }} </div>
                     @enderror
@@ -75,7 +74,7 @@
                 <td>
                     <input type="text"
                         class="form-control-custom input-text-center form-control-sm @error('iv_one') is-invalid @enderror"
-                        name="iv_one" value="{{ $edit_cash_book_data->iv_one }}" />
+                        name="iv_one" />
                     @error('iv_one')
                         <div class="invalid-feedback"> {{ $message }} </div>
                     @enderror
@@ -83,7 +82,7 @@
 
                 {{-- Sale Type --}}
                 <td>
-                    <select class="form-select form-select-sm" id="SaleType">
+                    <select class="form-select form-select-sm" id="SaleTypeEdit">
                         <option value="">-- Sale Type --</option>
                         <option value="dealer">Dealer Invoice</option>
                         <option value="hp">HP Invoice</option>
@@ -94,7 +93,7 @@
 
                 <!-- INV TWO -->
                 <td>
-                    <select class="form-select form-select-sm" data-allow-clear="false" id="SaleInvoiceId">
+                    <select class="form-select form-select-sm" data-allow-clear="false" id="SaleInvoiceIdEdit">
                         <option value="">--Select Invoice --</option>
                     </select>
                     @error('account_code')
@@ -112,8 +111,9 @@
 
                 {{-- Principle/Interest --}}
                 <td>
-                    <span id="PrincipleInterest">
-                        <select class=" form-select form-select-sm" data-allow-clear="false" id="qPrincipleAndInterest">
+                    <span id="PrincipleInterestEdit">
+                        <select class=" form-select form-select-sm" data-allow-clear="false"
+                            id="PrincipleAndInterestEdit">
                             <option value="">-- Select Type --</option>
                             <option value="down_payment">Down Payment</option>
                             <option value="Principle">Principle</option>
@@ -174,7 +174,7 @@
 
             <tbody>
                 <td>
-                    <select class="form-select form-select-sm" data-allow-clear="false" id="AccountCodeSelect">
+                    <select class="form-select form-select-sm" data-allow-clear="false" id="AccountCodeSelectEdit">
                         <option value="">--Select A/C Code --</option>
                         @foreach ($chartof_accounts as $chartof_account)
                             <option value="{{ $chartof_account->id }}">
@@ -188,19 +188,19 @@
                 </td>
 
                 <td>
-                    <input type="text" class="form-control-custom input-text-center form-control-sm" id="accountHead"
-                        readonly />
+                    <input type="text" class="form-control-custom input-text-center form-control-sm"
+                        id="accountHeadEdit" readonly />
                 </td>
 
                 <td>
-                    <input type="text" class="form-control-custom input-text-center form-control-sm" id="accountName"
-                        readonly />
+                    <input type="text" class="form-control-custom input-text-center form-control-sm"
+                        id="accountNameEdit" readonly />
                 </td>
 
                 <td>
                     <input type="text"
                         class="form-control-custom input-text-center form-control-sm @error('description') is-invalid @enderror"
-                        name="description" value="{{ $edit_cash_book_data->description }}" />
+                        name="description" />
                     @error('description')
                         <div class="invalid-feedback"> {{ $message }} </div>
                     @enderror
@@ -208,7 +208,7 @@
 
 
                 <td>
-                    <select class="form-select form-select-sm" data-allow-clear="false" id="CashAccountSelect">
+                    <select class="form-select form-select-sm" data-allow-clear="false" id="CashAccountSelectEdit">
                         <option value="">--Please Select Cash --</option>
                         @foreach ($chartof_accounts as $chartof_account)
                             @if ($chartof_account->id == 1)
@@ -226,7 +226,7 @@
                 <td>
                     <input type="text"
                         class="form-control-custom input-text-center form-control-sm  @error('cash_in') is-invalid @enderror"
-                        name="cash_in" value="{{ $edit_cash_book_data->cash_in }}" />
+                        name="cash_in" value="0" />
                     @error('cash_in')
                         <div class="invalid-feedback"> {{ $message }} </div>
                     @enderror
@@ -235,7 +235,7 @@
                 <td>
                     <input type="text"
                         class="form-control-custom input-text-center form-control-sm @error('cash_out') is-invalid @enderror"
-                        name="cash_out" value="{{ $edit_cash_book_data->cash_out }}" />
+                        name="cash_out" value="0" />
                     @error('cash_out')
                         <div class="invalid-feedback"> {{ $message }} </div>
                     @enderror
@@ -278,7 +278,7 @@
 
             <tbody>
                 <td>
-                    <select class="form-select form-select-sm" data-allow-clear="false" id="BankAccountSelect">
+                    <select class="form-select form-select-sm" data-allow-clear="false" id="BankAccountSelectEdit">
                         <option value="">--Please Select Bank --</option>
                         @foreach ($chartof_accounts as $chartof_account)
                             @if ($chartof_account->chartof_account_id == 2)
@@ -296,7 +296,7 @@
                 <td>
                     <input type="text"
                         class="form-control-custom input-text-center form-control-sm @error('bank_in') is-invalid @enderror"
-                        name="bank_in" value="{{ $edit_cash_book_data->bank_in }}" />
+                        name="bank_in" value="0" />
                     @error('bank_in')
                         <div class="invalid-feedback"> {{ $message }} </div>
                     @enderror
@@ -305,7 +305,7 @@
                 <td>
                     <input type="text"
                         class="form-control-custom input-text-center form-control-sm @error('bank_out') is-invalid @enderror"
-                        name="bank_out" value="{{ $edit_cash_book_data->bank_out }}" />
+                        name="bank_out" value="0" />
                     @error('bank_out')
                         <div class="invalid-feedback"> {{ $message }} </div>
                     @enderror
@@ -316,7 +316,7 @@
                 <td></td>
 
                 <td>
-                    <input type="text" class="form-control-custom input-text-center" id="bankName" />
+                    <input type="text" class="form-control-custom input-text-center" id="bankNameEdit" />
                 </td>
 
             </tbody>
@@ -328,11 +328,220 @@
         <button type="submit" class="btn btn-primary">Save</button>
     </div>
 
-    <input type="hidden" class="form-control" id="account_type_id" name="account_type_id" />
-    <input type="hidden" name="account_code" id="AccountCode">
-    <input type="hidden" name="cash_account" id="CashAccount">
-    <input type="hidden" name="bank_account" id="BankAccount">
-    <input type="hidden" name="sales_invoice_id" id="SaleInvoiceIdValue" value="0">
-    <input type="hidden" name="sale_type" id="SaleTypeValue">
-    <input type="hidden" name="principle_interest" id="qPrincipleAndInterestValue">
+    <input type="hidden" class="form-control" id="account_type_idEdit" name="account_type_id" />
+    <input type="hidden" name="account_code" id="AccountCodeEdit">
+    <input type="hidden" name="cash_account" id="CashAccountEdit">
+    <input type="hidden" name="bank_account" id="BankAccountEdit">
+    <input type="hidden" name="sales_invoice_id" id="SaleInvoiceIdValueEdit" value="0">
+    <input type="hidden" name="sale_type" id="SaleTypeValueEdit">
+    <input type="hidden" name="principle_interest" id="PrincipleAndInterestValueEdit">
+    <input type="hidden" name="cash_books_id" value="{{ $edit_cash_book_data->id }}">
 </form>
+
+<script script type="text/javascript">
+    var accountHeadEdit = document.getElementById("accountHeadEdit");
+    var accountNameEdit = document.getElementById("accountNameEdit");
+    var bankNameEdit = document.getElementById("bankNameEdit");
+    var MonthEdit = document.getElementById("MonthEdit");
+    var YearEdit = document.getElementById("YearEdit");
+    var account_type_idEdit = document.getElementById("account_type_idEdit");
+    var AccountCodeEdit = document.getElementById("AccountCodeEdit");
+    var CashAccountEdit = document.getElementById("CashAccountEdit");
+    var BankAccountEdit = document.getElementById("BankAccountEdit");
+
+    $(document).ready(function() {
+        $('select[id="AccountCodeSelectEdit"]').on('change', function() {
+            var mainAccountCode = $(this).val();
+            AccountCode.value = mainAccountCode;
+            if (mainAccountCode) {
+                $.ajax({
+                    url: '/chartofaccountdependent/ajax/' + mainAccountCode,
+                    type: "GET",
+                    dataType: "json",
+                    success: function(data) {
+                        accountNameEdit.value = data.description;
+                        getAccountTypeEdit(data.account_type_id);
+                    }
+                });
+            }
+
+        });
+    });
+
+    function getAccountTypeEdit(id) {
+        var accountTypeId = id;
+        if (accountTypeId) {
+            $.ajax({
+                url: '/accounttypedependent/ajax/' + accountTypeId,
+                type: "GET",
+                dataType: "json",
+                success: function(data) {
+                    accountHeadEdit.value = data.description;
+                    account_type_idEdit.value = data.id;
+                }
+            });
+        }
+    }
+
+
+    $(document).ready(function() {
+        $('select[id="CashAccountSelect"]').on('change', function() {
+            CashAccountEdit.value = $(this).val();
+        });
+    });
+
+
+    $(document).ready(function() {
+        $('select[id="SaleInvoiceId"]').on('change', function() {
+            SaleInvoiceIdValueEdit.value = $(this).val();
+        });
+    });
+
+
+    $(document).ready(function() {
+        $('select[id="BankAccountSelectEdit"]').on('change', function() {
+            var mainAccountCode = $(this).val();
+            BankAccountEdit.value = mainAccountCode;
+            if (mainAccountCode) {
+                $.ajax({
+                    url: '/chartofaccountdependent/ajax/' + mainAccountCode,
+                    type: "GET",
+                    dataType: "json",
+                    success: function(data) {
+                        bankNameEdit.value = data.description;
+                    }
+                });
+            }
+
+        });
+    });
+
+
+    $(document).ready(function() {
+        function getCashBookDateEdit(e) {
+            var dateArr = e.srcElement.value.split('-');
+            if (dateArr.length > 1) {
+                MonthEdit.value = dateArr[1];
+                YearEdit.value = dateArr[0];
+            }
+        }
+        document.getElementById("cashDateFieldEdit").addEventListener("blur", getCashBookDateEdit)
+    });
+
+
+    $(document).ready(function() {
+        $('select[id="SaleTypeEdit"]').on('change', function() {
+            var SaleTypeValue = $(this).val();
+            document.getElementById("SaleTypeValueEdit").value = SaleTypeValue;
+
+            if (SaleTypeValue === 'hp') {
+                $("#PrincipleInterestEdit").show();
+            } else {
+                $("#PrincipleInterestEdit").hide();
+            }
+
+            $.ajax({
+                url: '/get_sales_invoices_ajax/' + SaleTypeValue,
+                type: "GET",
+                dataType: "json",
+                success: function(data) {
+                    if (data) {
+                        $('#SaleInvoiceIdEdit').empty();
+                        $('#SaleInvoiceIdEdit').append($('<option>', {
+                            text: "--Please Select Invoice--"
+                        }));
+                        $.each(data, function(key, value) {
+                            $('#SaleInvoiceIdEdit').append($('<option>', {
+                                value: value.id,
+                                text: value.invoice_no
+                            }));
+                        });
+                    } else {
+                        $('#SaleInvoiceIdEdit').empty();
+                    }
+                }
+            });
+        });
+        $("#PrincipleInterestEdit").hide();
+    });
+
+    $(document).ready(function() {
+        $('select[id="PrincipleAndInterestEdit"]').on('change', function() {
+            document.getElementById("PrincipleAndInterestValueEdit").value = $(this).val();
+        });
+    });
+</script>
+
+
+<script>
+    $('.update_cashbook').submit(function(e) {
+        e.preventDefault();
+        let form = $(this);
+        const cash_book_date = form.find("input[name=date]").val();
+        const month = form.find("input[name=month]").val();
+        const year = form.find("input[name=year]").val();
+        const iv_one = form.find("input[name=iv_one]").val();
+        const iv_two = form.find("input[name=iv_two]").val();
+        const account_code_id = form.find("input[name=account_code]").val();
+        const account_type_id = form.find("input[name=account_type_id]").val();
+        const description = form.find("input[name=description]").val();
+        const cash_account_id = form.find("input[name=cash_account]").val();
+        const bank_account = form.find("input[name=bank_account]").val();
+        const cash_in = form.find("input[name=cash_in]").val();
+        const cash_out = form.find("input[name=cash_out]").val();
+        const bank_in = form.find("input[name=bank_in]").val();
+        const bank_out = form.find("input[name=bank_out]").val();
+        const sales_invoice_id = form.find("input[name=sales_invoice_id]").val();
+        const sale_type = form.find("input[name=sale_type]").val();
+        const principle_interest = form.find("input[name=principle_interest]").val();
+        const purchase_order_id = form.find("input[name=purchase_order_id]").val();
+        const cash_books_id = form.find("input[name=cash_books_id]").val();
+
+
+        if (cash_book_date == null || cash_book_date == "" || month == null || month == "" || year == null ||
+            year == "" || cash_books_id == "" || cash_books_id == null) {
+            error_alert('Something went wrong please try again.')
+            return false;
+        }
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        var url = '{{ url('cash_book_ajax_update') }}';
+        $.ajax({
+            method: 'POST',
+            url: url,
+            data: {
+                "_token": "{{ csrf_token() }}",
+                date: cash_book_date,
+                month: month,
+                year: year,
+                iv_one: iv_one,
+                iv_two: iv_two,
+                account_code_id: account_code_id,
+                account_type_id: account_type_id,
+                description: description,
+                cash_account_id: cash_account_id,
+                bank_account: bank_account,
+                cash_in: cash_in,
+                cash_out: cash_out,
+                bank_in: bank_in,
+                bank_out: bank_out,
+                sales_invoice_id: sales_invoice_id,
+                sale_type: sale_type,
+                rinciple_interest: principle_interest,
+                purchase_order_id: purchase_order_id,
+                cash_books_id: cash_books_id,
+            },
+            success: function(data) {
+                success_alert('Your processing has been completed.')
+                console.log(data)
+            },
+            error: function(data) {
+                console.log(data)
+            }
+        });
+    })
+</script>
