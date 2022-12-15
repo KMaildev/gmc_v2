@@ -45,7 +45,9 @@
             {{ $cash_book->iv_one }}
         </td>
 
-        <td></td>
+        <td style="text-align: center;">
+            {{ ucfirst($cash_book->sale_type ?? '') }}
+        </td>
 
         <td style="text-align: center;">
             {{ $cash_book->sales_invoices_table->invoice_no ?? $cash_book->iv_two }}

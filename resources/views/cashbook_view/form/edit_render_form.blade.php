@@ -45,7 +45,8 @@
                 <td>
                     <input type="text"
                         class="form-control-custom input-text-center form-control-sm date_picker @error('date') is-invalid @enderror"
-                        name="date" id="cashDateFieldEdit" required value="" />
+                        name="date" id="cashDateFieldEdit" required
+                        value="{{ $edit_cash_book_data->cash_book_date ?? '' }}" />
                     @error('date')
                         <div class="invalid-feedback">
                             {{ $message }}
@@ -56,7 +57,8 @@
                 <td>
                     <input type="text"
                         class="form-control-custom input-text-center form-control-sm @error('month') is-invalid @enderror"
-                        name="month" id="MonthEdit" readonly required />
+                        name="month" id="MonthEdit" readonly required
+                        value="{{ $edit_cash_book_data->month ?? '' }}" />
                     @error('month')
                         <div class="invalid-feedback"> {{ $message }} </div>
                     @enderror
@@ -65,7 +67,8 @@
                 <td>
                     <input type="text"
                         class="form-control-custom input-text-center form-control-sm @error('year') is-invalid @enderror"
-                        name="year" id="YearEdit" readonly required />
+                        name="year" id="YearEdit" readonly required
+                        value="{{ $edit_cash_book_data->year ?? '' }}" />
                     @error('year')
                         <div class="invalid-feedback"> {{ $message }} </div>
                     @enderror
@@ -74,7 +77,7 @@
                 <td>
                     <input type="text"
                         class="form-control-custom input-text-center form-control-sm @error('iv_one') is-invalid @enderror"
-                        name="iv_one" />
+                        name="iv_one" value="{{ $edit_cash_book_data->iv_one ?? '' }}" />
                     @error('iv_one')
                         <div class="invalid-feedback"> {{ $message }} </div>
                     @enderror
@@ -84,10 +87,18 @@
                 <td>
                     <select class="form-select form-select-sm" id="SaleTypeEdit">
                         <option value="">-- Sale Type --</option>
-                        <option value="dealer">Dealer Invoice</option>
-                        <option value="hp">HP Invoice</option>
-                        <option value="cash_sale">Cash Sale Invoice</option>
-                        <option value="purchase_orders">Purchase Invoice</option>
+                        <option value="dealer" @if ($edit_cash_book_data->sale_type == 'dealer') selected @endif>
+                            Dealer Invoice
+                        </option>
+                        <option value="hp" @if ($edit_cash_book_data->sale_type == 'hp') selected @endif>
+                            HP Invoice
+                        </option>
+                        <option value="cash_sale" @if ($edit_cash_book_data->sale_type == 'cash_sale') selected @endif>
+                            Cash Sale Invoice
+                        </option>
+                        <option value="purchase_orders" @if ($edit_cash_book_data->sale_type == 'purchase_orders') selected @endif>
+                            Purchase Invoice
+                        </option>
                     </select>
                 </td>
 
@@ -200,7 +211,7 @@
                 <td>
                     <input type="text"
                         class="form-control-custom input-text-center form-control-sm @error('description') is-invalid @enderror"
-                        name="description" />
+                        name="description" value="{{ $edit_cash_book_data->description ?? '' }}" />
                     @error('description')
                         <div class="invalid-feedback"> {{ $message }} </div>
                     @enderror
@@ -226,7 +237,7 @@
                 <td>
                     <input type="text"
                         class="form-control-custom input-text-center form-control-sm  @error('cash_in') is-invalid @enderror"
-                        name="cash_in" value="0" />
+                        name="cash_in" value="{{ $edit_cash_book_data->cash_in ?? 0 }}" />
                     @error('cash_in')
                         <div class="invalid-feedback"> {{ $message }} </div>
                     @enderror
@@ -235,7 +246,7 @@
                 <td>
                     <input type="text"
                         class="form-control-custom input-text-center form-control-sm @error('cash_out') is-invalid @enderror"
-                        name="cash_out" value="0" />
+                        name="cash_out" value="{{ $edit_cash_book_data->cash_out ?? 0 }}" />
                     @error('cash_out')
                         <div class="invalid-feedback"> {{ $message }} </div>
                     @enderror
@@ -296,7 +307,7 @@
                 <td>
                     <input type="text"
                         class="form-control-custom input-text-center form-control-sm @error('bank_in') is-invalid @enderror"
-                        name="bank_in" value="0" />
+                        name="bank_in" value="{{ $edit_cash_book_data->bank_in ?? 0 }}" />
                     @error('bank_in')
                         <div class="invalid-feedback"> {{ $message }} </div>
                     @enderror
@@ -305,7 +316,7 @@
                 <td>
                     <input type="text"
                         class="form-control-custom input-text-center form-control-sm @error('bank_out') is-invalid @enderror"
-                        name="bank_out" value="0" />
+                        name="bank_out" value="{{ $edit_cash_book_data->bank_out ?? 0 }}" />
                     @error('bank_out')
                         <div class="invalid-feedback"> {{ $message }} </div>
                     @enderror
@@ -448,7 +459,7 @@
                     if (data) {
                         $('#SaleInvoiceIdEdit').empty();
                         $('#SaleInvoiceIdEdit').append($('<option>', {
-                            text: "--Please Select Invoice--"
+                            text: "--Select Invoice--"
                         }));
                         $.each(data, function(key, value) {
                             $('#SaleInvoiceIdEdit').append($('<option>', {
