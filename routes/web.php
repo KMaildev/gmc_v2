@@ -221,5 +221,5 @@ Route::middleware('auth')->group(function () {
 
     // Services Module 
     Route::resource('types_of_service', 'Service\TypesOfServiceController');
-
+    Route::resource('service_invoice', 'Service\ServiceInvoiceController');
 });

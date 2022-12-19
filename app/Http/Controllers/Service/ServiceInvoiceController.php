@@ -1,13 +1,15 @@
 <?php
 
-namespace App\Http\Controllers\SpareParts;
+namespace App\Http\Controllers\Service;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreTemporaryPartItem;
-use App\TemporaryPartItem;
+use App\Models\Customers;
+use App\SparePartItem;
+use App\TypesOfService;
+use App\User;
 use Illuminate\Http\Request;
 
-class TemporaryPartItemController extends Controller
+class ServiceInvoiceController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,9 +18,7 @@ class TemporaryPartItemController extends Controller
      */
     public function index()
     {
-        $session_id = session()->getId();
-        $temporary_part_items = TemporaryPartItem::with('spare_part_item_table')->orderBy('id')->where('session_id', $session_id)->get();
-        echo json_encode($temporary_part_items);
+        return view('service.service_invoice.index');
     }
 
     /**
@@ -28,7 +28,11 @@ class TemporaryPartItemController extends Controller
      */
     public function create()
     {
-        //
+        $spare_part_items = SparePartItem::all();
+        $customers = Customers::all();
+        $sales_persons = User::all();
+        $types_of_service = TypesOfService::all();
+        return view('service.service_invoice.create', compact('spare_part_items', 'customers', 'sales_persons', 'types_of_service'));
     }
 
     /**
@@ -37,20 +41,9 @@ class TemporaryPartItemController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreTemporaryPartItem $request)
+    public function store(Request $request)
     {
-        $temp = new TemporaryPartItem();
-        $temp->spare_part_item_id = $request->spare_part_item_id;
-        $temp->qty = $request->Qty;
-        $temp->unit_price = $request->UnitPrice;
-        $temp->description = $request->Description ?? '';
-        $temp->remark = $request->Remark ?? '';
-        $temp->session_id = session()->getId();
-        $temp->user_id = auth()->user()->id ?? 0;
-        $temp->save();
-        return json_encode(array(
-            "statusCode" => 200,
-        ));
+        //
     }
 
     /**
@@ -96,14 +89,5 @@ class TemporaryPartItemController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    public function remove($id = null)
-    {
-        $temp = TemporaryPartItem::findOrFail($id);
-        $temp->delete();
-        return json_encode(array(
-            "statusCode" => 200,
-        ));
     }
 }

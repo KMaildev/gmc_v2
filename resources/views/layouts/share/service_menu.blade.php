@@ -4,7 +4,7 @@
 
 
             <li class="menu-item">
-                <a href="{{ route('spare_part_sale_invoice.index') }}" class="menu-link">
+                <a href="{{ route('service_invoice.index') }}" class="menu-link">
                     Service Invoice
                 </a>
             </li>
