@@ -216,4 +216,10 @@ Route::middleware('auth')->group(function () {
         'as' => 'purchase_group_invoice_create',
         'uses' => 'PurchaseGroup\PurchaseGroupInvoiceController@purchase_group_invoice_create'
     ]);
+
+
+
+    // Services Module 
+    Route::resource('types_of_service', 'Service\TypesOfServiceController');
+
 });
