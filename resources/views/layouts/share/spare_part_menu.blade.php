@@ -15,6 +15,12 @@
                 </a>
             </li>
 
+            <li class="menu-item">
+                <a href="{{ route('spare_part_service_invoice') }}" class="menu-link">
+                    Sales Invoice
+                </a>
+            </li>
+
         </ul>
     </div>
 </aside>

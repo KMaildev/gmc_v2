@@ -50,22 +50,19 @@
                 <ul class="dropdown-menu">
 
                     <li>
-                        <a class="dropdown-item"
-                            href="{{ route('spare_part_sale_invoice.show', $service_invoice->id) }}" target="_blank">
+                        <a class="dropdown-item" href="#" target="_blank">
                             View Invoice
                         </a>
                     </li>
 
                     <li>
-                        <a class="dropdown-item"
-                            href="{{ route('spare_part_sale_invoice.edit', $service_invoice->id) }}">
+                        <a class="dropdown-item" href="#">
                             Edit
                         </a>
                     </li>
 
                     <li>
-                        <form action="{{ route('spare_part_sale_invoice.destroy', $service_invoice->id) }}"
-                            method="POST">
+                        <form action="#" method="POST">
                             @csrf
                             @method('DELETE')
                             <button type="button" class="dropdown-item del_confirm" id="confirm-text"

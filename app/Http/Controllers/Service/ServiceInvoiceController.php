@@ -25,6 +25,12 @@ class ServiceInvoiceController extends Controller
         return view('service.service_invoice.index', compact('service_invoices'));
     }
 
+    public function spare_part_service_invoice()
+    {
+        $service_invoices = ServiceInvoice::all();
+        return view('spare_parts.service_invoice.index', compact('service_invoices'));
+    }
+
     /**
      * Show the form for creating a new resource.
      *
