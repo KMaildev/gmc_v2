@@ -2,7 +2,7 @@
 @section('content')
     <div class="row invoice-add justify-content-center">
         <div class="col-lg-9 col-12 mb-lg-0 mb-4">
-            <form action="{{ route('spare_part_sale_invoice.store') }}" method="POST" autocomplete="off" id="create-form">
+            <form action="{{ route('service_invoice.store') }}" method="POST" autocomplete="off" id="create-form">
                 @csrf
                 <div class="card invoice-preview-card">
                     <div class="card-body">
@@ -42,9 +42,6 @@
                                             <input type="text" class="form-control form-control-sm" id="Ph">
                                         </div>
                                     </div>
-
-
-
 
                                     <div class="row mb-1">
                                         <label class="col-sm-3 col-form-label" for="basic-default-name">
@@ -139,12 +136,11 @@
                                             Types of Service
                                         </label>
                                         <div class="col-sm-9">
-
                                             <select class="select2 form-select form-select-sm" data-allow-clear="false"
                                                 name="types_of_service_id">
                                                 <option value="">--Select Types of Service --</option>
                                                 @foreach ($types_of_service as $types_of_servic)
-                                                    <option value="{{ $types_of_servic->types_of_service_id }}">
+                                                    <option value="{{ $types_of_servic->id }}">
                                                         {{ $types_of_servic->types_of_service ?? '' }}
                                                     </option>
                                                 @endforeach
@@ -158,6 +154,7 @@
                                 </dl>
                             </div>
                         </div>
+
                         <hr class="mx-n4" />
 
                         <div class="row">
@@ -234,7 +231,6 @@
                             </table>
                         </div>
 
-
                         <div class="row p-sm-3 p-0">
                             <div class="col-md-6">
                                 <dl class="row mb-2">
@@ -262,14 +258,13 @@
                                 <dl class="row mb-2">
                                     <div class="row mb-1">
                                         <label class="col-sm-4 col-form-label">
-                                            Total Amount
+                                            Sub Total
                                         </label>
                                         <div class="col-sm-8">
                                             <input type="text" class="form-control form-control-sm"
-                                                style="text-align:right;" id="totalAmountShow">
+                                                style="text-align:right;" id="subTotal">
 
-                                            <input type="hidden" value="0" name="total_amount"
-                                                id="totalAmountSave">
+                                            <input type="hidden" value="0" name="sub_total" id="subTotalShow">
                                         </div>
                                     </div>
 
@@ -279,55 +274,37 @@
                                             Tax
                                         </label>
                                         <div class="col-sm-8">
-                                            <input type="text"
-                                                class="form-control form-control-sm @error('tax') is-invalid @enderror"
-                                                name="tax" id="BalanceToPay" style="text-align:right;"
-                                                value="0" />
-                                            @error('tax')
-                                                <div class="invalid-feedback"> {{ $message }} </div>
-                                            @enderror
+                                            <div class="input-group mb-3">
+                                                <input type="text" class="form-control" id="Tax" name="tax"
+                                                    oninput="calcTax()" style="text-align:right;" value="0">
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text" id="basic-addon2">
+                                                        %
+                                                    </span>
+                                                </div>
+                                                @error('tax')
+                                                    <div class="invalid-feedback"> {{ $message }} </div>
+                                                @enderror
+                                            </div>
                                         </div>
                                     </div>
 
                                     <div class="row mb-1">
                                         <label class="col-sm-4 col-form-label">
-                                            Discount
+                                            Total
                                         </label>
                                         <div class="col-sm-8">
                                             <div class="input-group input-group-sm">
                                                 <input type="text"
-                                                    class="form-control form-control-sm @error('discount') is-invalid @enderror"
-                                                    name="discount" style="text-align:right;" value="0"
-                                                    id="Discount" oninput="SetCalculateDownPayment()" />
-
-                                                <span class="input-group-text" id="basic-addon2">%</span>
+                                                    class="form-control form-control-sm @error('total') is-invalid @enderror"
+                                                    name="total" style="text-align:right;" value="0"
+                                                    id="Total" />
                                             </div>
-
-
-                                            @error('discount')
+                                            @error('total')
                                                 <div class="invalid-feedback"> {{ $message }} </div>
                                             @enderror
                                         </div>
                                     </div>
-
-
-                                    <div class="row mb-1">
-                                        <label class="col-sm-4 col-form-label">
-                                            Net Price
-                                        </label>
-                                        <div class="col-sm-8">
-                                            <div class="input-group input-group-sm">
-                                                <input type="text"
-                                                    class="form-control form-control-sm @error('net_price') is-invalid @enderror"
-                                                    name="net_price" style="text-align:right;" value="0"
-                                                    id="NetPrice" />
-                                            </div>
-                                            @error('net_price')
-                                                <div class="invalid-feedback"> {{ $message }} </div>
-                                            @enderror
-                                        </div>
-                                    </div>
-
 
                                     <div class="row mb-1">
                                         <div class="col-sm-12">
@@ -349,8 +326,8 @@
 @endsection
 @section('script')
     <script>
-        var totalAmountShow = document.getElementById("totalAmountShow");
-        var totalAmountSave = document.getElementById("totalAmountSave");
+        var subTotal = document.getElementById("subTotal");
+        var subTotalShow = document.getElementById("subTotalShow");
 
         // Qty * Price
         function SetCalculator() {
@@ -360,13 +337,11 @@
             kyat.value = TotalKyat;
         }
 
-
-        function SetCalculateDownPayment() {
-            var getTotalAmount = document.getElementById("totalAmountSave").value;
-            var TotalAmountValue = getTotalAmount;
-            var Discount = document.getElementById("Discount").value;
-            var netPrice = TotalAmountValue - (TotalAmountValue / 100 * Discount);
-            NetPrice.value = netPrice;
+        function calcTax() {
+            var subTotalShow = document.getElementById("subTotalShow").value;
+            var Tax = document.getElementById("Tax").value;
+            var total = subTotalShow * Tax / 100;
+            Total.value = total;
         }
 
 
@@ -400,7 +375,6 @@
                 });
             }
         });
-
 
         function setSaleInvoiceCart() {
             var PartNo = document.getElementById("PartNo").value;
@@ -445,7 +419,6 @@
                 }
             });
         }
-
 
 
         function getTemporaryPartsItems() {
@@ -496,8 +469,8 @@
                         sales_items += '</tr>';
                     });
                     $('#TemporaryPartItemsList').html(sales_items);
-                    totalAmountShow.value = (totalAmount).toLocaleString('en');
-                    totalAmountSave.value = totalAmount;
+                    subTotal.value = (totalAmount).toLocaleString('en');
+                    subTotalShow.value = totalAmount;
                 }
             });
         }
@@ -516,5 +489,5 @@
             });
         });
     </script>
-    {!! JsValidator::formRequest('App\Http\Requests\StorePartSaleInvoice', '#create-form') !!}
+    {!! JsValidator::formRequest('App\Http\Requests\StoreServiceInvoice', '#create-form') !!}
 @endsection
