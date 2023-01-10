@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Reporting\BalaceSheetController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -218,6 +219,8 @@ Route::middleware('auth')->group(function () {
     ]);
 
 
+    // Reporting 
+    Route::resource('balace_sheet', 'Reporting\BalaceSheetController');
 
     // Services Module 
     Route::resource('types_of_service', 'Service\TypesOfServiceController');

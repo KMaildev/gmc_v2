@@ -26,7 +26,7 @@
                 ])
 
                 {{-- onscroll="scrollLoadData()" --}}
-                <div class="table-responsive text-nowrap rowheaders table-scroll outer-wrapper">
+                <div class="table-responsive text-nowrap rowheaders table-scroll outer-wrapper" onscroll="scrollLoadData()">
                     <table class="table table-bordered main-table py-5" style="margin-bottom: 1px !important;"
                         id="tbl_exporttable_to_xls">
                         @include('cashbook_view.table_header')

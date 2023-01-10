@@ -365,15 +365,7 @@
                 </ul>
             </li>
 
-            <li class="menu-item">
-                <a href="{{ route('cash_book_view.index') }}" class="menu-link">
-                    <div data-i1n="Layouts">
-                        Cash Book
-                    </div>
-                </a>
-            </li>
-
-            <li class="menu-item">
+            <li class="menu-item" hidden>
                 <a href="{{ route('cashbook.index') }}" class="menu-link">
                     <div data-i1n="Layouts">
                         Cash Book OLD
@@ -387,9 +379,39 @@
                 </a>
 
                 <ul class="menu-sub">
-                    <li class="menu-item">
+                    <li class="menu-item" hidden>
                         <a href="{{ route('daily_report.index') }}" class="menu-link">
                             <div data-i2n="Without menu"> Daily Report</div>
+                        </a>
+                    </li>
+
+                    <li class="menu-item">
+                        <a href="{{ route('cash_book_view.index') }}" class="menu-link">
+                            Cash Book
+                        </a>
+                    </li>
+
+                    <li class="menu-item">
+                        <a href="#" class="menu-link">
+                            P&L
+                        </a>
+                    </li>
+
+                    <li class="menu-item">
+                        <a href="{{ route('balace_sheet.index') }}" class="menu-link">
+                            BS
+                        </a>
+                    </li>
+
+                    <li class="menu-item">
+                        <a href="#" class="menu-link">
+                            Trial
+                        </a>
+                    </li>
+
+                    <li class="menu-item">
+                        <a href="#" class="menu-link">
+                            Cash Trial
                         </a>
                     </li>
                 </ul>

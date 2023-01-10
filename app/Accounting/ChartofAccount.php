@@ -31,5 +31,18 @@ class ChartofAccount extends Model
     {
         return $this->hasMany(ChartofAccount::class);
     }
-    
+
+
+    public function account_types_table()
+    {
+        return $this->belongsTo(AccountType::class, 'account_type_id', 'id');
+    }
+
+
+    // Reporting
+
+    public function cash_books_table()
+    {
+        return $this->hasMany(CashBook::class, 'account_code_id', 'id');
+    }
 }
