@@ -159,6 +159,7 @@ class PartSaleInvoiceController extends Controller
                 $insert[$key]['qty'] = $value['qty'];
                 $insert[$key]['unit_price'] = $value['unit_price'];
                 $insert[$key]['description'] = $value['description'];
+                $insert[$key]['invoice_date'] = $request->invoice_date;
                 $insert[$key]['user_id'] = auth()->user()->id ?? 0;
                 $insert[$key]['created_at'] =  date('Y-m-d H:i:s');
                 $insert[$key]['updated_at'] =  date('Y-m-d H:i:s');
