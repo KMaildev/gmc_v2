@@ -26,12 +26,20 @@
                                 No
                             </th>
 
+                            <th style="color: white; background-color: #2e696e; text-align: center; width: 1%;">
+                                Date
+                            </th>
+
                             <th style="color: white; background-color: #2e696e; text-align: center; width: 10%;">
                                 Spare Part Number
                             </th>
 
                             <th style="color: white; background-color: #2e696e; text-align: center; width: 10%;">
                                 Spare Parts Name
+                            </th>
+
+                            <th style="color: white; background-color: #2e696e; text-align: center; width: 1%;">
+                                Opening Qty
                             </th>
 
                             <th style="color: white; background-color: #2e696e; text-align: center; width: 10%;">
@@ -52,11 +60,23 @@
                                     </td>
 
                                     <td>
+                                        @php
+                                            $create_at = $item->created_at;
+                                            $explode_date = explode(' ', $create_at);
+                                            echo $explode_date[0];
+                                        @endphp
+                                    </td>
+
+                                    <td>
                                         {{ $item->part_number ?? '' }}
                                     </td>
 
                                     <td>
                                         {{ $item->part_name ?? '' }}
+                                    </td>
+
+                                    <td style="text-align: right;">
+                                        {{ $item->opening_qty ?? 0 }}
                                     </td>
 
                                     <td>

@@ -392,7 +392,7 @@
                     </li>
 
                     <li class="menu-item">
-                        <a href="#" class="menu-link">
+                        <a href="{{ route('profit_loss.index') }}" class="menu-link">
                             P&L
                         </a>
                     </li>

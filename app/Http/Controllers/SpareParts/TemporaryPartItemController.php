@@ -45,6 +45,8 @@ class TemporaryPartItemController extends Controller
         $temp->unit_price = $request->UnitPrice;
         $temp->description = $request->Description ?? '';
         $temp->remark = $request->Remark ?? '';
+        $temp->local_price = $request->LocalPrice ?? 0;
+        $temp->import_price = $request->ImportPrice ?? '';
         $temp->session_id = session()->getId();
         $temp->user_id = auth()->user()->id ?? 0;
         $temp->save();

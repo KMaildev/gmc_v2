@@ -4,6 +4,17 @@
 
         <div class="col-md-4">
             <label class="form-label">
+                Date
+            </label>
+            <input type="text" class="form-control date_picker @error('create_date') is-invalid @enderror"
+                name="create_date" />
+            @error('create_date')
+                <div class="invalid-feedback"> {{ $message }} </div>
+            @enderror
+        </div>
+
+        <div class="col-md-4">
+            <label class="form-label">
                 Spare Part Number
             </label>
             <input type="text" class="form-control @error('part_number') is-invalid @enderror" name="part_number" />
@@ -17,6 +28,16 @@
             <input type="text" class="form-control @error('part_name') is-invalid @enderror" name="part_name"
                 value="{{ old('part_name') }}" />
             @error('part_name')
+                <div class="invalid-feedback"> {{ $message }} </div>
+            @enderror
+        </div>
+
+        <div class="col-md-4">
+            <label class="form-label">
+                Opening Qty
+            </label>
+            <input type="text" class="form-control @error('opening_qty') is-invalid @enderror" name="opening_qty" />
+            @error('opening_qty')
                 <div class="invalid-feedback"> {{ $message }} </div>
             @enderror
         </div>

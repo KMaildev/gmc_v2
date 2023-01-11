@@ -26,6 +26,8 @@ class UpdateSparePartItem extends FormRequest
         return [
             'part_number' => 'required',
             'part_name' => 'required',
+            'opening_qty' => 'numeric',
+            'create_date' => 'required',
         ];
     }
 }

@@ -202,6 +202,11 @@ Route::middleware('auth')->group(function () {
     Route::resource('part_sale_items', 'SpareParts\PartSaleItemController');
     Route::get('remove_part_sale_items/{id}', 'SpareParts\PartSaleItemController@remove')->name('remove_part_sale_items');
 
+
+    Route::resource('spare_part_purchase_invoice', 'SpareParts\PartPurchaseController');
+    Route::resource('spare_part_inventory_list', 'SpareParts\InventoryListController');
+
+
     Route::resource('department', 'DepartmentController');
     Route::resource('employee', 'EmployeeController');
     Route::get('emp_export', 'EmployeeController@emp_export')->name('emp_export');
@@ -221,6 +226,7 @@ Route::middleware('auth')->group(function () {
 
     // Reporting 
     Route::resource('balace_sheet', 'Reporting\BalaceSheetController');
+    Route::resource('profit_loss', 'Reporting\ProfitLossController');
 
     // Services Module 
     Route::resource('types_of_service', 'Service\TypesOfServiceController');

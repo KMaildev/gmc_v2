@@ -8,6 +8,11 @@
                 </a>
             </li>
 
+            <li class="menu-item">
+                <a href="{{ route('spare_part_purchase_invoice.index') }}" class="menu-link">
+                    Purchase
+                </a>
+            </li>
 
             <li class="menu-item">
                 <a href="{{ route('spare_part_sale_invoice.index') }}" class="menu-link">
@@ -16,8 +21,14 @@
             </li>
 
             <li class="menu-item">
+                <a href="{{ route('spare_part_inventory_list.index') }}" class="menu-link">
+                    Inventory List
+                </a>
+            </li>
+
+            <li class="menu-item" hidden>
                 <a href="{{ route('spare_part_service_invoice') }}" class="menu-link">
-                    Sales Invoice
+                    Sales Service
                 </a>
             </li>
 

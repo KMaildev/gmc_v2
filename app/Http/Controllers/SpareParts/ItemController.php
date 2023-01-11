@@ -45,6 +45,8 @@ class ItemController extends Controller
         $part_item->part_number = $request->part_number;
         $part_item->part_name = $request->part_name;
         $part_item->remark = $request->remark;
+        $part_item->create_date = $request->create_date;
+        $part_item->opening_qty = $request->opening_qty ?? 0;
         $part_item->user_id = auth()->user()->id;
         $part_item->save();
         return redirect()->back()->with('success', 'Your processing has been completed.');
@@ -86,6 +88,8 @@ class ItemController extends Controller
         $part_item->part_number = $request->part_number;
         $part_item->part_name = $request->part_name;
         $part_item->remark = $request->remark;
+        $part_item->create_date = $request->create_date;
+        $part_item->opening_qty = $request->opening_qty ?? 0;
         $part_item->user_id = auth()->user()->id;
         $part_item->update();
         return redirect()->back()->with('success', 'Your processing has been completed.');

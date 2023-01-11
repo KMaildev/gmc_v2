@@ -6,7 +6,7 @@
                 <div class="card-body">
                     <div class="card-title header-elements">
                         <h5 class="m-0 me-2">
-                            Cashbook
+                            Cashbook 
                         </h5>
                         <div class="card-title-elements ms-auto">
                             <div class="card-header-elements ms-auto">
@@ -27,7 +27,7 @@
 
                 {{-- onscroll="scrollLoadData()" --}}
                 <div class="table-responsive text-nowrap rowheaders table-scroll outer-wrapper" onscroll="scrollLoadData()">
-                    <table class="table table-bordered main-table py-5" style="margin-bottom: 1px !important;"
+                    <table class="table-bordered main-table py-5" style="margin-bottom: 1px !important;"
                         id="tbl_exporttable_to_xls">
                         @include('cashbook_view.table_header')
 

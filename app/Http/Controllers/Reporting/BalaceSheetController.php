@@ -14,6 +14,17 @@ class BalaceSheetController extends Controller
         $non_current_assets = ChartofAccount::where('account_type_id', 6)
             ->get();
 
-        return view('reporting.balace_sheet.index', compact('non_current_assets'));
+        // CURRENT ASSETS	
+        $current_assets = ChartofAccount::where('account_classification_id', 1)
+            ->whereNotIn('account_type_id', [6])
+            ->get();
+
+        $equities = ChartofAccount::where('account_classification_id', 2)
+            ->get();
+
+        $liabilities = ChartofAccount::where('account_classification_id', 11)
+            ->get();
+
+        return view('reporting.balace_sheet.index', compact('non_current_assets', 'current_assets', 'equities', 'liabilities'));
     }
 }
