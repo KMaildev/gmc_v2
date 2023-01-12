@@ -19,4 +19,9 @@ class SparePartItem extends Model
     {
         return $this->hasMany(PartSaleItem::class, 'spare_part_item_id', 'id');
     }
+
+    public function opening_qty_part_purchase_items_table()
+    {
+        return $this->hasMany(PartPurchaseItem::class, 'spare_part_item_id', 'id');
+    }
 }

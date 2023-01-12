@@ -1,12 +1,12 @@
 <div class="card-title-elements ms-auto">
 
-    <form action="" method="get">
+    <form action="{{ route('spare_part_inventory_list.index') }}" method="get">
         <div class="input-group">
             <span class="input-group-text">
                 Date Filter
             </span>
-            <input type="text" aria-label="First name" class="form-control date_picker">
-            <input type="text" aria-label="Last name" class="form-control date_picker">
+            <input type="text" class="form-control date_picker" name="start_date" value="2022-01-01">
+            <input type="text" class="form-control date_picker" name="end_date" value="2022-01-31">
             <input type="submit" class="btn btn-info" value="Search">
         </div>
     </form>

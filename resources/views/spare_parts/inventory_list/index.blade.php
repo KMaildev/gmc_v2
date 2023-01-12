@@ -51,8 +51,46 @@
                                         {{-- Opening Quantity --}}
                                         <td style="text-align: right">
                                             @php
-                                                $opening_qty = $spare_part_item->opening_qty;
-                                                echo number_format($opening_qty);
+                                                // Manual Insert Opening Quantity
+                                                $manual_opening_qty = [];
+                                                foreach ($manual_entry_opening_spare_part_items as $manual_entry_opening_spare_part_item) {
+                                                    if ($spare_part_item->id == $manual_entry_opening_spare_part_item->id) {
+                                                        $manual_opening_qty[] = $manual_entry_opening_spare_part_item->opening_qty ?? 0;
+                                                    }
+                                                }
+                                                $manual_opening_qty = array_sum($manual_opening_qty);
+                                                // Manual Insert Opening Quantity End
+                                                
+                                                if ($manual_opening_qty) {
+                                                    $opening_qty = $manual_opening_qty;
+                                                } else {
+                                                    // Previous Manual Insert Opening Quantity
+                                                    $previous_manual_opening_qty = [];
+                                                    foreach ($previous_month_manual_entry_opening_spare_part_items as $previous_month_manual_entry_opening_spare_part_item) {
+                                                        if ($spare_part_item->id == $previous_month_manual_entry_opening_spare_part_item->id) {
+                                                            $previous_manual_opening_qty[] = $previous_month_manual_entry_opening_spare_part_item->opening_qty ?? 0;
+                                                        }
+                                                    }
+                                                    $previous_manual_opening_qty = array_sum($previous_manual_opening_qty);
+                                                    // End Previous Manual Insert Opening Quantity
+                                                
+                                                    // Previous Pruchase Qty
+                                                    $previous_month_purchase_qty = [];
+                                                    $previous_month_sale_qty = [];
+                                                    foreach ($previous_month_spare_part_items as $key => $previous_month_spare_part_item) {
+                                                        if ($spare_part_item->id == $previous_month_spare_part_item->id) {
+                                                            $previous_month_purchase_qty[] = $previous_month_spare_part_item->part_purchase_items_table->sum('qty');
+                                                            $previous_month_sale_qty[] = $previous_month_spare_part_item->part_sale_items_table->sum('qty');
+                                                        }
+                                                    }
+                                                    $previous_month_purchase_qty = array_sum($previous_month_purchase_qty);
+                                                    $previous_month_sale_qty = array_sum($previous_month_sale_qty);
+                                                    // End Previous Pruchase Qty
+                                                
+                                                    // Current Sale Qty
+                                                    $opening_qty = $previous_manual_opening_qty + $previous_month_purchase_qty - $previous_month_sale_qty;
+                                                }
+                                                echo $opening_qty;
                                             @endphp
                                         </td>
 
