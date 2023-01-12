@@ -18,6 +18,9 @@
                             @include('spare_parts.inventory_list.shared.thead')
 
                             <tbody>
+                                @php
+                                    $closing_qty_total = 0;
+                                @endphp
                                 @foreach ($spare_part_items as $key => $spare_part_item)
                                     <tr>
                                         <td>
@@ -87,7 +90,6 @@
                                                     $previous_month_sale_qty = array_sum($previous_month_sale_qty);
                                                     // End Previous Pruchase Qty
                                                 
-                                                    // Current Sale Qty
                                                     $opening_qty = $previous_manual_opening_qty + $previous_month_purchase_qty - $previous_month_sale_qty;
                                                 }
                                                 echo $opening_qty;

@@ -30,24 +30,21 @@ class InventoryListController extends Controller
         }])->get();
 
 
-
-
         $previous_start_date = date("Y-m-d", strtotime("-1 month", strtotime(request("start_date"))));
         $previous_end_date = date("Y-m-d", strtotime("last day of previous month", strtotime(request("end_date"))));
 
         //Previous Month Manual Entry Opening Spare Part 
         $previous_month_manual_entry_opening_spare_part_items = DB::table('spare_part_items')->where(function ($query) use ($previous_start_date, $previous_end_date) {
-            $query->where('create_date', '>=', $previous_start_date);
+            // $query->where('create_date', '>=', $previous_start_date);
             $query->where('create_date', '<=', $previous_end_date);
         })->get();
 
-
         // Previous Spare Part Items 
         $previous_month_spare_part_items = SparePartItem::with(['part_sale_items_table' => function ($query) use ($previous_start_date, $previous_end_date) {
-            $query->where('invoice_date', '>=', $previous_start_date);
+            // $query->where('invoice_date', '>=', $previous_start_date);
             $query->where('invoice_date', '<=', $previous_end_date);
         }])->with(['part_purchase_items_table' => function ($query) use ($previous_start_date, $previous_end_date) {
-            $query->where('invoice_date', '>=', $previous_start_date);
+            // $query->where('invoice_date', '>=', $previous_start_date);
             $query->where('invoice_date', '<=', $previous_end_date);
         }])->get();
 
