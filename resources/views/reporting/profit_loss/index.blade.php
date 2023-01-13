@@ -12,7 +12,6 @@
                     </div>
                 </div>
 
-
                 <div class="table-responsive text-nowrap rowheaders table-scroll outer-wrapper">
                     <div class="table-responsive text-nowrap rowheaders table-scroll outer-wrapper" role="region"
                         aria-labelledby="HeadersCol" tabindex="0">
@@ -81,7 +80,6 @@
                                     </td>
                                 </tr>
                             </tbody>
-
 
 
                             {{-- Cost of Sale --}}
@@ -160,8 +158,6 @@
                                     </td>
                                 </tr>
                             </tbody>
-
-
 
 
                             {{-- Other Income --}}
@@ -424,7 +420,6 @@
                             </tbody>
 
 
-
                             {{-- Finance Costs --}}
                             <thead class="tbbg">
                                 <th style="background-color: #296166; color: white; text-align: center; width: 1%;">
@@ -488,14 +483,13 @@
                                     </td>
                                 </tr>
 
-
                                 <tr>
                                     <td colspan="3">
                                         Profit before Tax
                                     </td>
                                     <td style="text-align: right; font-weight: bold;">
                                         @php
-                                            $total_profit_before_tax = $total_gross_profit + $all_total_other_incomes - $all_total_operation_expense -  $all_total_administration_expense - $all_total_marketing_expense - $all_total_finance_cost;
+                                            $total_profit_before_tax = $total_gross_profit + $all_total_other_incomes - $all_total_operation_expense - $all_total_administration_expense - $all_total_marketing_expense - $all_total_finance_cost;
                                             echo number_format($total_profit_before_tax, 4);
                                         @endphp
                                     </td>

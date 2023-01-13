@@ -393,13 +393,13 @@
 
                     <li class="menu-item">
                         <a href="{{ route('profit_loss.index') }}" class="menu-link">
-                            P&L
+                            Profit and Loss
                         </a>
                     </li>
 
                     <li class="menu-item">
                         <a href="{{ route('balace_sheet.index') }}" class="menu-link">
-                            BS
+                            Balance Sheet
                         </a>
                     </li>
 

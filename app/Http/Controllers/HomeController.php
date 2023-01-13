@@ -23,6 +23,13 @@ class HomeController extends Controller
      */
     public function index()
     {
+        session(['decimal' => 2]);
         return view('home');
+    }
+
+    public function set_decimal($decimal)
+    {
+        session(['decimal' => $decimal]);
+        return redirect()->back();
     }
 }

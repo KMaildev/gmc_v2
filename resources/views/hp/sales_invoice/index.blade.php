@@ -205,7 +205,7 @@
                                     <td style="text-align: right; font-weight: bold;">
                                         @php
                                             $sale_price = $sales_invoice->sales_invoices_payments_table->total_amount ?? 0;
-                                            echo number_format($sale_price, 2);
+                                            echo number_format($sale_price, session('decimal'));
                                         @endphp
                                     </td>
 
@@ -213,7 +213,7 @@
                                     <td style="text-align: right; font-weight: bold;">
                                         @php
                                             $hp_total_downpayment = $sales_invoice->sales_invoices_payments_table->hp_loan_amount ?? 0;
-                                            echo number_format($hp_total_downpayment, 2);
+                                            echo number_format($hp_total_downpayment, session('decimal'));
                                         @endphp
                                     </td>
 
@@ -221,7 +221,7 @@
                                     <td style="text-align: right; font-weight: bold;">
                                         @php
                                             $total_principle = $sales_invoice->sales_invoices_payments_table->total_principle ?? 0;
-                                            echo number_format($total_principle, 2);
+                                            echo number_format($total_principle, session('decimal'));
                                         @endphp
                                     </td>
 
@@ -242,7 +242,7 @@
                                         @endforeach
                                         @php
                                             $TotalReceivePrinciple = array_sum($TotalReceivePrinciple);
-                                            echo number_format($TotalReceivePrinciple, 2);
+                                            echo number_format($TotalReceivePrinciple, session('decimal'));
                                         @endphp
                                     </td>
 
@@ -251,7 +251,7 @@
                                         @php
                                             $total_hp_principle = $sales_invoice->sales_invoices_payments_table->total_principle ?? 0;
                                             $PrincipleBalance = $total_hp_principle - $TotalReceivePrinciple;
-                                            echo number_format($PrincipleBalance, 2);
+                                            echo number_format($PrincipleBalance, session('decimal'));
                                         @endphp
                                     </td>
 
@@ -259,7 +259,7 @@
                                     <td style="text-align: right; font-weight: bold;">
                                         @php
                                             $total_hp_interest = $sales_invoice->sales_invoices_payments_table->total_interest ?? 0;
-                                            echo number_format($total_hp_interest, 2);
+                                            echo number_format($total_hp_interest, session('decimal'));
                                         @endphp
                                     </td>
 
@@ -280,7 +280,7 @@
                                         @endforeach
                                         @php
                                             $TotalReceiveInterest = array_sum($TotalReceiveInterest);
-                                            echo number_format($TotalReceiveInterest, 2);
+                                            echo number_format($TotalReceiveInterest, session('decimal'));
                                         @endphp
                                     </td>
 
@@ -288,7 +288,7 @@
                                     <td style="text-align: right; font-weight: bold;">
                                         @php
                                             $TotalInterestBalance = $total_hp_interest - $TotalReceiveInterest;
-                                            echo number_format($TotalInterestBalance, 2);
+                                            echo number_format($TotalInterestBalance, session('decimal'));
                                         @endphp
                                     </td>
 
@@ -296,7 +296,7 @@
                                     <td style="text-align: right; font-weight: bold;">
                                         @php
                                             $TotalBalance = $PrincipleBalance + $TotalInterestBalance;
-                                            echo number_format($TotalBalance, 2);
+                                            echo number_format($TotalBalance, session('decimal'));
                                         @endphp
                                     </td>
 
@@ -304,7 +304,7 @@
                                     <td style="text-align: right; font-weight: bold;">
                                         @php
                                             $TotalSale = $hp_total_downpayment + $total_principle + $total_hp_interest;
-                                            echo number_format($TotalSale, 2);
+                                            echo number_format($TotalSale, session('decimal'));
                                         @endphp
                                     </td>
 
@@ -321,7 +321,7 @@
                                     <td style="text-align: right; font-weight: bold;">
                                         @php
                                             $HpBalance = $TotalSale - $TotalInterestBalance;
-                                            echo number_format($HpBalance, 2);
+                                            echo number_format($HpBalance, session('decimal'));
                                         @endphp
                                     </td>
 
@@ -329,7 +329,7 @@
                                     <td style="text-align: right; font-weight: bold;">
                                         @php
                                             $hp_account_opening = $sales_invoice->sales_invoices_payments_table->hp_account_opening ?? 0;
-                                            echo number_format($hp_account_opening, 2);
+                                            echo number_format($hp_account_opening, session('decimal'));
                                         @endphp
                                     </td>
 
@@ -337,7 +337,7 @@
                                     <td style="text-align: right; font-weight: bold;">
                                         @php
                                             $hp_document_fees = $sales_invoice->sales_invoices_payments_table->hp_document_fees ?? 0;
-                                            echo number_format($hp_document_fees, 2);
+                                            echo number_format($hp_document_fees, session('decimal'));
                                         @endphp
                                     </td>
 
@@ -345,7 +345,7 @@
                                     <td style="text-align: right; font-weight: bold;">
                                         @php
                                             $hp_stamp_duty_amount = $sales_invoice->sales_invoices_payments_table->hp_stamp_duty_amount ?? 0;
-                                            echo number_format($hp_stamp_duty_amount, 2);
+                                            echo number_format($hp_stamp_duty_amount, session('decimal'));
                                         @endphp
                                     </td>
 
@@ -353,7 +353,7 @@
                                     <td style="text-align: right; font-weight: bold;">
                                         @php
                                             $hp_insurance_amount = $sales_invoice->sales_invoices_payments_table->hp_insurance_amount ?? 0;
-                                            echo number_format($hp_insurance_amount, 2);
+                                            echo number_format($hp_insurance_amount, session('decimal'));
                                         @endphp
                                     </td>
 
@@ -361,7 +361,7 @@
                                     <td style="text-align: right; font-weight: bold;">
                                         @php
                                             $hp_commission = $sales_invoice->sales_invoices_payments_table->hp_commission ?? 0;
-                                            echo number_format($hp_commission, 2);
+                                            echo number_format($hp_commission, session('decimal'));
                                         @endphp
                                     </td>
 
@@ -369,7 +369,7 @@
                                     <td style="text-align: right; font-weight: bold;">
                                         @php
                                             $hp_service_charges_amount = $sales_invoice->sales_invoices_payments_table->hp_service_charges_amount ?? 0;
-                                            echo number_format($hp_service_charges_amount, 2);
+                                            echo number_format($hp_service_charges_amount, session('decimal'));
                                         @endphp
                                     </td>
 
@@ -377,7 +377,7 @@
                                     <td style="text-align: right; font-weight: bold;">
                                         @php
                                             $hp_total_services_fees = $sales_invoice->sales_invoices_payments_table->hp_total_services_fees ?? 0;
-                                            echo number_format($hp_total_services_fees, 2);
+                                            echo number_format($hp_total_services_fees, session('decimal'));
                                         @endphp
                                     </td>
 
@@ -385,7 +385,7 @@
                                     <td style="text-align: right; font-weight: bold;">
                                         @php
                                             $HPInvoicePrice = $hp_total_downpayment + $total_principle + $total_hp_interest + $hp_total_services_fees;
-                                            echo number_format($HPInvoicePrice, 2);
+                                            echo number_format($HPInvoicePrice, session('decimal'));
                                         @endphp
                                     </td>
 
@@ -393,7 +393,7 @@
                                     <td style="text-align: right; font-weight: bold;">
                                         @php
                                             $HPTotalReceived = $hp_total_downpayment + $TotalReceivePrinciple + $TotalReceiveInterest + $hp_total_services_fees;
-                                            echo number_format($HPTotalReceived, 2);
+                                            echo number_format($HPTotalReceived, session('decimal'));
                                         @endphp
                                     </td>
 

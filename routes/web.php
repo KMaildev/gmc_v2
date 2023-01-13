@@ -14,6 +14,8 @@ Route::middleware('auth')->group(function () {
     Route::view('/file_manager', 'file_manager.index')->name('file_manager.index');
 
     Route::get('/home', 'HomeController@index')->name('home');
+    Route::get('/set_decimal/{decimal}', 'HomeController@set_decimal')->name('set_decimal');
+
     Route::resource('accountingdashboard', 'AccountingDashboardController');
 
     Route::resource('accountclassification', 'Accounting\AccountClassificationController');
