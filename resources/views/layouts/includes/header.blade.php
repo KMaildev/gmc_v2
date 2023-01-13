@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>FK(Foreign Key)-DB{{ config('app.name', 'Laravel') }}</title>
 
     <link rel="canonical" href="https://1.envato.market/frest_admin">
     <link rel="icon" type="image/x-icon"

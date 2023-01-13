@@ -12,21 +12,22 @@ class InventoryListController extends Controller
     public function index(Request $request)
     {
 
-        $start_date = $request->start_date;
-        $end_date = $request->end_date;
+        $start_date = $request->start_date ?? '2022-01-01';
+        $end_date = $request->end_date ?? '2022-01-31';
 
         // Manual Entry Opening Spare Part 
-        $manual_entry_opening_spare_part_items = SparePartItem::whereDate('create_date', '>=', request('start_date'))
-            ->whereDate('create_date', '<=', request('end_date'))
-            ->get();
+        $manual_entry_opening_spare_part_items = DB::table('spare_part_items')->where(function ($query) use ($start_date, $end_date) {
+            $query->where('create_date', '>=', $start_date);
+            $query->where('create_date', '<=', $end_date);
+        })->get();
 
         // Get All Spare Part Items 
-        $spare_part_items = SparePartItem::with(['part_sale_items_table' => function ($query) {
-            $query->whereDate('invoice_date', '>=', request('start_date'));
-            $query->whereDate('invoice_date', '<=', request('end_date'));
-        }])->with(['part_purchase_items_table' => function ($query) {
-            $query->whereDate('invoice_date', '>=', request('start_date'));
-            $query->whereDate('invoice_date', '<=', request('end_date'));
+        $spare_part_items = SparePartItem::with(['part_sale_items_table' => function ($query) use ($start_date, $end_date) {
+            $query->whereDate('invoice_date', '>=', $start_date);
+            $query->whereDate('invoice_date', '<=', $end_date);
+        }])->with(['part_purchase_items_table' => function ($query) use ($start_date, $end_date) {
+            $query->whereDate('invoice_date', '>=', $start_date);
+            $query->whereDate('invoice_date', '<=', $end_date);
         }])->get();
 
 

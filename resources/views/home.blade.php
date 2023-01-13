@@ -4,7 +4,7 @@
         <div class="col-md-8 col-sm-12 col-lg-8">
 
             <div class="row">
-                <div class="col-xl-2 col-lg-2 col-md-4 col-sm-4 col-6 mb-4">
+                <div class="col-xl-2 col-lg-2 col-md-4 col-sm-4 col-6 mb-4" title="FK(Foreign Key) Accounting">
                     <a href="{{ route('accountingdashboard.index') }}">
                         <div class="card">
                             <div class="card-body text-center">
@@ -21,7 +21,7 @@
                     </a>
                 </div>
 
-                <div class="col-xl-2 col-lg-2 col-md-4 col-sm-4 col-6 mb-4">
+                <div class="col-xl-2 col-lg-2 col-md-4 col-sm-4 col-6 mb-4" title="FK(Foreign Key) Inventory">
                     <a href="{{ route('inventory.index') }}">
                         <div class="card">
                             <div class="card-body text-center">
@@ -66,7 +66,7 @@
 
 
 
-                <div class="col-xl-2 col-lg-2 col-md-4 col-sm-4 col-6 mb-4">
+                <div class="col-xl-2 col-lg-2 col-md-4 col-sm-4 col-6 mb-4" title="FK(Foreign Key) Spare Parts">
                     <a href="{{ route('spare_part_item.index') }}">
                         <div class="card">
                             <div class="card-body text-center">
@@ -81,7 +81,7 @@
                     </a>
                 </div>
 
-                <div class="col-xl-2 col-lg-2 col-md-4 col-sm-4 col-6 mb-4">
+                <div class="col-xl-2 col-lg-2 col-md-4 col-sm-4 col-6 mb-4" title="FK(Foreign Key) Services">
                     <a href="{{ route('types_of_service.index') }}">
                         <div class="card">
                             <div class="card-body text-center">
@@ -96,7 +96,7 @@
                     </a>
                 </div>
 
-                <div class="col-xl-2 col-lg-2 col-md-4 col-sm-4 col-6 mb-4">
+                <div class="col-xl-2 col-lg-2 col-md-4 col-sm-4 col-6 mb-4" title="FK(Foreign Key) User Manage">
                     <a href="{{ route('employee.index') }}">
                         <div class="card">
                             <div class="card-body text-center">
@@ -153,7 +153,7 @@
                 </div>
 
 
-                <div class="col-xl-2 col-lg-2 col-md-4 col-sm-4 col-6 mb-4">
+                <div class="col-xl-2 col-lg-2 col-md-4 col-sm-4 col-6 mb-4" title="FK(Foreign Key) File Manager">
                     <a href="{{ route('file_manager.index') }}">
                         <div class="card">
                             <div class="card-body text-center">
@@ -168,7 +168,7 @@
                     </a>
                 </div>
 
-                <div class="col-xl-2 col-lg-2 col-md-4 col-sm-4 col-6 mb-4">
+                <div class="col-xl-2 col-lg-2 col-md-4 col-sm-4 col-6 mb-4" title="FK(Foreign Key) Activity">
                     <a href="{{ route('activity.show', 'chart_of_account_log') }}">
                         <div class="card">
                             <div class="card-body text-center">
