@@ -180,13 +180,13 @@
                                     $total_hp_interest = $sales_invoice->sales_invoices_payments_table->total_interest ?? 0;
                                     $hp_total_services_fees = $sales_invoice->sales_invoices_payments_table->hp_total_services_fees ?? 0;
                                     $HPInvoicePrice = $hp_total_downpayment + $total_principle + $total_hp_interest + $hp_total_services_fees;
-                                    echo number_format($HPInvoicePrice, 2);
+                                    echo number_format($HPInvoicePrice, session('decimal'));
                                 @endphp
                             </td>
 
                             <td class='x42' align='right' x:num="1000">
                                 @php
-                                    echo number_format($HPInvoicePrice, 2);
+                                    echo number_format($HPInvoicePrice, session('decimal'));
                                     $total_amount[] = $HPInvoicePrice;
                                 @endphp
                             </td>
@@ -213,7 +213,7 @@
                             <td class='x49' align='right' x:num="1000">
                                 @php
                                     $total_amount = array_sum($total_amount);
-                                    echo number_format($total_amount, 2);
+                                    echo number_format($total_amount, session('decimal'));
                                 @endphp
                             </td>
                         </tr>
@@ -266,7 +266,7 @@
 
                                 @php
                                     $HPTotalReceived = $hp_total_downpayment + $TotalReceivePrinciple + $TotalReceiveInterest + $hp_total_services_fees;
-                                    echo number_format($HPTotalReceived, 2);
+                                    echo number_format($HPTotalReceived, session('decimal'));
                                 @endphp
                             </td>
                         </tr>
@@ -291,7 +291,7 @@
                             <td class='x49' align='right' x:num="1000">
                                 @php
                                     $BalanceToBePay = $total_amount - $HPTotalReceived;
-                                    echo number_format($BalanceToBePay, 2);
+                                    echo number_format($BalanceToBePay, session('decimal'));
                                 @endphp
                             </td>
                         </tr>
@@ -304,7 +304,7 @@
                             <td class='x52' x:num="1000" style="text-align: right">
                                 @php
                                     $BalanceToBePay = $total_amount - $HPTotalReceived;
-                                    echo number_format($BalanceToBePay, 2);
+                                    echo number_format($BalanceToBePay, session('decimal'));
                                 @endphp
                             </td>
                         </tr>
@@ -315,7 +315,7 @@
                                 Delivery Date
                             </td>
                             <td class='x53'>
-                                {{ $sales_invoice->delivery_date ?? ''}}
+                                {{ $sales_invoice->delivery_date ?? '' }}
                             </td>
                             <td class='x31'></td>
                             <td class='x31'></td>

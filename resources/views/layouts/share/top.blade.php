@@ -65,6 +65,11 @@
                                 <span class="align-middle">9 (.000000000)</span>
                             </a>
                         </li>
+                        <li>
+                            <a class="dropdown-item" href="{{ route('set_decimal', 10) }}">
+                                <span class="align-middle">10 (.0000000000)</span>
+                            </a>
+                        </li>
                     </ul>
                 </li>
 
