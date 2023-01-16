@@ -124,6 +124,10 @@ Route::middleware('auth')->group(function () {
     Route::get('sales_items_remove/{id}', array('as' => 'sales_items_remove', 'uses' => 'Accounting\SalesItemsController@sales_items_remove'));
 
 
+    Route::post('add_cart_temp_journal_entry', 'Cart\TempJournalEntryController@store')->name('add_cart_temp_journal_entry');
+    Route::get('get_cart_temp_journal_entry', array('as' => 'get_cart_temp_journal_entry', 'uses' => 'Cart\TempJournalEntryController@index'))->name('get_cart_temp_journal_entry');
+    Route::get('remove_cart_temp_journal_entry/{id}', array('as' => 'remove_cart_temp_journal_entry', 'uses' => 'Cart\TempJournalEntryController@remove_cart_temp_journal_entry'));
+
     // Purchase 
     Route::resource('purchase_order', 'Purchase\PurchaseOrderController');
     Route::resource('purchase_item', 'Purchase\PurchaseItemController');
@@ -229,6 +233,8 @@ Route::middleware('auth')->group(function () {
     // Reporting 
     Route::resource('balace_sheet', 'Reporting\BalaceSheetController');
     Route::resource('profit_loss', 'Reporting\ProfitLossController');
+    Route::resource('cash_trial', 'Reporting\CashTrialController');
+    Route::resource('journal_entry', 'Reporting\JournalEntryController');
 
     // Services Module 
     Route::resource('types_of_service', 'Service\TypesOfServiceController');

@@ -392,6 +392,12 @@
                     </li>
 
                     <li class="menu-item">
+                        <a href="{{ route('journal_entry.index') }}" class="menu-link">
+                            Journal
+                        </a>
+                    </li>
+
+                    <li class="menu-item">
                         <a href="{{ route('profit_loss.index') }}" class="menu-link">
                             Profit and Loss
                         </a>
@@ -410,7 +416,7 @@
                     </li>
 
                     <li class="menu-item">
-                        <a href="#" class="menu-link">
+                        <a href="{{ route('cash_trial.index') }}" class="menu-link">
                             Cash Trial
                         </a>
                     </li>

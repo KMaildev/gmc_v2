@@ -55,11 +55,7 @@
                                                 $bank_in = $revenue->cash_books_table->sum('bank_in');
                                                 $total_debit = $cash_in + $bank_in;
                                                 
-                                                $cash_out = $revenue->cash_books_table->sum('cash_out');
-                                                $bank_out = $revenue->cash_books_table->sum('bank_out');
-                                                $total_credit = $cash_out + $bank_out;
-                                                
-                                                $total_revenue = $total_credit - $total_debit;
+                                                $total_revenue = $total_debit;
                                                 echo number_format($total_revenue, 2);
                                                 $all_total_revenue[] = $total_revenue;
                                             @endphp
