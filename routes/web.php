@@ -235,6 +235,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('profit_loss', 'Reporting\ProfitLossController');
     Route::resource('cash_trial', 'Reporting\CashTrialController');
     Route::resource('journal_entry', 'Reporting\JournalEntryController');
+    Route::resource('trial', 'Reporting\TrialController');
 
     // Services Module 
     Route::resource('types_of_service', 'Service\TypesOfServiceController');

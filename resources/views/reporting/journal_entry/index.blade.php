@@ -59,9 +59,15 @@
                                         <tr>
                                             <td></td>
 
-                                            <td>
-                                                {{ $journal_item->chart_of_accounts_table->description ?? '' }}
-                                            </td>
+                                            @if ($journal_item->debit != 0)
+                                                <td>
+                                                    {{ $journal_item->chart_of_accounts_table->description ?? '' }}
+                                                </td>
+                                            @else
+                                                <td style="text-align: right;">
+                                                    {{ $journal_item->chart_of_accounts_table->description ?? '' }}
+                                                </td>
+                                            @endif
 
                                             <td style="text-align: right">
                                                 {{ $journal_item->debit ?? '' }}

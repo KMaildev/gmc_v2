@@ -410,7 +410,7 @@
                     </li>
 
                     <li class="menu-item">
-                        <a href="#" class="menu-link">
+                        <a href="{{ route('trial.index') }}" class="menu-link">
                             Trial
                         </a>
                     </li>
